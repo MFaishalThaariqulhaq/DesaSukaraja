@@ -33,7 +33,7 @@ Route::get('/pemerintahan', function () {
     $sotks = \App\Models\Sotk::whereNull('bagan')->orderBy('jabatan')->get();
     $baganConfig = @json_decode(file_get_contents(config_path('bagan_sotk.json')), true);
     $baganSotk = $baganConfig['bagan'] ?? null;
-    return view('sotk.pemerintahan', compact('sotks', 'baganSotk'));
+    return view('public.sotk.pemerintahan', compact('sotks', 'baganSotk'));
 })->name('pemerintahan');
 Route::get('/profil/visimisi', [HomeController::class, 'profilVisiMisi'])->name('profil.visimisi');
 Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri.index');
@@ -42,11 +42,10 @@ Route::get('/berita', [HomeController::class, 'beritaIndex'])->name('berita.inde
 Route::get('/infografis', [InfografisController::class, 'index'])->name('infografis.index');
 Route::get('/sotk', [SotkController::class, 'index'])->name('sotk.index');
 Route::get('/pengaduan', [PengaduanController::class, 'index'])->name('pengaduan.index');
-Route::post('/pengaduan', [PengaduanController::class, 'store'])->name('pengaduan.store');
+Route::post('/pengaduan', [PengaduanController::class, 'store'])->middleware('throttle:5,1')->name('pengaduan.store');
 
 
 // == RUTE ADMIN ==
-// Rute yang dikelompokkan dengan prefix 'admin'.
 Route::prefix('admin')->group(function () {
 
     // Rute untuk menampilkan halaman login

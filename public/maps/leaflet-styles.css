@@ -1,0 +1,64 @@
+/* Map styles for Desa Sukaraja Leaflet map */
+#map {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.leaflet-container {
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+/* numbered marker styling using CSS for divIcon */
+.marker-number {
+  display: inline-block;
+  background: #ef4444;
+  /* red-500 */
+  color: white;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  border: 2px solid white;
+}
+
+.map-legend {
+  background: white;
+  padding: 8px 10px;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  font-size: 13px;
+}
+
+.map-legend h4 {
+  margin: 0 0 6px 0;
+  font-weight: 700;
+}
+
+.map-legend .legend-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.map-legend .legend-color {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+}
+
+.map-legend .toggle-btn {
+  cursor: pointer;
+  color: #2563eb;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+/* Respect reduced motion: disable marker bounce or animations */
+@media (prefers-reduced-motion: reduce) {
+  .leaflet-marker-icon {
+    transition: none !important;
+  }
+}

@@ -35,6 +35,52 @@
     ::-webkit-scrollbar-thumb:hover {
       background: #94a3b8;
     }
+
+    /* Shared small animations used across admin pages */
+    .animate-fadeIn {
+      animation: fadeIn 420ms ease-out forwards;
+      opacity: 0;
+    }
+
+    .animate-fadeInUp {
+      animation: fadeInUp 560ms cubic-bezier(.2, .9, .2, 1) forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Respect users who prefer reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+
+      .animate-fadeIn,
+      .animate-fadeInUp,
+      * {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
   </style>
 </head>
 

@@ -10,6 +10,7 @@
   <!-- Swiper.js for slider -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -250,72 +251,111 @@
       </div>
     </section>
 
-    <!-- Infografis Section (Revisi) -->
-    <section id="infografis" class="py-20 fade-in-section">
+    <!-- Infografis Section -->
+    <section id="infografis" class="py-20 bg-slate-50">
       <div class="container mx-auto px-6">
+
+        <!-- Header Section -->
         <div class="text-center mb-12">
           <a href="{{ route('infografis.index') }}" class="group">
-            <h2 class="text-3xl md:text-4xl font-bold text-slate-800 hover:text-emerald-600 transition-colors duration-300 cursor-pointer inline-block">
+            <h2 class="text-3xl md:text-4xl font-bold text-slate-800 hover:text-emerald-600 transition-colors duration-300 inline-block">
               Infografis Administrasi Penduduk
             </h2>
           </a>
-          <p class="text-lg mt-2 text-slate-600">Data Kependudukan Desa Sukaraja (Data per September 2025)</p>
+          <p class="text-lg mt-2 text-slate-600">
+            Data Kependudukan Desa Sukaraja (Data per {{ \Carbon\Carbon::now()->translatedFormat('F Y') }})
+          </p>
         </div>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- Data Card 1 -->
-          <div class="bg-white rounded-xl shadow-lg p-8 text-center transform hover:-translate-y-2 transition-transform duration-300">
+
+        <!-- Grid Data Kependudukan -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+          <!-- Card: Total Penduduk -->
+          <div class="bg-white rounded-2xl shadow-lg p-8 text-center transform hover:-translate-y-2 transition-transform duration-300">
             <i data-lucide="users" class="w-16 h-16 mx-auto text-emerald-500 mb-4"></i>
-            <h3 class="text-5xl font-extrabold text-slate-800">{{ number_format($stat_penduduk['total_penduduk']) }}</h3>
+            <h3 class="text-5xl font-extrabold text-slate-800">
+              {{ number_format($stat_penduduk['total_penduduk']) }}
+            </h3>
             <p class="text-slate-600 mt-2 font-semibold text-lg">Total Penduduk</p>
           </div>
-          <!-- Data Card 2 -->
-          <div class="bg-white rounded-xl shadow-lg p-8 text-center transform hover:-translate-y-2 transition-transform duration-300">
+
+          <!-- Card: Total Kartu Keluarga -->
+          <div class="bg-white rounded-2xl shadow-lg p-8 text-center transform hover:-translate-y-2 transition-transform duration-300">
             <i data-lucide="home" class="w-16 h-16 mx-auto text-sky-500 mb-4"></i>
-            <h3 class="text-5xl font-extrabold text-slate-800">{{ number_format($stat_penduduk['total_kk']) }}</h3>
+            <h3 class="text-5xl font-extrabold text-slate-800">
+              {{ number_format($stat_penduduk['total_kk']) }}
+            </h3>
             <p class="text-slate-600 mt-2 font-semibold text-lg">Total Kartu Keluarga</p>
           </div>
-          <!-- Data Card 3 -->
-          <div class="bg-white rounded-xl shadow-lg p-8 text-center transform hover:-translate-y-2 transition-transform duration-300">
-            <div class="flex justify-center items-center space-x-4">
-              <i data-lucide="male" class="w-10 h-10 text-blue-500"></i>
-              <span class="text-3xl font-bold text-slate-800">{{ number_format($stat_penduduk['total_laki']) }}</span>
-              <span class="text-slate-600">Laki-laki</span>
-            </div>
-            <div class="flex justify-center items-center space-x-4 mt-4">
-              <i data-lucide="female" class="w-10 h-10 text-pink-500"></i>
-              <span class="text-3xl font-bold text-slate-800">{{ number_format($stat_penduduk['total_perempuan']) }}</span>
-              <span class="text-slate-600">Perempuan</span>
-            </div>
+
+          <!-- Card: Total Laki-laki -->
+          <div class="bg-white rounded-2xl shadow-lg p-8 text-center transform hover:-translate-y-2 transition-transform duration-300">
+            <i data-lucide="user" class="w-16 h-16 mx-auto text-blue-500 mb-4"></i>
+            <h3 class="text-5xl font-extrabold text-slate-800">
+              {{ number_format($stat_penduduk['total_laki']) }}
+            </h3>
+            <p class="text-slate-600 mt-2 font-semibold text-lg">Laki-laki</p>
           </div>
+
+          <!-- Card: Total Perempuan -->
+          <div class="bg-white rounded-2xl shadow-lg p-8 text-center transform hover:-translate-y-2 transition-transform duration-300">
+            <i data-lucide="user" class="w-16 h-16 mx-auto text-pink-500 mb-4"></i>
+            <h3 class="text-5xl font-extrabold text-slate-800">
+              {{ number_format($stat_penduduk['total_perempuan']) }}
+            </h3>
+            <p class="text-slate-600 mt-2 font-semibold text-lg">Perempuan</p>
+          </div>
+
         </div>
       </div>
     </section>
 
 
     <!-- SOTK Section -->
-    <section id="sotk" class="py-20 bg-white fade-in-section">
+    <section id="sotk" class="py-20 bg-gradient-to-b from-slate-100 via-emerald-50 to-slate-100 fade-in-section">
       <div class="container mx-auto px-6">
-        <div class="text-center mb-12">
-          <a href="{{ route('pemerintahan') }}" class="text-3xl md:text-4xl font-bold text-slate-800 hover:text-emerald-600 transition-colors duration-300 block cursor-pointer">Pemerintahan Desa</a>
-          <p class="text-lg mt-2 text-slate-600">Pemerintahan Desa Sukaraja Periode 2024-2029</p>
+
+        <!-- Header -->
+        <div class="text-center mb-14">
+          <h2 class="text-3xl md:text-4xl font-bold text-slate-800">
+            Pemerintah Desa
+          </h2>
+          <p class="text-lg mt-2 text-slate-600">
+            Pemerintahan Desa Sukaraja Periode 2024–2029
+          </p>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center">
+
+        <!-- Grid Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 justify-items-center">
           @foreach($sotks->where('jabatan', '!=', 'Bagan')->take(4) as $sotk)
-          <div class="bg-white rounded-lg shadow-lg overflow-hidden w-full max-w-xs transform hover:-translate-y-2 transition-transform duration-300">
-            <img src="{{ $sotk->foto ? asset('storage/' . $sotk->foto) : 'https://placehold.co/400x400/94a3b8/ffffff?text=Foto' }}" alt="{{ $sotk->nama }}" class="w-full h-auto object-cover">
-            <div class="p-4 bg-red-600 text-white text-center">
-              <h3 class="text-lg font-bold">{{ $sotk->nama }}</h3>
-              <p class="text-sm">{{ $sotk->jabatan }}</p>
+          <div class="bg-white rounded-2xl shadow-xl overflow-hidden w-full max-w-sm transform hover:-translate-y-2 hover:shadow-2xl transition-all duration-300">
+
+            <!-- Foto -->
+            <div class="w-full aspect-[4/5] bg-slate-200">
+              <img
+                src="{{ $sotk->foto ? asset('storage/' . $sotk->foto) : 'https://placehold.co/500x625/94a3b8/ffffff?text=Foto' }}"
+                alt="{{ $sotk->nama }}"
+                class="w-full h-full object-contain bg-white">
+            </div>
+
+            <!-- Info -->
+            <div class="p-5 bg-gradient-to-r from-emerald-600 to-teal-500 text-white text-center">
+              <h3 class="text-xl font-bold tracking-wide leading-tight">{{ $sotk->nama }}</h3>
+              <p class="text-sm mt-1 opacity-90">{{ $sotk->jabatan }}</p>
             </div>
           </div>
           @endforeach
         </div>
-        <div class="text-center mt-12">
-          <a href="{{ route('pemerintahan') }}" class="inline-flex items-center gap-2 font-semibold text-slate-700 hover:text-emerald-600 transition group">
-            <i data-lucide="external-link" class="w-4 h-4"></i>
+
+        <!-- Tombol Lihat Selengkapnya -->
+        <div class="text-center mt-14">
+          <a href="{{ route('pemerintahan') }}"
+            class="inline-flex items-center gap-2 px-6 py-3 bg-emerald-600 text-white rounded-full font-semibold shadow-md hover:bg-emerald-700 transition">
+            <i data-lucide="users" class="w-5 h-5"></i>
             <span class="uppercase tracking-wider text-sm">Lihat Pemerintahan Desa</span>
           </a>
         </div>
+
       </div>
     </section>
 
@@ -326,10 +366,7 @@
         <div id="peta" class="lg:col-span-3">
           <h2 class="text-3xl font-bold text-slate-800 mb-6">Lokasi Desa Kami</h2>
           <div class="rounded-lg overflow-hidden shadow-xl border-4 border-white">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126932.96497277717!2d107.25143397390977!3d-6.175392358824142!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6977f6b94a1111%3A0x5a219dcf37353f81!2sKarawang%2C%20Kabupaten%20Karawang%2C%20Jawa%20Barat!5e0!3m2!1sid!2sid!4v1663742299878!5m2!1sid!2sid"
-              width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"></iframe>
+            @include('public.partials.map')
           </div>
         </div>
 
@@ -338,7 +375,8 @@
           <h2 class="text-3xl font-bold text-slate-800 mb-1">Layanan Pengaduan</h2>
           <p class="text-slate-500 mb-6">Punya keluhan atau masukan? Sampaikan kepada kami.</p>
           <p class="text-slate-600 mb-6">Total pengaduan masuk: <span class="font-bold text-emerald-600">{{ $pengaduanCount }}</span></p>
-          <form action="#" method="POST">
+          <form action="{{ route('pengaduan.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
             <div class="mb-4">
               <label for="nama" class="block text-sm font-medium text-slate-700 mb-1">Nama Lengkap</label>
               <input type="text" id="nama" name="nama"
@@ -351,11 +389,33 @@
                 class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 transition"
                 placeholder="0812xxxxxxxx">
             </div>
+            <div class="mb-4">
+              <label for="kategori" class="block text-sm font-medium text-slate-700 mb-1">Kategori</label>
+              <select id="kategori" name="kategori" class="w-full px-4 py-2 border border-slate-300 rounded-lg">
+                <option value="">-- Pilih Kategori --</option>
+                <option value="Infrastruktur">Infrastruktur</option>
+                <option value="Kebersihan">Kebersihan</option>
+                <option value="Pelayanan">Pelayanan</option>
+                <option value="Keamanan">Keamanan</option>
+                <option value="Lainnya">Lainnya</option>
+              </select>
+            </div>
             <div class="mb-6">
               <label for="pesan" class="block text-sm font-medium text-slate-700 mb-1">Isi Pengaduan/Aspirasi</label>
-              <textarea id="pesan" name="pesan" rows="4"
+              <textarea id="pesan" name="isi" rows="4"
                 class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 transition"
                 placeholder="Tuliskan pesan Anda di sini..."></textarea>
+            </div>
+            <div class="mb-4">
+              <label for="email" class="block text-sm font-medium text-slate-700 mb-1">Email (opsional)</label>
+              <input type="email" id="email" name="email"
+                class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 transition"
+                placeholder="email@contoh.com">
+            </div>
+            <div class="mb-6">
+              <label for="lampiran" class="block text-sm font-medium text-slate-700 mb-1">Lampiran (opsional)</label>
+              <input type="file" id="lampiran" name="lampiran" accept="image/*,.pdf,video/*"
+                class="w-full">
             </div>
             <button type="submit"
               class="w-full bg-emerald-500 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-transform duration-300 hover:scale-105">
@@ -480,6 +540,8 @@
       }
     });
   </script>
+
+
 </body>
 
 </html>

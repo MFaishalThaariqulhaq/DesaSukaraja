@@ -7,11 +7,7 @@
       <i data-lucide="users" class="w-7 h-7 text-emerald-600"></i>
       Daftar SOTK
     </h2>
-    <a href="{{ route('admin.dashboard') }}"
-      class="bg-slate-200 hover:bg-slate-300 text-slate-700 px-5 py-2.5 rounded-lg shadow-md font-medium transition-all duration-300 hover:scale-105 flex items-center gap-2">
-      <i data-lucide="arrow-left" class="w-5 h-5"></i> Kembali
-    </a>
-  </div>
+      </div>
 
   <div class="flex flex-wrap gap-4 mb-6">
     <a href="{{ route('admin.sotk.create') }}"
