@@ -23,7 +23,7 @@
     }
 
     .hero-bg {
-      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3)), url('https://placehold.co/1920x1080/a0aec0/ffffff?text=Pemandangan+Sawah+Sukaraja');
+      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3)), url();
       background-size: cover;
       background-position: center;
     }
@@ -115,17 +115,72 @@
   </header>
 
   <main>
-    <!-- Hero Section (Revisi) -->
-    <section id="beranda" class="hero-bg h-[60vh] md:h-[90vh] flex items-center justify-center text-white">
-      <div class="text-center px-4">
-        <h1 class="text-4xl md:text-6xl font-extrabold mb-4 drop-shadow-lg animate-fade-in-down">Selamat Datang
-          di Desa Sukaraja</h1>
-        <p class="text-lg md:text-2xl mb-8 font-light drop-shadow-md animate-fade-in-up">Kecamatan Rawamerta,
-          Kabupaten Karawang</p>
-        <a href="#profil"
-          class="bg-white text-emerald-600 font-bold py-3 px-8 rounded-full shadow-xl hover:bg-slate-100 transition-transform duration-300 hover:scale-110 transform">
-          Jelajahi Desa Kami
-        </a>
+    <!-- Hero carousel (Swiper) -->
+    <section id="beranda" class="w-full">
+      <div class="hero-swiper-container relative">
+        <div class="swiper hero-swiper">
+          <div class="swiper-wrapper">
+            @php
+            // look for optimized banners in storage (storage/app/public/banners/optimized)
+            $bannersPath = public_path('storage/banners/optimized');
+            $bannerFiles = [];
+            if (file_exists($bannersPath)) {
+            foreach (scandir($bannersPath) as $f) {
+            if (in_array(strtolower(pathinfo($f, PATHINFO_EXTENSION)), ['webp','jpg','jpeg','png'])) {
+            $bannerFiles[] = $f;
+            }
+            }
+            }
+            @endphp
+
+            @if(empty($bannerFiles))
+            <!-- Fallback single hero -->
+            <div class="swiper-slide">
+              <div class="h-[60vh] md:h-[90vh] flex items-center justify-center" style="background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1920 1080%22><defs><linearGradient id=%22g%22 x1=%220%22 x2=%220%22 y1=%220%22 y2=%221%22><stop offset=%220%22 stop-color=%22%2310b981%22/><stop offset=%221%22 stop-color=%22%2334d399%22/></linearGradient></defs><rect width=%22100%25%22 height=%22100%25%22 fill=%22url(%23g)%22/></svg>'); background-size:cover; background-position:center;">
+                <div class="text-center px-4">
+                  <h1 class="text-4xl md:text-6xl font-extrabold mb-4 drop-shadow-lg animate-fade-in-down">Selamat Datang di Desa Sukaraja</h1>
+                  <p class="text-lg md:text-2xl mb-8 font-light drop-shadow-md animate-fade-in-up">Kecamatan Rawamerta, Kabupaten Karawang</p>
+                  <a href="#profil" class="bg-white text-emerald-600 font-bold py-3 px-8 rounded-full shadow-xl hover:bg-slate-100 transition-transform duration-300 hover:scale-110 transform">Jelajahi Desa Kami</a>
+                </div>
+              </div>
+            </div>
+            @else
+            @foreach($bannerFiles as $file)
+            @php
+            $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+            $name = pathinfo($file, PATHINFO_FILENAME);
+            $webp = in_array('webp', [$ext]) ? asset('storage/banners/optimized/' . $file) : (file_exists(public_path('storage/banners/optimized/' . $name . '.webp')) ? asset('storage/banners/optimized/' . $name . '.webp') : null);
+            $jpg = asset('storage/banners/optimized/' . $name . '.jpg');
+            @endphp
+            <div class="swiper-slide">
+              <div class="h-[60vh] md:h-[90vh] w-full flex items-center justify-center bg-slate-100">
+                <picture class="w-full h-full block">
+                  @if($webp)
+                  <source srcset="{{ $webp }}" type="image/webp">
+                  @endif
+                  <img src="{{ $jpg }}" alt="Banner Desa Sukaraja" class="w-full h-full object-cover" loading="lazy" decoding="async">
+                </picture>
+                <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/30 pointer-events-none"></div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <div class="text-center px-4 max-w-3xl text-white">
+                    <h1 class="text-3xl md:text-5xl font-extrabold mb-3">Selamat Datang di Desa Sukaraja</h1>
+                    <p class="mb-6 opacity-90 hidden md:block">Kecamatan Rawamerta, Kabupaten Karawang</p>
+                    <div class="flex gap-3 justify-center">
+                      <a href="#profil" class="bg-white text-emerald-600 font-bold py-2 px-4 rounded-full shadow hover:bg-slate-100 focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-white">Jelajahi Desa Kami</a>
+                      <a href="#pengaduan" class="bg-emerald-500 text-white font-semibold py-2 px-4 rounded-full shadow hover:bg-emerald-600">Lapor</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            @endforeach
+            @endif
+          </div>
+          <!-- pagination & nav -->
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+        </div>
       </div>
     </section>
 
@@ -540,6 +595,8 @@
       }
     });
   </script>
+
+  <script src="{{ asset('js/banner-swiper-init.js') }}"></script>
 
 
 </body>
