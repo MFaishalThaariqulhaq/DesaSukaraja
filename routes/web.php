@@ -38,6 +38,7 @@ Route::get('/pemerintahan', function () {
 Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri.index');
 Route::get('/galeri/{id}', [GaleriController::class, 'detail'])->name('galeri.detail');
 Route::get('/berita', [HomeController::class, 'beritaIndex'])->name('berita.index');
+Route::get('/berita/{slug}', [HomeController::class, 'beritaDetail'])->name('berita.detail');
 Route::get('/infografis', [InfografisController::class, 'index'])->name('infografis.index');
 Route::get('/sotk', [SotkController::class, 'index'])->name('sotk.index');
 Route::get('/pengaduan', [PengaduanController::class, 'index'])->name('pengaduan.index');
@@ -73,9 +74,7 @@ Route::prefix('admin')->group(function () {
     Route::resource('berita', BeritaController::class)->except(['show'])->names('admin.berita');
     Route::resource('galeri', AdminGaleriController::class)->names('admin.galeri');
     Route::resource('galeri.foto', App\Http\Controllers\Admin\FotoGaleriController::class)->shallow()->names('admin.galeri.foto');
-    Route::resource('infografis', App\Http\Controllers\PendudukController::class)
-        ->names('admin.infografis')
-        ->parameters(['infografis' => 'penduduk']);
+    Route::resource('infografis', AdminInfografisController::class)->names('admin.infografis');
     //Route::resource('penduduk', App\Http\Controllers\PendudukController::class)->names('admin.penduduk');
     Route::resource('sotk', AdminSotkController::class)->names('admin.sotk');
     Route::get('admin/sotk/bagan', [AdminSotkController::class, 'baganForm'])->name('admin.sotk.bagan');
@@ -84,5 +83,4 @@ Route::prefix('admin')->group(function () {
     Route::resource('profil', App\Http\Controllers\Admin\ProfilDesaController::class)->names('admin.profil');
     Route::post('profil/tambah-sejarah', [App\Http\Controllers\Admin\ProfilDesaController::class, 'tambahSejarah'])->name('admin.profil.tambahSejarah');
     Route::delete('profil/hapus-sejarah/{id}', [App\Http\Controllers\Admin\ProfilDesaController::class, 'hapusSejarah'])->name('admin.profil.hapusSejarah');
-    Route::get('/berita/{slug}', [App\Http\Controllers\HomeController::class, 'beritaDetail'])->name('berita.detail');
 }); // Ini adalah penutup untuk Route::prefix('admin')->group

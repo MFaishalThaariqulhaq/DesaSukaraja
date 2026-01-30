@@ -12,7 +12,7 @@ class BeritaController extends Controller
 {
   public function index()
   {
-    $beritas = Berita::orderBy('created_at', 'desc')->get();
+    $beritas = Berita::orderBy('created_at', 'desc')->paginate(10);
     return view('admin.berita.index', compact('beritas'));
   }
 
@@ -26,6 +26,7 @@ class BeritaController extends Controller
     $request->validate([
       'judul' => 'required',
       'isi' => 'required',
+      'kategori' => 'required',
       'gambar' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
     ]);
     $slug = Str::slug($request->judul);
@@ -37,6 +38,7 @@ class BeritaController extends Controller
       'judul' => $request->judul,
       'slug' => $slug,
       'isi' => $request->isi,
+      'kategori' => $request->kategori,
       'gambar' => $gambarPath,
     ]);
     return redirect()->route('admin.berita.index')->with('success', 'Berita berhasil ditambahkan');
@@ -54,6 +56,7 @@ class BeritaController extends Controller
     $request->validate([
       'judul' => 'required',
       'isi' => 'required',
+      'kategori' => 'required',
     ]);
     $slug = Str::slug($request->judul);
     $gambarPath = $berita->gambar;
@@ -68,6 +71,7 @@ class BeritaController extends Controller
       'judul' => $request->judul,
       'slug' => $slug,
       'isi' => $request->isi,
+      'kategori' => $request->kategori,
       'gambar' => $gambarPath,
     ]);
     return redirect()->route('admin.berita.index')->with('success', 'Berita berhasil diupdate');

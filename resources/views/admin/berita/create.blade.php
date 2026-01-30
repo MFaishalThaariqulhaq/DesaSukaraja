@@ -22,10 +22,22 @@
       </div>
       <div>
         <label for="isi" class="block text-sm font-medium text-slate-700 mb-1">Isi Berita</label>
-        <!-- ... -->
         <textarea name="isi" id="isi"
           class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 transition"
           rows="10" placeholder="Tuliskan isi lengkap berita di sini..." required></textarea>
+      </div>
+      <div>
+        <label for="kategori" class="block text-sm font-medium text-slate-700 mb-1">Kategori</label>
+        <select name="kategori" id="kategori"
+          class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 transition" required>
+          <option value="">Pilih Kategori</option>
+          <option value="Lingkungan">Lingkungan</option>
+          <option value="Ekonomi">Ekonomi</option>
+          <option value="Kesehatan">Kesehatan</option>
+          <option value="Pendidikan">Pendidikan</option>
+          <option value="Infrastruktur">Infrastruktur</option>
+          <option value="Umum">Umum</option>
+        </select>
       </div>
       <div>
         <label for="gambar" class="block text-sm font-medium text-slate-700 mb-1">Upload Gambar (Opsional)</label>
@@ -42,5 +54,4 @@
     </div>
   </form>
 </div>
-<!-- ... -->
 @endsection

@@ -13,9 +13,15 @@ class HomeController extends Controller
     return view('public.profil.profil', compact('profil', 'sejarah'));
   }
 
-  public function beritaIndex()
+  public function beritaIndex(Request $request)
   {
-    $beritas = \App\Models\Berita::orderBy('created_at', 'desc')->paginate(6);
+    $query = \App\Models\Berita::orderBy('created_at', 'desc');
+
+    if ($request->has('kategori') && $request->kategori) {
+      $query->where('kategori', $request->kategori);
+    }
+
+    $beritas = $query->paginate(6);
     return view('public.berita.index', compact('beritas'));
   }
   public function index()
@@ -40,8 +46,18 @@ class HomeController extends Controller
   public function beritaDetail($slug)
   {
     $berita = \App\Models\Berita::where('slug', $slug)->firstOrFail();
-    $beritaTerbaru = \App\Models\Berita::where('id', '!=', $berita->id)->orderBy('created_at', 'desc')->take(5)->get();
-    return view('public.berita.detail', compact('berita', 'beritaTerbaru'));
+    // Berita terkait: 5 berita terbaru selain yang sedang dibaca
+    $beritaTerkait = \App\Models\Berita::where('id', '!=', $berita->id)
+      ->orderBy('created_at', 'desc')
+      ->take(5)
+      ->get();
+    // Berita lainnya: 2 berita setelah berita terkait
+    $beritaLainnya = \App\Models\Berita::where('id', '!=', $berita->id)
+      ->orderBy('created_at', 'desc')
+      ->skip(5)
+      ->take(2)
+      ->get();
+    return view('public.berita.detail', compact('berita', 'beritaTerkait', 'beritaLainnya'));
   }
 
   public function profilSejarah()

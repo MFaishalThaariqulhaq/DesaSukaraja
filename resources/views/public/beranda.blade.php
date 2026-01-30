@@ -152,7 +152,7 @@
       <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-800 mb-6 leading-tight">
         {{ $profil && $profil->judul ? $profil->judul : 'Profil Desa' }} <span class="text-emerald-600">Sukaraja</span>
       </h2>
-        <p class="text-slate-600 text-lg mb-6 leading-relaxed">
+      <p class="text-slate-600 text-lg mb-6 leading-relaxed">
         @if($profil && $profil->deskripsi_profil)
         {{ $profil->deskripsi_profil }}
         @else
@@ -189,29 +189,40 @@
       <div class="w-24 h-1 bg-emerald-500 mx-auto rounded-full mt-4"></div>
       <p class="text-lg mt-4 text-slate-600 max-w-2xl mx-auto">Ikuti perkembangan, agenda kegiatan, dan berita terbaru dari Desa Sukaraja.</p>
     </div>
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="grid md:grid-cols-3 gap-8">
       @foreach($beritas as $berita)
-      <div class="bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-2xl transition duration-300 border border-slate-100" data-aos="fade-up" data-aos-duration="700">
-        <div class="relative overflow-hidden h-56">
-          <img src="{{ $berita->gambar ? asset('storage/' . $berita->gambar) : 'https://placehold.co/600x400/60a5fa/ffffff?text=Berita' }}" class="w-full h-full object-cover transform transition duration-700 group-hover:scale-110" alt="{{ $berita->judul }}">
-          <div class="absolute top-4 left-4 bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Berita</div>
+      <article class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 border border-slate-100 group flex flex-col h-full" data-aos="fade-up">
+        <div class="relative h-48 overflow-hidden">
+          <img src="{{ $berita->gambar ? asset('storage/' . $berita->gambar) : 'https://placehold.co/600x400/60a5fa/ffffff?text=Berita' }}" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700" alt="{{ $berita->judul }}">
+          <div class="absolute top-4 left-4 bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">{{ $berita->kategori ?? 'Umum' }}</div>
         </div>
-        <div class="p-6">
-          <div class="flex items-center text-slate-500 text-sm mb-3 space-x-2">
+        <div class="p-6 flex-1 flex flex-col">
+          <div class="text-slate-400 text-xs mb-3 flex items-center gap-2">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
-            <span>{{ $berita->created_at->format('d F Y') }}</span>
+            {{ $berita->created_at->format('d F Y') }}
           </div>
-          <h3 class="text-xl font-bold mb-3 text-slate-800 group-hover:text-emerald-600 transition leading-snug">{{ $berita->judul }}</h3>
-          <p class="text-slate-600 mb-4 text-sm leading-relaxed line-clamp-3">{{ \Illuminate\Support\Str::limit($berita->isi, 100) }}</p>
-          <a href="{{ route('berita.detail', $berita->slug) }}" class="font-semibold text-emerald-500 text-sm hover:text-emerald-700 transition">Baca Selengkapnya &rarr;</a>
+          <h3 class="text-xl font-bold text-slate-800 mb-3 group-hover:text-emerald-600 transition leading-snug">
+            <a href="{{ route('berita.detail', $berita->slug) }}">{{ $berita->judul }}</a>
+          </h3>
+          <p class="text-slate-600 text-sm line-clamp-3 mb-4 flex-1">
+            {{ \Illuminate\Support\Str::limit(strip_tags($berita->isi), 120) }}
+          </p>
+          <a href="{{ route('berita.detail', $berita->slug) }}" class="text-emerald-600 font-semibold text-sm hover:underline inline-flex items-center mt-auto">
+            Baca Selengkapnya <span class="ml-1 transition-transform group-hover:translate-x-1">&rarr;</span>
+          </a>
         </div>
-      </div>
+      </article>
       @endforeach
     </div>
     <div class="text-center mt-12">
-      <a href="{{ route('berita.index') }}" class="inline-block bg-slate-800 text-white font-semibold px-8 py-4 rounded-lg shadow-lg hover:bg-slate-700 transition duration-300 transform hover:-translate-y-1">Lihat Arsip Berita</a>
+      <a href="{{ route('berita.index') }}" class="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white bg-slate-800 rounded-lg hover:bg-slate-700 transition duration-300 shadow-lg transform hover:-translate-y-1">
+        Lihat Semua Berita
+        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+        </svg>
+      </a>
     </div>
   </div>
 </section>

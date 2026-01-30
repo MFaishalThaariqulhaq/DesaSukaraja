@@ -4,121 +4,212 @@
 <!-- AOS Animation Library -->
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-<div class="mb-6 flex justify-center" data-aos="fade-down" data-aos-duration="700">
-  <a href="{{ route('berita.index') }}"
-    class="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-500 
-           hover:from-emerald-600 hover:to-teal-600 text-white font-medium px-5 py-2.5 md:px-7 md:py-3 
-           rounded-full shadow-md hover:shadow-lg transition-all duration-300
-           transform hover:-translate-y-0.5 hover:scale-[1.03] active:scale-[0.97] 
-           animate-fade-in-down">
-    <i data-lucide="arrow-left" class="w-4 h-4 md:w-5 md:h-5 transition-transform duration-300 group-hover:-translate-x-1"></i>
-    <span>Kembali ke Berita</span>
-  </a>
-</div>
-
-<div class="max-w-6xl mx-auto bg-white rounded-2xl shadow-lg p-6 md:p-10" data-aos="fade-up" data-aos-duration="800">
-  <div class="grid md:grid-cols-3 gap-10">
-    {{-- Konten Utama --}}
-    <div class="md:col-span-2" data-aos="fade-up" data-aos-delay="100">
-      <img
-        src="{{ $berita->gambar ? asset('storage/' . $berita->gambar) : 'https://placehold.co/800x450/60a5fa/ffffff?text=Berita' }}"
-        class="w-full h-72 object-cover rounded-xl mb-6 shadow-md transition-transform duration-500 hover:scale-[1.02]"
-        alt="{{ $berita->judul }}">
-      <span class="inline-block text-xs font-semibold text-emerald-700 bg-emerald-100 px-3 py-1 rounded-full">
+<!-- Hero Header Section -->
+<header class="bg-slate-900 text-white py-16 relative overflow-hidden">
+  <div class="absolute inset-0 overflow-hidden opacity-20">
+    <img src="https://images.unsplash.com/photo-1464618663641-bbdd760ae84a?q=80&w=2070&auto=format&fit=crop"
+      class="w-full h-full object-cover" alt="Background">
+  </div>
+  <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent"></div>
+  <div class="container mx-auto px-6 relative z-10" data-aos="fade-up">
+    <a href="{{ route('berita.index') }}"
+      class="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-300 transition mb-4">
+      <i data-lucide="arrow-left" class="w-4 h-4"></i>
+      <span class="font-medium">Kembali ke Arsip Berita</span>
+    </a>
+    <h1 class="text-4xl md:text-5xl font-bold mb-4">{{ $berita->judul }}</h1>
+    <div class="flex items-center gap-4 text-slate-300 flex-wrap">
+      <span class="inline-block bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+        {{ $berita->kategori ?? 'Umum' }}
+      </span>
+      <span class="flex items-center gap-2">
+        <i data-lucide="calendar" class="w-4 h-4"></i>
         {{ $berita->created_at->format('d F Y') }}
       </span>
-      <h1 class="text-3xl font-bold text-slate-800 mt-3 mb-6 leading-tight">{{ $berita->judul }}</h1>
-
-      <div class="berita-isi text-slate-700 mb-10">{!! nl2br(e($berita->isi)) !!}</div>
-
-      <div class="flex flex-col sm:flex-row sm:items-center gap-3 mt-8" data-aos="fade-up" data-aos-delay="200">
-        <span class="font-semibold text-slate-700">Bagikan ke:</span>
-        <div class="flex flex-wrap gap-3">
-          <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->fullUrl()) }}"
-            target="_blank"
-            class="bg-blue-600 text-white px-3 py-2 rounded-lg flex items-center gap-2 hover:bg-blue-700 transition">
-            <i data-lucide="facebook"></i> Facebook
-          </a>
-          <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->fullUrl()) }}&text={{ urlencode($berita->judul) }}"
-            target="_blank"
-            class="bg-sky-500 text-white px-3 py-2 rounded-lg flex items-center gap-2 hover:bg-sky-600 transition">
-            <i data-lucide="twitter"></i> Twitter
-          </a>
-          <a href="https://wa.me/?text={{ urlencode($berita->judul . ' ' . request()->fullUrl()) }}"
-            target="_blank"
-            class="bg-green-500 text-white px-3 py-2 rounded-lg flex items-center gap-2 hover:bg-green-600 transition">
-            <i data-lucide="whatsapp"></i> WhatsApp
-          </a>
-        </div>
-      </div>
     </div>
+  </div>
+</header>
 
-    {{-- Sidebar --}}
-    <aside class="md:col-span-1" data-aos="fade-up" data-aos-delay="300">
-      <div class="bg-slate-50 rounded-xl shadow-md p-5">
-        <h2 class="text-lg font-bold text-emerald-700 mb-5 text-center border-b border-emerald-100 pb-2">
-          Berita Terbaru
-        </h2>
+<!-- Main Content -->
+<div class="container mx-auto px-6 py-12">
+  <div class="grid lg:grid-cols-12 gap-12">
+
+    <!-- Sidebar (Related Berita) -->
+    <aside class="lg:col-span-4 space-y-8" data-aos="fade-right" data-aos-delay="100">
+      <!-- Berita Terkait -->
+      <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+        <h3 class="text-xl font-bold text-slate-800 mb-4 font-sans">Berita Terkait</h3>
         <div class="space-y-4">
-          @foreach($beritaTerbaru ?? [] as $b)
+          @forelse($beritaTerkait ?? [] as $b)
           <a href="{{ route('berita.detail', $b->slug) }}"
-            class="flex items-center gap-3 p-2 rounded-lg hover:bg-emerald-50 transition group"
-            data-aos="fade-up" data-aos-delay="{{ 400 + $loop->index * 100 }}">
+            class="flex items-start gap-3 p-3 rounded-lg hover:bg-emerald-50 transition-all duration-300 group border border-transparent hover:border-emerald-200"
+            data-aos="fade-up" data-aos-delay="{{ 200 + $loop->index * 100 }}">
             <img
               src="{{ $b->gambar ? asset('storage/' . $b->gambar) : 'https://placehold.co/100x80/60a5fa/ffffff?text=Berita' }}"
               alt="{{ $b->judul }}"
-              class="w-20 h-16 object-cover rounded-md shadow-sm group-hover:scale-[1.03] transition-transform duration-300">
-            <div class="flex-1">
-              <div class="font-semibold text-slate-800 text-sm line-clamp-2 group-hover:text-emerald-700 transition">
+              class="w-24 h-20 object-cover rounded-md shrink-0 group-hover:scale-105 transition-transform duration-300">
+            <div class="flex-1 min-w-0">
+              <h4 class="font-semibold text-slate-800 text-sm line-clamp-2 group-hover:text-emerald-700 transition">
                 {{ $b->judul }}
-              </div>
-              <div class="text-xs text-slate-500 mt-1">{{ $b->created_at->format('d M Y') }}</div>
+              </h4>
+              <p class="text-xs text-slate-500 mt-2 flex items-center gap-1">
+                <i data-lucide="calendar" class="w-3 h-3"></i>
+                {{ $b->created_at->format('d M Y') }}
+              </p>
             </div>
           </a>
-          @endforeach
+          @empty
+          <p class="text-slate-500 text-sm text-center py-8">Tidak ada berita terkait</p>
+          @endforelse
+        </div>
+      </div>
+
+      <!-- Share Section -->
+      <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+        <h3 class="text-xl font-bold text-slate-800 mb-4 font-sans">Bagikan Berita</h3>
+        <div class="flex flex-col gap-2">
+          <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->fullUrl()) }}"
+            target="_blank"
+            class="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-lg transition-colors duration-300 font-medium">
+            <i data-lucide="facebook" class="w-4 h-4"></i>
+            Facebook
+          </a>
+          <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->fullUrl()) }}&text={{ urlencode($berita->judul) }}"
+            target="_blank"
+            class="flex items-center justify-center gap-2 bg-sky-500 hover:bg-sky-600 text-white px-4 py-2.5 rounded-lg transition-colors duration-300 font-medium">
+            <i data-lucide="twitter" class="w-4 h-4"></i>
+            Twitter
+          </a>
+          <a href="https://wa.me/?text={{ urlencode($berita->judul . ' ' . request()->fullUrl()) }}"
+            target="_blank"
+            class="flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white px-4 py-2.5 rounded-lg transition-colors duration-300 font-medium">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+            WhatsApp
+          </a>
         </div>
       </div>
     </aside>
+
+    <!-- Main Content -->
+    <main class="lg:col-span-8">
+      <!-- Featured Image -->
+      <article class="bg-white rounded-xl shadow-md overflow-hidden mb-8" data-aos="fade-up" data-aos-delay="100">
+        <div class="relative h-96 overflow-hidden group">
+          <img
+            src="{{ $berita->gambar ? asset('storage/' . $berita->gambar) : 'https://placehold.co/800x450/60a5fa/ffffff?text=Berita' }}"
+            alt="{{ $berita->judul }}"
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+        </div>
+
+        <!-- Content -->
+        <div class="p-8 md:p-10">
+          <div class="mb-6 pb-6 border-b border-slate-200">
+            <div class="flex items-center gap-4 text-slate-600 text-sm mb-4">
+              <span class="flex items-center gap-1">
+                <i data-lucide="calendar" class="w-4 h-4"></i>
+                {{ $berita->created_at->format('d F Y') }}
+              </span>
+              <span class="flex items-center gap-1">
+                <i data-lucide="clock" class="w-4 h-4"></i>
+                {{ $berita->created_at->format('H:i') }} WIB
+              </span>
+            </div>
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-800 leading-tight">
+              {{ $berita->judul }}
+            </h1>
+          </div>
+
+          <!-- Article Content -->
+          <div class="prose prose-slate max-w-none mb-8">
+            <div class="berita-isi text-slate-700 leading-relaxed">
+              {!! $berita->isi !!}
+            </div>
+          </div>
+        </div>
+      </article>
+    </main>
   </div>
 </div>
 </div>
 
 <style>
   .berita-isi {
-    text-align: justify;
     line-height: 1.8;
     word-break: break-word;
-    max-height: 550px;
-    overflow-y: auto;
+    font-size: 1rem;
+  }
+
+  .berita-isi p {
+    margin-bottom: 1.25rem;
+  }
+
+  .berita-isi h2,
+  .berita-isi h3,
+  .berita-isi h4 {
+    font-weight: 700;
+    margin: 1.5rem 0 1rem 0;
+    color: #1e293b;
+  }
+
+  .berita-isi h2 {
+    font-size: 1.875rem;
+  }
+
+  .berita-isi h3 {
+    font-size: 1.5rem;
+  }
+
+  .berita-isi ul,
+  .berita-isi ol {
+    margin: 1.25rem 0;
+    padding-left: 1.5rem;
+  }
+
+  .berita-isi li {
+    margin-bottom: 0.5rem;
+  }
+
+  .berita-isi img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .berita-isi blockquote {
+    border-left: 4px solid #10b981;
+    padding-left: 1.5rem;
+    font-style: italic;
+    color: #64748b;
+    margin: 1.5rem 0;
+  }
+
+  .berita-isi code {
+    background-color: #f1f5f9;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-family: monospace;
+  }
+
+  .berita-isi pre {
+    background-color: #1e293b;
+    color: #e2e8f0;
     padding: 1rem;
-    border-radius: 0.75rem;
-    background: #f8fafc;
-    scrollbar-width: thin;
-    scrollbar-color: #cbd5e1 transparent;
-  }
-
-  .berita-isi::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  .berita-isi::-webkit-scrollbar-thumb {
-    background-color: #cbd5e1;
-    border-radius: 9999px;
-  }
-
-  @media (max-width: 768px) {
-    .berita-isi {
-      max-height: 400px;
-    }
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
   }
 </style>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-  AOS.init({
-    once: true,
-    duration: 800
+  document.addEventListener('DOMContentLoaded', () => {
+    AOS.init({
+      once: true,
+      duration: 800,
+      easing: 'ease-out-cubic'
+    });
+    lucide.createIcons();
   });
-  lucide.createIcons();
 </script>
 @endsection
