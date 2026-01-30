@@ -24,46 +24,48 @@ class InfografisController extends Controller
   {
     $data = $request->validate([
       'dusun' => 'required|string',
-      'total_penduduk' => 'required|integer',
-      'laki_laki' => 'required|integer',
-      'perempuan' => 'required|integer',
-      'kepala_keluarga' => 'required|integer',
-      'wajib_ktp' => 'nullable|integer',
-      'lahir' => 'nullable|integer',
-      'datang' => 'nullable|integer',
-      'mati' => 'nullable|integer',
-      'pindah' => 'nullable|integer',
+      'total_penduduk' => 'required|integer|min:0',
+      'laki_laki' => 'required|integer|min:0',
+      'perempuan' => 'required|integer|min:0',
+      'kepala_keluarga' => 'required|integer|min:0',
+      'wajib_ktp' => 'nullable|integer|min:0',
+      'lahir' => 'nullable|integer|min:0',
+      'datang' => 'nullable|integer|min:0',
+      'mati' => 'nullable|integer|min:0',
+      'pindah' => 'nullable|integer|min:0',
     ]);
+
     Penduduk::create($data);
     return redirect()->route('admin.infografis.index')->with('success', 'Data penduduk berhasil ditambahkan.');
   }
 
-  public function edit(Penduduk $infografis)
+  public function edit(Penduduk $penduduk)
   {
-    return view('admin.infografis.edit', ['penduduk' => $infografis]);
+    return view('admin.infografis.edit', compact('penduduk'));
   }
 
-  public function update(Request $request, Penduduk $infografis)
+  public function update(Request $request, Penduduk $penduduk)
   {
     $data = $request->validate([
       'dusun' => 'required|string',
-      'total_penduduk' => 'required|integer',
-      'laki_laki' => 'required|integer',
-      'perempuan' => 'required|integer',
-      'kepala_keluarga' => 'required|integer',
-      'wajib_ktp' => 'nullable|integer',
-      'lahir' => 'nullable|integer',
-      'datang' => 'nullable|integer',
-      'mati' => 'nullable|integer',
-      'pindah' => 'nullable|integer',
+      'total_penduduk' => 'required|integer|min:0',
+      'laki_laki' => 'required|integer|min:0',
+      'perempuan' => 'required|integer|min:0',
+      'kepala_keluarga' => 'required|integer|min:0',
+      'wajib_ktp' => 'nullable|integer|min:0',
+      'lahir' => 'nullable|integer|min:0',
+      'datang' => 'nullable|integer|min:0',
+      'mati' => 'nullable|integer|min:0',
+      'pindah' => 'nullable|integer|min:0',
     ]);
-    $infografis->update($data);
+
+    $penduduk->update($data);
     return redirect()->route('admin.infografis.index')->with('success', 'Data penduduk berhasil diupdate.');
   }
 
-  public function destroy(Penduduk $infografis)
+  public function destroy(Penduduk $penduduk)
   {
-    $infografis->delete();
+    $penduduk->delete();
     return redirect()->route('admin.infografis.index')->with('success', 'Data penduduk berhasil dihapus.');
   }
 }

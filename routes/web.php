@@ -74,7 +74,7 @@ Route::prefix('admin')->group(function () {
     Route::resource('berita', BeritaController::class)->except(['show'])->names('admin.berita');
     Route::resource('galeri', AdminGaleriController::class)->names('admin.galeri');
     Route::resource('galeri.foto', App\Http\Controllers\Admin\FotoGaleriController::class)->shallow()->names('admin.galeri.foto');
-    Route::resource('infografis', AdminInfografisController::class)->names('admin.infografis');
+    Route::resource('infografis', AdminInfografisController::class)->names('admin.infografis')->parameters(['infografis' => 'penduduk']);
     //Route::resource('penduduk', App\Http\Controllers\PendudukController::class)->names('admin.penduduk');
     Route::resource('sotk', AdminSotkController::class)->names('admin.sotk');
     Route::get('admin/sotk/bagan', [AdminSotkController::class, 'baganForm'])->name('admin.sotk.bagan');

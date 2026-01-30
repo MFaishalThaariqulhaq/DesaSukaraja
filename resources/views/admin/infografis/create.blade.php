@@ -105,39 +105,39 @@
   });
 </script>
 @endsection
-        @foreach ([
-        'kelompok_usia_0_5' => 'Usia 0–5',
-        'kelompok_usia_6_11' => 'Usia 6–11',
-        'kelompok_usia_12_17' => 'Usia 12–17',
-        'kelompok_usia_18_25' => 'Usia 18–25',
-        'kelompok_usia_26_35' => 'Usia 26–35',
-        'kelompok_usia_36_45' => 'Usia 36–45',
-        'kelompok_usia_46_60' => 'Usia 46–60',
-        'kelompok_usia_61_keatas' => 'Usia 61+'
-        ] as $name => $label)
-        <div>
-          <label class="block mb-2 font-medium text-slate-700">{{ $label }}</label>
-          <input type="number" name="{{ $name }}"
-            class="w-full border border-slate-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-emerald-400 focus:outline-none">
-        </div>
-        @endforeach
-      </div>
-    </div>
+@foreach ([
+'kelompok_usia_0_5' => 'Usia 0–5',
+'kelompok_usia_6_11' => 'Usia 6–11',
+'kelompok_usia_12_17' => 'Usia 12–17',
+'kelompok_usia_18_25' => 'Usia 18–25',
+'kelompok_usia_26_35' => 'Usia 26–35',
+'kelompok_usia_36_45' => 'Usia 36–45',
+'kelompok_usia_46_60' => 'Usia 46–60',
+'kelompok_usia_61_keatas' => 'Usia 61+'
+] as $name => $label)
+<div>
+  <label class="block mb-2 font-medium text-slate-700">{{ $label }}</label>
+  <input type="number" name="{{ $name }}"
+    class="w-full border border-slate-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-emerald-400 focus:outline-none">
+</div>
+@endforeach
+</div>
+</div>
 
-    {{-- Tombol --}}
-    <div class="flex justify-end gap-3 pt-6 border-t">
-      <a href="{{ route('admin.infografis.index') }}"
-        class="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 px-5 py-2.5 rounded-lg shadow-sm transition-all duration-300 hover:scale-105">
-        <i data-lucide="arrow-left" class="w-5 h-5"></i>
-        Batal
-      </a>
-      <button type="submit"
-        class="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-6 py-2.5 rounded-lg shadow-md transition-all duration-300 hover:scale-105">
-        <i data-lucide="save" class="w-5 h-5"></i>
-        Simpan
-      </button>
-    </div>
-  </form>
+{{-- Tombol --}}
+<div class="flex justify-end gap-3 pt-6 border-t">
+  <a href="{{ route('admin.infografis.index') }}"
+    class="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 px-5 py-2.5 rounded-lg shadow-sm transition-all duration-300 hover:scale-105">
+    <i data-lucide="arrow-left" class="w-5 h-5"></i>
+    Batal
+  </a>
+  <button type="submit"
+    class="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-6 py-2.5 rounded-lg shadow-md transition-all duration-300 hover:scale-105">
+    <i data-lucide="save" class="w-5 h-5"></i>
+    Simpan
+  </button>
+</div>
+</form>
 </div>
 
 <script>

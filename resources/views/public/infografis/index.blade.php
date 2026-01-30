@@ -1,218 +1,271 @@
 @extends('public.layout')
 
 @section('content')
-{{-- Styles khusus animasi ringan --}}
+<!-- Tailwind CSS & Font Awesome & AOS & Chart.js via CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <style>
-  @keyframes fadeUp {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  body { font-family: 'Plus Jakarta Sans', sans-serif; }
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
-
-  .animate-fade-up {
-    animation: fadeUp 600ms cubic-bezier(.22, .9, .35, 1) both;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-
-    .animate-fade-up,
-    .countup {
-      animation: none !important;
-      transition: none !important;
-    }
-  }
-
-  /* subtle focus ring for keyboard users */
-  .focus-ring:focus {
-    outline: 3px solid rgba(79, 70, 229, 0.12);
-    outline-offset: 2px;
-    border-radius: 10px;
+  .gradient-card-1 { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+  .gradient-card-2 { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); }
+  .gradient-card-3 { background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); }
+  .gradient-card-4 { background: linear-gradient(135deg, #ec4899 0%, #db2777 100%); }
+  .bg-pattern {
+    background-color: #f8fafc;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e2e8f0' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   }
 </style>
 
-<div class="min-h-screen p-4 sm:p-8 bg-gradient-to-b from-rose-50 via-white to-emerald-50">
-  <div class="max-w-6xl mx-auto">
+<div class="bg-pattern text-slate-800 antialiased overflow-x-hidden">
 
-    <!-- HERO / HEADER -->
-    <header class="mb-10 md:mb-16 text-center">
-      <div class="inline-block px-4 py-2 rounded-full bg-emerald-100 text-emerald-800 text-sm font-medium animate-fade-up">
-        Statistik Desa Sukaraja
+  <!-- Header Section with Wave -->
+  <header class="relative bg-slate-900 text-white pb-24 pt-12 overflow-hidden">
+    <!-- Background Decor -->
+    <div class="absolute inset-0 z-0 opacity-30">
+      <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2232&auto=format&fit=crop" class="w-full h-full object-cover mix-blend-overlay" alt="Desa Background">
+    </div>
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-slate-900 z-0"></div>
+
+    <div class="container mx-auto px-6 relative z-10" data-aos="fade-down">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+        <div>
+          <span class="inline-block py-1 px-3 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-xs font-bold tracking-wider uppercase mb-3">Statistik Desa 2024</span>
+          <h1 class="text-4xl md:text-5xl font-extrabold mb-2 tracking-tight">Infografis <span class="text-emerald-400">Kependudukan</span></h1>
+          <p class="text-slate-400 text-lg max-w-xl">Transparansi data demografi Desa Sukaraja untuk perencanaan pembangunan yang lebih baik.</p>
+        </div>
+        <div class="glass-effect !bg-slate-800/50 !border-slate-700 text-white px-5 py-3 rounded-xl flex items-center gap-3">
+          <div class="bg-emerald-500/20 p-2 rounded-lg">
+            <i class="far fa-calendar-check text-emerald-400"></i>
+          </div>
+          <div>
+            <p class="text-xs text-slate-400 uppercase tracking-wide">Update Terakhir</p>
+            <p class="font-bold">{{ date('F Y') }}</p>
+          </div>
+        </div>
       </div>
-      <h1 class="mt-4 text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-800 leading-tight animate-fade-up">
-        Infografis Data Penduduk
-      </h1>
-      <p class="mt-2 text-gray-600 max-w-2xl mx-auto text-sm sm:text-base animate-fade-up">
-        Ringkasan demografi <strong>Desa Sukaraja</strong> — Periode: <strong>Agustus 2023</strong>.
-      </p>
-    </header>
+    </div>
+    
+    <!-- SVG Wave Separator -->
+    <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0]">
+      <svg class="relative block w-[calc(100%+1.3px)] h-[80px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="#f8fafc"></path>
+      </svg>
+    </div>
+  </header>
 
-    <!-- RINGKASAN PER DUSUN -->
-    <section class="mb-12">
-      <div class="mb-8">
-        <a href="{{ url('/#infografis') }}"
-          class="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-5 py-2 rounded-full shadow transition-all focus-ring">
-          <i data-lucide="arrow-left" class="w-4 h-4"></i>
-          <span>Kembali ke Beranda</span>
-        </a>
-      </div>
-
+  <!-- Main Content -->
+  <div class="container mx-auto px-6 -mt-10 relative z-20 pb-20">
+    
+    <!-- Data Per Dusun Section -->
+    <div class="mb-12" data-aos="fade-up">
       <div class="flex items-center justify-between mb-6">
-        <h2 class="text-xl md:text-2xl font-semibold text-gray-800">Ringkasan Data Per Dusun</h2>
-        <div class="text-sm text-gray-500">Terbaru: Agustus 2023</div>
+        <div>
+          <h3 class="text-2xl font-bold text-slate-900">Data Kependudukan per Dusun</h3>
+          <p class="text-slate-500">Sebaran penduduk di setiap wilayah administratif</p>
+        </div>
+        <div class="hidden md:block">
+          <span class="bg-white border border-slate-200 text-slate-600 px-4 py-2 rounded-lg text-sm font-medium shadow-sm">
+            <i class="fas fa-map-marker-alt mr-2 text-emerald-500"></i> {{ $data->count() }} Dusun
+          </span>
+        </div>
       </div>
 
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        @foreach($data as $item)
-        <article class="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm transform transition hover:-translate-y-1 hover:shadow-md focus-ring"
-          tabindex="0" aria-labelledby="dusun-{{ $loop->index }}" data-animate>
-          <h3 id="dusun-{{ $loop->index }}" class="text-lg font-semibold text-gray-800">
-            Dusun {{ $item->dusun }}
-          </h3>
-
-          <div class="mt-3 flex items-center justify-between gap-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        @php $colors = ['emerald-500', 'blue-500', 'amber-500']; @endphp
+        @foreach($data as $index => $item)
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-100 relative overflow-hidden group hover:shadow-lg transition duration-300">
+          <div class="absolute top-0 left-0 w-1.5 h-full bg-{{ $colors[$index] ?? 'emerald-500' }} group-hover:w-2 transition-all"></div>
+          <div class="flex justify-between items-start mb-4 pl-3">
             <div>
-              <p class="text-xs text-gray-500">Total Penduduk</p>
-              <div class="text-2xl md:text-3xl font-bold text-emerald-700 countup" data-to="{{ $item->total_penduduk }}">0</div>
+              <h4 class="font-bold text-lg text-slate-800">Dusun {{ $item->dusun }}</h4>
             </div>
-
-            <div class="text-right">
-              <p class="text-xs text-gray-500">Kepala Keluarga</p>
-              <div class="text-xl font-semibold text-gray-700">{{ $item->kepala_keluarga }}</div>
+            <div class="bg-slate-50 p-2 rounded-lg text-slate-400 group-hover:text-emerald-500 transition">
+              <i class="fas fa-users"></i>
             </div>
           </div>
-
-          <div class="mt-4 border-t border-gray-100 pt-3 flex text-sm text-gray-600 justify-between">
-            <span>Laki-laki: <strong class="text-gray-800">{{ $item->laki_laki }}</strong></span>
-            <span>Perempuan: <strong class="text-gray-800">{{ $item->perempuan }}</strong></span>
-          </div>
-        </article>
-        @endforeach
-      </div>
-    </section>
-
-    <!-- GRAND TOTAL -->
-    <section class="mb-12">
-      <div class="flex items-center justify-between mb-6">
-        <h2 class="text-xl md:text-2xl font-semibold text-gray-800">Grand Total Desa Sukaraja</h2>
-        <p class="text-sm text-gray-500">Ringkasan mutasi & kependudukan</p>
-      </div>
-
-      @php
-      $total_penduduk = collect($data)->sum(fn($d) => $d ? $d->total_penduduk : 0);
-      $total_laki = collect($data)->sum(fn($d) => $d ? $d->laki_laki : 0);
-      $total_perempuan = collect($data)->sum(fn($d) => $d ? $d->perempuan : 0);
-      $total_kk = collect($data)->sum(fn($d) => $d ? $d->kepala_keluarga : 0);
-      $total_wajib_ktp = collect($data)->sum(fn($d) => $d ? $d->wajib_ktp : 0);
-      $total_lahir = collect($data)->sum(fn($d) => $d ? $d->lahir : 0);
-      $total_datang = collect($data)->sum(fn($d) => $d ? $d->datang : 0);
-      $total_mati = collect($data)->sum(fn($d) => $d ? $d->mati : 0);
-      $total_pindah = collect($data)->sum(fn($d) => $d ? $d->pindah : 0);
-      $persen_laki = $total_penduduk > 0 ? round($total_laki / $total_penduduk * 100, 2) : 0;
-      $persen_perempuan = $total_penduduk > 0 ? round($total_perempuan / $total_penduduk * 100, 2) : 0;
-      @endphp
-
-      <main class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
-        {{-- Card template: ringkas & netral --}}
-        @php
-        $cards = [
-        ['label'=>'TOTAL PENDUDUK','value'=>$total_penduduk,'desc'=>'Jiwa','icon'=>'👨‍👩‍👧‍👦','accent'=>'emerald'],
-        ['label'=>'LAKI-LAKI','value'=>$total_laki,'desc'=> $persen_laki.'%','icon'=>'👦','accent'=>'blue'],
-        ['label'=>'PEREMPUAN','value'=>$total_perempuan,'desc'=> $persen_perempuan.'%','icon'=>'👧','accent'=>'rose'],
-        ['label'=>'JUMLAH KK','value'=>$total_kk,'desc'=>'Kepala Keluarga','icon'=>'🏠','accent'=>'amber'],
-        ['label'=>'WAJIB KTP','value'=>$total_wajib_ktp,'desc'=>'Usia 17+','icon'=>'🪪','accent'=>'slate'],
-        ['label'=>'LAHIR','value'=>$total_lahir,'desc'=>'Mutasi Bulan Ini','icon'=>'👶','accent'=>'emerald'],
-        ['label'=>'DATANG','value'=>$total_datang,'desc'=>'Mutasi Bulan Ini','icon'=>'➡️','accent'=>'teal'],
-        ['label'=>'MENINGGAL','value'=>$total_mati,'desc'=>'Mutasi Bulan Ini','icon'=>'🕊️','accent'=>'gray'],
-        ['label'=>'PINDAH','value'=>$total_pindah,'desc'=>'Mutasi Bulan Ini','icon'=>'🚚','accent'=>'orange'],
-        ];
-        @endphp
-
-        @foreach($cards as $c)
-        <div class="bg-white rounded-xl p-4 border border-gray-100 shadow-sm transform transition hover:scale-[1.01] hover:shadow-md focus-ring" data-animate>
-          <div class="flex items-center justify-between">
-            <div class="text-sm font-medium text-gray-700">{{ $c['label'] }}</div>
-            <div class="text-2xl" aria-hidden="true">{{ $c['icon'] }}</div>
-          </div>
-
-          <div class="mt-3 flex items-end justify-between">
-            <div class="text-2xl md:text-3xl font-extrabold text-gray-800 countup" data-to="{{ $c['value'] }}">0</div>
-            <div class="text-xs text-gray-500">{{ $c['desc'] }}</div>
+          
+          <div class="space-y-3 pl-3">
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-slate-500">Total Penduduk</span>
+              <span class="font-bold text-slate-800 text-lg">{{ number_format($item->total_penduduk) }}</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-slate-500">Kepala Keluarga</span>
+              <span class="font-bold text-slate-800">{{ $item->kepala_keluarga }} <span class="text-xs font-normal text-slate-400">KK</span></span>
+            </div>
+            
+            <div class="pt-3 mt-2 border-t border-slate-100 grid grid-cols-2 gap-3">
+              <div class="bg-blue-50 rounded-lg p-2 text-center">
+                <div class="text-xs text-blue-500 font-medium mb-1">Laki-laki</div>
+                <div class="font-bold text-blue-700">{{ $item->laki_laki }}</div>
+              </div>
+              <div class="bg-pink-50 rounded-lg p-2 text-center">
+                <div class="text-xs text-pink-500 font-medium mb-1">Perempuan</div>
+                <div class="font-bold text-pink-700">{{ $item->perempuan }}</div>
+              </div>
+            </div>
           </div>
         </div>
         @endforeach
-      </main>
-    </section>
+      </div>
+    </div>
+
+    <!-- Key Statistics Cards -->
+    @php
+    $total_penduduk = $data->sum('total_penduduk');
+    $total_laki = $data->sum('laki_laki');
+    $total_perempuan = $data->sum('perempuan');
+    $total_kk = $data->sum('kepala_keluarga');
+    @endphp
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+      <!-- Total Penduduk -->
+      <div class="gradient-card-1 rounded-2xl p-6 shadow-xl text-white transform hover:-translate-y-2 transition duration-300 relative overflow-hidden group" data-aos="fade-up" data-aos-delay="0">
+        <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition">
+          <i class="fas fa-users text-8xl transform translate-x-4 -translate-y-4"></i>
+        </div>
+        <div class="relative z-10">
+          <div class="flex items-center gap-2 mb-4">
+            <div class="bg-white/20 p-2 rounded-lg backdrop-blur-sm">
+              <i class="fas fa-users"></i>
+            </div>
+          </div>
+          <p class="text-emerald-100 text-sm font-medium">Total Penduduk</p>
+          <h3 class="text-4xl font-bold mt-1">{{ number_format($total_penduduk) }}</h3>
+        </div>
+      </div>
+
+      <!-- Kepala Keluarga -->
+      <div class="gradient-card-2 rounded-2xl p-6 shadow-xl text-white transform hover:-translate-y-2 transition duration-300 relative overflow-hidden group" data-aos="fade-up" data-aos-delay="100">
+        <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition">
+          <i class="fas fa-home text-8xl transform translate-x-4 -translate-y-4"></i>
+        </div>
+        <div class="relative z-10">
+          <div class="flex items-center gap-2 mb-4">
+            <div class="bg-white/20 p-2 rounded-lg backdrop-blur-sm">
+              <i class="fas fa-home"></i>
+            </div>
+          </div>
+          <p class="text-blue-100 text-sm font-medium">Kepala Keluarga</p>
+          <h3 class="text-4xl font-bold mt-1">{{ number_format($total_kk) }}</h3>
+        </div>
+      </div>
+
+      <!-- Laki-laki -->
+      <div class="gradient-card-3 rounded-2xl p-6 shadow-xl text-white transform hover:-translate-y-2 transition duration-300 relative overflow-hidden group" data-aos="fade-up" data-aos-delay="200">
+        <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition">
+          <i class="fas fa-mars text-8xl transform translate-x-4 -translate-y-4"></i>
+        </div>
+        <div class="relative z-10">
+          <div class="flex items-center gap-2 mb-4">
+            <div class="bg-white/20 p-2 rounded-lg backdrop-blur-sm">
+              <i class="fas fa-mars"></i>
+            </div>
+            <span class="text-xs font-bold bg-white/20 px-2 py-1 rounded text-white">{{ $total_penduduk > 0 ? round($total_laki/$total_penduduk*100, 1) : 0 }}%</span>
+          </div>
+          <p class="text-sky-100 text-sm font-medium">Laki-laki</p>
+          <h3 class="text-4xl font-bold mt-1">{{ number_format($total_laki) }}</h3>
+        </div>
+      </div>
+
+      <!-- Perempuan -->
+      <div class="gradient-card-4 rounded-2xl p-6 shadow-xl text-white transform hover:-translate-y-2 transition duration-300 relative overflow-hidden group" data-aos="fade-up" data-aos-delay="300">
+        <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition">
+          <i class="fas fa-venus text-8xl transform translate-x-4 -translate-y-4"></i>
+        </div>
+        <div class="relative z-10">
+          <div class="flex items-center gap-2 mb-4">
+            <div class="bg-white/20 p-2 rounded-lg backdrop-blur-sm">
+              <i class="fas fa-venus"></i>
+            </div>
+            <span class="text-xs font-bold bg-white/20 px-2 py-1 rounded text-white">{{ $total_penduduk > 0 ? round($total_perempuan/$total_penduduk*100, 1) : 0 }}%</span>
+          </div>
+          <p class="text-pink-100 text-sm font-medium">Perempuan</p>
+          <h3 class="text-4xl font-bold mt-1">{{ number_format($total_perempuan) }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mutasi Penduduk Section -->
+    <div class="bg-slate-900 rounded-3xl shadow-2xl overflow-hidden mb-12" data-aos="fade-up">
+      <div class="p-8 md:p-12 text-center md:text-left relative">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-emerald-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
+        
+        <div class="flex flex-col md:flex-row justify-between items-end mb-10 relative z-10">
+          <div>
+            <h3 class="text-2xl md:text-3xl font-bold text-white mb-2">Laporan Mutasi Penduduk</h3>
+            <p class="text-slate-400">Pergerakan penduduk periode bulan berjalan.</p>
+          </div>
+          <span class="mt-4 md:mt-0 bg-emerald-500 text-white px-4 py-1.5 rounded-full text-sm font-semibold shadow-lg shadow-emerald-500/30">Periode: {{ date('F Y') }}</span>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 relative z-10">
+          <!-- Lahir -->
+          <div class="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-2xl p-6 text-center hover:bg-slate-800 transition">
+            <div class="w-12 h-12 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-4 text-xl">
+              <i class="fas fa-baby"></i>
+            </div>
+            <div class="text-3xl font-bold text-white mb-1">{{ $data->sum('lahir') ?? 0 }}</div>
+            <div class="text-sm text-slate-400 font-medium">Kelahiran</div>
+          </div>
+          
+          <!-- Meninggal -->
+          <div class="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-2xl p-6 text-center hover:bg-slate-800 transition">
+            <div class="w-12 h-12 bg-rose-500/20 text-rose-400 rounded-full flex items-center justify-center mx-auto mb-4 text-xl">
+              <i class="fas fa-ribbon"></i>
+            </div>
+            <div class="text-3xl font-bold text-white mb-1">{{ $data->sum('mati') ?? 0 }}</div>
+            <div class="text-sm text-slate-400 font-medium">Meninggal</div>
+          </div>
+          
+          <!-- Masuk -->
+          <div class="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-2xl p-6 text-center hover:bg-slate-800 transition">
+            <div class="w-12 h-12 bg-blue-500/20 text-blue-400 rounded-full flex items-center justify-center mx-auto mb-4 text-xl">
+              <i class="fas fa-arrow-right-to-bracket"></i>
+            </div>
+            <div class="text-3xl font-bold text-white mb-1">{{ $data->sum('datang') ?? 0 }}</div>
+            <div class="text-sm text-slate-400 font-medium">Pindah Masuk</div>
+          </div>
+          
+          <!-- Keluar -->
+          <div class="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-2xl p-6 text-center hover:bg-slate-800 transition">
+            <div class="w-12 h-12 bg-orange-500/20 text-orange-400 rounded-full flex items-center justify-center mx-auto mb-4 text-xl">
+              <i class="fas fa-arrow-right-from-bracket"></i>
+            </div>
+            <div class="text-3xl font-bold text-white mb-1">{{ $data->sum('pindah') ?? 0 }}</div>
+            <div class="text-sm text-slate-400 font-medium">Pindah Keluar</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center text-slate-500 text-sm">
+      <p>&copy; 2024 Pemerintah Desa Sukaraja. Data bersumber dari Sistem Informasi Desa (SID).</p>
+    </footer>
+
   </div>
+
 </div>
 
-{{-- SCRIPTS: Intersection observer untuk entrance, dan Count-up sederhana --}}
+<!-- AOS Script -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-  // Respect prefers-reduced-motion
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  AOS.init({
+    duration: 800,
+    once: true,
+    offset: 100,
+    easing: 'ease-out-cubic'
+  });
 
-  // Entrance animation: add class animate-fade-up when element visible
-  (function() {
-    if (prefersReduced) return;
-    const obs = new IntersectionObserver((entries, o) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('animate-fade-up');
-          o.unobserve(e.target);
-        }
-      });
-    }, {
-      threshold: 0.12
-    });
-
-    document.querySelectorAll('[data-animate]').forEach(el => obs.observe(el));
-  })();
-
-  // Simple count-up animation (no dependency)
-  (function() {
-    const counters = document.querySelectorAll('.countup');
-    if (prefersReduced || !counters.length) {
-      // if reduced motion, just populate final values
-      counters.forEach(el => el.textContent = el.getAttribute('data-to') || el.textContent);
-      return;
-    }
-
-    function animateCount(el, to) {
-      const duration = 1100;
-      const start = performance.now();
-      const from = 0;
-      to = Number(to);
-
-      function tick(now) {
-        const t = Math.min((now - start) / duration, 1);
-        const eased = 1 - Math.pow(1 - t, 3); // easeOutCubic
-        const val = Math.floor(from + (to - from) * eased);
-        el.textContent = val.toLocaleString();
-        if (t < 1) requestAnimationFrame(tick);
-        else el.textContent = to.toLocaleString();
-      }
-      requestAnimationFrame(tick);
-    }
-
-    const obs2 = new IntersectionObserver((entries, o) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          const to = e.target.getAttribute('data-to') || e.target.textContent || 0;
-          animateCount(e.target, to);
-          o.unobserve(e.target);
-        }
-      });
-    }, {
-      threshold: 0.2
-    });
-
-    counters.forEach(c => obs2.observe(c));
-  })();
+  // Initialize Lucide Icons if available
+  if (window.lucide) lucide.createIcons();
 </script>
 @endsection
