@@ -89,6 +89,90 @@
       </div>
     </div>
 
+    <!-- Kelompok Usia Section -->
+    <div class="border-t pt-6">
+      <h3 class="text-lg font-bold text-slate-800 mb-4">Kelompok Usia</h3>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        @foreach ([
+        'kelompok_usia_0_5' => 'Usia 0-5',
+        'kelompok_usia_6_11' => 'Usia 6-11',
+        'kelompok_usia_12_17' => 'Usia 12-17',
+        'kelompok_usia_18_25' => 'Usia 18-25',
+        'kelompok_usia_26_35' => 'Usia 26-35',
+        'kelompok_usia_36_45' => 'Usia 36-45',
+        'kelompok_usia_46_60' => 'Usia 46-60',
+        'kelompok_usia_61_keatas' => 'Usia 61+'
+        ] as $name => $label)
+        <div>
+          <label class="block mb-2 font-medium text-slate-700">{{ $label }}</label>
+          <input type="number" name="{{ $name }}" value="{{ $penduduk->$name }}"
+            class="w-full border border-slate-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+        </div>
+        @endforeach
+      </div>
+    </div>
+
+    <!-- Pendidikan Section -->
+    <div class="border-t pt-6">
+      <h3 class="text-lg font-bold text-slate-800 mb-4">Pendidikan</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        @foreach ([
+        'pendidikan_sd' => 'SD',
+        'pendidikan_smp' => 'SMP',
+        'pendidikan_sma' => 'SMA',
+        'pendidikan_diploma' => 'Diploma',
+        'pendidikan_belum' => 'Belum Sekolah'
+        ] as $name => $label)
+        <div>
+          <label class="block mb-2 font-medium text-slate-700">{{ $label }}</label>
+          <input type="number" name="{{ $name }}" value="{{ $penduduk->$name }}"
+            class="w-full border border-slate-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+        </div>
+        @endforeach
+      </div>
+    </div>
+
+    <!-- Pekerjaan Section -->
+    <div class="border-t pt-6">
+      <h3 class="text-lg font-bold text-slate-800 mb-4">Pekerjaan</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        @foreach ([
+        'pekerjaan_petani' => 'Petani',
+        'pekerjaan_wiraswasta' => 'Wiraswasta',
+        'pekerjaan_karyawan' => 'Karyawan',
+        'pekerjaan_pns' => 'PNS',
+        'pekerjaan_ibu_rumah_tangga' => 'Ibu Rumah Tangga',
+        'pekerjaan_belum' => 'Belum Bekerja'
+        ] as $name => $label)
+        <div>
+          <label class="block mb-2 font-medium text-slate-700">{{ $label }}</label>
+          <input type="number" name="{{ $name }}" value="{{ $penduduk->$name }}"
+            class="w-full border border-slate-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+        </div>
+        @endforeach
+      </div>
+    </div>
+
+    <!-- Agama Section -->
+    <div class="border-t pt-6">
+      <h3 class="text-lg font-bold text-slate-800 mb-4">Agama & Kepercayaan</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        @foreach ([
+        'agama_islam' => 'Islam',
+        'agama_kristen' => 'Kristen',
+        'agama_katolik' => 'Katolik',
+        'agama_hindu' => 'Hindu',
+        'agama_buddha' => 'Buddha'
+        ] as $name => $label)
+        <div>
+          <label class="block mb-2 font-medium text-slate-700">{{ $label }}</label>
+          <input type="number" name="{{ $name }}" value="{{ $penduduk->$name }}"
+            class="w-full border border-slate-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+        </div>
+        @endforeach
+      </div>
+    </div>
+
     <div class="flex justify-end gap-4 pt-6 border-t">
       <a href="{{ route('admin.infografis.index') }}" class="px-6 py-2 border border-slate-300 rounded-lg text-slate-700 hover:bg-slate-50 transition">
         Batal
@@ -105,72 +189,4 @@
     lucide.createIcons();
   });
 </script>
-@endsection
-<h3 class="text-xl font-semibold text-emerald-600 mb-4 border-b pb-2">Data Kependudukan</h3>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-  @foreach ([
-  'total_penduduk' => 'Total Penduduk',
-  'kepala_keluarga' => 'Kepala Keluarga',
-  'laki_laki' => 'Laki-laki',
-  'perempuan' => 'Perempuan',
-  'jumlah_kk' => 'Jumlah KK',
-  'wajib_ktp' => 'Wajib KTP',
-  'sudah_kk' => 'Sudah KK',
-  'belum_kk' => 'Belum KK',
-  'sudah_ktp' => 'Sudah KTP',
-  'belum_ktp' => 'Belum KTP',
-  'lahir' => 'Lahir',
-  'datang' => 'Datang',
-  'mati' => 'Mati',
-  'pindah' => 'Pindah',
-  'penduduk_bulan_lalu' => 'Penduduk Bulan Lalu',
-  'penduduk_bulan_ini' => 'Penduduk Bulan Ini',
-  'wni' => 'WNI',
-  'wna' => 'WNA'
-  ] as $name => $label)
-  <div>
-    <label class="block mb-2 font-medium text-slate-700">{{ $label }}</label>
-    <input type="number" name="{{ $name }}" value="{{ $penduduk->$name }}"
-      class="w-full border border-slate-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-emerald-400 focus:outline-none">
-  </div>
-  @endforeach
-</div>
-</div>
-
-{{-- Kelompok Usia --}}
-<div>
-  <h3 class="text-xl font-semibold text-emerald-600 mb-4 border-b pb-2">Kelompok Usia</h3>
-  <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-    @foreach ([
-    'kelompok_usia_0_5' => 'Usia 0–5',
-    'kelompok_usia_6_11' => 'Usia 6–11',
-    'kelompok_usia_12_17' => 'Usia 12–17',
-    'kelompok_usia_18_25' => 'Usia 18–25',
-    'kelompok_usia_26_35' => 'Usia 26–35',
-    'kelompok_usia_36_45' => 'Usia 36–45',
-    'kelompok_usia_46_60' => 'Usia 46–60',
-    'kelompok_usia_61_keatas' => 'Usia 61+'
-    ] as $name => $label)
-    <div>
-      <label class="block mb-2 font-medium text-slate-700">{{ $label }}</label>
-      <input type="number" name="{{ $name }}" value="{{ $penduduk->$name }}"
-        class="w-full border border-slate-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-emerald-400 focus:outline-none">
-    </div>
-    @endforeach
-  </div>
-</div>
-
-{{-- Tombol Aksi --}}
-<div class="flex justify-end space-x-3 pt-6 border-t">
-  <a href="{{ route('admin.infografis.index') }}"
-    class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-5 py-2.5 rounded-lg transition">
-    Batal
-  </a>
-  <button type="submit"
-    class="bg-emerald-500 hover:bg-emerald-600 text-white font-medium px-6 py-2.5 rounded-lg shadow transition">
-    Update
-  </button>
-</div>
-</form>
-</div>
 @endsection
