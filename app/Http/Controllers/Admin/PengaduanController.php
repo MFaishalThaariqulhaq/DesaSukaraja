@@ -52,13 +52,13 @@ class PengaduanController extends Controller
   {
     $pengaduan = Pengaduan::findOrFail($id);
     $request->validate([
-      'status' => 'required|in:pending,in_progress,resolved,rejected',
-      'internal_notes' => 'nullable|string',
+      'status' => 'required|in:submitted,pending,in_progress,resolved,rejected',
+      'admin_notes' => 'nullable|string',
     ]);
     $oldStatus = $pengaduan->status;
     $pengaduan->update([
       'status' => $request->status,
-      'internal_notes' => $request->internal_notes,
+      'admin_notes' => $request->admin_notes,
     ]);
 
     // Log the status change or update
@@ -68,7 +68,7 @@ class PengaduanController extends Controller
       'meta' => json_encode([
         'old_status' => $oldStatus,
         'new_status' => $request->status,
-        'internal_notes' => $request->internal_notes,
+        'admin_notes' => $request->admin_notes,
         'admin' => session('admin_logged_in') ? 'admin' : null,
       ]),
     ]);
