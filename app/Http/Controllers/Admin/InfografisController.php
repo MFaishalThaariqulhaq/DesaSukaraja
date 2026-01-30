@@ -4,15 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Infografis;
+use App\Models\Penduduk;
 use Illuminate\Support\Facades\Storage;
 
 class InfografisController extends Controller
 {
   public function index()
   {
-    $infografis = Infografis::latest()->paginate(10);
-    return view('admin.infografis.index', compact('infografis'));
+    $penduduks = Penduduk::orderBy('dusun')->paginate(10);
+    return view('admin.infografis.index', compact('penduduks'));
   }
 
   public function create()
@@ -23,46 +23,47 @@ class InfografisController extends Controller
   public function store(Request $request)
   {
     $data = $request->validate([
-      'judul' => 'required',
-      'slug' => 'required|unique:infografis,slug',
-      'deskripsi' => 'required',
-      'gambar' => 'nullable|image',
-      'kategori' => 'nullable|string',
+      'dusun' => 'required|string',
+      'total_penduduk' => 'required|integer',
+      'laki_laki' => 'required|integer',
+      'perempuan' => 'required|integer',
+      'kepala_keluarga' => 'required|integer',
+      'wajib_ktp' => 'nullable|integer',
+      'lahir' => 'nullable|integer',
+      'datang' => 'nullable|integer',
+      'mati' => 'nullable|integer',
+      'pindah' => 'nullable|integer',
     ]);
-    if ($request->hasFile('gambar')) {
-      $data['gambar'] = $request->file('gambar')->store('infografis', 'public');
-    }
-    Infografis::create($data);
-    return redirect()->route('admin.infografis.index')->with('success', 'Infografis berhasil ditambahkan.');
+    Penduduk::create($data);
+    return redirect()->route('admin.infografis.index')->with('success', 'Data penduduk berhasil ditambahkan.');
   }
 
-  public function edit(Infografis $infografis)
+  public function edit(Penduduk $infografis)
   {
-    return view('admin.infografis.edit', compact('infografis'));
+    return view('admin.infografis.edit', ['penduduk' => $infografis]);
   }
 
-  public function update(Request $request, Infografis $infografis)
+  public function update(Request $request, Penduduk $infografis)
   {
     $data = $request->validate([
-      'judul' => 'required',
-      'slug' => 'required|unique:infografis,slug,' . $infografis->id,
-      'deskripsi' => 'required',
-      'gambar' => 'nullable|image',
-      'kategori' => 'nullable|string',
+      'dusun' => 'required|string',
+      'total_penduduk' => 'required|integer',
+      'laki_laki' => 'required|integer',
+      'perempuan' => 'required|integer',
+      'kepala_keluarga' => 'required|integer',
+      'wajib_ktp' => 'nullable|integer',
+      'lahir' => 'nullable|integer',
+      'datang' => 'nullable|integer',
+      'mati' => 'nullable|integer',
+      'pindah' => 'nullable|integer',
     ]);
-    if ($request->hasFile('gambar')) {
-      $data['gambar'] = $request->file('gambar')->store('infografis', 'public');
-    }
     $infografis->update($data);
-    return redirect()->route('admin.infografis.index')->with('success', 'Infografis berhasil diupdate.');
+    return redirect()->route('admin.infografis.index')->with('success', 'Data penduduk berhasil diupdate.');
   }
 
-  public function destroy(Infografis $infografis)
+  public function destroy(Penduduk $infografis)
   {
-    if ($infografis->gambar) {
-      Storage::disk('public')->delete($infografis->gambar);
-    }
     $infografis->delete();
-    return redirect()->route('admin.infografis.index')->with('success', 'Infografis berhasil dihapus.');
+    return redirect()->route('admin.infografis.index')->with('success', 'Data penduduk berhasil dihapus.');
   }
 }
