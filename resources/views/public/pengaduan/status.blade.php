@@ -82,10 +82,17 @@
                         <div>
                             <p class="text-gray-600 text-sm font-semibold mb-1">DURASI PENANGANAN</p>
                             <p class="text-lg font-semibold text-slate-800">
-                                @if($pengaduan->status == 'resolved')
-                                    {{ $pengaduan->created_at->diffInDays($pengaduan->updated_at) }} hari
+                                @php
+                                    $endDate = ($pengaduan->status == 'resolved') ? $pengaduan->updated_at : now();
+                                    $days = $pengaduan->created_at->diffInDays($endDate);
+                                    $hours = $pengaduan->created_at->diffInHours($endDate) % 24;
+                                    $status_text = ($pengaduan->status == 'resolved') ? '' : ' (ongoing)';
+                                @endphp
+                                
+                                @if($days > 0)
+                                    {{ $days }} hari, {{ $hours }} jam{{ $status_text }}
                                 @else
-                                    {{ $pengaduan->created_at->diffInDays(now()) }} hari (ongoing)
+                                    {{ $hours }} jam{{ $status_text }}
                                 @endif
                             </p>
                         </div>
@@ -101,52 +108,65 @@
 
                     <!-- Status Timeline -->
                     <div class="mb-8 pb-8 border-b border-gray-200">
-                        <p class="text-gray-600 text-sm font-semibold mb-4">TIMELINE STATUS</p>
-                        <div class="space-y-4">
+                        <p class="text-gray-600 text-sm font-semibold mb-4">📍 TIMELINE STATUS</p>
+                        <div class="space-y-6">
+                            <!-- Step 1: Diterima -->
                             <div class="flex gap-4">
                                 <div class="flex flex-col items-center">
-                                    <div class="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center text-sm font-bold">✓</div>
-                                    <div class="w-0.5 h-8 bg-gray-300 mt-2"></div>
+                                    <div class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm font-bold">✓</div>
+                                    <div class="w-0.5 h-12 bg-gray-300 mt-2"></div>
                                 </div>
-                                <div>
-                                    <p class="font-semibold text-slate-800">Pengaduan Diterima</p>
-                                    <p class="text-sm text-gray-600">{{ $pengaduan->created_at->format('d M Y H:i') }}</p>
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <p class="font-bold text-slate-800">Pengaduan Diterima</p>
+                                        <span class="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded">Selesai</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600">{{ $pengaduan->created_at->format('d M Y, H:i') }}</p>
                                 </div>
                             </div>
 
+                            <!-- Step 2: Dalam Antrian -->
                             <div class="flex gap-4">
                                 <div class="flex flex-col items-center">
                                     <div class="w-10 h-10 rounded-full 
-                                        @if($pengaduan->status == 'pending' || in_array($pengaduan->status, ['in_progress', 'resolved', 'rejected']))
-                                            bg-emerald-600 text-white flex items-center justify-center text-sm font-bold
+                                        @if(in_array($pengaduan->status, ['pending', 'in_progress', 'resolved', 'rejected']))
+                                            bg-yellow-600 text-white flex items-center justify-center text-sm font-bold
                                         @else
                                             bg-gray-300 text-gray-600 flex items-center justify-center text-sm font-bold
                                         @endif">
-                                        @if($pengaduan->status == 'pending' || in_array($pengaduan->status, ['in_progress', 'resolved', 'rejected']))
+                                        @if(in_array($pengaduan->status, ['pending', 'in_progress', 'resolved', 'rejected']))
                                             ✓
                                         @else
                                             ⏳
                                         @endif
                                     </div>
-                                    <div class="w-0.5 h-8 bg-gray-300 mt-2"></div>
+                                    <div class="w-0.5 h-12 bg-gray-300 mt-2"></div>
                                 </div>
-                                <div>
-                                    <p class="font-semibold text-slate-800">Dalam Antrian Proses</p>
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <p class="font-bold text-slate-800">Dalam Antrian Proses</p>
+                                        @if(in_array($pengaduan->status, ['pending', 'in_progress', 'resolved', 'rejected']))
+                                            <span class="text-xs bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded">Selesai</span>
+                                        @else
+                                            <span class="text-xs bg-gray-100 text-gray-700 px-2 py-0.5 rounded">Menunggu</span>
+                                        @endif
+                                    </div>
                                     <p class="text-sm text-gray-600">
                                         @if(in_array($pengaduan->status, ['pending', 'in_progress', 'resolved', 'rejected']))
-                                            {{ $pengaduan->updated_at->format('d M Y H:i') }}
+                                            {{ $pengaduan->updated_at->format('d M Y, H:i') }}
                                         @else
-                                            Menunggu...
+                                            Sedang menunggu untuk diproses
                                         @endif
                                     </p>
                                 </div>
                             </div>
 
+                            <!-- Step 3: Sedang Ditangani -->
                             <div class="flex gap-4">
                                 <div class="flex flex-col items-center">
                                     <div class="w-10 h-10 rounded-full 
                                         @if(in_array($pengaduan->status, ['in_progress', 'resolved', 'rejected']))
-                                            bg-emerald-600 text-white flex items-center justify-center text-sm font-bold
+                                            bg-orange-600 text-white flex items-center justify-center text-sm font-bold
                                         @else
                                             bg-gray-300 text-gray-600 flex items-center justify-center text-sm font-bold
                                         @endif">
@@ -156,14 +176,73 @@
                                             ⏳
                                         @endif
                                     </div>
+                                    @if($pengaduan->status !== 'resolved' && $pengaduan->status !== 'rejected')
+                                        <div class="w-0.5 h-12 bg-gray-300 mt-2"></div>
+                                    @endif
                                 </div>
-                                <div>
-                                    <p class="font-semibold text-slate-800">Sedang Ditangani</p>
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <p class="font-bold text-slate-800">Sedang Ditangani</p>
+                                        @if(in_array($pengaduan->status, ['in_progress', 'resolved', 'rejected']))
+                                            <span class="text-xs bg-orange-100 text-orange-700 px-2 py-0.5 rounded">Selesai</span>
+                                        @else
+                                            <span class="text-xs bg-gray-100 text-gray-700 px-2 py-0.5 rounded">Menunggu</span>
+                                        @endif
+                                    </div>
                                     <p class="text-sm text-gray-600">
                                         @if(in_array($pengaduan->status, ['in_progress', 'resolved', 'rejected']))
-                                            {{ $pengaduan->updated_at->format('d M Y H:i') }}
+                                            {{ $pengaduan->updated_at->format('d M Y, H:i') }}
                                         @else
-                                            Menunggu...
+                                            Menunggu untuk diproses
+                                        @endif
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Step 4: Selesai/Ditolak -->
+                            <div class="flex gap-4">
+                                <div class="flex flex-col items-center">
+                                    <div class="w-10 h-10 rounded-full 
+                                        @if($pengaduan->status == 'resolved')
+                                            bg-green-600 text-white flex items-center justify-center text-sm font-bold
+                                        @elseif($pengaduan->status == 'rejected')
+                                            bg-red-600 text-white flex items-center justify-center text-sm font-bold
+                                        @else
+                                            bg-gray-300 text-gray-600 flex items-center justify-center text-sm font-bold
+                                        @endif">
+                                        @if($pengaduan->status == 'resolved')
+                                            ✓
+                                        @elseif($pengaduan->status == 'rejected')
+                                            ✕
+                                        @else
+                                            ⏳
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <p class="font-bold text-slate-800">
+                                            @if($pengaduan->status == 'resolved')
+                                                Selesai Ditangani
+                                            @elseif($pengaduan->status == 'rejected')
+                                                Ditolak
+                                            @else
+                                                Penyelesaian
+                                            @endif
+                                        </p>
+                                        @if($pengaduan->status == 'resolved')
+                                            <span class="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded">Selesai</span>
+                                        @elseif($pengaduan->status == 'rejected')
+                                            <span class="text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded">Ditolak</span>
+                                        @else
+                                            <span class="text-xs bg-gray-100 text-gray-700 px-2 py-0.5 rounded">Menunggu</span>
+                                        @endif
+                                    </div>
+                                    <p class="text-sm text-gray-600">
+                                        @if($pengaduan->status == 'resolved' || $pengaduan->status == 'rejected')
+                                            {{ $pengaduan->updated_at->format('d M Y, H:i') }}
+                                        @else
+                                            Menunggu untuk diselesaikan
                                         @endif
                                     </p>
                                 </div>
@@ -172,12 +251,15 @@
                     </div>
 
                     <!-- Admin Notes (Public) -->
-                    @if($pengaduan->admin_notes)
-                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                            <p class="text-blue-900 font-semibold mb-2">📝 Catatan Penanganan</p>
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                        <p class="text-blue-900 font-semibold mb-2">📝 Catatan Penanganan (Public)</p>
+                        <p class="text-sm text-blue-700 mb-2">Catatan ini akan ditampilkan kepada masyarakat di halaman status tracking:</p>
+                        @if($pengaduan->admin_notes)
                             <p class="text-blue-800">{{ $pengaduan->admin_notes }}</p>
-                        </div>
-                    @endif
+                        @else
+                            <p class="text-blue-600 italic">Belum ada catatan dari penangani</p>
+                        @endif
+                    </div>
                 </div>
             </div>
 

@@ -291,7 +291,7 @@
         <iframe src="https://www.google.com/maps?q=-6.3265,107.4297&hl=id&z=15&output=embed" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
     </div>
-    <div id="pengaduan" class="lg:col-span-2 space-y-4">
+    <div id="pengaduan" class="lg:col-span-2">
       <!-- Quick Links Card -->
       <div class="bg-gradient-to-br from-emerald-600 to-emerald-700 p-6 rounded-2xl shadow-xl text-white">
         <h3 class="text-xl font-bold mb-4">📋 Layanan Pengaduan Masyarakat</h3>
@@ -318,41 +318,6 @@
             </div>
           </a>
         </div>
-      </div>
-
-      <!-- Form Card -->
-      <div class="bg-white p-6 rounded-2xl shadow-lg border border-slate-100">
-        <h3 class="text-lg font-bold text-slate-800 mb-4">⚡ Pengaduan Cepat</h3>
-        <form action="{{ route('pengaduan.store') }}" method="POST" enctype="multipart/form-data">
-          @csrf
-          <div class="mb-3">
-            <label for="nama_beranda" class="block text-xs font-semibold text-slate-700 mb-1">Nama</label>
-            <input type="text" name="nama" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-emerald-500 focus:border-emerald-500 transition" placeholder="Nama Anda">
-          </div>
-          <div class="mb-3">
-            <label for="email_beranda" class="block text-xs font-semibold text-slate-700 mb-1">Email <span class="text-red-500">*</span></label>
-            <input type="email" name="email" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-emerald-500 focus:border-emerald-500 transition" placeholder="email@contoh.com" required>
-          </div>
-          <div class="mb-3">
-            <label for="kategori_beranda" class="block text-xs font-semibold text-slate-700 mb-1">Kategori</label>
-            <select name="kategori" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm">
-              <option value="">-- Pilih --</option>
-              <option value="Infrastruktur">Infrastruktur</option>
-              <option value="Kebersihan">Kebersihan</option>
-              <option value="Pelayanan">Pelayanan</option>
-              <option value="Keamanan">Keamanan</option>
-              <option value="Lainnya">Lainnya</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="isi_beranda" class="block text-xs font-semibold text-slate-700 mb-1">Pesan <span class="text-red-500">*</span></label>
-            <textarea name="isi" rows="3" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-emerald-500 focus:border-emerald-500 transition" placeholder="Tuliskan pesan Anda..." required></textarea>
-          </div>
-          <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg transition-all duration-300 hover:scale-105 text-sm">
-            Kirim Sekarang
-          </button>
-        </form>
-        <p class="text-xs text-gray-500 mt-3 text-center">💡 Untuk pengaduan lengkap, kunjungi halaman <a href="{{ route('pengaduan.index') }}" class="text-emerald-600 hover:underline">Pengaduan Lengkap</a></p>
       </div>
     </div>
   </div>
