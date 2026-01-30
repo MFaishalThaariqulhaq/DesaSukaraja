@@ -63,6 +63,23 @@ class InfografisController extends Controller
       'agama_buddha' => 'nullable|integer|min:0',
     ]);
 
+    // Convert empty values to 0 for nullable fields
+    $nullableFields = [
+      'wajib_ktp', 'lahir', 'datang', 'mati', 'pindah',
+      'kelompok_usia_0_5', 'kelompok_usia_6_11', 'kelompok_usia_12_17', 'kelompok_usia_18_25',
+      'kelompok_usia_26_35', 'kelompok_usia_36_45', 'kelompok_usia_46_60', 'kelompok_usia_61_keatas',
+      'pendidikan_sd', 'pendidikan_smp', 'pendidikan_sma', 'pendidikan_diploma', 'pendidikan_belum',
+      'pekerjaan_petani', 'pekerjaan_wiraswasta', 'pekerjaan_karyawan', 'pekerjaan_pns',
+      'pekerjaan_ibu_rumah_tangga', 'pekerjaan_belum',
+      'agama_islam', 'agama_kristen', 'agama_katolik', 'agama_hindu', 'agama_buddha'
+    ];
+
+    foreach ($nullableFields as $field) {
+      if (!isset($data[$field]) || $data[$field] === null || $data[$field] === '') {
+        $data[$field] = 0;
+      }
+    }
+
     Penduduk::create($data);
     return redirect()->route('admin.infografis.index')->with('success', 'Data penduduk berhasil ditambahkan.');
   }
@@ -114,6 +131,23 @@ class InfografisController extends Controller
       'agama_hindu' => 'nullable|integer|min:0',
       'agama_buddha' => 'nullable|integer|min:0',
     ]);
+
+    // Convert empty values to 0 for nullable fields
+    $nullableFields = [
+      'wajib_ktp', 'lahir', 'datang', 'mati', 'pindah',
+      'kelompok_usia_0_5', 'kelompok_usia_6_11', 'kelompok_usia_12_17', 'kelompok_usia_18_25',
+      'kelompok_usia_26_35', 'kelompok_usia_36_45', 'kelompok_usia_46_60', 'kelompok_usia_61_keatas',
+      'pendidikan_sd', 'pendidikan_smp', 'pendidikan_sma', 'pendidikan_diploma', 'pendidikan_belum',
+      'pekerjaan_petani', 'pekerjaan_wiraswasta', 'pekerjaan_karyawan', 'pekerjaan_pns',
+      'pekerjaan_ibu_rumah_tangga', 'pekerjaan_belum',
+      'agama_islam', 'agama_kristen', 'agama_katolik', 'agama_hindu', 'agama_buddha'
+    ];
+
+    foreach ($nullableFields as $field) {
+      if (!isset($data[$field]) || $data[$field] === null || $data[$field] === '') {
+        $data[$field] = 0;
+      }
+    }
 
     $penduduk->update($data);
     return redirect()->route('admin.infografis.index')->with('success', 'Data penduduk berhasil diupdate.');
