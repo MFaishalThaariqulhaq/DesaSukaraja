@@ -19,6 +19,7 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
   </style>
+  @stack('styles')
 </head>
 
 <body class="bg-slate-50 text-slate-700">
@@ -45,7 +46,7 @@
       <!-- Navigasi -->
       <nav id="nav-menu" class="hidden md:flex items-center space-x-6">
         <a href="/" class="text-slate-600 hover:text-emerald-600 font-medium {{ request()->is('/') ? 'border-b-2 border-emerald-500 pb-1' : '' }}">Home</a>
-        <a href="/profil/sejarah" class="text-slate-600 hover:text-emerald-600 font-medium {{ request()->is('profil/sejarah') ? 'border-b-2 border-emerald-500 pb-1' : '' }}">Profil</a>
+        <a href="/profil" class="text-slate-600 hover:text-emerald-600 font-medium {{ request()->is('profil') ? 'border-b-2 border-emerald-500 pb-1' : '' }}">Profil</a>
         <a href="/berita" class="text-slate-600 hover:text-emerald-600 font-medium {{ (request()->is('berita') || request()->is('berita/*')) ? 'border-b-4 border-emerald-500 pb-1' : '' }}">Berita</a>
         <a href="/#galeri" class="text-slate-600 hover:text-emerald-600 font-medium {{ (request()->is('galeri/*') || request()->routeIs('galeri.detail')) ? 'border-b-2 border-emerald-500 pb-1' : '' }}">Galeri</a>
         <a href="/infografis" class="text-slate-600 hover:text-emerald-600 font-medium {{ request()->is('infografis*') ? 'border-b-2 border-emerald-500 pb-1' : '' }}">Infografis</a>
@@ -58,7 +59,7 @@
     <div id="mobile-menu" class="hidden bg-white border-t border-slate-200 md:hidden">
       <nav class="flex flex-col px-4 py-3 space-y-2">
         <a href="/" class="text-slate-700 hover:text-emerald-600 {{ request()->is('/') ? 'border-b-2 border-emerald-500 pb-1' : '' }}">Home</a>
-        <a href="/profil/sejarah" class="text-slate-700 hover:text-emerald-600 {{ request()->is('profil/sejarah') ? 'border-b-2 border-emerald-500 pb-1' : '' }}">Profil</a>
+        <a href="/profil" class="text-slate-700 hover:text-emerald-600 {{ request()->is('profil') ? 'border-b-2 border-emerald-500 pb-1' : '' }}">Profil</a>
         <a href="/berita" class="text-slate-700 hover:text-emerald-600 {{ request()->is('berita') || request()->is('berita/*') ? 'border-b-2 border-emerald-500 pb-1' : '' }}">Berita</a>
         <a href="/#galeri" class="text-slate-700 hover:text-emerald-600 {{ request()->is('#galeri') ? 'border-b-2 border-emerald-500 pb-1' : '' }}">Galeri</a>
         <a href="/infografis" class="text-slate-700 hover:text-emerald-600 {{ request()->is('infografis*') ? 'border-b-2 border-emerald-500 pb-1' : '' }}">Infografis</a>
@@ -125,6 +126,7 @@
       document.getElementById('mobile-menu').classList.toggle('hidden');
     });
   </script>
+  @stack('scripts')
 </body>
 
 </html>

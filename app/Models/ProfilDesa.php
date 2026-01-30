@@ -6,5 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProfilDesa extends Model
 {
-    protected $fillable = ['judul', 'isi', 'gambar', 'visi', 'misi'];
+    protected $fillable = [
+        'judul',
+        'isi',
+        'visi',
+        'misi',
+        'nama_kades',
+        'periode_kades',
+        'foto_kades',
+        'sambutan_kades',
+        'ttd_kades',
+        'struktur_organisasi',
+        'judul_sambutan_kades',
+        'isi_sambutan_kades'
+    ];
+
+    public function sejarah()
+    {
+        return $this->hasMany(SejarahDesa::class, 'profil_desa_id');
+    }
 }

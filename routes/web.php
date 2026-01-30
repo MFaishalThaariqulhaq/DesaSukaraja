@@ -27,7 +27,7 @@ use App\Http\Controllers\Admin\PengaduanController as AdminPengaduanController;
 // == RUTE PUBLIK ==
 // Rute yang bisa diakses oleh semua pengunjung.
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/profil/sejarah', [HomeController::class, 'profilSejarah'])->name('profil.sejarah');
+Route::get('/profil', [HomeController::class, 'profil'])->name('profil');
 // Route Pemerintahan
 Route::get('/pemerintahan', function () {
     $sotks = \App\Models\Sotk::whereNull('bagan')->orderBy('jabatan')->get();
@@ -35,7 +35,6 @@ Route::get('/pemerintahan', function () {
     $baganSotk = $baganConfig['bagan'] ?? null;
     return view('public.sotk.pemerintahan', compact('sotks', 'baganSotk'));
 })->name('pemerintahan');
-Route::get('/profil/visimisi', [HomeController::class, 'profilVisiMisi'])->name('profil.visimisi');
 Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri.index');
 Route::get('/galeri/{id}', [GaleriController::class, 'detail'])->name('galeri.detail');
 Route::get('/berita', [HomeController::class, 'beritaIndex'])->name('berita.index');
@@ -83,5 +82,7 @@ Route::prefix('admin')->group(function () {
     Route::post('admin/sotk/bagan', [AdminSotkController::class, 'baganUpload'])->name('admin.sotk.bagan.upload');
     Route::resource('pengaduan', AdminPengaduanController::class)->names('admin.pengaduan');
     Route::resource('profil', App\Http\Controllers\Admin\ProfilDesaController::class)->names('admin.profil');
+    Route::post('profil/tambah-sejarah', [App\Http\Controllers\Admin\ProfilDesaController::class, 'tambahSejarah'])->name('admin.profil.tambahSejarah');
+    Route::delete('profil/hapus-sejarah/{id}', [App\Http\Controllers\Admin\ProfilDesaController::class, 'hapusSejarah'])->name('admin.profil.hapusSejarah');
     Route::get('/berita/{slug}', [App\Http\Controllers\HomeController::class, 'beritaDetail'])->name('berita.detail');
 }); // Ini adalah penutup untuk Route::prefix('admin')->group

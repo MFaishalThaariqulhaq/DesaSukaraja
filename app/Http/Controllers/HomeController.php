@@ -6,6 +6,13 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+  public function profil()
+  {
+    $profil = \App\Models\ProfilDesa::first();
+    $sejarah = $profil ? $profil->sejarah()->orderBy('tahun', 'asc')->get() : collect();
+    return view('public.profil.profil', compact('profil', 'sejarah'));
+  }
+
   public function beritaIndex()
   {
     $beritas = \App\Models\Berita::orderBy('created_at', 'desc')->paginate(6);
@@ -15,7 +22,7 @@ class HomeController extends Controller
   {
     $beritas = \App\Models\Berita::orderBy('created_at', 'desc')->take(3)->get();
     $galeris = \App\Models\Galeri::orderBy('created_at', 'desc')->take(6)->get();
-    $wisatas = \App\Models\Wisata::orderBy('created_at', 'desc')->take(3)->get();
+
     $sotks = \App\Models\Sotk::orderBy('created_at', 'asc')->get();
     $pengaduanCount = \App\Models\Pengaduan::count();
     $profil = \App\Models\ProfilDesa::first();
@@ -27,7 +34,7 @@ class HomeController extends Controller
       'total_laki' => $penduduks->sum('laki_laki'),
       'total_perempuan' => $penduduks->sum('perempuan'),
     ];
-    return view('public.beranda', compact('beritas', 'galeris', 'wisatas', 'sotks', 'pengaduanCount', 'profil', 'stat_penduduk'));
+    return view('public.beranda', compact('beritas', 'galeris', 'sotks', 'pengaduanCount', 'profil', 'stat_penduduk'));
   }
 
   public function beritaDetail($slug)

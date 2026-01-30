@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galeri Desa Sukaraja</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,600&display=swap');
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8fafc;
+      /* slate-50 */
+    }
+
+    .hero-bg {
+      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.25)), url('https://images.pexels.com/photos/2132075/pexels-photo-2132075.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop'), url('assets/hero.svg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(16, 185, 129, 0.06), rgba(14, 165, 233, 0.04), rgba(99, 102, 241, 0.03));
+      background-size: 200% 200%;
+      animation: gradientShift 12s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes gradientShift {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    #tsparticles {
+      position: absolute;
+      inset: 0;
+      z-index: -10;
+    }
+
+    lottie-player {
+      display: block;
+    }
+
+    .fade-in-section {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      will-change: opacity, transform;
+    }
+
+    .fade-in-section.is-visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .nav-link {
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #10b981;
+      transition: width 0.3s ease-in-out;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .masonry-grid {
+      column-count: 1;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 640px) {
+      .masonry-grid {
+        column-count: 2;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .masonry-grid {
+        column-count: 3;
+      }
+    }
+
+    .break-inside-avoid {
+      break-inside: avoid;
+    }
+  </style>
+</head>
+
+<body class="bg-slate-50 antialiased text-slate-600">
+
+  <!-- Header & Navigation -->
+  <header id="header" class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm transition-all duration-300">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="flex items-center space-x-2">
+        <img src="assets/logo.png" alt="Logo Desa Sukaraja"
+          class="w-10 h-10 md:w-12 md:h-12 object-contain site-logo flex-shrink-0"
+          onerror="this.src='https://placehold.co/48x48/10b981/ffffff?text=DS'">
+        <div class="flex flex-col">
+          <span class="text-xs text-slate-800 leading-tight md:text-sm font-semibold">PEMERINTAH DESA
+            SUKARAJA</span>
+          <span class="text-xs text-slate-600 leading-tight md:text-sm">KABUPATEN KARAWANG</span>
+        </div>
+      </a>
+      <nav class="hidden md:flex items-center space-x-8" aria-label="Main navigation">
+        <a href="index.html" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Home</a>
+        <a href="profile.html" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Profil</a>
+        <a href="berita.html" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Berita</a>
+        <a href="galeri.html" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Galeri</a>
+        <a href="infografis.html" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Infografis</a>
+        <a href="sotk.html" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">SOTK</a>
+        <a href="index.html#peta" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Peta
+          Desa</a>
+      </nav>
+      <div class="flex items-center space-x-4">
+        <a href="#pengaduan"
+          class="hidden md:inline-block bg-emerald-500 text-white font-semibold px-5 py-2 rounded-lg shadow-md hover:bg-emerald-600 transition-transform duration-300 hover:scale-105">
+          Lapor
+        </a>
+        <button id="mobile-menu-button" class="md:hidden p-2 rounded-md text-slate-700 hover:bg-slate-100">
+          <i data-lucide="menu"></i>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden px-6 pb-4" aria-label="Mobile navigation">
+      <a href="index.html" class="block py-2 text-slate-600 hover:text-emerald-600">Home</a>
+      <a href="profile.html" class="block py-2 text-slate-600 hover:text-emerald-600">Profil</a>
+      <a href="berita.html" class="block py-2 text-slate-600 hover:text-emerald-600">Berita</a>
+      <a href="galeri.html" class="block py-2 text-slate-600 hover:text-emerald-600">Galeri</a>
+      <a href="infografis.html" class="block py-2 text-slate-600 hover:text-emerald-600">Infografis</a>
+      <a href="sotk.html" class="block py-2 text-slate-600 hover:text-emerald-600">SOTK</a>
+      <a href="index.html#peta" class="block py-2 text-slate-600 hover:text-emerald-600">Peta Desa</a>
+      <a href="#pengaduan"
+        class="block w-full text-center mt-4 bg-emerald-500 text-white font-semibold px-5 py-2 rounded-lg shadow-md hover:bg-emerald-600 transition-all">Lapor</a>
+    </div>
+  </header>
+
+  <!-- Header Section -->
+  <header class="bg-slate-900 text-white py-20 relative overflow-hidden">
+    <div class="absolute inset-0 overflow-hidden opacity-30">
+      <img src="assets/sawah.jpg" class="w-full h-full object-cover" alt="Background Alam">
+    </div>
+    <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent"></div>
+    <div class="container mx-auto px-6 relative z-10 text-center" data-aos="fade-up">
+      <span class="text-emerald-400 font-bold uppercase tracking-widest text-sm mb-2 block">Album Desa</span>
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Galeri Desa Sukaraja</h1>
+      <p class="text-slate-300 max-w-2xl mx-auto text-lg">Potret keindahan alam, kegiatan masyarakat, dan jejak
+        pembangunan desa kami.</p>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container mx-auto px-6 py-12">
+
+    <!-- Filter Buttons -->
+    <div class="flex flex-wrap justify-center gap-4 mb-12" data-aos="fade-up" data-aos-delay="100">
+      <button
+        class="px-6 py-2 rounded-full bg-emerald-600 text-white font-medium shadow-md hover:bg-emerald-700 transition">Semua</button>
+      <button
+        class="px-6 py-2 rounded-full bg-white text-slate-600 border border-slate-200 font-medium hover:bg-emerald-50 hover:text-emerald-600 hover:border-emerald-200 transition">Kegiatan</button>
+      <button
+        class="px-6 py-2 rounded-full bg-white text-slate-600 border border-slate-200 font-medium hover:bg-emerald-50 hover:text-emerald-600 hover:border-emerald-200 transition">Alam
+        & Wisata</button>
+      <button
+        class="px-6 py-2 rounded-full bg-white text-slate-600 border border-slate-200 font-medium hover:bg-emerald-50 hover:text-emerald-600 hover:border-emerald-200 transition">Pembangunan</button>
+    </div>
+
+    <!-- Gallery Grid (Masonry Style) -->
+    <div class="masonry-grid" id="gallery-container">
+
+      <!-- Item 1 -->
+      <div class="mb-6 break-inside-avoid group relative rounded-xl overflow-hidden shadow-lg" data-aos="fade-up">
+        <img src="assets/upacaraadatkarawang.png"
+          class="w-full h-auto transform group-hover:scale-105 transition duration-700" alt="Upacara Adat">
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-6">
+          <span class="text-emerald-400 text-xs font-bold uppercase tracking-wider mb-1">Kegiatan</span>
+          <h3 class="text-white text-lg font-bold">Upacara Adat Panen Raya</h3>
+        </div>
+      </div>
+
+      <!-- Item 2 -->
+      <div class="mb-6 break-inside-avoid group relative rounded-xl overflow-hidden shadow-lg" data-aos="fade-up"
+        data-aos-delay="100">
+        <img src="assets/sawah.jpg" class="w-full h-auto transform group-hover:scale-105 transition duration-700"
+          alt="Sawah">
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-6">
+          <span class="text-emerald-400 text-xs font-bold uppercase tracking-wider mb-1">Alam</span>
+          <h3 class="text-white text-lg font-bold">Hamparan Sawah Blok C</h3>
+        </div>
+      </div>
+
+      <!-- Item 3 -->
+      <div class="mb-6 break-inside-avoid group relative rounded-xl overflow-hidden shadow-lg" data-aos="fade-up"
+        data-aos-delay="200">
+        <img src="assets/pembangunan desa.jpg"
+          class="w-full h-auto transform group-hover:scale-105 transition duration-700" alt="Pembangunan Jalan">
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-6">
+          <span class="text-emerald-400 text-xs font-bold uppercase tracking-wider mb-1">Pembangunan</span>
+          <h3 class="text-white text-lg font-bold">Pengaspalan Jalan Dusun 2</h3>
+        </div>
+      </div>
+
+      <!-- Item 4 -->
+      <div class="mb-6 break-inside-avoid group relative rounded-xl overflow-hidden shadow-lg" data-aos="fade-up">
+        <img src="assets/anak.jpg" class="w-full h-auto transform group-hover:scale-105 transition duration-700"
+          alt="Anak-anak">
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-6">
+          <span class="text-emerald-400 text-xs font-bold uppercase tracking-wider mb-1">Kegiatan</span>
+          <h3 class="text-white text-lg font-bold">Keceriaan Anak-Anak Desa</h3>
+        </div>
+      </div>
+
+      <!-- Item 5 -->
+      <div class="mb-6 break-inside-avoid group relative rounded-xl overflow-hidden shadow-lg" data-aos="fade-up"
+        data-aos-delay="100">
+        <img src="assets/sungai.jpg" class="w-full h-auto transform group-hover:scale-105 transition duration-700"
+          alt="Sungai">
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-6">
+          <span class="text-emerald-400 text-xs font-bold uppercase tracking-wider mb-1">Alam</span>
+          <h3 class="text-white text-lg font-bold">Sungai Citarum Asri</h3>
+        </div>
+      </div>
+
+      <!-- Item 6 -->
+      <div class="mb-6 break-inside-avoid group relative rounded-xl overflow-hidden shadow-lg" data-aos="fade-up"
+        data-aos-delay="200">
+        <img src="assets/Umkm.png" class="w-full h-auto transform group-hover:scale-105 transition duration-700"
+          alt="Produk Lokal">
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-6">
+          <span class="text-emerald-400 text-xs font-bold uppercase tracking-wider mb-1">UMKM</span>
+          <h3 class="text-white text-lg font-bold">Pameran Produk Lokal</h3>
+        </div>
+      </div>
+
+      <!-- Item 7 -->
+      <div class="mb-6 break-inside-avoid group relative rounded-xl overflow-hidden shadow-lg" data-aos="fade-up">
+        <img src="assets/bansos.jpeg" class="w-full h-auto transform group-hover:scale-105 transition duration-700"
+          alt="Bansos">
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-6">
+          <span class="text-emerald-400 text-xs font-bold uppercase tracking-wider mb-1">Kegiatan</span>
+          <h3 class="text-white text-lg font-bold">Penyaluran Bantuan Sosial</h3>
+        </div>
+      </div>
+
+      <!-- Item 8 -->
+      <div class="mb-6 break-inside-avoid group relative rounded-xl overflow-hidden shadow-lg" data-aos="fade-up"
+        data-aos-delay="100">
+        <img src="assets/posyandu.png" class="w-full h-auto transform group-hover:scale-105 transition duration-700"
+          alt="Balai Desa">
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-6">
+          <span class="text-emerald-400 text-xs font-bold uppercase tracking-wider mb-1">Kesehatan</span>
+          <h3 class="text-white text-lg font-bold">posyandu</h3>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Load More -->
+    <div class="text-center mt-12">
+      <button
+        class="inline-flex items-center px-6 py-3 border border-slate-300 shadow-sm text-base font-medium rounded-md text-slate-700 bg-white hover:bg-slate-50 transition">
+        Muat Lebih Banyak
+        <svg class="ml-2 -mr-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Footer Simple -->
+  <footer class="bg-slate-900 text-slate-400 py-8 text-center text-sm border-t border-slate-800">
+    <div class="container mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-8 mb-8 text-left">
+        <div>
+          <h4 class="text-white font-bold mb-4 font-serif text-lg">Desa Sukaraja</h4>
+          <p>Membangun desa dengan hati, melayani dengan integritas.</p>
+        </div>
+        <div>
+          <h4 class="text-white font-bold mb-4 font-serif text-lg">Kontak</h4>
+          <p>Jl. Raya Sukaraja No. 12, Kec. Rawamerta</p>
+          <p>Kabupaten Karawang, Jawa Barat</p>
+          <p class="mt-2">Email: admin@sukaraja.desa.id</p>
+        </div>
+        <div>
+          <h4 class="text-white font-bold mb-4 font-serif text-lg">Jam Pelayanan</h4>
+          <p>Senin - Jumat: 08:00 - 16:00 WIB</p>
+          <p>Sabtu - Minggu: Libur</p>
+        </div>
+      </div>
+      <div class="border-t border-slate-800 pt-8">
+        <p>&copy; 2024 Pemerintah Desa Sukaraja. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- AOS Script -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      once: true,
+      offset: 50,
+      duration: 800,
+      easing: 'ease-out-cubic'
+    });
+  </script>
+</body>
+
+</html>

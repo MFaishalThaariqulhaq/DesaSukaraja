@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arsip Berita - Desa Sukaraja</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,600&display=swap');
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8fafc;
+      /* slate-50 */
+    }
+
+    .hero-bg {
+      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.25)), url('https://images.pexels.com/photos/2132075/pexels-photo-2132075.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop'), url('assets/hero.svg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(16, 185, 129, 0.06), rgba(14, 165, 233, 0.04), rgba(99, 102, 241, 0.03));
+      background-size: 200% 200%;
+      animation: gradientShift 12s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes gradientShift {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    #tsparticles {
+      position: absolute;
+      inset: 0;
+      z-index: -10;
+    }
+
+    lottie-player {
+      display: block;
+    }
+
+    .fade-in-section {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      will-change: opacity, transform;
+    }
+
+    .fade-in-section.is-visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .nav-link {
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #10b981;
+      transition: width 0.3s ease-in-out;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body class="bg-slate-50 antialiased text-slate-600">
+
+  <!-- Header & Navigation -->
+  <header id="header" class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm transition-all duration-300">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="flex items-center space-x-2">
+        <img src="assets/logo.png" alt="Logo Desa Sukaraja"
+          class="w-10 h-10 md:w-12 md:h-12 object-contain site-logo flex-shrink-0"
+          onerror="this.src='https://placehold.co/48x48/10b981/ffffff?text=DS'">
+        <div class="flex flex-col">
+          <span class="text-xs text-slate-800 leading-tight md:text-sm font-semibold">PEMERINTAH DESA
+            SUKARAJA</span>
+          <span class="text-xs text-slate-600 leading-tight md:text-sm">KABUPATEN KARAWANG</span>
+        </div>
+      </a>
+      <nav class="hidden md:flex items-center space-x-8" aria-label="Main navigation">
+        <a href="index.html" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Home</a>
+        <a href="profile.html" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Profil</a>
+        <a href="berita.html" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Berita</a>
+        <a href="galeri.html" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Galeri</a>
+        <a href="infografis.html" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Infografis</a>
+        <a href="sotk.html" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">SOTK</a>
+        <a href="index.html#peta" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Peta
+          Desa</a>
+      </nav>
+      <div class="flex items-center space-x-4">
+        <a href="#pengaduan"
+          class="hidden md:inline-block bg-emerald-500 text-white font-semibold px-5 py-2 rounded-lg shadow-md hover:bg-emerald-600 transition-transform duration-300 hover:scale-105">
+          lapor
+        </a>
+        <button id="mobile-menu-button" class="md:hidden p-2 rounded-md text-slate-700 hover:bg-slate-100">
+          <i data-lucide="menu"></i>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden px-6 pb-4" aria-label="Mobile navigation">
+      <a href="index.html" class="block py-2 text-slate-600 hover:text-emerald-600">Home</a>
+      <a href="profile.html" class="block py-2 text-slate-600 hover:text-emerald-600">Profil</a>
+      <a href="berita.html" class="block py-2 text-slate-600 hover:text-emerald-600">Berita</a>
+      <a href="galeri.html" class="block py-2 text-slate-600 hover:text-emerald-600">Galeri</a>
+      <a href="infografis.html" class="block py-2 text-slate-600 hover:text-emerald-600">Infografis</a>
+      <a href="sotk.html" class="block py-2 text-slate-600 hover:text-emerald-600">SOTK</a>
+      <a href="index.html#peta" class="block py-2 text-slate-600 hover:text-emerald-600">Peta Desa</a>
+      <a href="#pengaduan"
+        class="block w-full text-center mt-4 bg-emerald-500 text-white font-semibold px-5 py-2 rounded-lg shadow-md hover:bg-emerald-600 transition-all">Lapor</a>
+    </div>
+  </header>
+
+  <!-- Header Section -->
+  <header class="bg-slate-900 text-white py-20 relative overflow-hidden">
+    <div class="absolute inset-0 overflow-hidden opacity-20">
+      <img src="https://images.unsplash.com/photo-1464618663641-bbdd760ae84a?q=80&w=2070&auto=format&fit=crop"
+        class="w-full h-full object-cover" alt="Background">
+    </div>
+    <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent"></div>
+    <div class="container mx-auto px-6 relative z-10 text-center" data-aos="fade-up">
+      <span class="text-emerald-400 font-bold uppercase tracking-widest text-sm mb-2 block">Pusat Informasi</span>
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Arsip Berita & Kegiatan</h1>
+      <p class="text-slate-300 max-w-2xl mx-auto text-lg">Temukan informasi terbaru, pengumuman, dan dokumentasi
+        kegiatan Desa Sukaraja.</p>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container mx-auto px-6 py-12">
+    <div class="grid lg:grid-cols-12 gap-12">
+
+      <!-- Sidebar (Filter & Search) -->
+      <aside class="lg:col-span-4 space-y-8" data-aos="fade-right" data-aos-delay="100">
+        <!-- Search Box -->
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+          <h3 class="text-xl font-bold text-slate-800 mb-4 font-sans">Cari Berita</h3>
+          <div class="relative">
+            <input type="text" placeholder="Kata kunci..."
+              class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition">
+            <svg class="w-5 h-5 text-slate-400 absolute left-3 top-3.5" fill="none" stroke="currentColor"
+              viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Categories -->
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+          <h3 class="text-xl font-bold text-slate-800 mb-4 font-sans">Kategori</h3>
+          <ul class="space-y-2">
+            <li>
+              <a href="#"
+                class="flex items-center justify-between p-2 rounded-lg bg-emerald-50 text-emerald-700 font-medium hover:bg-emerald-100 transition">
+                <span>Semua Berita</span>
+                <span class="bg-white text-emerald-600 py-0.5 px-2 rounded text-xs font-bold shadow-sm">24</span>
+              </a>
+            </li>
+            <li>
+              <a href="#"
+                class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-50 text-slate-600 hover:text-emerald-600 transition">
+                <span>Pemerintahan</span>
+                <span class="bg-slate-100 text-slate-500 py-0.5 px-2 rounded text-xs font-bold">8</span>
+              </a>
+            </li>
+            <li>
+              <a href="#"
+                class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-50 text-slate-600 hover:text-emerald-600 transition">
+                <span>Pembangunan</span>
+                <span class="bg-slate-100 text-slate-500 py-0.5 px-2 rounded text-xs font-bold">5</span>
+              </a>
+            </li>
+            <li>
+              <a href="#"
+                class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-50 text-slate-600 hover:text-emerald-600 transition">
+                <span>Kesehatan</span>
+                <span class="bg-slate-100 text-slate-500 py-0.5 px-2 rounded text-xs font-bold">4</span>
+              </a>
+            </li>
+            <li>
+              <a href="#"
+                class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-50 text-slate-600 hover:text-emerald-600 transition">
+                <span>Ekonomi & UMKM</span>
+                <span class="bg-slate-100 text-slate-500 py-0.5 px-2 rounded text-xs font-bold">7</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- News Grid -->
+      <main class="lg:col-span-8">
+        <div class="grid md:grid-cols-2 gap-8">
+
+          <!-- News Item 1 -->
+          <article
+            class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 border border-slate-100 group flex flex-col h-full"
+            data-aos="fade-up">
+            <div class="relative h-48 overflow-hidden">
+              <img src="assets/saluran irigasi.jpg  "
+                class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700"
+                alt="Kerja Bakti">
+              <div
+                class="absolute top-4 left-4 bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
+                Lingkungan</div>
+            </div>
+            <div class="p-6 flex-1 flex flex-col">
+              <div class="text-slate-400 text-xs mb-2 flex items-center gap-2">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                18 September 2025
+              </div>
+              <h2 class="text-xl font-bold text-slate-800 mb-3 group-hover:text-emerald-600 transition leading-snug">
+                <a href="#">Warga Antusias Laksanakan Kerja Bakti Saluran Irigasi</a>
+              </h2>
+              <p class="text-slate-600 text-sm line-clamp-3 mb-4 flex-1">
+                Kegiatan gotong royong membersihkan saluran irigasi utama desa berjalan lancar dengan partisipasi lebih
+                dari 100 warga dari berbagai dusun.
+              </p>
+              <a href="#"
+                class="text-emerald-600 font-semibold text-sm hover:underline inline-flex items-center mt-auto">
+                Baca Selengkapnya <span class="ml-1 transition-transform group-hover:translate-x-1">&rarr;</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- News Item 2 -->
+          <article
+            class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 border border-slate-100 group flex flex-col h-full"
+            data-aos="fade-up" data-aos-delay="100">
+            <div class="relative h-48 overflow-hidden">
+              <img src="assets/lokal.webp"
+                class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700" alt="UMKM">
+              <div
+                class="absolute top-4 left-4 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
+                Ekonomi</div>
+            </div>
+            <div class="p-6 flex-1 flex flex-col">
+              <div class="text-slate-400 text-xs mb-2 flex items-center gap-2">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                15 September 2025
+              </div>
+              <h2 class="text-xl font-bold text-slate-800 mb-3 group-hover:text-blue-600 transition leading-snug">
+                <a href="#">Pelatihan Digital Marketing untuk UMKM Desa</a>
+              </h2>
+              <p class="text-slate-600 text-sm line-clamp-3 mb-4 flex-1">
+                Pemerintah desa menggandeng praktisi pemasaran digital untuk memberikan pelatihan gratis bagi pelaku
+                UMKM agar bisa "Go Online".
+              </p>
+              <a href="#" class="text-blue-600 font-semibold text-sm hover:underline inline-flex items-center mt-auto">
+                Baca Selengkapnya <span class="ml-1 transition-transform group-hover:translate-x-1">&rarr;</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- News Item 3 -->
+          <article
+            class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 border border-slate-100 group flex flex-col h-full"
+            data-aos="fade-up">
+            <div class="relative h-48 overflow-hidden">
+              <img src="assets/kesehatan.jpg"
+                class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700"
+                alt="Kesehatan">
+              <div
+                class="absolute top-4 left-4 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
+                Kesehatan</div>
+            </div>
+            <div class="p-6 flex-1 flex flex-col">
+              <div class="text-slate-400 text-xs mb-2 flex items-center gap-2">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                12 September 2025
+              </div>
+              <h2 class="text-xl font-bold text-slate-800 mb-3 group-hover:text-red-600 transition leading-snug">
+                <a href="#">Posyandu Melati Sukses Gelar Imunisasi</a>
+              </h2>
+              <p class="text-slate-600 text-sm line-clamp-3 mb-4 flex-1">
+                Ratusan balita mendapatkan vitamin A dan imunisasi lengkap dalam kegiatan bulanan Posyandu Melati di
+                Dusun II.
+              </p>
+              <a href="#" class="text-red-600 font-semibold text-sm hover:underline inline-flex items-center mt-auto">
+                Baca Selengkapnya <span class="ml-1 transition-transform group-hover:translate-x-1">&rarr;</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- News Item 4 (New) -->
+          <article
+            class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 border border-slate-100 group flex flex-col h-full"
+            data-aos="fade-up" data-aos-delay="100">
+            <div class="relative h-48 overflow-hidden">
+              <img src="assets/kantor desa.jpg"
+                class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700"
+                alt="Rapat Desa">
+              <div
+                class="absolute top-4 left-4 bg-slate-700 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
+                Pemerintahan</div>
+            </div>
+            <div class="p-6 flex-1 flex flex-col">
+              <div class="text-slate-400 text-xs mb-2 flex items-center gap-2">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                05 September 2025
+              </div>
+              <h2 class="text-xl font-bold text-slate-800 mb-3 group-hover:text-emerald-600 transition leading-snug">
+                <a href="#">Musyawarah Desa Penetapan RKPDes Tahun 2026</a>
+              </h2>
+              <p class="text-slate-600 text-sm line-clamp-3 mb-4 flex-1">
+                BPD dan Pemerintah Desa menetapkan prioritas pembangunan tahun depan dengan fokus pada infrastruktur
+                pertanian dan pendidikan.
+              </p>
+              <a href="#"
+                class="text-emerald-600 font-semibold text-sm hover:underline inline-flex items-center mt-auto">
+                Baca Selengkapnya <span class="ml-1 transition-transform group-hover:translate-x-1">&rarr;</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- News Item 5 (New) -->
+          <article
+            class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 border border-slate-100 group flex flex-col h-full"
+            data-aos="fade-up">
+            <div class="relative h-48 overflow-hidden">
+              <img src="assets/sawah.jpg"
+                class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700"
+                alt="Panen Raya">
+              <div
+                class="absolute top-4 left-4 bg-yellow-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
+                Pertanian</div>
+            </div>
+            <div class="p-6 flex-1 flex flex-col">
+              <div class="text-slate-400 text-xs mb-2 flex items-center gap-2">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                01 September 2025
+              </div>
+              <h2 class="text-xl font-bold text-slate-800 mb-3 group-hover:text-yellow-600 transition leading-snug">
+                <a href="#">Panen Raya Padi: Hasil Meningkat 20% Dibanding Tahun Lalu</a>
+              </h2>
+              <p class="text-slate-600 text-sm line-clamp-3 mb-4 flex-1">
+                Syukuran panen raya digelar di area persawahan Blok C, menandai keberhasilan program pupuk bersubsidi
+                desa.
+              </p>
+              <a href="#"
+                class="text-yellow-600 font-semibold text-sm hover:underline inline-flex items-center mt-auto">
+                Baca Selengkapnya <span class="ml-1 transition-transform group-hover:translate-x-1">&rarr;</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- News Item 6 (New) -->
+          <article
+            class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 border border-slate-100 group flex flex-col h-full"
+            data-aos="fade-up" data-aos-delay="100">
+            <div class="relative h-48 overflow-hidden">
+              <img src="assets/pemuda.jpg"
+                class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700" alt="Pemuda">
+              <div
+                class="absolute top-4 left-4 bg-purple-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
+                Kepemudaan</div>
+            </div>
+            <div class="p-6 flex-1 flex flex-col">
+              <div class="text-slate-400 text-xs mb-2 flex items-center gap-2">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                28 Agustus 2025
+              </div>
+              <h2 class="text-xl font-bold text-slate-800 mb-3 group-hover:text-purple-600 transition leading-snug">
+                <a href="#">Turnamen Voli Antar Dusun Resmi Dibuka</a>
+              </h2>
+              <p class="text-slate-600 text-sm line-clamp-3 mb-4 flex-1">
+                Karang Taruna Desa Sukaraja kembali menggelar turnamen olahraga tahunan untuk mempererat tali
+                silaturahmi antar pemuda.
+              </p>
+              <a href="#"
+                class="text-purple-600 font-semibold text-sm hover:underline inline-flex items-center mt-auto">
+                Baca Selengkapnya <span class="ml-1 transition-transform group-hover:translate-x-1">&rarr;</span>
+              </a>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- Pagination -->
+        <div class="mt-12 flex justify-center">
+          <nav class="flex items-center gap-2" aria-label="Pagination">
+            <a href="#"
+              class="w-10 h-10 flex items-center justify-center rounded-lg border border-slate-200 text-slate-500 hover:bg-slate-50 transition">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+              </svg>
+            </a>
+            <a href="#"
+              class="w-10 h-10 flex items-center justify-center rounded-lg bg-emerald-600 text-white font-bold shadow-md">1</a>
+            <a href="#"
+              class="w-10 h-10 flex items-center justify-center rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-emerald-600 transition font-medium">2</a>
+            <a href="#"
+              class="w-10 h-10 flex items-center justify-center rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-emerald-600 transition font-medium">3</a>
+            <span class="w-10 h-10 flex items-center justify-center text-slate-400">...</span>
+            <a href="#"
+              class="w-10 h-10 flex items-center justify-center rounded-lg border border-slate-200 text-slate-500 hover:bg-slate-50 transition">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </a>
+          </nav>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Footer Simple -->
+  <footer class="bg-slate-900 text-slate-400 py-8 text-center text-sm border-t border-slate-800">
+    <div class="container mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-8 mb-8 text-left">
+        <div>
+          <h4 class="text-white font-bold mb-4 font-serif text-lg">Desa Sukaraja</h4>
+          <p>Membangun desa dengan hati, melayani dengan integritas.</p>
+        </div>
+        <div>
+          <h4 class="text-white font-bold mb-4 font-serif text-lg">Kontak</h4>
+          <p>Jl. Raya Sukaraja No. 12, Kec. Rawamerta</p>
+          <p>Kabupaten Karawang, Jawa Barat</p>
+          <p class="mt-2">Email: admin@sukaraja.desa.id</p>
+        </div>
+        <div>
+          <h4 class="text-white font-bold mb-4 font-serif text-lg">Jam Pelayanan</h4>
+          <p>Senin - Jumat: 08:00 - 16:00 WIB</p>
+          <p>Sabtu - Minggu: Libur</p>
+        </div>
+      </div>
+      <div class="border-t border-slate-800 pt-8">
+        <p>&copy; 2024 Pemerintah Desa Sukaraja. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- AOS Script -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // Mobile Menu Toggle
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileMenuButton && mobileMenu) {
+      mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        const icon = mobileMenuButton.querySelector('i');
+        if (icon) {
+          if (mobileMenu.classList.contains('hidden')) {
+            icon.setAttribute('data-lucide', 'menu');
+          } else {
+            icon.setAttribute('data-lucide', 'x');
+          }
+        }
+        if (window.lucide) lucide.createIcons();
+      });
+      // Close mobile menu when a link is clicked
+      const mobileLinks = mobileMenu.querySelectorAll('a');
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+          const icon = mobileMenuButton.querySelector('i');
+          if (icon) icon.setAttribute('data-lucide', 'menu');
+          if (window.lucide) lucide.createIcons();
+        });
+      });
+    }
+  </script>
+  <script>
+    AOS.init({
+      once: true,
+      offset: 50,
+      duration: 800,
+      easing: 'ease-out-cubic'
+    });
+  </script>
+</body>
+
+</html>

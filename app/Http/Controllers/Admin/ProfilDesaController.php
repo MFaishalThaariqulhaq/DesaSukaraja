@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\ProfilDesa;
+use App\Models\SejarahDesa;
 
 class ProfilDesaController extends Controller
 {
@@ -12,16 +14,9 @@ class ProfilDesaController extends Controller
      */
     public function index()
     {
-        $profil = \App\Models\ProfilDesa::first();
-        return view('admin.profil.index', compact('profil'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('admin.profil.create');
+        $profil = ProfilDesa::first();
+        $sejarah = SejarahDesa::orderBy('tahun')->get();
+        return view('admin.profil.index', compact('profil', 'sejarah'));
     }
 
     /**
@@ -30,20 +25,34 @@ class ProfilDesaController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'judul' => 'required|string|max:255',
-            'isi' => 'required|string',
-            'visi' => 'required|string',
-            'misi' => 'required|string',
-            'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'judul' => 'nullable|string|max:255',
+            'isi' => 'nullable|string',
+            'visi' => 'nullable|string',
+            'misi' => 'nullable|string',
+            'nama_kades' => 'required|string',
+            'periode_kades' => 'required|string',
+            'foto_kades' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'sambutan_kades' => 'nullable|string',
+            'judul_sambutan_kades' => 'nullable|string|max:255',
+            'isi_sambutan_kades' => 'nullable|string',
+            'ttd_kades' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'struktur_organisasi' => 'nullable|image|mimes:jpg,jpeg,png|max:4096',
         ]);
 
-        if ($request->hasFile('gambar')) {
-            $file = $request->file('gambar');
-            $path = $file->store('profil', 'public');
-            $validated['gambar'] = $path;
+        if ($request->hasFile('foto_kades')) {
+            $validated['foto_kades'] = $request->file('foto_kades')->store('kades', 'public');
         }
-
-        \App\Models\ProfilDesa::create($validated);
+        if ($request->hasFile('ttd_kades')) {
+            $validated['ttd_kades'] = $request->file('ttd_kades')->store('ttd', 'public');
+        }
+        if ($request->hasFile('struktur_organisasi')) {
+            $validated['struktur_organisasi'] = $request->file('struktur_organisasi')->store('struktur', 'public');
+        }
+        // Misi: array to string
+        if (is_array($request->misi)) {
+            $validated['misi'] = implode("\n", array_filter($request->misi));
+        }
+        ProfilDesa::create($validated);
         return redirect()->route('admin.profil.index')->with('success', 'Profil desa berhasil ditambahkan.');
     }
 
@@ -56,43 +65,62 @@ class ProfilDesaController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        $profil = \App\Models\ProfilDesa::findOrFail($id);
-        return view('admin.profil.edit', compact('profil'));
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        $profil = \App\Models\ProfilDesa::findOrFail($id);
+        $profil = ProfilDesa::findOrFail($id);
         $validated = $request->validate([
-            'judul' => 'required|string|max:255',
-            'isi' => 'required|string',
-            'visi' => 'required|string',
-            'misi' => 'required|string',
-            'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'judul' => 'sometimes|string|max:255',
+            'isi' => 'sometimes|string',
+            'visi' => 'sometimes|string',
+            'misi' => 'sometimes',
+            'nama_kades' => 'sometimes|string',
+            'periode_kades' => 'sometimes|string',
+            'foto_kades' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'sambutan_kades' => 'sometimes|string',
+            'judul_sambutan_kades' => 'nullable|string|max:255',
+            'isi_sambutan_kades' => 'nullable|string',
+            'ttd_kades' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'struktur_organisasi' => 'nullable|image|mimes:jpg,jpeg,png|max:4096',
         ]);
-
-        if ($request->hasFile('gambar')) {
-            $file = $request->file('gambar');
-            $path = $file->store('profil', 'public');
-            $validated['gambar'] = $path;
+        if ($request->hasFile('foto_kades')) {
+            $validated['foto_kades'] = $request->file('foto_kades')->store('kades', 'public');
         }
-
+        if ($request->hasFile('ttd_kades')) {
+            $validated['ttd_kades'] = $request->file('ttd_kades')->store('ttd', 'public');
+        }
+        if ($request->hasFile('struktur_organisasi')) {
+            $validated['struktur_organisasi'] = $request->file('struktur_organisasi')->store('struktur', 'public');
+        }
+        // Misi: array to string
+        if (is_array($request->misi)) {
+            $validated['misi'] = implode("\n", array_filter($request->misi));
+        }
         $profil->update($validated);
         return redirect()->route('admin.profil.index')->with('success', 'Profil desa berhasil diperbarui.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    // CRUD Sejarah Desa
+    public function tambahSejarah(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'tahun' => 'required|string',
+            'judul' => 'required|string',
+            'deskripsi' => 'required|string',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+        if ($request->hasFile('gambar')) {
+            $validated['gambar'] = $request->file('gambar')->store('sejarah', 'public');
+        }
+        $validated['profil_desa_id'] = ProfilDesa::first()->id ?? null;
+        SejarahDesa::create($validated);
+        return back()->with('success', 'Peristiwa sejarah berhasil ditambahkan.');
+    }
+    public function hapusSejarah($id)
+    {
+        $item = SejarahDesa::findOrFail($id);
+        $item->delete();
+        return back()->with('success', 'Peristiwa sejarah berhasil dihapus.');
     }
 }

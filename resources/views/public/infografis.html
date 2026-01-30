@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Infografis Kependudukan - Desa Sukaraja</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <!-- ApexCharts CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,600&display=swap');
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8fafc;
+      /* slate-50 */
+    }
+
+    .hero-bg {
+      background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.25)), url('https://images.pexels.com/photos/2132075/pexels-photo-2132075.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop'), url('assets/hero.svg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(16, 185, 129, 0.06), rgba(14, 165, 233, 0.04), rgba(99, 102, 241, 0.03));
+      background-size: 200% 200%;
+      animation: gradientShift 12s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes gradientShift {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    #tsparticles {
+      position: absolute;
+      inset: 0;
+      z-index: -10;
+    }
+
+    lottie-player {
+      display: block;
+    }
+
+    .fade-in-section {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      will-change: opacity, transform;
+    }
+
+    .fade-in-section.is-visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* Konsistensi style navbar */
+    .nav-link {
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #10b981;
+      transition: width 0.3s ease-in-out;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body class="bg-slate-50 antialiased text-slate-600">
+
+  <!-- Header & Navigation -->
+  <header id="header" class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm transition-all duration-300">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="flex items-center space-x-2">
+        <img src="assets/logo.png" alt="Logo Desa Sukaraja"
+          class="w-10 h-10 md:w-12 md:h-12 object-contain site-logo flex-shrink-0"
+          onerror="this.src='https://placehold.co/48x48/10b981/ffffff?text=DS'">
+        <div class="flex flex-col">
+          <span class="text-xs text-slate-800 leading-tight md:text-sm font-semibold">PEMERINTAH DESA
+            SUKARAJA</span>
+          <span class="text-xs text-slate-600 leading-tight md:text-sm">KABUPATEN KARAWANG</span>
+        </div>
+      </a>
+      <nav class="hidden md:flex items-center space-x-8" aria-label="Main navigation">
+        <a href="index.html" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Home</a>
+        <a href="profile.html" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Profil</a>
+        <a href="berita.html" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Berita</a>
+        <a href="galeri.html" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Galeri</a>
+        <a href="infografis.html" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Infografis</a>
+        <a href="sotk.html" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">SOTK</a>
+        <a href="index.html#peta" class="nav-link text-slate-600 hover:text-emerald-600 font-medium">Peta
+          Desa</a>
+      </nav>
+      <div class="flex items-center space-x-4">
+        <a href="#pengaduan"
+          class="hidden md:inline-block bg-emerald-500 text-white font-semibold px-5 py-2 rounded-lg shadow-md hover:bg-emerald-600 transition-transform duration-300 hover:scale-105">
+          Lapor
+        </a>
+        <button id="mobile-menu-button" class="md:hidden p-2 rounded-md text-slate-700 hover:bg-slate-100">
+          <i data-lucide="menu"></i>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden px-6 pb-4" aria-label="Mobile navigation">
+      <a href="index.html" class="block py-2 text-slate-600 hover:text-emerald-600">Home</a>
+      <a href="profile.html" class="block py-2 text-slate-600 hover:text-emerald-600">Profil</a>
+      <a href="berita.html" class="block py-2 text-slate-600 hover:text-emerald-600">Berita</a>
+      <a href="galeri.html" class="block py-2 text-slate-600 hover:text-emerald-600">Galeri</a>
+      <a href="infografis.html" class="block py-2 text-slate-600 hover:text-emerald-600">Infografis</a>
+      <a href="sotk.html" class="block py-2 text-slate-600 hover:text-emerald-600">SOTK</a>
+      <a href="index.html#peta" class="block py-2 text-slate-600 hover:text-emerald-600">Peta Desa</a>
+      <a href="#pengaduan"
+        class="block w-full text-center mt-4 bg-emerald-500 text-white font-semibold px-5 py-2 rounded-lg shadow-md hover:bg-emerald-600 transition-all">Lapor</a>
+    </div>
+  </header>
+
+
+  <!-- Header Section -->
+  <header class="bg-slate-900 text-white py-16 relative overflow-hidden">
+    <div class="absolute inset-0 overflow-hidden opacity-20">
+      <!-- Abstract Pattern Background -->
+      <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <path d="M0 100 C 20 0 50 0 100 100 Z" fill="#10b981" opacity="0.3"></path>
+      </svg>
+    </div>
+    <div class="container mx-auto px-6 relative z-10 text-center" data-aos="fade-up">
+      <span class="text-emerald-400 font-bold uppercase tracking-widest text-sm mb-2 block">Transparansi Data</span>
+      <h1 class="text-3xl md:text-5xl font-bold mb-4">Statistik & Infografis Desa</h1>
+      <p class="text-slate-300 max-w-2xl mx-auto">Data kependudukan dan demografi Desa Sukaraja yang transparan dan
+        akuntabel. Update: Desember 2025.</p>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container mx-auto px-6 py-12">
+
+    <!-- Summary Cards (Key Stats) -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+      <!-- Card 1: Total Penduduk -->
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex items-center gap-4" data-aos="fade-up"
+        data-aos-delay="0">
+        <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xl">
+          👥
+        </div>
+        <div>
+          <p class="text-slate-500 text-sm font-medium">Total Penduduk</p>
+          <h3 class="text-2xl font-bold text-slate-800 counter" data-target="3450">0</h3>
+          <p class="text-xs text-emerald-500 font-bold">Jiwa</p>
+        </div>
+      </div>
+
+      <!-- Card 2: Kepala Keluarga -->
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex items-center gap-4" data-aos="fade-up"
+        data-aos-delay="100">
+        <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-xl">
+          🏠
+        </div>
+        <div>
+          <p class="text-slate-500 text-sm font-medium">Kepala Keluarga</p>
+          <h3 class="text-2xl font-bold text-slate-800 counter" data-target="1020">0</h3>
+          <p class="text-xs text-emerald-500 font-bold">KK</p>
+        </div>
+      </div>
+
+      <!-- Card 3: Laki-laki -->
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex items-center gap-4" data-aos="fade-up"
+        data-aos-delay="200">
+        <div class="w-12 h-12 bg-cyan-100 text-cyan-600 rounded-full flex items-center justify-center text-xl">
+          👨
+        </div>
+        <div>
+          <p class="text-slate-500 text-sm font-medium">Laki-Laki</p>
+          <h3 class="text-2xl font-bold text-slate-800 counter" data-target="1750">0</h3>
+          <p class="text-xs text-slate-400">50.7%</p>
+        </div>
+      </div>
+
+      <!-- Card 4: Perempuan -->
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex items-center gap-4" data-aos="fade-up"
+        data-aos-delay="300">
+        <div class="w-12 h-12 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center text-xl">
+          👩
+        </div>
+        <div>
+          <p class="text-slate-500 text-sm font-medium">Perempuan</p>
+          <h3 class="text-2xl font-bold text-slate-800 counter" data-target="1700">0</h3>
+          <p class="text-xs text-slate-400">49.3%</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="grid lg:grid-cols-2 gap-8 mb-12">
+
+      <!-- Chart 1: Pendidikan -->
+      <div class="bg-white p-6 rounded-2xl shadow-lg border border-slate-100" data-aos="fade-right">
+        <div class="flex items-center justify-between mb-6">
+          <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+            <span class="w-1 h-6 bg-emerald-500 rounded-full"></span>
+            Tingkat Pendidikan
+          </h3>
+        </div>
+        <div id="chartPendidikan" class="w-full h-[350px]"></div>
+      </div>
+
+      <!-- Chart 2: Usia (Piramida Penduduk style) -->
+      <div class="bg-white p-6 rounded-2xl shadow-lg border border-slate-100" data-aos="fade-left">
+        <div class="flex items-center justify-between mb-6">
+          <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+            <span class="w-1 h-6 bg-blue-500 rounded-full"></span>
+            Kelompok Usia
+          </h3>
+        </div>
+        <div id="chartUsia" class="w-full h-[350px]"></div>
+      </div>
+
+      <!-- Chart 3: Pekerjaan -->
+      <div class="bg-white p-6 rounded-2xl shadow-lg border border-slate-100 lg:col-span-2" data-aos="fade-up">
+        <div class="flex items-center justify-between mb-6">
+          <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+            <span class="w-1 h-6 bg-purple-500 rounded-full"></span>
+            Mata Pencaharian Utama
+          </h3>
+        </div>
+        <div id="chartPekerjaan" class="w-full h-[350px]"></div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Footer Simple -->
+  <footer class="bg-slate-900 text-slate-400 py-8 text-center text-sm border-t border-slate-800">
+    <div class="container mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-8 mb-8 text-left">
+        <div>
+          <h4 class="text-white font-bold mb-4 font-serif text-lg">Desa Sukaraja</h4>
+          <p>Membangun desa dengan hati, melayani dengan integritas.</p>
+        </div>
+        <div>
+          <h4 class="text-white font-bold mb-4 font-serif text-lg">Kontak</h4>
+          <p>Jl. Raya Sukaraja No. 12, Kec. Rawamerta</p>
+          <p>Kabupaten Karawang, Jawa Barat</p>
+          <p class="mt-2">Email: admin@sukaraja.desa.id</p>
+        </div>
+        <div>
+          <h4 class="text-white font-bold mb-4 font-serif text-lg">Jam Pelayanan</h4>
+          <p>Senin - Jumat: 08:00 - 16:00 WIB</p>
+          <p>Sabtu - Minggu: Libur</p>
+        </div>
+      </div>
+      <div class="border-t border-slate-800 pt-8">
+        <p>&copy; 2024 Pemerintah Desa Sukaraja. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- AOS Script -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      once: true,
+      offset: 50,
+      duration: 800,
+      easing: 'ease-out-cubic'
+    });
+
+    // --- Counter Animation Script ---
+    const counters = document.querySelectorAll('.counter');
+    counters.forEach(counter => {
+      const updateCount = () => {
+        const target = +counter.getAttribute('data-target');
+        const count = +counter.innerText;
+        const increment = target / 100; // Speed
+
+        if (count < target) {
+          counter.innerText = Math.ceil(count + increment);
+          setTimeout(updateCount, 20);
+        } else {
+          counter.innerText = target;
+        }
+      };
+      updateCount();
+    });
+
+    // --- ApexCharts Configurations ---
+
+    // 1. Chart Pendidikan (Bar Horizontal)
+    var optionsPendidikan = {
+      series: [{
+        name: 'Jumlah Warga',
+        data: [400, 850, 900, 600, 250, 150]
+      }],
+      chart: {
+        type: 'bar',
+        height: 350,
+        fontFamily: 'Inter, sans-serif',
+        toolbar: { show: false }
+      },
+      plotOptions: {
+        bar: {
+          borderRadius: 4,
+          horizontal: true,
+          barHeight: '60%',
+          colors: {
+            ranges: [{ from: 0, to: 1000, color: '#10b981' }] // Emerald-500
+          }
+        }
+      },
+      dataLabels: { enabled: true },
+      xaxis: {
+        categories: ['Tidak Sekolah', 'SD/Sederajat', 'SMP/Sederajat', 'SMA/Sederajat', 'Diploma/Sarjana', 'Pascasarjana'],
+      },
+      title: { text: undefined },
+      grid: { strokeDashArray: 4 }
+    };
+    var chartPendidikan = new ApexCharts(document.querySelector("#chartPendidikan"), optionsPendidikan);
+    chartPendidikan.render();
+
+    // 2. Chart Usia (Bar Vertikal / Column)
+    var optionsUsia = {
+      series: [{
+        name: 'Laki-laki',
+        data: [150, 200, 300, 250, 200, 100]
+      }, {
+        name: 'Perempuan',
+        data: [140, 210, 290, 260, 210, 110]
+      }],
+      chart: {
+        type: 'bar',
+        height: 350,
+        stacked: false,
+        fontFamily: 'Inter, sans-serif',
+        toolbar: { show: false }
+      },
+      colors: ['#3b82f6', '#ec4899'], // Blue & Pink
+      plotOptions: {
+        bar: {
+          horizontal: false,
+          borderRadius: 4,
+          columnWidth: '55%'
+        },
+      },
+      dataLabels: { enabled: false },
+      stroke: { show: true, width: 2, colors: ['transparent'] },
+      xaxis: {
+        categories: ['0-5 Thn', '6-12 Thn', '13-25 Thn', '26-45 Thn', '46-60 Thn', '>60 Thn'],
+      },
+      legend: { position: 'top' },
+      fill: { opacity: 1 },
+      grid: { strokeDashArray: 4 }
+    };
+    var chartUsia = new ApexCharts(document.querySelector("#chartUsia"), optionsUsia);
+    chartUsia.render();
+
+    // 3. Chart Pekerjaan (Treemap / Pie -> Using Bar for clarity with many categories)
+    var optionsPekerjaan = {
+      series: [{
+        name: 'Jumlah',
+        data: [850, 300, 200, 150, 100, 50, 100]
+      }],
+      chart: {
+        height: 350,
+        type: 'bar',
+        fontFamily: 'Inter, sans-serif',
+        toolbar: { show: false }
+      },
+      colors: ['#8b5cf6'], // Purple
+      plotOptions: {
+        bar: {
+          columnWidth: '50%',
+          distributed: true,
+          borderRadius: 4
+        }
+      },
+      dataLabels: { enabled: false },
+      legend: { show: false },
+      xaxis: {
+        categories: [['Petani'], ['Buruh Tani'], ['Wiraswasta'], ['PNS/TNI/Polri'], ['Karyawan Swasta'], ['Pedagang'], ['Lainnya']],
+        labels: {
+          style: { fontSize: '12px' }
+        }
+      },
+      grid: { strokeDashArray: 4 }
+    };
+    var chartPekerjaan = new ApexCharts(document.querySelector("#chartPekerjaan"), optionsPekerjaan);
+    chartPekerjaan.render();
+
+  </script>
+</body>
+
+</html>
