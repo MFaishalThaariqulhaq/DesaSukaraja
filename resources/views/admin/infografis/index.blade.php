@@ -20,42 +20,59 @@
   @endif
 
   <div class="overflow-x-auto">
-    <table class="min-w-full border border-slate-200 rounded-lg overflow-hidden text-sm">
-      <thead class="bg-slate-100 text-slate-700 uppercase">
+    <table class="min-w-full border border-slate-200 rounded-lg overflow-hidden text-xs md:text-sm">
+      <thead class="bg-slate-100 text-slate-700 uppercase sticky top-0">
         <tr>
-          <th class="py-3 px-4 text-left">Nama Dusun/Kampung</th>
-          <th class="py-3 px-4 text-center">Total Penduduk</th>
-          <th class="py-3 px-4 text-center">Laki-laki</th>
-          <th class="py-3 px-4 text-center">Perempuan</th>
-          <th class="py-3 px-4 text-center">Kepala Keluarga</th>
-          <th class="py-3 px-4 text-center w-32">Aksi</th>
+          <th class="py-3 px-3 text-left">Dusun</th>
+          <th class="py-3 px-3 text-center">Total</th>
+          <th class="py-3 px-3 text-center">L/P</th>
+          <th class="py-3 px-3 text-center">KK</th>
+          <!-- Pendidikan -->
+          <th class="py-3 px-2 text-center bg-blue-50">SD</th>
+          <th class="py-3 px-2 text-center bg-blue-50">SMP</th>
+          <th class="py-3 px-2 text-center bg-blue-50">SMA</th>
+          <!-- Pekerjaan -->
+          <th class="py-3 px-2 text-center bg-purple-50">Petani</th>
+          <th class="py-3 px-2 text-center bg-purple-50">Karyawan</th>
+          <th class="py-3 px-2 text-center bg-purple-50">Wiraswasta</th>
+          <!-- Agama -->
+          <th class="py-3 px-2 text-center bg-green-50">Islam</th>
+          <th class="py-3 px-2 text-center bg-green-50">Kristen</th>
+          <th class="py-3 px-3 text-center w-20">Aksi</th>
         </tr>
       </thead>
       <tbody class="text-slate-700">
         @forelse($penduduks as $item)
         <tr class="border-t border-slate-200 hover:bg-slate-50 transition-colors">
-          <td class="py-3 px-4 font-medium">{{ $item->dusun }}</td>
-          <td class="py-3 px-4 text-center">{{ $item->total_penduduk }}</td>
-          <td class="py-3 px-4 text-center">{{ $item->laki_laki }}</td>
-          <td class="py-3 px-4 text-center">{{ $item->perempuan }}</td>
-          <td class="py-3 px-4 text-center">{{ $item->kepala_keluarga }}</td>
-          <td class="py-3 px-4 text-center">
-            <div class="flex justify-center gap-3">
-              <!-- Tombol Edit -->
+          <td class="py-3 px-3 font-medium">{{ $item->dusun }}</td>
+          <td class="py-3 px-3 text-center font-semibold">{{ number_format($item->total_penduduk) }}</td>
+          <td class="py-3 px-3 text-center text-xs">{{ $item->laki_laki }}/{{ $item->perempuan }}</td>
+          <td class="py-3 px-3 text-center">{{ $item->kepala_keluarga }}</td>
+          <!-- Pendidikan -->
+          <td class="py-3 px-2 text-center bg-blue-50 text-xs">{{ $item->pendidikan_sd ?? '-' }}</td>
+          <td class="py-3 px-2 text-center bg-blue-50 text-xs">{{ $item->pendidikan_smp ?? '-' }}</td>
+          <td class="py-3 px-2 text-center bg-blue-50 text-xs">{{ $item->pendidikan_sma ?? '-' }}</td>
+          <!-- Pekerjaan -->
+          <td class="py-3 px-2 text-center bg-purple-50 text-xs">{{ $item->pekerjaan_petani ?? '-' }}</td>
+          <td class="py-3 px-2 text-center bg-purple-50 text-xs">{{ $item->pekerjaan_karyawan ?? '-' }}</td>
+          <td class="py-3 px-2 text-center bg-purple-50 text-xs">{{ $item->pekerjaan_wiraswasta ?? '-' }}</td>
+          <!-- Agama -->
+          <td class="py-3 px-2 text-center bg-green-50 text-xs">{{ $item->agama_islam ?? '-' }}</td>
+          <td class="py-3 px-2 text-center bg-green-50 text-xs">{{ $item->agama_kristen ?? '-' }}</td>
+          <td class="py-3 px-3 text-center">
+            <div class="flex justify-center gap-2">
               <a href="{{ route('admin.infografis.edit', $item->id) }}"
                 class="text-blue-600 hover:text-blue-800 transition-transform hover:scale-110"
                 title="Edit Data">
-                <i data-lucide="edit" class="w-5 h-5"></i>
+                <i data-lucide="edit" class="w-4 h-4"></i>
               </a>
-
-              <!-- Tombol Hapus -->
               <form action="{{ route('admin.infografis.destroy', $item->id) }}" method="POST"
-                onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                onsubmit="return confirm('Yakin ingin menghapus data ini?')" class="inline">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="text-red-600 hover:text-red-800 transition-transform hover:scale-110"
                   title="Hapus Data">
-                  <i data-lucide="trash-2" class="w-5 h-5"></i>
+                  <i data-lucide="trash-2" class="w-4 h-4"></i>
                 </button>
               </form>
             </div>
@@ -63,7 +80,7 @@
         </tr>
         @empty
         <tr>
-          <td colspan="6" class="text-center py-8 text-slate-500">Belum ada data penduduk yang tersedia.</td>
+          <td colspan="13" class="text-center py-8 text-slate-500">Belum ada data penduduk yang tersedia.</td>
         </tr>
         @endforelse
       </tbody>
