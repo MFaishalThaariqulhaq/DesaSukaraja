@@ -26,7 +26,9 @@ class ProfilDesaController extends Controller
     {
         $validated = $request->validate([
             'judul' => 'nullable|string|max:255',
-            'isi' => 'nullable|string',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'deskripsi_profil' => 'nullable|string',
+            'motto_profil' => 'nullable|string',
             'visi' => 'nullable|string',
             'misi' => 'nullable|string',
             'nama_kades' => 'required|string',
@@ -39,6 +41,9 @@ class ProfilDesaController extends Controller
             'struktur_organisasi' => 'nullable|image|mimes:jpg,jpeg,png|max:4096',
         ]);
 
+        if ($request->hasFile('gambar')) {
+            $validated['gambar'] = $request->file('gambar')->store('profil', 'public');
+        }
         if ($request->hasFile('foto_kades')) {
             $validated['foto_kades'] = $request->file('foto_kades')->store('kades', 'public');
         }
@@ -72,7 +77,9 @@ class ProfilDesaController extends Controller
         $profil = ProfilDesa::findOrFail($id);
         $validated = $request->validate([
             'judul' => 'sometimes|string|max:255',
-            'isi' => 'sometimes|string',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'deskripsi_profil' => 'nullable|string',
+            'motto_profil' => 'nullable|string',
             'visi' => 'sometimes|string',
             'misi' => 'sometimes',
             'nama_kades' => 'sometimes|string',
@@ -84,6 +91,9 @@ class ProfilDesaController extends Controller
             'ttd_kades' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'struktur_organisasi' => 'nullable|image|mimes:jpg,jpeg,png|max:4096',
         ]);
+        if ($request->hasFile('gambar')) {
+            $validated['gambar'] = $request->file('gambar')->store('profil', 'public');
+        }
         if ($request->hasFile('foto_kades')) {
             $validated['foto_kades'] = $request->file('foto_kades')->store('kades', 'public');
         }

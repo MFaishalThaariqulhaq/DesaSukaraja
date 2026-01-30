@@ -143,20 +143,28 @@
   <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
     <div class="rounded-lg overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500 tilt-card">
       @if($profil && $profil->gambar)
-      <img src="{{ asset('storage/' . $profil->gambar) }}" alt="Gambar Profil Desa" class="w-full aspect-[16/10] object-contain bg-white rounded-lg shadow">
+      <img src="{{ asset('storage/' . $profil->gambar) }}" alt="Gambar Profil Desa" class="w-full aspect-[16/10] object-cover bg-white rounded-lg shadow">
       @else
-      <img src="https://placehold.co/800x500/34d399/ffffff?text=Kantor+Desa+Sukaraja" alt="Kantor Desa Sukaraja" class="w-full aspect-[16/10] object-contain bg-white rounded-lg shadow">
+      <img src="https://placehold.co/800x500/34d399/ffffff?text=Kantor+Desa+Sukaraja" alt="Kantor Desa Sukaraja" class="w-full aspect-[16/10] object-cover bg-white rounded-lg shadow">
       @endif
     </div>
     <div data-aos="fade-left" data-aos-duration="1000" class="md:pl-6">
       <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-800 mb-6 leading-tight">
-        Profil Desa <span class="text-emerald-600">Sukaraja</span>
+        {{ $profil && $profil->judul ? $profil->judul : 'Profil Desa' }} <span class="text-emerald-600">Sukaraja</span>
       </h2>
-      <p class="text-slate-600 text-lg mb-6 leading-relaxed">
+        <p class="text-slate-600 text-lg mb-6 leading-relaxed">
+        @if($profil && $profil->deskripsi_profil)
+        {{ $profil->deskripsi_profil }}
+        @else
         Selamat datang di Desa Sukaraja, sebuah desa yang asri dan penuh dengan kearifan lokal. Terletak di <strong class="text-slate-800">Kecamatan Rawamerta, Kabupaten Karawang</strong>, desa kami berkomitmen untuk terus berkembang menjadi desa yang maju, mandiri, dan sejahtera.
+        @endif
       </p>
       <p class="text-slate-600 mb-8 leading-relaxed border-l-4 border-emerald-200 pl-4 italic">
+        @if($profil && $profil->motto_profil)
+        "{{ $profil->motto_profil }}"
+        @else
         "Dengan semangat gotong royong, kami membangun infrastruktur, meningkatkan kualitas pendidikan, dan mengoptimalkan potensi sumber daya alam yang ada."
+        @endif
       </p>
       <div class="flex flex-wrap gap-4">
         <a href="/profil" class="group inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-emerald-600 rounded-lg hover:bg-emerald-700 transition duration-300 shadow-lg shadow-emerald-200">

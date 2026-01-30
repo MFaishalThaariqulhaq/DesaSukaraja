@@ -9,6 +9,9 @@ class ProfilDesa extends Model
     protected $fillable = [
         'judul',
         'isi',
+        'gambar',
+        'deskripsi_profil',
+        'motto_profil',
         'visi',
         'misi',
         'nama_kades',

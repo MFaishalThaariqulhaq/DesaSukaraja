@@ -4,7 +4,7 @@
 <!-- Success Notification -->
 @if(session('success'))
 <div id="success-alert" class="fixed top-4 right-4 bg-emerald-50 border border-emerald-300 rounded-lg shadow-2xl p-4 flex items-center gap-4 z-50 min-w-[350px]" style="animation: slideIn 0.5s ease; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.2);">
-  <div class="flex-shrink-0">
+  <div class="shrink-0">
     <svg class="h-6 w-6 text-emerald-600" style="animation: bounce 1s infinite;" fill="currentColor" viewBox="0 0 20 20">
       <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
     </svg>
@@ -13,7 +13,7 @@
     <p class="text-sm font-semibold text-emerald-900">{{ session('success') }}</p>
     <p class="text-xs text-emerald-700 mt-0.5">Perubahan telah berhasil disimpan</p>
   </div>
-  <button onclick="closeAlert()" class="text-emerald-400 hover:text-emerald-600 flex-shrink-0">
+  <button onclick="closeAlert()" class="text-emerald-400 hover:text-emerald-600 shrink-0">
     <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
       <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
     </svg>
@@ -75,7 +75,10 @@
   </div>
   <div class="bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden min-h-[600px]">
     <div class="flex border-b border-slate-200 overflow-x-auto bg-slate-50/50">
-      <button onclick="switchTab('umum')" id="btn-umum" class="tab-btn active-tab px-6 py-4 text-sm font-bold text-slate-600 hover:text-emerald-600 border-b-2 border-transparent transition-all whitespace-nowrap flex items-center gap-2">
+      <button onclick="switchTab('beranda')" id="btn-beranda" class="tab-btn active-tab px-6 py-4 text-sm font-bold text-slate-600 hover:text-emerald-600 border-b-2 border-transparent transition-all whitespace-nowrap flex items-center gap-2">
+        <i data-lucide="image" class="w-4 h-4"></i> Profil Beranda
+      </button>
+      <button onclick="switchTab('umum')" id="btn-umum" class="tab-btn px-6 py-4 text-sm font-bold text-slate-600 hover:text-emerald-600 border-b-2 border-transparent transition-all whitespace-nowrap flex items-center gap-2">
         <i data-lucide="home" class="w-4 h-4"></i> Identitas Umum
       </button>
       <button onclick="switchTab('visimisi')" id="btn-visimisi" class="tab-btn px-6 py-4 text-sm font-bold text-slate-600 hover:text-emerald-600 border-b-2 border-transparent transition-all whitespace-nowrap flex items-center gap-2">
@@ -89,8 +92,54 @@
       </button>
     </div>
     <div class="p-6 md:p-8">
+      {{-- TAB PROFIL BERANDA --}}
+      <div id="tab-beranda" class="tab-content block animate-fade-in">
+        @if(isset($profil) && $profil)
+        <form action="{{ route('admin.profil.update', $profil->id) }}" method="POST" enctype="multipart/form-data" onsubmit="return confirm('Simpan perubahan profil beranda?')">
+          @csrf
+          @method('PUT')
+          <div class="space-y-6">
+            <div>
+              <label class="block text-slate-700 font-bold mb-3">Gambar Profil Desa</label>
+              <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                  <div class="relative group rounded-xl overflow-hidden border-2 border-dashed border-slate-300 bg-slate-50 hover:bg-slate-100 transition aspect-video flex items-center justify-center mb-2 cursor-pointer">
+                    <img id="preview-gambar-profil" src="{{ $profil->gambar ? asset('storage/' . $profil->gambar) : 'https://placehold.co/800x500?text=Gambar+Profil' }}" alt="Gambar Profil" class="object-cover w-full h-full">
+                  </div>
+                  <input type="file" name="gambar" id="gambar" class="w-full px-4 py-2 border rounded-lg" accept="image/*">
+                  <p class="text-xs text-slate-400 mt-2">Ukuran: 800x500px atau lebih</p>
+                </div>
+                <div>
+                  <label class="block text-slate-700 font-bold mb-2">Judul Profil Desa</label>
+                  <input type="text" name="judul" value="{{ old('judul', $profil->judul) }}" class="w-full px-4 py-2 border rounded-lg" placeholder="Profil Desa Sukaraja">
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-slate-700 font-bold mb-2">Deskripsi Lengkap Profil Desa</label>
+              <textarea name="deskripsi_profil" rows="5" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none" placeholder="Tuliskan deskripsi lengkap tentang Desa Sukaraja...">{{ old('deskripsi_profil', $profil->deskripsi_profil) }}</textarea>
+            </div>
+
+            <div>
+              <label class="block text-slate-700 font-bold mb-2">Motto/Semboyan Desa</label>
+              <textarea name="motto_profil" rows="3" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none italic" placeholder="Contoh: Dengan semangat gotong royong, kami membangun infrastruktur...">{{ old('motto_profil', $profil->motto_profil) }}</textarea>
+            </div>
+          </div>
+
+          <div class="pt-6 border-t border-slate-100 flex justify-end">
+            <button type="submit" class="bg-emerald-600 text-white px-8 py-2.5 rounded-lg hover:bg-emerald-700 shadow-lg shadow-emerald-200 transition font-semibold flex items-center gap-2">
+              <i data-lucide="save" class="w-4 h-4"></i> Simpan Perubahan
+            </button>
+          </div>
+        </form>
+        @else
+        <div class="text-slate-500">Belum ada data profil desa.</div>
+        @endif
+      </div>
+
       {{-- TAB IDENTITAS UMUM --}}
-      <div id="tab-umum" class="tab-content block animate-fade-in">
+      <div id="tab-umum" class="tab-content hidden animate-fade-in">
         @if(isset($profil) && $profil)
         <form action="{{ route('admin.profil.update', $profil->id) }}" method="POST" enctype="multipart/form-data" onsubmit="return confirm('Simpan perubahan profil?')">
           @csrf
@@ -98,14 +147,14 @@
           <div class="grid md:grid-cols-12 gap-8">
             <div class="md:col-span-4 lg:col-span-3">
               <label class="block text-slate-700 font-bold mb-2">Foto Kepala Desa</label>
-              <div class="group relative rounded-xl overflow-hidden border-2 border-dashed border-slate-300 bg-slate-50 hover:bg-slate-100 transition aspect-[3/4] flex items-center justify-center mb-2">
+              <div class="group relative rounded-xl overflow-hidden border-2 border-dashed border-slate-300 bg-slate-50 hover:bg-slate-100 transition aspect-3/4 flex items-center justify-center mb-2">
                 <img id="preview-foto-kades" src="{{ $profil->foto_kades ? asset('storage/' . $profil->foto_kades) : 'https://placehold.co/300x400?text=Foto+Kades' }}" alt="Kepala Desa" class="object-cover w-full h-full cursor-pointer">
               </div>
               <input type="file" name="foto_kades" id="foto_kades" class="w-full px-4 py-2 border rounded-lg" accept="image/*">
 
 
               <!-- Modal Cropper -->
-              <div id="modal-cropper" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center hidden">
+              <div id="modal-cropper" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center" style="display: none;">
                 <div class="bg-white rounded-lg p-6 shadow-xl max-w-lg w-full relative">
                   <h3 class="font-bold mb-4">Atur & Crop Foto Kepala Desa</h3>
                   <div><img id="image-cropper" src="" class="max-h-96 mx-auto"></div>
@@ -290,7 +339,6 @@
               <div class="flex justify-between items-start">
                 <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-1 rounded-md">{{ $item->tahun }}</span>
                 <div class="flex gap-2">
-                  <button type="button" onclick="editSejarah({{ $item->id }})" class="text-slate-400 hover:text-emerald-600"><i data-lucide="edit-3" class="w-4 h-4"></i></button>
                   <form action="{{ route('admin.profil.hapusSejarah', $item->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Hapus peristiwa ini?');">
                     @csrf
                     @method('DELETE')
@@ -326,7 +374,7 @@
             @method('PUT')
             <div class="flex justify-center mb-6">
               <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                <label for="struktur_organisasi" class="bg-emerald-600 text-white px-6 py-2.5 rounded-lg font-bold shadow-lg hover:bg-emerald-700 transition flex items-center justify-center gap-2 cursor-pointer inline-block">
+                <label for="struktur_organisasi" class="bg-emerald-600 text-white px-6 py-2.5 rounded-lg font-bold shadow-lg hover:bg-emerald-700 transition inline-flex items-center justify-center gap-2 cursor-pointer">
                   <i data-lucide="upload" class="w-4 h-4"></i> Upload Struktur Baru
                 </label>
                 <input type="file" name="struktur_organisasi" id="struktur_organisasi" class="hidden">
@@ -393,7 +441,7 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    switchTab('umum');
+    switchTab('beranda');
     const successAlert = document.getElementById('success-alert');
     if (successAlert) {
       console.log('Success notification displayed');
@@ -434,7 +482,7 @@
           });
         };
         imageCropper.src = evt.target.result;
-        modal.classList.remove('hidden');
+        modal.style.display = 'flex';
       };
       reader.readAsDataURL(file);
     }
@@ -452,11 +500,11 @@
         });
       };
       imageCropper.src = src;
-      modal.classList.remove('hidden');
+      modal.style.display = 'flex';
     }
   });
   btnCancel.addEventListener('click', function() {
-    modal.classList.add('hidden');
+    modal.style.display = 'none';
     if (cropper) cropper.destroy();
     inputFoto.value = '';
   });
@@ -493,7 +541,7 @@
           }));
         }
         inputFoto.files = dt.files;
-        modal.classList.add('hidden');
+        modal.style.display = 'none';
         cropper.destroy();
       }, 'image/jpeg', 0.95);
     }
