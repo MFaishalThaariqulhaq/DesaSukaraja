@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pengaduan extends Model
 {
-  protected $fillable = ['nama', 'email', 'telepon', 'alamat', 'kategori', 'judul', 'isi', 'file_path', 'status', 'urgency', 'lat', 'lng', 'internal_notes', 'handled_by'];
+  protected $fillable = ['nama', 'email', 'telepon', 'alamat', 'kategori', 'judul', 'isi', 'file_path', 'status', 'urgency', 'lat', 'lng', 'internal_notes', 'handled_by', 'tracking_number', 'admin_notes'];
 
   protected $casts = [
     'lat' => 'decimal:7',

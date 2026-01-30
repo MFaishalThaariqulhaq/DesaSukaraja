@@ -64,6 +64,8 @@ Route::get('/infografis', [InfografisController::class, 'index'])->name('infogra
 Route::get('/infografis/{dusun}', [InfografisController::class, 'detail'])->name('infografis.detail');
 Route::get('/pengaduan', [PengaduanController::class, 'index'])->name('pengaduan.index');
 Route::post('/pengaduan', [PengaduanController::class, 'store'])->middleware('throttle:5,1')->name('pengaduan.store');
+Route::get('/pengaduan/status', [PengaduanController::class, 'checkStatus'])->name('pengaduan.status');
+Route::get('/pengaduan/list', [PengaduanController::class, 'listPengaduan'])->name('pengaduan.list');
 
 
 // == RUTE ADMIN ==

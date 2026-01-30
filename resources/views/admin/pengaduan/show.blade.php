@@ -33,24 +33,49 @@
       <div class="mb-3"><strong>Email:</strong> {{ $pengaduan->email ?? '-' }}</div>
       <div class="mb-3"><strong>Telepon:</strong> {{ $pengaduan->telepon ?? '-' }}</div>
       <div class="mb-3"><strong>Kategori:</strong> {{ $pengaduan->kategori ?? '-' }}</div>
+      <div class="mb-3">
+        <strong>Tracking Number:</strong>
+        <span class="ml-2 font-mono bg-slate-100 px-2 py-1 rounded text-sm">{{ $pengaduan->tracking_number ?? 'N/A' }}</span>
+      </div>
     </div>
     <div>
-      <div class="mb-3"><strong>Status:</strong> <span class="ml-2 font-semibold">{{ ucfirst($pengaduan->status) }}</span></div>
+      <div class="mb-3">
+        <strong>Status:</strong>
+        <span class="ml-2 font-semibold px-3 py-1 rounded-full text-white
+          @if($pengaduan->status == 'submitted') bg-blue-500
+          @elseif($pengaduan->status == 'pending') bg-yellow-500
+          @elseif($pengaduan->status == 'in_progress') bg-orange-500
+          @elseif($pengaduan->status == 'resolved') bg-green-500
+          @elseif($pengaduan->status == 'rejected') bg-red-500
+          @endif">
+          {{ ucfirst(str_replace('_', ' ', $pengaduan->status)) }}
+        </span>
+      </div>
       <div class="mb-3"><strong>Tanggal:</strong> {{ $pengaduan->created_at->format('d M Y H:i') }}</div>
       @if($pengaduan->file_path)
       <div class="mb-3">
         <strong>Lampiran:</strong>
         <div class="mt-2">
-          <a href="{{ asset('storage/' . $pengaduan->file_path) }}" target="_blank" class="text-emerald-600">Lihat Lampiran</a>
+          <a href="{{ asset('storage/' . $pengaduan->file_path) }}" target="_blank" class="text-emerald-600 hover:underline">📎 Lihat Lampiran</a>
         </div>
       </div>
       @endif
     </div>
   </div>
 
-  <div class="mt-6">
-    <strong>Isi Pengaduan:</strong>
-    <div class="mt-2 p-4 bg-slate-50 rounded text-slate-700">{{ $pengaduan->isi }}</div>
+  <div class="mt-6 grid grid-cols-1 gap-6">
+    <div>
+      <strong>Isi Pengaduan:</strong>
+      <div class="mt-2 p-4 bg-slate-50 rounded text-slate-700 border border-slate-200">{{ $pengaduan->isi }}</div>
+    </div>
+    
+    <div>
+      <strong>Catatan Penanganan (Public):</strong>
+      <p class="text-xs text-gray-500 mb-2">Catatan ini akan ditampilkan kepada masyarakat di halaman status tracking</p>
+      <div class="mt-2 p-4 bg-blue-50 rounded text-slate-700 border border-blue-200 italic">
+        {{ $pengaduan->admin_notes ?? '(Belum ada catatan)' }}
+      </div>
+    </div>
   </div>
 
 </div>

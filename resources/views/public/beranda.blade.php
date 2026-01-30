@@ -291,25 +291,52 @@
         <iframe src="https://www.google.com/maps?q=-6.3265,107.4297&hl=id&z=15&output=embed" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
     </div>
-    <div id="pengaduan" class="lg:col-span-2 bg-white p-8 rounded-2xl shadow-2xl border border-slate-100 relative overflow-hidden">
-      <div class="absolute top-0 right-0 w-20 h-20 bg-emerald-50 rounded-bl-full -mr-4 -mt-4 z-0"></div>
-      <div class="relative z-10">
-        <h2 class="text-2xl font-bold text-slate-800 mb-2">Layanan Pengaduan</h2>
-        <p class="text-slate-500 mb-6 text-sm">Punya keluhan, kritik, atau saran membangun? Sampaikan aspirasi Anda kepada kami.</p>
+    <div id="pengaduan" class="lg:col-span-2 space-y-4">
+      <!-- Quick Links Card -->
+      <div class="bg-gradient-to-br from-emerald-600 to-emerald-700 p-6 rounded-2xl shadow-xl text-white">
+        <h3 class="text-xl font-bold mb-4">📋 Layanan Pengaduan Masyarakat</h3>
+        <div class="space-y-3">
+          <a href="{{ route('pengaduan.index') }}" class="flex items-center gap-3 p-3 bg-white/20 hover:bg-white/30 rounded-lg transition-colors">
+            <span class="text-2xl">📝</span>
+            <div>
+              <p class="font-semibold">Buat Pengaduan Baru</p>
+              <p class="text-xs opacity-90">Sampaikan keluhan atau saran Anda</p>
+            </div>
+          </a>
+          <a href="{{ route('pengaduan.status') }}" class="flex items-center gap-3 p-3 bg-white/20 hover:bg-white/30 rounded-lg transition-colors">
+            <span class="text-2xl">🔍</span>
+            <div>
+              <p class="font-semibold">Cek Status Pengaduan</p>
+              <p class="text-xs opacity-90">Lihat perkembangan pengaduan Anda</p>
+            </div>
+          </a>
+          <a href="{{ route('pengaduan.list') }}" class="flex items-center gap-3 p-3 bg-white/20 hover:bg-white/30 rounded-lg transition-colors">
+            <span class="text-2xl">📊</span>
+            <div>
+              <p class="font-semibold">Dashboard Pengaduan</p>
+              <p class="text-xs opacity-90">Transparansi penanganan pengaduan</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Form Card -->
+      <div class="bg-white p-6 rounded-2xl shadow-lg border border-slate-100">
+        <h3 class="text-lg font-bold text-slate-800 mb-4">⚡ Pengaduan Cepat</h3>
         <form action="{{ route('pengaduan.store') }}" method="POST" enctype="multipart/form-data">
           @csrf
-          <div class="mb-4">
-            <label for="nama" class="block text-sm font-medium text-slate-700 mb-1">Nama Lengkap</label>
-            <input type="text" id="nama" name="nama" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 transition" placeholder="Masukkan nama Anda">
+          <div class="mb-3">
+            <label for="nama_beranda" class="block text-xs font-semibold text-slate-700 mb-1">Nama</label>
+            <input type="text" name="nama" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-emerald-500 focus:border-emerald-500 transition" placeholder="Nama Anda">
           </div>
-          <div class="mb-4">
-            <label for="telepon" class="block text-sm font-medium text-slate-700 mb-1">Nomor Telepon</label>
-            <input type="tel" id="telepon" name="telepon" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 transition" placeholder="0812xxxxxxxx">
+          <div class="mb-3">
+            <label for="email_beranda" class="block text-xs font-semibold text-slate-700 mb-1">Email <span class="text-red-500">*</span></label>
+            <input type="email" name="email" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-emerald-500 focus:border-emerald-500 transition" placeholder="email@contoh.com" required>
           </div>
-          <div class="mb-4">
-            <label for="kategori" class="block text-sm font-medium text-slate-700 mb-1">Kategori</label>
-            <select id="kategori" name="kategori" class="w-full px-4 py-2 border border-slate-300 rounded-lg">
-              <option value="">-- Pilih Kategori --</option>
+          <div class="mb-3">
+            <label for="kategori_beranda" class="block text-xs font-semibold text-slate-700 mb-1">Kategori</label>
+            <select name="kategori" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm">
+              <option value="">-- Pilih --</option>
               <option value="Infrastruktur">Infrastruktur</option>
               <option value="Kebersihan">Kebersihan</option>
               <option value="Pelayanan">Pelayanan</option>
@@ -317,20 +344,15 @@
               <option value="Lainnya">Lainnya</option>
             </select>
           </div>
-          <div class="mb-6">
-            <label for="pesan" class="block text-sm font-medium text-slate-700 mb-1">Isi Pengaduan/Aspirasi</label>
-            <textarea id="pesan" name="isi" rows="4" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 transition" placeholder="Tuliskan pesan Anda di sini..."></textarea>
+          <div class="mb-3">
+            <label for="isi_beranda" class="block text-xs font-semibold text-slate-700 mb-1">Pesan <span class="text-red-500">*</span></label>
+            <textarea name="isi" rows="3" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-emerald-500 focus:border-emerald-500 transition" placeholder="Tuliskan pesan Anda..." required></textarea>
           </div>
-          <div class="mb-4">
-            <label for="email" class="block text-sm font-medium text-slate-700 mb-1">Email (opsional)</label>
-            <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 transition" placeholder="email@contoh.com">
-          </div>
-          <div class="mb-6">
-            <label for="lampiran" class="block text-sm font-medium text-slate-700 mb-1">Lampiran (opsional)</label>
-            <input type="file" id="lampiran" name="lampiran" accept="image/*,.pdf,video/*" class="w-full">
-          </div>
-          <button type="submit" class="w-full bg-emerald-500 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-transform duration-300 hover:scale-105">Kirim Pengaduan</button>
+          <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg transition-all duration-300 hover:scale-105 text-sm">
+            Kirim Sekarang
+          </button>
         </form>
+        <p class="text-xs text-gray-500 mt-3 text-center">💡 Untuk pengaduan lengkap, kunjungi halaman <a href="{{ route('pengaduan.index') }}" class="text-emerald-600 hover:underline">Pengaduan Lengkap</a></p>
       </div>
     </div>
   </div>
