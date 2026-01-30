@@ -24,6 +24,7 @@
       <thead class="bg-slate-50 text-slate-700 uppercase">
         <tr>
           <th class="py-3 px-4 text-left font-semibold text-slate-600">Judul</th>
+          <th class="py-3 px-4 text-left font-semibold text-slate-600">Kategori</th>
           <th class="py-3 px-4 text-left font-semibold text-slate-600">Gambar</th>
           <th class="py-3 px-4 text-center font-semibold text-slate-600 w-32">Aksi</th>
         </tr>
@@ -32,6 +33,19 @@
         @forelse($galeris as $galeri)
         <tr class="hover:bg-emerald-50 transition-colors duration-150">
           <td class="py-3 px-4 font-medium text-slate-800">{{ $galeri->judul }}</td>
+          <td class="py-3 px-4">
+            @php
+              $categoryBadges = [
+                'Kegiatan' => 'bg-blue-100 text-blue-800',
+                'Alam & Wisata' => 'bg-green-100 text-green-800',
+                'Pembangunan' => 'bg-orange-100 text-orange-800',
+              ];
+              $badgeClass = $categoryBadges[$galeri->kategori] ?? 'bg-slate-100 text-slate-800';
+            @endphp
+            <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold {{ $badgeClass }}">
+              {{ $galeri->kategori ?? 'Tidak Dikategorikan' }}
+            </span>
+          </td>
           <td class="py-3 px-4">
             @if($galeri->gambar)
             <img src="{{ asset('storage/' . $galeri->gambar) }}"
@@ -66,7 +80,7 @@
         </tr>
         @empty
         <tr>
-          <td colspan="3" class="text-center py-8 text-slate-500">Belum ada galeri yang tersedia.</td>
+          <td colspan="4" class="text-center py-8 text-slate-500">Belum ada galeri yang tersedia.</td>
         </tr>
         @endforelse
       </tbody>

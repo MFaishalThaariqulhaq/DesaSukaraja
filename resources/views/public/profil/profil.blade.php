@@ -139,7 +139,7 @@
   <div class="container mx-auto px-6">
     <div class="text-center mb-12" data-aos="fade-up">
       <span class="text-emerald-600 font-bold uppercase tracking-widest text-sm">Pemerintahan</span>
-      <h2 class="text-3xl md:text-5xl font-bold text-slate-800 mt-2">Struktur Organisasi</h2>
+      <h2 class="text-3xl md:text-5xl font-bold text-slate-800 mt-2">Struktur Organisasi BPD</h2>
       <p class="text-slate-600 mt-4 max-w-2xl mx-auto">Sinergi antara aparat desa dan lembaga masyarakat dalam mewujudkan visi misi Desa Sukaraja.</p>
     </div>
     <div class="max-w-5xl mx-auto" data-aos="zoom-in" data-aos-duration="1000">

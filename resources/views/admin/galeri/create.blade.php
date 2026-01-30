@@ -14,27 +14,54 @@
     @csrf
 
     <div>
-      <label for="judul" class="block text-sm font-medium text-slate-700 mb-1">Judul Galeri</label>
+      <label for="judul" class="block text-sm font-medium text-slate-700 mb-1">Judul Galeri *</label>
       <input type="text" name="judul" id="judul"
         class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition duration-200"
-        placeholder="Masukkan judul galeri" required>
+        placeholder="Masukkan judul galeri" value="{{ old('judul') }}" required>
+      @error('judul')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
     </div>
 
-    <div>
-      <label for="gambar" class="block text-sm font-medium text-slate-700 mb-1">Upload Gambar</label>
-      <input type="file" name="gambar" id="gambar"
-        class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition duration-200">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <label for="kategori" class="block text-sm font-medium text-slate-700 mb-1">Kategori *</label>
+        <select name="kategori" id="kategori"
+          class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition duration-200"
+          required>
+          <option value="">-- Pilih Kategori --</option>
+          <option value="Kegiatan" {{ old('kategori') == 'Kegiatan' ? 'selected' : '' }}>Kegiatan</option>
+          <option value="Alam & Wisata" {{ old('kategori') == 'Alam & Wisata' ? 'selected' : '' }}>Alam & Wisata</option>
+          <option value="Pembangunan" {{ old('kategori') == 'Pembangunan' ? 'selected' : '' }}>Pembangunan</option>
+        </select>
+        @error('kategori')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
+      </div>
+
+      <div>
+        <label for="gambar" class="block text-sm font-medium text-slate-700 mb-1">Upload Gambar *</label>
+        <input type="file" name="gambar" id="gambar" accept="image/*"
+          class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition duration-200"
+          onchange="previewImage(event)" required>
+        @error('gambar')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
+      </div>
+    </div>
+
+    <div id="previewContainer" class="hidden">
+      <label class="block text-sm font-medium text-slate-700 mb-2">Pratinjau Gambar:</label>
+      <img id="previewImage" class="max-h-64 rounded-lg shadow-md border border-slate-200 object-cover">
     </div>
 
     <div>
       <label for="deskripsi" class="block text-sm font-medium text-slate-700 mb-1">Deskripsi</label>
       <textarea name="deskripsi" id="deskripsi" rows="4"
         class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition duration-200"
-        placeholder="Tulis deskripsi singkat tentang foto ini..."></textarea>
+        placeholder="Tulis deskripsi singkat tentang foto ini...">{{ old('deskripsi') }}</textarea>
+      @error('deskripsi')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
     </div>
 
-
-    <div class="mt-8 border-t pt-6 flex justify-end">
+    <div class="mt-8 border-t pt-6 flex justify-end gap-3">
+      <a href="{{ route('admin.galeri.index') }}"
+        class="px-6 py-2.5 rounded-lg border border-slate-300 text-slate-700 font-medium hover:bg-slate-50 transition duration-200">
+        Batal
+      </a>
       <button type="submit"
         class="bg-emerald-600 text-white font-semibold px-6 py-2.5 rounded-lg shadow-md hover:bg-emerald-700 transform hover:scale-105 transition-all duration-300">
         Simpan Galeri
@@ -47,6 +74,23 @@
   document.addEventListener("DOMContentLoaded", () => {
     lucide.createIcons();
   });
+
+  function previewImage(event) {
+    const preview = document.getElementById('previewImage');
+    const container = document.getElementById('previewContainer');
+    const file = event.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = e => {
+        preview.src = e.target.result;
+        container.classList.remove('hidden');
+      };
+      reader.readAsDataURL(file);
+    } else {
+      container.classList.add('hidden');
+    }
+  }
 </script>
 
 <style>

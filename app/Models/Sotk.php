@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sotk extends Model
 {
-  protected $fillable = ['nama', 'jabatan', 'foto', 'bagan'];
+  protected $fillable = ['nama', 'jabatan', 'foto', 'bagan', 'tupoksi'];
 }

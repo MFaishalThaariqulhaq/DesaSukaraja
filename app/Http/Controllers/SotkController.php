@@ -9,6 +9,6 @@ class SotkController extends Controller
   public function index()
   {
     $sotks = Sotk::orderBy('jabatan')->get();
-    return view('public.sotk.index', compact('sotks'));
+    return view('public.sotk.sotk', compact('sotks'));
   }
 }

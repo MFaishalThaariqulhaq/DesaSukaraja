@@ -48,9 +48,9 @@
         <a href="/" class="text-slate-600 hover:text-emerald-600 font-medium {{ request()->is('/') ? 'border-b-2 border-emerald-500 pb-1' : '' }}">Home</a>
         <a href="/profil" class="text-slate-600 hover:text-emerald-600 font-medium {{ request()->is('profil') ? 'border-b-2 border-emerald-500 pb-1' : '' }}">Profil</a>
         <a href="/berita" class="text-slate-600 hover:text-emerald-600 font-medium {{ (request()->is('berita') || request()->is('berita/*')) ? 'border-b-4 border-emerald-500 pb-1' : '' }}">Berita</a>
-        <a href="/#galeri" class="text-slate-600 hover:text-emerald-600 font-medium {{ (request()->is('galeri/*') || request()->routeIs('galeri.detail')) ? 'border-b-2 border-emerald-500 pb-1' : '' }}">Galeri</a>
+        <a href="/galeri" class="text-slate-600 hover:text-emerald-600 font-medium {{ (request()->is('galeri') || request()->is('galeri/*')) ? 'border-b-2 border-emerald-500 pb-1' : '' }}">Galeri</a>
         <a href="/infografis" class="text-slate-600 hover:text-emerald-600 font-medium {{ request()->is('infografis*') ? 'border-b-2 border-emerald-500 pb-1' : '' }}">Infografis</a>
-        <a href="/#sotk" class="text-slate-600 hover:text-emerald-600 font-medium {{ request()->is('#sotk') ? 'border-b-2 border-emerald-500 pb-1' : '' }}">SOTK</a>
+        <a href="/sotk" class="text-slate-600 hover:text-emerald-600 font-medium {{ request()->is('sotk*') ? 'border-b-2 border-emerald-500 pb-1' : '' }}">SOTK</a>
         <a href="/#pengaduan" class="text-slate-600 hover:text-emerald-600 font-medium {{ request()->is('#pengaduan') ? 'border-b-2 border-emerald-500 pb-1' : '' }}">Pengaduan</a>
       </nav>
     </div>
@@ -61,9 +61,9 @@
         <a href="/" class="text-slate-700 hover:text-emerald-600 {{ request()->is('/') ? 'border-b-2 border-emerald-500 pb-1' : '' }}">Home</a>
         <a href="/profil" class="text-slate-700 hover:text-emerald-600 {{ request()->is('profil') ? 'border-b-2 border-emerald-500 pb-1' : '' }}">Profil</a>
         <a href="/berita" class="text-slate-700 hover:text-emerald-600 {{ request()->is('berita') || request()->is('berita/*') ? 'border-b-2 border-emerald-500 pb-1' : '' }}">Berita</a>
-        <a href="/#galeri" class="text-slate-700 hover:text-emerald-600 {{ request()->is('#galeri') ? 'border-b-2 border-emerald-500 pb-1' : '' }}">Galeri</a>
+        <a href="/galeri" class="text-slate-700 hover:text-emerald-600 {{ (request()->is('galeri') || request()->is('galeri/*')) ? 'border-b-2 border-emerald-500 pb-1' : '' }}">Galeri</a>
         <a href="/infografis" class="text-slate-700 hover:text-emerald-600 {{ request()->is('infografis*') ? 'border-b-2 border-emerald-500 pb-1' : '' }}">Infografis</a>
-        <a href="/#sotk" class="text-slate-700 hover:text-emerald-600 {{ request()->is('#sotk') ? 'border-b-2 border-emerald-500 pb-1' : '' }}">SOTK</a>
+        <a href="/sotk" class="text-slate-700 hover:text-emerald-600 {{ request()->is('sotk*') ? 'border-b-2 border-emerald-500 pb-1' : '' }}">SOTK</a>
         <a href="/#pengaduan" class="text-slate-700 hover:text-emerald-600 {{ request()->is('#pengaduan') ? 'border-b-2 border-emerald-500 pb-1' : '' }}">Pengaduan</a>
       </nav>
     </div>

@@ -1,0 +1,23 @@
+# Ignore Blade template files
+*.blade.php
+resources/views/**
+
+# Ignore PHP files
+app/**
+bootstrap/**
+config/**
+database/**
+routes/**
+storage/**
+vendor/**
+
+# Ignore other files
+node_modules/
+.env
+.env.local
+.env.*.local
+composer.lock
+package-lock.json
+yarn.lock
+dist/
+build/

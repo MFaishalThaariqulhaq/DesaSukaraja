@@ -11,10 +11,4 @@ class GaleriController extends Controller
     $galeris = Galeri::orderBy('created_at', 'desc')->get();
     return view('public.galeri.index', compact('galeris'));
   }
-
-  public function detail($id)
-  {
-    $galeri = Galeri::with('fotos')->findOrFail($id);
-    return view('public.galeri.detail', compact('galeri'));
-  }
 }

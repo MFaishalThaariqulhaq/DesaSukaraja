@@ -21,6 +21,10 @@
     </div>
     @endif
   </div>
+  <div class="mb-4">
+    <label for="tupoksi" class="block">Tupoksi (Tugas Pokok dan Fungsi)</label>
+    <textarea name="tupoksi" id="tupoksi" rows="4" class="border rounded w-full p-2">{{ $sotk->tupoksi }}</textarea>
+  </div>
   <div class="flex gap-3 mt-4">
     <button type="submit" class="inline-flex items-center bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-700 transition transform hover:-translate-y-0.5 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-emerald-300">
       <i data-lucide="check-circle" class="w-4 h-4 mr-2"></i>

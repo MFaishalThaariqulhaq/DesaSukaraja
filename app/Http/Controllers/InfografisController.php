@@ -13,4 +13,17 @@ class InfografisController extends Controller
     $data = Penduduk::orderBy('dusun')->get();
     return view('public.infografis.index', compact('data'));
   }
+
+  public function detail($dusun)
+  {
+    // Ambil data untuk dusun spesifik
+    $data = Penduduk::where('dusun', $dusun)->first();
+    
+    if (!$data) {
+      abort(404, 'Data dusun tidak ditemukan');
+    }
+
+    return view('public.infografis.detail', compact('data'));
+  }
 }
+
