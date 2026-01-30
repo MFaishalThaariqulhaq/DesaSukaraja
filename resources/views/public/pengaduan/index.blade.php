@@ -6,11 +6,11 @@
   <meta charset="UTF-8">
   <title>Pengaduan Masyarakat Desa Sukaraja</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.site_key') }}"></script>
 </head>
 
 <body class="bg-slate-50 flex items-center justify-center min-h-screen">
-  <form action="{{ route('pengaduan.store') }}" method="POST" enctype="multipart/form-data" class="bg-white p-6 md:p-8 rounded-2xl shadow-lg animate-fadeInUp w-full max-w-md mx-4">
+  <form id="pengaduanForm" action="{{ route('pengaduan.store') }}" method="POST" enctype="multipart/form-data" class="bg-white p-6 md:p-8 rounded-2xl shadow-lg animate-fadeInUp w-full max-w-md mx-4">
     @csrf
     <h2 class="text-2xl font-bold mb-2 text-center">Form Pengaduan</h2>
     <p class="text-center text-gray-600 text-sm mb-6">Sampaikan keluhan atau masukan Anda</p>
@@ -75,10 +75,11 @@
       @error('lampiran') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
     </div>
 
-    <!-- reCAPTCHA -->
-    <div class="mb-4" data-sitekey="{{ config('services.recaptcha.site_key') }}">
-      <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.site_key') }}" data-theme="light"></div>
-      @error('g-recaptcha-response') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+    <!-- Hidden field untuk reCAPTCHA token -->
+    <input type="hidden" name="g-recaptcha-response" id="recaptchaResponse">
+    
+    <div class="mb-4 text-center text-xs text-gray-500">
+      <p>🔐 Dilindungi oleh reCAPTCHA</p>
     </div>
     
     <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded w-full font-semibold transition-colors">Kirim Pengaduan</button>
@@ -91,6 +92,24 @@
       }
     }
   </style>
+
+  <script>
+    const form = document.getElementById('pengaduanForm');
+    
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Generate reCAPTCHA token v3
+      grecaptcha.ready(function() {
+        grecaptcha.execute('{{ config('services.recaptcha.site_key') }}', {action: 'submit'}).then(function(token) {
+          // Set token ke hidden field
+          document.getElementById('recaptchaResponse').value = token;
+          // Submit form
+          form.submit();
+        });
+      });
+    });
+  </script>
 </body>
 
 </html>
