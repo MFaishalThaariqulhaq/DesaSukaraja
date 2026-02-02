@@ -1,0 +1,152 @@
+/* Beranda Styles */
+
+/* Font Family Setup */
+body,
+.font-sans {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.font-serif {
+  font-family: 'Playfair Display', serif;
+}
+
+/* Button Utilities */
+.btn-main {
+  @apply px-8 py-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-full font-bold shadow-lg transition-all duration-300 flex items-center gap-2 group;
+}
+
+.btn-outline {
+  @apply px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-white rounded-full font-bold transition-all duration-300 flex items-center gap-2 group;
+}
+
+/* Profil Image */
+.profil-image {
+  width: 100%;
+  height: 450px;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (min-width: 1024px) {
+  .profil-image {
+    height: 550px;
+  }
+}
+
+/* Berita Card Category Badge */
+.berita-badge {
+  @apply absolute top-4 left-4 bg-white/95 backdrop-blur px-4 py-1.5 rounded-full text-xs font-bold shadow-lg;
+}
+
+.berita-badge.kategori-lingkungan {
+  @apply text-emerald-700;
+}
+
+.berita-badge.kategori-ekonomi {
+  @apply text-blue-600;
+}
+
+.berita-badge.kategori-kesehatan {
+  @apply text-pink-600;
+}
+
+/* Berita Card Title Hover Color */
+.berita-title-lingkungan {
+  @apply group-hover:text-emerald-600;
+}
+
+.berita-title-ekonomi {
+  @apply group-hover:text-blue-600;
+}
+
+.berita-title-kesehatan {
+  @apply group-hover:text-pink-600;
+}
+
+/* Berita CTA Link Color */
+.berita-cta-lingkungan {
+  @apply text-emerald-600;
+}
+
+.berita-cta-ekonomi {
+  @apply text-blue-600;
+}
+
+.berita-cta-kesehatan {
+  @apply text-pink-600;
+}
+
+/* ========================================= */
+/* ANIMATION STYLES - dari beranda-animasi */
+/* ========================================= */
+
+/* Hero background & animasi khusus beranda */
+.hero-bg {
+  background-image: linear-gradient(to bottom, rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.5)), url('https://images.pexels.com/photos/2132075/pexels-photo-2132075.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.hero-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(16, 185, 129, 0.06), rgba(14, 165, 233, 0.04), rgba(99, 102, 241, 0.03));
+  background-size: 200% 200%;
+  animation: gradientShift 12s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+#tsparticles {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.animate-fade-in-down {
+  animation: fadeInDown 0.9s ease-out both;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.9s ease-out both;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

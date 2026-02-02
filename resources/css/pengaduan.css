@@ -1,0 +1,7 @@
+/* Pengaduan Form Styles */
+
+@media (prefers-reduced-motion: reduce) {
+  form.animate-fadeInUp {
+    animation: none !important;
+  }
+}

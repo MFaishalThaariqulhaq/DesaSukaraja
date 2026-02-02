@@ -1,5 +1,6 @@
 @extends('public.layout')
 @section('content')
+
 <section id="sejarah" class="py-20 bg-slate-50">
   <div class="container mx-auto px-6">
     <div class="text-center mb-16" data-aos="fade-up">
@@ -199,35 +200,5 @@
     </div>
   </div>
 </div>
-
-<script>
-  function openStrukturModal() {
-    document.getElementById('struktur-modal').classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeStrukturModal(event) {
-    if (event && event.target.id !== 'struktur-modal') return;
-    document.getElementById('struktur-modal').classList.add('hidden');
-    document.body.style.overflow = 'auto';
-  }
-
-  function downloadStruktur() {
-    const img = document.getElementById('struktur-modal-img');
-    if (img && img.src) {
-      const link = document.createElement('a');
-      link.href = img.src;
-      link.download = 'struktur-organisasi-desa-sukaraja.png';
-      link.click();
-    }
-  }
-
-  // Close modal when pressing Escape
-  document.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape') {
-      closeStrukturModal();
-    }
-  });
-</script>
 
 @endsection

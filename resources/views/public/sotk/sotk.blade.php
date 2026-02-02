@@ -1,34 +1,24 @@
 @extends('public.layout')
 
 @section('content')
+@push('styles')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+@endpush
 
-<style>
-  .fade-in-section {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+@push('scripts')
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  if (window.AOS) {
+    AOS.init({
+      once: true,
+      offset: 50,
+      duration: 800,
+      easing: 'ease-out-cubic'
+    });
   }
-
-  .fade-in-section.is-visible {
-    opacity: 1;
-    transform: none;
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  .animate-fadeIn {
-    animation: fadeIn 0.3s ease;
-  }
-</style>
+</script>
+@endpush
 
 <!-- Header Section -->
 <header class="bg-slate-900 text-white py-20 relative overflow-hidden">
@@ -64,11 +54,11 @@
             src="{{ asset('storage/' . $bagan->foto) }}" 
             alt="Bagan Struktur Organisasi"
             id="baganImage"
-            class="w-full h-full object-cover transition duration-700 group-hover:scale-105 group-hover:opacity-90">
+            class="w-full h-full object-cover transition duration-700 group-hover:scale-105 group-hover:opacity-90 cursor-pointer">
 
           <!-- Overlay Button -->
           <div class="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition duration-300">
-            <button class="px-6 py-3 bg-white text-slate-900 font-bold rounded-lg shadow-lg hover:bg-emerald-50 transition transform hover:-translate-y-1">
+            <button type="button" class="px-6 py-3 bg-white text-slate-900 font-bold rounded-lg shadow-lg hover:bg-emerald-50 transition transform hover:-translate-y-1">
               Lihat Gambar Penuh
             </button>
           </div>
@@ -155,53 +145,4 @@
   </div>
 </div>
 
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-  // Initialize AOS
-  AOS.init({
-    once: true,
-    offset: 50,
-    duration: 800,
-    easing: 'ease-out-cubic'
-  });
-
-  // Modal untuk bagan
-  const baganImage = document.getElementById('baganImage');
-  const modal = document.getElementById('baganModal');
-  const modalImg = document.getElementById('baganModalImg');
-  const closeModal = document.getElementById('closeModal');
-  const downloadBtn = document.getElementById('downloadBagan');
-
-  if (baganImage) {
-    baganImage.parentElement.addEventListener('click', () => {
-      modalImg.src = baganImage.src;
-      modal.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-    });
-  }
-
-  closeModal.addEventListener('click', () => {
-    modal.classList.add('hidden');
-    document.body.style.overflow = 'auto';
-  });
-
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) {
-      modal.classList.add('hidden');
-      document.body.style.overflow = 'auto';
-    }
-  });
-
-  // Download bagan
-  downloadBtn.addEventListener('click', () => {
-    const link = document.createElement('a');
-    link.href = baganImage.src;
-    link.download = 'Bagan-Struktur-Organisasi-Desa-Sukaraja-2024.jpg';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  });
-
-  lucide.createIcons();
-</script>
 @endsection

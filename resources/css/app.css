@@ -1,4 +1,12 @@
 @import 'tailwindcss';
+@import './layout.css';
+@import './animations.css';
+@import './beranda-animasi.css';
+@import './beranda-styles.css';
+@import './infografis.css';
+@import './sotk.css';
+@import './pengaduan.css';
+@import './profil.css';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';

@@ -1,87 +1,50 @@
 @extends('public.layout')
 
 @section('content')
+@push('styles')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+@endpush
 
-<style>
-  body {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-  }
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-  .glass-effect {
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-  }
-
-  .gradient-card-1 {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  }
-
-  .gradient-card-2 {
-    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-  }
-
-  .gradient-card-3 {
-    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
-  }
-
-  .gradient-card-4 {
-    background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
-  }
-
-  .bg-pattern {
-    background-color: #f8fafc;
-    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e2e8f0' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-  }
-
-  @keyframes float {
-    0% {
-      transform: translateY(0px);
+<!-- Data untuk infografis charts -->
+<script>
+  window.infografisData = {
+    ageChart: {
+      labels: ['Balita (0-5)', 'Anak (6-12)', 'Remaja (13-17)', 'Dewasa (18-59)', 'Lansia (60+)'],
+      male: [{{ ($data->kelompok_usia_0_5 ?? 0) / 2 }}, {{ ($data->kelompok_usia_6_11 ?? 0) / 2 }}, {{ ($data->kelompok_usia_12_17 ?? 0) / 2 }}, {{ ($data->kelompok_usia_18_25 ?? 0) / 2 }}, {{ ($data->kelompok_usia_61_keatas ?? 0) / 2 }}],
+      female: [{{ ($data->kelompok_usia_0_5 ?? 0) / 2 }}, {{ ($data->kelompok_usia_6_11 ?? 0) / 2 }}, {{ ($data->kelompok_usia_12_17 ?? 0) / 2 }}, {{ ($data->kelompok_usia_18_25 ?? 0) / 2 }}, {{ ($data->kelompok_usia_61_keatas ?? 0) / 2 }}]
+    },
+    educationChart: {
+      labels: ['SD', 'SMP', 'SMA/K', 'Diploma/Sarjana', 'Belum Sekolah'],
+      data: [{{ $data->pendidikan_sd }}, {{ $data->pendidikan_smp }}, {{ $data->pendidikan_sma }}, {{ $data->pendidikan_diploma }}, {{ $data->pendidikan_belum }}]
+    },
+    jobChart: {
+      labels: ['Petani', 'Wiraswasta', 'Karyawan Swasta', 'PNS/TNI/Polri', 'Ibu Rumah Tangga', 'Belum Bekerja'],
+      data: [{{ $data->pekerjaan_petani }}, {{ $data->pekerjaan_wiraswasta }}, {{ $data->pekerjaan_karyawan }}, {{ $data->pekerjaan_pns }}, {{ $data->pekerjaan_ibu_rumah_tangga }}, {{ $data->pekerjaan_belum }}]
+    },
+    religionChart: {
+      labels: ['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha'],
+      data: [{{ $data->agama_islam }}, {{ $data->agama_kristen }}, {{ $data->agama_katolik }}, {{ $data->agama_hindu }}, {{ $data->agama_buddha }}]
     }
+  };
 
-    50% {
-      transform: translateY(-10px);
-    }
-
-    100% {
-      transform: translateY(0px);
-    }
+  // Initialize AOS
+  if (window.AOS) {
+    AOS.init({
+      duration: 1000,
+      once: true,
+      offset: 50,
+      easing: 'ease-out-cubic',
+      delay: 50
+    });
   }
-
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-  }
-
-  @keyframes pulse-soft {
-    0%,
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    50% {
-      opacity: 0.8;
-      transform: scale(1.05);
-    }
-  }
-
-  .animate-pulse-soft {
-    animation: pulse-soft 3s infinite;
-  }
-
-  .hover-elastic {
-    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
-  }
-
-  .hover-elastic:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  }
-</style>
+</script>
+@endpush
 
 <div class="bg-pattern text-slate-800 antialiased overflow-x-hidden selection:bg-emerald-500 selection:text-white">
   <!-- Header -->
@@ -349,262 +312,5 @@
     </div>
   </div>
 </div>
-
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-  // Function untuk toggle chart visibility
-  function toggleChart(headerElement, containerId) {
-    const container = document.getElementById(containerId);
-    const btn = headerElement.querySelector('.chart-toggle-btn i');
-    
-    if (container.classList.contains('hidden')) {
-      container.classList.remove('hidden');
-      btn.classList.remove('fa-chevron-right');
-      btn.classList.add('fa-chevron-down');
-    } else {
-      container.classList.add('hidden');
-      btn.classList.remove('fa-chevron-down');
-      btn.classList.add('fa-chevron-right');
-    }
-  }
-
-  // Init AOS with Smoother Settings
-  AOS.init({
-    duration: 1000,
-    once: true,
-    offset: 50,
-    easing: 'ease-out-cubic',
-    delay: 50
-  });
-
-  // Chart Configs
-  Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
-  Chart.defaults.color = '#64748b';
-
-  const commonAnimation = {
-    duration: 2000,
-    easing: 'easeOutQuart'
-  };
-
-  document.addEventListener('DOMContentLoaded', function() {
-    // 1. Grafik Usia (Bar Chart)
-    const ctxAge = document.getElementById('ageChart').getContext('2d');
-    new Chart(ctxAge, {
-      type: 'bar',
-      data: {
-        labels: ['Balita (0-5)', 'Anak (6-12)', 'Remaja (13-17)', 'Dewasa (18-59)', 'Lansia (60+)'],
-        datasets: [{
-          label: 'Laki-laki',
-          data: [
-            {{ ($data->kelompok_usia_0_5 ?? 0) / 2 }},
-            {{ ($data->kelompok_usia_6_11 ?? 0) / 2 }},
-            {{ ($data->kelompok_usia_12_17 ?? 0) / 2 }},
-            {{ ($data->kelompok_usia_18_25 ?? 0) / 2 }},
-            {{ ($data->kelompok_usia_61_keatas ?? 0) / 2 }}
-          ],
-          backgroundColor: '#3b82f6',
-          borderRadius: 6,
-          barPercentage: 0.7
-        }, {
-          label: 'Perempuan',
-          data: [
-            {{ ($data->kelompok_usia_0_5 ?? 0) / 2 }},
-            {{ ($data->kelompok_usia_6_11 ?? 0) / 2 }},
-            {{ ($data->kelompok_usia_12_17 ?? 0) / 2 }},
-            {{ ($data->kelompok_usia_18_25 ?? 0) / 2 }},
-            {{ ($data->kelompok_usia_61_keatas ?? 0) / 2 }}
-          ],
-          backgroundColor: '#ec4899',
-          borderRadius: 6,
-          barPercentage: 0.7
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        animation: commonAnimation,
-        plugins: {
-          legend: {
-            position: 'top',
-            align: 'end',
-            labels: {
-              usePointStyle: true,
-              pointStyle: 'circle'
-            }
-          }
-        },
-        scales: {
-          y: {
-            beginAtZero: true,
-            grid: {
-              borderDash: [5, 5],
-              color: '#f1f5f9'
-            },
-            border: {
-              display: false
-            }
-          },
-          x: {
-            grid: {
-              display: false
-            },
-            border: {
-              display: false
-            }
-          }
-        }
-      }
-    });
-
-    // 2. Grafik Pendidikan (Doughnut Chart)
-    const ctxEdu = document.getElementById('educationChart').getContext('2d');
-    new Chart(ctxEdu, {
-      type: 'doughnut',
-      data: {
-        labels: ['SD', 'SMP', 'SMA/K', 'Diploma/Sarjana', 'Belum Sekolah'],
-        datasets: [{
-          data: [
-            {{ $data->pendidikan_sd }},
-            {{ $data->pendidikan_smp }},
-            {{ $data->pendidikan_sma }},
-            {{ $data->pendidikan_diploma }},
-            {{ $data->pendidikan_belum }}
-          ],
-          backgroundColor: [
-            '#10b981',
-            '#3b82f6',
-            '#f59e0b',
-            '#8b5cf6',
-            '#cbd5e1'
-          ],
-          borderWidth: 0,
-          hoverOffset: 15
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        cutout: '75%',
-        animation: {
-          animateScale: true,
-          animateRotate: true,
-          duration: 2000,
-          easing: 'easeOutQuart'
-        },
-        plugins: {
-          legend: {
-            position: 'bottom',
-            labels: {
-              boxWidth: 12,
-              usePointStyle: true,
-              pointStyle: 'circle',
-              padding: 20
-            }
-          }
-        }
-      }
-    });
-
-    // 3. Grafik Pekerjaan (Horizontal Bar)
-    const ctxJob = document.getElementById('jobChart').getContext('2d');
-    new Chart(ctxJob, {
-      type: 'bar',
-      data: {
-        labels: ['Petani', 'Wiraswasta', 'Karyawan Swasta', 'PNS/TNI/Polri', 'Ibu Rumah Tangga', 'Belum Bekerja'],
-        datasets: [{
-          label: 'Jumlah Orang',
-          data: [
-            {{ $data->pekerjaan_petani }},
-            {{ $data->pekerjaan_wiraswasta }},
-            {{ $data->pekerjaan_karyawan }},
-            {{ $data->pekerjaan_pns }},
-            {{ $data->pekerjaan_ibu_rumah_tangga }},
-            {{ $data->pekerjaan_belum }}
-          ],
-          backgroundColor: '#f59e0b',
-          borderRadius: 6,
-          barThickness: 24
-        }]
-      },
-      options: {
-        indexAxis: 'y',
-        responsive: true,
-        maintainAspectRatio: false,
-        animation: commonAnimation,
-        plugins: {
-          legend: {
-            display: false
-          }
-        },
-        scales: {
-          x: {
-            beginAtZero: true,
-            grid: {
-              borderDash: [5, 5],
-              color: '#f1f5f9'
-            },
-            border: {
-              display: false
-            }
-          },
-          y: {
-            grid: {
-              display: false
-            },
-            border: {
-              display: false
-            }
-          }
-        }
-      }
-    });
-
-    // 4. Grafik Agama (Pie Chart)
-    const ctxRel = document.getElementById('religionChart').getContext('2d');
-    new Chart(ctxRel, {
-      type: 'pie',
-      data: {
-        labels: ['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha'],
-        datasets: [{
-          data: [
-            {{ $data->agama_islam }},
-            {{ $data->agama_kristen }},
-            {{ $data->agama_katolik }},
-            {{ $data->agama_hindu }},
-            {{ $data->agama_buddha }}
-          ],
-          backgroundColor: [
-            '#10b981',
-            '#3b82f6',
-            '#f43f5e',
-            '#f97316',
-            '#eab308'
-          ],
-          borderWidth: 0,
-          hoverOffset: 15
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        animation: {
-          animateScale: true,
-          animateRotate: true,
-          duration: 2000,
-          easing: 'easeOutQuart'
-        },
-        plugins: {
-          legend: {
-            position: 'right',
-            labels: {
-              usePointStyle: true,
-              pointStyle: 'circle'
-            }
-          }
-        }
-      }
-    });
-  });
-</script>
 
 @endsection

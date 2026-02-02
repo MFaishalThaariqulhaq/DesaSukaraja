@@ -1,0 +1,11 @@
+/* Layout Styles - Header, Footer, Global Styles */
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f8fafc;
+}
+
+/* Header Shadow on Scroll */
+.scrolled {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}

@@ -7,6 +7,8 @@
   <title>Pengaduan Masyarakat Desa Sukaraja</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.site_key') }}"></script>
+  <meta name="recaptcha-key" content="{{ config('services.recaptcha.site_key') }}">
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="bg-slate-50 flex items-center justify-center min-h-screen">
@@ -85,31 +87,8 @@
     <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded w-full font-semibold transition-colors">Kirim Pengaduan</button>
   </form>
 
-  <style>
-    @media (prefers-reduced-motion: reduce) {
-      form.animate-fadeInUp {
-        animation: none !important;
-      }
-    }
-  </style>
-
-  <script>
-    const form = document.getElementById('pengaduanForm');
-    
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      // Generate reCAPTCHA token v3
-      grecaptcha.ready(function() {
-        grecaptcha.execute('{{ config('services.recaptcha.site_key') }}', {action: 'submit'}).then(function(token) {
-          // Set token ke hidden field
-          document.getElementById('recaptchaResponse').value = token;
-          // Submit form
-          form.submit();
-        });
-      });
-    });
-  </script>
+  <!-- Hidden field untuk reCAPTCHA token -->
+  <input type="hidden" name="g-recaptcha-response" id="recaptchaResponse">
 </body>
 
 </html>

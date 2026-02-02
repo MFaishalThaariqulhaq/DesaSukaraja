@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="id">
 
 <head>
@@ -8,18 +8,13 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #f8fafc;
-    }
-
-    /* Tambahkan efek bayangan saat scroll */
-    .scrolled {
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-  </style>
+  
+  <!-- Global Styles (bundled in Vite) -->
+  
   @stack('styles')
+
+  <!-- Vite Entry Point -->
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="bg-slate-50 text-slate-700">
@@ -108,25 +103,8 @@
     </div>
   </footer>
 
-  <script>
-    lucide.createIcons();
-
-    // Header shadow saat scroll
-    window.addEventListener('scroll', function() {
-      const header = document.getElementById('main-header');
-      if (window.scrollY > 10) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
-      }
-    });
-
-    // Toggle menu mobile
-    document.getElementById('menu-toggle').addEventListener('click', function() {
-      document.getElementById('mobile-menu').classList.toggle('hidden');
-    });
-  </script>
+  <!-- Page-specific scripts -->
   @stack('scripts')
 </body>
 
-</html>
+</html> 

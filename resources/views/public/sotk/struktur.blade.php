@@ -2,58 +2,6 @@
 
 @section('title', 'Struktur Organisasi dan Tata Kerja')
 
-@push('styles')
-<style>
-    .tree-wrapper {
-        overflow-x: auto;
-        cursor: grab;
-        padding: 20px;
-    }
-
-    .tree-wrapper.active {
-        cursor: grabbing;
-    }
-
-    .tree {
-        display: inline-flex;
-        gap: 60px;
-        align-items: flex-start;
-        white-space: nowrap;
-    }
-
-    .node {
-        text-align: center;
-        min-width: 180px;
-    }
-
-    .node img {
-        width: 120px;
-        height: 120px;
-        object-fit: cover;
-        border-radius: 9999px;
-        border: 3px solid #e5e7eb;
-        margin-bottom: 10px;
-    }
-
-    .node .name {
-        font-weight: 600;
-        font-size: 16px;
-    }
-
-    .node .role {
-        font-size: 14px;
-        color: #6b7280;
-    }
-
-    .children {
-        margin-top: 40px;
-        display: flex;
-        gap: 40px;
-        justify-content: center;
-    }
-</style>
-@endpush
-
 @section('content')
 <div class="container mx-auto px-4 py-10">
     <h1 class="text-2xl font-bold text-center mb-10">
@@ -115,81 +63,7 @@
 
 @push('scripts')
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-
-    /* ===============================
-       DATA (AMAN 100%)
-    =============================== */
-    const staffData = @json($staffData);
-
-    /* ===============================
-       MODAL
-    =============================== */
-    const modal = document.getElementById('modal');
-    const closeModal = document.getElementById('closeModal');
-
-    document.querySelectorAll('.node').forEach(node => {
-        node.addEventListener('click', () => {
-            const id = node.dataset.id;
-            if (!staffData[id]) return;
-
-            document.getElementById('modalName').innerText = staffData[id].name;
-            document.getElementById('modalRole').innerText = staffData[id].role;
-            document.getElementById('modalTupoksi').innerText = staffData[id].tupoksi;
-
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        });
-    });
-
-    closeModal.addEventListener('click', () => {
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
-    });
-
-    modal.addEventListener('click', e => {
-        if (e.target === modal) {
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        }
-    });
-
-    /* ===============================
-       DRAG SCROLL (AMAN)
-    =============================== */
-    const treeContainer = document.getElementById('tree-container');
-
-    if (treeContainer) {
-        let isDown = false;
-        let startX;
-        let scrollLeft;
-
-        treeContainer.addEventListener('mousedown', e => {
-            isDown = true;
-            treeContainer.classList.add('active');
-            startX = e.pageX - treeContainer.offsetLeft;
-            scrollLeft = treeContainer.scrollLeft;
-        });
-
-        treeContainer.addEventListener('mouseleave', () => {
-            isDown = false;
-            treeContainer.classList.remove('active');
-        });
-
-        treeContainer.addEventListener('mouseup', () => {
-            isDown = false;
-            treeContainer.classList.remove('active');
-        });
-
-        treeContainer.addEventListener('mousemove', e => {
-            if (!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - treeContainer.offsetLeft;
-            const walk = (x - startX) * 2;
-            treeContainer.scrollLeft = scrollLeft - walk;
-        });
-    }
-
-});
+  // Pass staffData to window object
+  window.staffData = @json($staffData);
 </script>
 @endpush
