@@ -32,16 +32,16 @@
             <i data-lucide="arrow-left" class="w-4 h-4"></i>
             <span>Kembali</span>
           </a>
-          <h1 class="text-4xl md:text-5xl font-bold font-serif leading-tight text-slate-900 drop-shadow-lg">
-            Dusun <span class="text-emerald-900">{{ $data->dusun }}</span>
+          <h1 class="text-4xl md:text-5xl font-bold font-serif leading-tight text-black drop-shadow-lg">
+            Dusun <span class="text-black">{{ $data->dusun }}</span>
           </h1>
-          <p class="text-slate-700 text-lg mt-3 font-medium">Data demografi lengkap penduduk</p>
+          <p class="text-slate-900 text-lg mt-3 font-medium">Data demografi lengkap penduduk</p>
         </div>
 
         <!-- Right Section: Last Update -->
-        <div class="bg-white/10 backdrop-blur-md border border-white/20 px-6 py-4 rounded-xl text-slate-800" data-aos="fade-left" data-aos-duration="1000">
-          <p class="text-xs uppercase tracking-wider font-medium text-slate-700">Update Terakhir</p>
-          <p class="text-2xl font-bold mt-1 text-slate-900">{{ date('F Y') }}</p>
+        <div class="bg-white/10 backdrop-blur-md border border-white/20 px-6 py-4 rounded-xl" data-aos="fade-left" data-aos-duration="1000">
+          <p class="text-xs uppercase tracking-wider font-medium text-black">Update Terakhir</p>
+          <p class="text-2xl font-bold mt-1 text-black">{{ date('F Y') }}</p>
         </div>
       </div>
     </div>
