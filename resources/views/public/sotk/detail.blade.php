@@ -170,12 +170,14 @@
 
               <!-- Info Card (Below Image) -->
               <div class="p-6 text-center relative">
-                <div 
-                  class="absolute -top-5 left-1/2 -translate-x-1/2 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-md tracking-wider uppercase"
-                  @if($sotk->colors) style="background: {{ $sotk->colors['badgeBg'] }}" @endif>
-                  {{ $sotk->jabatan }}
-                </div>
-                <h3 class="text-xl font-bold text-slate-800 mt-4 mb-1">
+                @if($sotk->colors)
+                  <div 
+                    class="absolute left-1/2 -translate-x-1/2 -top-4 px-4 py-2 rounded-full shadow-lg text-white text-xs font-bold uppercase tracking-wide"
+                    style="background: {{ $sotk->colors['badgeBg'] }}; white-space: nowrap;">
+                    {{ $sotk->jabatan }}
+                  </div>
+                @endif
+                <h3 class="text-xl font-bold text-slate-800 mt-5 mb-1">
                   {{ $sotk->nama }}
                 </h3>
                 <p class="text-sm text-slate-500 mb-4">Masa Bakti 2024 - 2029</p>

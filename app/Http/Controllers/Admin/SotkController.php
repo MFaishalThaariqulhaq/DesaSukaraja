@@ -23,14 +23,15 @@ class SotkController extends Controller
       'nama' => 'required',
       'jabatan' => 'required',
       'foto' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
-      'bagan' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+      'tupoksi' => 'nullable|string',
+      'badge_color' => 'nullable|regex:/^#(?:[0-9a-fA-F]{3}){1,2}$/',
+      'overlay_bg_color' => 'nullable|string',
+      'icon_color' => 'nullable|regex:/^#(?:[0-9a-fA-F]{3}){1,2}$/',
+      'icon_name' => 'nullable|string',
     ]);
-    $data = $request->except('foto', 'bagan');
+    $data = $request->except('foto');
     if ($request->hasFile('foto')) {
       $data['foto'] = $request->file('foto')->store('sotk_foto', 'public');
-    }
-    if ($request->hasFile('bagan')) {
-      $data['bagan'] = $request->file('bagan')->store('sotk_bagan', 'public');
     }
     Sotk::create($data);
     return redirect()->route('admin.sotk.index')->with('success', 'SOTK berhasil ditambahkan');
@@ -47,6 +48,11 @@ class SotkController extends Controller
       'nama' => 'required',
       'jabatan' => 'required',
       'foto' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+      'tupoksi' => 'nullable|string',
+      'badge_color' => 'nullable|regex:/^#(?:[0-9a-fA-F]{3}){1,2}$/',
+      'overlay_bg_color' => 'nullable|string',
+      'icon_color' => 'nullable|regex:/^#(?:[0-9a-fA-F]{3}){1,2}$/',
+      'icon_name' => 'nullable|string',
     ]);
     $data = $request->except('foto');
     if ($request->hasFile('foto')) {

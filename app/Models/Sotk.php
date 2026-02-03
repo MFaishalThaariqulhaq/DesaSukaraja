@@ -6,5 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sotk extends Model
 {
-  protected $fillable = ['nama', 'jabatan', 'foto', 'bagan', 'tupoksi'];
+  protected $fillable = [
+    'nama', 
+    'jabatan', 
+    'foto', 
+    'bagan', 
+    'tupoksi',
+    'badge_color',
+    'overlay_bg_color',
+    'icon_color',
+    'icon_name'
+  ];
 }
