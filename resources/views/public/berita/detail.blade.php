@@ -8,7 +8,6 @@
 
 @push('scripts')
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script src="{{ asset('js/berita-detail.js') }}"></script>
 @endpush
 
 <!-- Header Section -->
