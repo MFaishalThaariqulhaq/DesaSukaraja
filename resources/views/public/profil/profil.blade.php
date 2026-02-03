@@ -171,29 +171,29 @@
   <div class="container mx-auto px-6">
     <div class="text-center mb-12" data-aos="fade-up">
       <span class="text-emerald-600 font-bold uppercase tracking-widest text-sm">Pemerintahan</span>
-      <h2 class="text-3xl md:text-5xl font-bold text-slate-800 mt-2">Struktur Organisasi BPD</h2>
-      <p class="text-slate-600 mt-4 max-w-2xl mx-auto">Sinergi antara aparat desa dan lembaga masyarakat dalam mewujudkan visi misi Desa Sukaraja.</p>
+      <h2 class="text-3xl md:text-5xl font-bold text-slate-800 mt-2 leading-tight">Struktur Organisasi BPD</h2>
+      <p class="text-slate-600 mt-4 max-w-3xl mx-auto text-base leading-relaxed">Sinergi antara aparat desa dan lembaga masyarakat dalam mewujudkan visi misi Desa Sukaraja.</p>
     </div>
     <div class="max-w-5xl mx-auto" data-aos="zoom-in" data-aos-duration="1000">
-      <div class="bg-white p-4 rounded-2xl shadow-xl border border-slate-100 overflow-hidden group">
+      <div class="bg-white p-4 md:p-6 rounded-2xl shadow-xl border border-slate-100 overflow-hidden group">
         <div class="relative overflow-hidden rounded-xl bg-slate-100 aspect-video flex items-center justify-center cursor-pointer" onclick="openStrukturModal()">
           <img src="{{ $profil && $profil->struktur_organisasi ? asset('storage/'.$profil->struktur_organisasi) : asset('assets/struktur.jpg') }}" alt="Bagan Struktur Organisasi" class="w-full h-full object-cover transition duration-700 group-hover:scale-105 group-hover:opacity-90">
           <div class="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition duration-300">
             <button type="button" class="px-6 py-3 bg-white text-slate-900 font-bold rounded-lg shadow-lg hover:bg-emerald-50 transition transform hover:-translate-y-1">Lihat Gambar Penuh</button>
           </div>
           <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none group-hover:opacity-0 transition duration-300">
-            <div class="bg-white/90 backdrop-blur px-6 py-4 rounded-xl shadow-lg text-center border-l-4 border-emerald-500">
-              <h4 class="text-xl font-bold text-slate-800">Bagan Organisasi 2024</h4>
+            <div class="bg-white/90 backdrop-blur px-4 md:px-6 py-4 rounded-xl shadow-lg text-center border-l-4 border-emerald-500">
+              <h4 class="text-lg md:text-xl font-bold text-slate-800">Bagan Organisasi 2024</h4>
               <p class="text-slate-500 text-sm">Klik untuk memperbesar</p>
             </div>
           </div>
         </div>
-        <div class="mt-6 flex justify-between items-center px-2">
+        <div class="mt-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 px-2">
           <div>
             <p class="font-bold text-slate-800">Dokumen Resmi</p>
             <p class="text-sm text-slate-500">Diperbarui: Januari 2024</p>
           </div>
-          <button type="button" onclick="downloadStruktur()" class="flex items-center text-emerald-600 font-semibold hover:text-emerald-700 transition">
+          <button type="button" onclick="downloadStruktur()" class="flex items-center text-emerald-600 font-semibold hover:text-emerald-700 transition whitespace-nowrap">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
             </svg>
