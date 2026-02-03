@@ -30,18 +30,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/profil', [HomeController::class, 'profil'])->name('profil');
 // Route Pemerintahan
 // Route SOTK (Struktur Organisasi dan Tata Kerja)
-Route::get('/sotk', function () {
-    $sotks = \App\Models\Sotk::whereNull('bagan')->orderBy('jabatan')->get();
-    $baganConfig = @json_decode(file_get_contents(config_path('bagan_sotk.json')), true);
-    $baganSotk = $baganConfig['bagan'] ?? null;
-    return view('public.sotk.sotk', compact('sotks', 'baganSotk'));
-})->name('sotk.index');
-
-// Route Detail SOTK
-Route::get('/sotk/detail', function () {
-    $sotks = \App\Models\Sotk::orderBy('jabatan')->get();
-    return view('public.sotk.detail', compact('sotks'));
-})->name('sotk.detail');
+Route::get('/sotk', [SotkController::class, 'index'])->name('sotk.index');
+Route::get('/sotk/detail', [SotkController::class, 'detail'])->name('sotk.detail');
 Route::get('/sotk/struktur', function () {
     $sotks = \App\Models\Sotk::orderBy('jabatan')->get();
     

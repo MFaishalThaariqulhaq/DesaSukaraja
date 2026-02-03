@@ -151,9 +151,11 @@
                 <!-- Tupoksi Overlay (Hover) -->
                 <div 
                   class="profile-overlay absolute inset-0 flex flex-col justify-center items-center p-6 text-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0"
-                  style="background: {{ $sotk->colors['overlayBg'] }}">
+                  @if($sotk->colors) style="background: {{ $sotk->colors['overlayBg'] }}" @endif>
                   <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center mb-3">
-                    <i data-lucide="{{ $sotk->colors['icon'] }}" class="w-5 h-5" style="color: {{ $sotk->colors['iconColor'] }}"></i>
+                    @if($sotk->colors)
+                      <i data-lucide="{{ $sotk->colors['icon'] }}" class="w-5 h-5" style="color: {{ $sotk->colors['iconColor'] }}"></i>
+                    @endif
                   </div>
                   <h4 class="text-white font-bold text-lg mb-2">Tupoksi</h4>
                   <div class="text-sm leading-relaxed text-white/90">
@@ -170,7 +172,7 @@
               <div class="p-6 text-center relative">
                 <div 
                   class="absolute -top-5 left-1/2 -translate-x-1/2 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-md tracking-wider uppercase"
-                  style="background: {{ $sotk->colors['badgeBg'] }}">
+                  @if($sotk->colors) style="background: {{ $sotk->colors['badgeBg'] }}" @endif>
                   {{ $sotk->jabatan }}
                 </div>
                 <h3 class="text-xl font-bold text-slate-800 mt-4 mb-1">
