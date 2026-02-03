@@ -79,16 +79,25 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function paginatePage() {
-    const items = document.querySelectorAll('.gallery-item:not([style*="display: none"])');
+    const items = document.querySelectorAll('.gallery-item');
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     let visibleIndex = 0;
 
-    document.querySelectorAll('.gallery-item').forEach((item) => {
-      if (item.style.display !== 'none') {
-        item.style.display = visibleIndex >= startIndex && visibleIndex < endIndex ? '' : 'none';
+    items.forEach((item, index) => {
+      // Only hide items that are not filtered out
+      const isFiltered = item.style.display === 'none';
+      
+      if (!isFiltered) {
+        // Item is not filtered, apply pagination
+        if (visibleIndex >= startIndex && visibleIndex < endIndex) {
+          item.style.display = '';
+        } else {
+          item.style.display = 'none';
+        }
         visibleIndex++;
       }
+      // If item is filtered (display: none), keep it hidden
     });
   }
 
@@ -206,10 +215,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Initialize Lucide icons after all DOM is ready
+  // Initialize Lucide icons after all DOM is ready and AOS animation complete
   setTimeout(() => {
     if (window.lucide) {
       lucide.createIcons();
     }
-  }, 100);
+  }, 300);
+
+  // Reinitialize on window load to catch all icons
+  window.addEventListener('load', () => {
+    if (window.lucide) {
+      lucide.createIcons();
+    }
+  });
 });
