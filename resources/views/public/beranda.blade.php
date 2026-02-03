@@ -18,7 +18,7 @@
 @section('content')
   @include('components.public.hero')
 
-<section id="profil" class="py-24 bg-white relative overflow-hidden">
+<section id="profil" class="py-20 bg-white relative overflow-hidden">
   <!-- Background Blob -->
   <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-50 rounded-full blur-3xl opacity-50 -z-0 translate-x-1/2 -translate-y-1/2"></div>
   

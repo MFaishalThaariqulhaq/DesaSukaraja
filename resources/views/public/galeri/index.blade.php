@@ -2,13 +2,34 @@
 
 @section('content')
 
+@push('styles')
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+@endpush
+
+@push('scripts')
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  if (window.AOS) {
+    AOS.init({
+      once: true,
+      offset: 100,
+      duration: 800,
+    });
+  }
+</script>
+@endpush
+
 <!-- Hero Header Section -->
 <section class="hero-bg relative h-screen md:h-[75vh] flex items-center justify-center text-white overflow-hidden -mt-24">
   <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
-    <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold font-serif leading-tight drop-shadow-2xl mb-4">
+    <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold font-serif leading-tight drop-shadow-2xl mb-4 animate-fade-in-down">
       Galeri <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-teal-200">Foto</span>
     </h1>
-    <p class="text-lg md:text-2xl text-slate-100 drop-shadow-md">Koleksi momen-momen berharga kegiatan desa</p>
+    <p class="text-lg md:text-2xl text-slate-100 drop-shadow-md animate-fade-in-up">Koleksi momen-momen berharga kegiatan desa</p>
+  </div>
+  <!-- Scroll Down Indicator -->
+  <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce opacity-80 cursor-pointer hover:text-emerald-300 transition-colors">
+    <a href="#galeri-list"><i data-lucide="mouse" class="w-8 h-8"></i></a>
   </div>
 </section>
 
@@ -16,7 +37,7 @@
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
 
-<section id="galeri-list" class="py-28 bg-slate-50">
+<section id="galeri-list" class="py-16 bg-slate-50">
 <style>
   .masonry-grid {
     column-count: 1;
