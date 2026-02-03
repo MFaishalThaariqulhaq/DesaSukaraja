@@ -30,14 +30,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let currentImageIndex = 0;
   let filteredGalery = galeryData;
-  const itemsPerPage = 18; // 3 columns x 6 rows
+  const itemsPerPage = 6; // 3 columns x 2 rows
   let currentPage = 1;
 
   // Pagination functionality
   function renderPagination() {
     const allItems = document.querySelectorAll('.gallery-item');
     const currentFilter = document.querySelector('.filter-btn.active')?.dataset.filter || 'all';
-    
+
     // Count items yang tidak di-filter
     let visibleCount = 0;
     allItems.forEach(item => {
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
         visibleCount++;
       }
     });
-    
+
     const totalPages = Math.max(1, Math.ceil(visibleCount / itemsPerPage));
     const paginationContainer = document.getElementById('pagination-container');
 
@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Second pass: apply pagination to visible items
-    items.forEach((item) => {
+    items.forEach((item, index) => {
       // Skip if item doesn't have category (empty state)
       if (!item.dataset.category) {
         return;
@@ -134,12 +134,20 @@ document.addEventListener('DOMContentLoaded', () => {
         // Item is not filtered, apply pagination logic
         if (visibleIndex >= startIndex && visibleIndex < endIndex) {
           item.style.display = '';
+          // Set animation delay based on position in current page (0, 100, 200, 300, etc)
+          const positionInPage = visibleIndex - startIndex;
+          item.style.animationDelay = (positionInPage * 100) + 'ms';
         } else {
           item.style.display = 'none';
         }
         visibleIndex++;
       }
     });
+
+    // Reinitialize AOS for newly visible items
+    if (window.AOS) {
+      AOS.refresh();
+    }
   }
 
   // Filter functionality
@@ -164,6 +172,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Second pass: apply pagination to visible items
     paginatePage();
     renderPagination();
+    
+    // Refresh AOS animation
+    if (window.AOS) {
+      AOS.refresh();
+    }
   }
 
   // Initial pagination setup

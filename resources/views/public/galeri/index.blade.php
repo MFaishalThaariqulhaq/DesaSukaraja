@@ -2,6 +2,46 @@
 
 @section('content')
 
+@push('styles')
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<style>
+  /* Tambahan animasi untuk filter buttons */
+  .filter-btn {
+    @apply transition-all duration-300;
+  }
+
+  .filter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .filter-btn.active {
+    animation: buttonPulse 0.4s ease;
+  }
+
+  @keyframes buttonPulse {
+    0% {
+      transform: scale(0.95);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  /* Scroll indicator animation */
+  .scroll-indicator {
+    @apply animate-bounce opacity-80 cursor-pointer hover:text-emerald-300 transition-colors;
+  }
+</style>
+@endpush
+
+@push('scripts')
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+@endpush
+
 <!-- Hero Header Section -->
 <section class="hero-bg relative h-screen md:h-[75vh] flex items-center justify-center text-white overflow-hidden -mt-20">
   <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
@@ -11,7 +51,7 @@
     <p class="text-lg md:text-2xl text-slate-100 drop-shadow-md animate-fade-in-up">Koleksi momen-momen berharga kegiatan desa</p>
   </div>
   <!-- Scroll Down Indicator -->
-  <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce opacity-80 cursor-pointer hover:text-emerald-300 transition-colors">
+  <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 scroll-indicator">
     <a href="#galeri-list"><i data-lucide="mouse" class="w-8 h-8"></i></a>
   </div>
 </section>

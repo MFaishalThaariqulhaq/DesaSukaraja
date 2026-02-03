@@ -22,20 +22,60 @@
 .gallery-item {
   cursor: pointer;
   transition: all 0.3s ease;
+  animation: fadeInItem 0.6s ease;
 }
 
 .gallery-item:hover img {
   transform: scale(1.05);
 }
 
-.gallery-item {
-  animation: fadeInItem 0.4s ease;
-}
-
 @keyframes fadeInItem {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* AOS-like animations for pagination */
+.gallery-item[data-aos="fade-up"] {
+  animation-name: fadeUpItem;
+  animation-duration: 0.8s;
+  animation-fill-mode: both;
+}
+
+.gallery-item[data-aos="fade-up"][data-aos-delay="0"] {
+  animation-delay: 0ms;
+}
+
+.gallery-item[data-aos="fade-up"][data-aos-delay="100"] {
+  animation-delay: 100ms;
+}
+
+.gallery-item[data-aos="fade-up"][data-aos-delay="200"] {
+  animation-delay: 200ms;
+}
+
+.gallery-item[data-aos="fade-up"][data-aos-delay="300"] {
+  animation-delay: 300ms;
+}
+
+.gallery-item[data-aos="fade-up"][data-aos-delay="400"] {
+  animation-delay: 400ms;
+}
+
+.gallery-item[data-aos="fade-up"][data-aos-delay="500"] {
+  animation-delay: 500ms;
+}
+
+@keyframes fadeUpItem {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
   }
 
   to {
