@@ -2,23 +2,6 @@
 
 @section('content')
 
-@push('styles')
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-@endpush
-
-@push('scripts')
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-  if (window.AOS) {
-    AOS.init({
-      once: true,
-      offset: 100,
-      duration: 800,
-    });
-  }
-</script>
-@endpush
-
 <!-- Hero Header Section -->
 <section class="hero-bg relative h-screen md:h-[75vh] flex items-center justify-center text-white overflow-hidden -mt-20">
   <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
@@ -32,29 +15,6 @@
     <a href="#berita-list"><i data-lucide="mouse" class="w-8 h-8"></i></a>
   </div>
 </section>
-
-<style>
-  .pagination {
-    @apply flex items-center justify-center gap-2;
-  }
-
-  .pagination .page-item a,
-  .pagination .page-item span {
-    @apply px-4 py-2 rounded-lg text-sm font-medium transition;
-  }
-
-  .pagination .page-item a {
-    @apply text-slate-600 hover:bg-emerald-100 hover:text-emerald-700;
-  }
-
-  .pagination .page-item.active span {
-    @apply bg-emerald-500 text-white shadow-md;
-  }
-
-  .pagination .page-item.disabled span {
-    @apply text-slate-400;
-  }
-</style>
 
 <section id="berita-list" class="py-12 bg-slate-50">
   <div class="container mx-auto px-6">
@@ -88,7 +48,7 @@
           @forelse($categories as $category)
           <li>
             <a href="?kategori={{ urlencode($category) }}"
-              class="flex items-center justify-between p-2 rounded-lg text-slate-700 font-medium hover:bg-emerald-50 hover:text-emerald-700 transition">
+              class="kategori-link flex items-center justify-between p-2 rounded-lg text-slate-700 font-medium hover:bg-emerald-50 hover:text-emerald-700 transition">
               <span>{{ $category }}</span>
               <span class="bg-slate-100 text-slate-600 py-0.5 px-2 rounded text-xs font-bold">{{ \App\Models\Berita::where('kategori', $category)->count() }}</span>
             </a>
@@ -140,7 +100,7 @@
         @endforelse
       </div>
 
-      <div class="text-center mt-12">
+      <div class="mt-12" id="berita-pagination">
         <nav class="flex justify-center">
           {{ $beritas->links('vendor.pagination.tailwind') }}
         </nav>
@@ -150,15 +110,16 @@
   </div>
 </section>
 
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     // Initialize AOS
-    AOS.init({
-      once: true,
-      duration: 800,
-      easing: 'ease-out-cubic'
-    });
+    if (window.AOS) {
+      AOS.init({
+        once: true,
+        duration: 800,
+        easing: 'ease-out-cubic'
+      });
+    }
 
     // Search functionality
     const searchInput = document.getElementById('searchInput');
@@ -171,6 +132,20 @@
         });
       });
     }
+
+    // Auto-scroll to berita list ketika kategori diklik
+    const categoryLinks = document.querySelectorAll('.kategori-link');
+    categoryLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        // Delay scroll sedikit untuk memastikan page dimuat dulu
+        setTimeout(() => {
+          const beritaList = document.getElementById('berita-list');
+          if (beritaList) {
+            beritaList.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 300);
+      });
+    });
   });
 </script>
 

@@ -21,7 +21,7 @@ class HomeController extends Controller
       $query->where('kategori', $request->kategori);
     }
 
-    $beritas = $query->paginate(6);
+    $beritas = $query->paginate(4);
     return view('public.berita.index', compact('beritas'));
   }
   public function index()
