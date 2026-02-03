@@ -16,7 +16,7 @@
   </div>
 </section>
 
-<div class="bg-slate-50 antialiased text-slate-600">
+<div class="bg-slate-50 antialiased text-slate-600" id="galeri-list">
   <!-- Main Content -->
   <div class="container mx-auto px-6 py-12">
 

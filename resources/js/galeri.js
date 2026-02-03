@@ -30,13 +30,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let currentImageIndex = 0;
   let filteredGalery = galeryData;
-  const itemsPerPage = 9; // 3 columns x 3 rows
+  const itemsPerPage = 18; // 3 columns x 6 rows
   let currentPage = 1;
 
   // Pagination functionality
   function renderPagination() {
-    const visibleItems = Array.from(document.querySelectorAll('.gallery-item')).filter(item => item.style.display !== 'none').length;
-    const totalPages = Math.ceil(visibleItems / itemsPerPage);
+    const allItems = document.querySelectorAll('.gallery-item');
+    const visibleItems = Array.from(allItems).filter(item => item.style.display !== 'none').length;
+    const totalPages = Math.max(1, Math.ceil(visibleItems / itemsPerPage));
     const paginationContainer = document.getElementById('pagination-container');
 
     if (paginationContainer) {
