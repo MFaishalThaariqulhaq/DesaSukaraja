@@ -56,11 +56,8 @@
   }
 </style>
 
-<section id="berita-list" class="py-28 bg-slate-50">
-  </div>
-</section>
-
-<div class="container mx-auto px-6 py-12">
+<section id="berita-list" class="py-12 bg-slate-50">
+  <div class="container mx-auto px-6">
   <div class="grid lg:grid-cols-12 gap-12">
 
     <aside class="lg:col-span-4 space-y-8" data-aos="fade-right" data-aos-delay="100">
@@ -150,7 +147,8 @@
       </div>
     </main>
   </div>
-</div>
+  </div>
+</section>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
