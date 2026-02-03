@@ -14,13 +14,13 @@
     </a>
     <!-- Desktop Menu -->
     <nav class="hidden lg:flex items-center gap-8">
-      <a href="/" class="text-sm font-medium text-emerald-600 nav-link">Home</a>
-      <a href="/profil" class="text-sm font-medium text-slate-600 hover:text-emerald-600 transition-colors nav-link">Profil</a>
-      <a href="/berita" class="text-sm font-medium text-slate-600 hover:text-emerald-600 transition-colors nav-link">Berita</a>
-      <a href="/galeri" class="text-sm font-medium text-slate-600 hover:text-emerald-600 transition-colors nav-link">Galeri</a>
-      <a href="/infografis" class="text-sm font-medium text-slate-600 hover:text-emerald-600 transition-colors nav-link">Infografis</a>
-      <a href="/sotk" class="text-sm font-medium text-slate-600 hover:text-emerald-600 transition-colors nav-link">SOTK</a>
-      <a href="/#peta" class="text-sm font-medium text-slate-600 hover:text-emerald-600 transition-colors nav-link">Peta Desa</a>
+      <a href="/" class="text-base font-semibold text-emerald-600 nav-link hover:text-emerald-700 transition-colors">Home</a>
+      <a href="/profil" class="text-base font-medium text-slate-600 hover:text-emerald-600 transition-colors nav-link">Profil</a>
+      <a href="/berita" class="text-base font-medium text-slate-600 hover:text-emerald-600 transition-colors nav-link">Berita</a>
+      <a href="/galeri" class="text-base font-medium text-slate-600 hover:text-emerald-600 transition-colors nav-link">Galeri</a>
+      <a href="/infografis" class="text-base font-medium text-slate-600 hover:text-emerald-600 transition-colors nav-link">Infografis</a>
+      <a href="/sotk" class="text-base font-medium text-slate-600 hover:text-emerald-600 transition-colors nav-link">SOTK</a>
+      <a href="/#peta" class="text-base font-medium text-slate-600 hover:text-emerald-600 transition-colors nav-link">Peta Desa</a>
     </nav>
     <!-- Action Button & Mobile Menu -->
     <div class="flex items-center gap-4">
@@ -37,25 +37,25 @@
   <!-- Mobile Menu Dropdown -->
   <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-100 bg-white/95 backdrop-blur-md h-screen absolute w-full left-0 top-full shadow-xl">
     <div class="container mx-auto px-6 py-6 space-y-4">
-      <a href="/" class="flex items-center gap-3 px-4 py-3 text-emerald-600 bg-emerald-50 rounded-xl font-bold">
+      <a href="/" class="flex items-center gap-3 px-4 py-3 text-base font-bold text-emerald-600 bg-emerald-50 rounded-xl">
         <i data-lucide="home" class="w-5 h-5"></i> Home
       </a>
-      <a href="/profil" class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-50 hover:text-emerald-600 rounded-xl font-medium transition-colors">
+      <a href="/profil" class="flex items-center gap-3 px-4 py-3 text-base font-medium text-slate-600 hover:bg-slate-50 hover:text-emerald-600 rounded-xl transition-colors">
         <i data-lucide="info" class="w-5 h-5"></i> Profil
       </a>
-      <a href="/berita" class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-50 hover:text-emerald-600 rounded-xl font-medium transition-colors">
+      <a href="/berita" class="flex items-center gap-3 px-4 py-3 text-base font-medium text-slate-600 hover:bg-slate-50 hover:text-emerald-600 rounded-xl transition-colors">
         <i data-lucide="file-text" class="w-5 h-5"></i> Berita
       </a>
-      <a href="/galeri" class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-50 hover:text-emerald-600 rounded-xl font-medium transition-colors">
+      <a href="/galeri" class="flex items-center gap-3 px-4 py-3 text-base font-medium text-slate-600 hover:bg-slate-50 hover:text-emerald-600 rounded-xl transition-colors">
         <i data-lucide="image" class="w-5 h-5"></i> Galeri
       </a>
-      <a href="/infografis" class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-50 hover:text-emerald-600 rounded-xl font-medium transition-colors">
+      <a href="/infografis" class="flex items-center gap-3 px-4 py-3 text-base font-medium text-slate-600 hover:bg-slate-50 hover:text-emerald-600 rounded-xl transition-colors">
         <i data-lucide="bar-chart-2" class="w-5 h-5"></i> Infografis
       </a>
-      <a href="/sotk" class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-50 hover:text-emerald-600 rounded-xl font-medium transition-colors">
+      <a href="/sotk" class="flex items-center gap-3 px-4 py-3 text-base font-medium text-slate-600 hover:bg-slate-50 hover:text-emerald-600 rounded-xl transition-colors">
         <i data-lucide="users" class="w-5 h-5"></i> SOTK
       </a>
-      <a href="/#pengaduan" class="block w-full text-center mt-6 bg-gradient-to-r from-emerald-600 to-emerald-500 text-white font-bold px-5 py-4 rounded-xl shadow-lg transition-transform active:scale-95">
+      <a href="/#pengaduan" class="block w-full text-center mt-6 text-base font-bold bg-gradient-to-r from-emerald-600 to-emerald-500 text-white px-5 py-4 rounded-xl shadow-lg transition-transform active:scale-95">
         Buat Laporan
       </a>
     </div>
