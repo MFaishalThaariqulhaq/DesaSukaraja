@@ -74,31 +74,52 @@ export function initSotk() {
 }
 
 function initBaganModal() {
+  // Support both old ID (baganImage) and new ID (baganContainer)
+  const baganContainer = document.getElementById('baganContainer');
   const baganImage = document.getElementById('baganImage');
+  const baganElement = baganContainer || baganImage;
+  
   const baganModal = document.getElementById('baganModal');
   const baganModalImg = document.getElementById('baganModalImg');
   const closeModalBtn = document.getElementById('closeModal');
 
-  if (!baganImage || !baganModal) return;
+  if (!baganElement || !baganModal) return;
 
-  // Open modal on image click
-  baganImage.addEventListener('click', () => {
-    baganModalImg.src = baganImage.src;
-    baganModal.classList.remove('hidden');
-    baganModal.classList.add('flex');
-    document.body.style.overflow = 'hidden';
+  // Get actual image from container or direct element
+  const getImageSrc = () => {
+    if (baganContainer) {
+      const img = baganContainer.querySelector('img');
+      return img ? img.src : baganImage?.src;
+    }
+    return baganImage?.src;
+  };
+
+  // Open modal on element click
+  baganElement.addEventListener('click', () => {
+    const src = getImageSrc();
+    if (src) {
+      baganModalImg.src = src;
+      baganModal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
   });
 
   // Close modal
   const closeModal = () => {
     baganModal.classList.add('hidden');
-    baganModal.classList.remove('flex');
     document.body.style.overflow = 'auto';
   };
 
   if (closeModalBtn) {
     closeModalBtn.addEventListener('click', closeModal);
   }
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !baganModal.classList.contains('hidden')) {
+      closeModal();
+    }
+  });
 
   baganModal.addEventListener('click', (e) => {
     if (e.target === baganModal) {
@@ -110,11 +131,13 @@ function initBaganModal() {
   const downloadBtn = document.getElementById('downloadBagan');
   if (downloadBtn) {
     downloadBtn.addEventListener('click', () => {
-      const img = baganImage.src;
-      const link = document.createElement('a');
-      link.href = img;
-      link.download = 'bagan-organisasi-desa-sukaraja.png';
-      link.click();
+      const src = getImageSrc();
+      if (src) {
+        const link = document.createElement('a');
+        link.href = src;
+        link.download = 'bagan-organisasi-desa-sukaraja.png';
+        link.click();
+      }
     });
   }
 }

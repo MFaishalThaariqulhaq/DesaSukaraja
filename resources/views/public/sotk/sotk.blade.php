@@ -1,22 +1,5 @@
 @extends('layouts.public.layout')
 
-@push('scripts')
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    if (window.AOS) {
-      AOS.init({
-        once: true,
-        offset: 50,
-        duration: 800,
-        easing: 'ease-out-cubic'
-      });
-    }
-  });
-</script>
-@vite('resources/js/sotk.js')
-@endpush
-
 @section('content')
 
 <!-- Hero Header Section -->
@@ -27,27 +10,20 @@
     </h1>
     <p class="text-lg md:text-2xl text-slate-100 drop-shadow-md">Struktur Organisasi dan Tata Kerja Pemerintah Desa</p>
   </div>
+  <!-- Scroll Down Indicator -->
+  <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce opacity-80 cursor-pointer hover:text-emerald-300 transition-colors">
+    <a href="#struktur">
+      <svg class="w-8 h-8" data-lucide="mouse" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24"></svg>
+    </a>
+  </div>
 </section>
-
-<!-- Header Section -->
-<header class="bg-slate-900 text-white py-16 md:py-20 relative overflow-hidden">
-  <div class="absolute inset-0 overflow-hidden opacity-20">
-    <img src="https://images.unsplash.com/photo-2532622783378-1a191e5b21b6?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover" alt="Background Pemerintahan">
-  </div>
-  <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent"></div>
-  <div class="container mx-auto px-6 relative z-10 text-center" data-aos="fade-up">
-    <span class="text-emerald-400 font-bold uppercase tracking-widest text-sm mb-3 block">Pemerintahan Desa</span>
-    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Struktur Organisasi Pemerintah Desa</h2>
-    <p class="text-slate-300 max-w-2xl mx-auto text-base md:text-lg">Susunan Organisasi dan Tata Kerja (SOTK) Pemerintah Desa Sukaraja Periode 2024-2029</p>
-  </div>
-</header>
 
 <!-- BAGAN STRUKTUR SECTION -->
 <section id="struktur" class="py-16 md:py-20 bg-slate-50">
   <div class="container mx-auto px-6">
     <div class="text-center mb-12" data-aos="fade-up">
       <span class="text-emerald-600 font-bold uppercase tracking-widest text-sm">Pemerintahan</span>
-      <h3 class="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-800 mt-3">Struktur Pemerintah</h3>
+      <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-800 mt-3">Struktur Organisasi Pemerintah Desa</h2>
       <p class="text-slate-600 mt-5 max-w-2xl mx-auto">Sinergi antara aparat desa dan lembaga masyarakat dalam mewujudkan visi misi Desa Sukaraja.</p>
     </div>
 
@@ -58,7 +34,7 @@
     @if($bagan)
     <div class="max-w-5xl mx-auto" data-aos="zoom-in" data-aos-duration="1000">
       <div class="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden group">
-        <div class="relative overflow-hidden rounded-2xl bg-slate-100 aspect-[16/10] flex items-center justify-center cursor-pointer" id="baganContainer">
+        <div class="relative overflow-hidden rounded-2xl bg-slate-100 aspect-video flex items-center justify-center cursor-pointer" id="baganContainer">
           <img 
             src="{{ asset('storage/' . $bagan->foto) }}" 
             alt="Bagan Struktur Organisasi"
@@ -103,39 +79,64 @@
   <div class="container mx-auto px-6 relative z-10">
     <div class="text-center mb-16" data-aos="fade-up">
       <span class="text-emerald-600 font-bold uppercase tracking-widest text-sm">Aparatur Desa</span>
-      <h3 class="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-800 mt-3">Aparatur Pemerintahan Desa</h3>
+      <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-800 mt-3">Aparatur Pemerintahan Desa</h2>
       <div class="w-24 h-1 bg-emerald-500 mx-auto rounded-full mt-4"></div>
       <p class="text-base md:text-lg mt-5 text-slate-600">Aparatur Pemerintahan Desa Sukaraja Periode 2024-2029</p>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       @foreach($sotks->where('jabatan', '!=', 'Bagan')->take(3) as $index => $sotk)
       <div 
-        class="group bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-lg transition-all duration-300"
+        class="group relative overflow-hidden rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500"
         data-aos="fade-up" 
         data-aos-delay="{{ $index * 100 }}">
-        <div class="h-64 overflow-hidden relative">
-          <div class="absolute inset-0 bg-emerald-900/0 group-hover:bg-emerald-900/10 transition duration-500 z-10"></div>
+        
+        <!-- Background Image -->
+        <div class="relative h-72 overflow-hidden bg-slate-100">
           <img 
             src="{{ $sotk->foto ? asset('storage/' . $sotk->foto) : 'https://placehold.co/400x500/94a3b8/ffffff?text=Foto' }}" 
             alt="{{ $sotk->nama }}"
-            class="w-full h-full object-cover object-top transform group-hover:scale-110 transition duration-700">
+            class="w-full h-full object-cover object-top transform group-hover:scale-110 transition-transform duration-700">
+          
+          <!-- Gradient Overlay -->
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
         </div>
-        <div class="p-6 text-center">
-          <h4 class="font-bold text-lg text-slate-800 mb-2 group-hover:text-emerald-600 transition">{{ $sotk->nama }}</h4>
-          <p class="text-sm font-medium text-slate-500 uppercase tracking-wide">{{ $sotk->jabatan }}</p>
+
+        <!-- Content -->
+        <div class="relative p-6 text-center">
+          <h3 class="font-bold text-lg text-slate-800 mb-1 group-hover:text-emerald-600 transition-colors duration-300">{{ $sotk->nama }}</h3>
+          <p class="text-sm font-medium text-emerald-600 uppercase tracking-wider">{{ $sotk->jabatan }}</p>
+          
+          <!-- Bottom Badge -->
+          <div class="absolute top-0 right-0 w-0 h-0 border-l-[40px] border-t-[40px] border-l-transparent border-t-emerald-500 group-hover:border-t-emerald-600 transition-colors duration-300"></div>
+          <div class="absolute top-2 right-3 text-white text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <svg class="w-4 h-4" data-lucide="user" fill="white"></svg>
+          </div>
+        </div>
+
+        <!-- Hover Info -->
+        <div class="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-emerald-600 to-teal-700 pointer-events-none">
+          <svg class="w-12 h-12 text-white mb-3" data-lucide="user-check" stroke="currentColor" fill="none" stroke-width="1.5"></svg>
+          <p class="text-white font-semibold text-center px-4">{{ $sotk->jabatan }}</p>
         </div>
       </div>
       @endforeach
     </div>
 
     <!-- Tombol Lihat Selengkapnya -->
-    <div class="mt-12 flex justify-center" data-aos="fade-up" data-aos-delay="400">
-      <a href="{{ route('sotk.struktur') }}" class="inline-flex items-center gap-2 px-8 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-        </svg>
-        <span>Lihat Struktur Lengkap</span>
+    <div class="mt-16 flex justify-center" data-aos="fade-up" data-aos-delay="400">
+      <a href="{{ route('sotk.struktur') }}" class="group relative inline-flex items-center gap-3 px-10 py-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-semibold rounded-full shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden">
+        <!-- Background Animation -->
+        <div class="absolute inset-0 bg-gradient-to-r from-emerald-500 to-teal-500 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+        
+        <!-- Icon -->
+        <svg class="w-5 h-5 relative z-10 group-hover:animate-bounce" data-lucide="network" stroke="currentColor" fill="none" stroke-width="2"></svg>
+        
+        <!-- Text -->
+        <span class="relative z-10">Lihat Struktur Lengkap</span>
+        
+        <!-- Arrow -->
+        <svg class="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform duration-300" data-lucide="arrow-right" stroke="currentColor" fill="none" stroke-width="2"></svg>
       </a>
     </div>
   </div>
@@ -143,7 +144,7 @@
 
 <!-- MODAL UNTUK LIHAT BAGAN PENUH -->
 <div id="baganModal" class="hidden fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 overflow-y-auto" role="dialog" aria-modal="true">
-  <div class="relative max-w-5xl w-full my-auto">
+  <div class="relative max-w-5xl w-full my-auto animate-fade-in-scale">
     <button id="closeModal" class="absolute -top-10 right-0 text-white text-4xl font-light hover:text-emerald-400 transition" aria-label="Close modal">
       ×
     </button>
