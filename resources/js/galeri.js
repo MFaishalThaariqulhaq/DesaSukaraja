@@ -36,8 +36,19 @@ document.addEventListener('DOMContentLoaded', () => {
   // Pagination functionality
   function renderPagination() {
     const allItems = document.querySelectorAll('.gallery-item');
-    const visibleItems = Array.from(allItems).filter(item => item.style.display !== 'none').length;
-    const totalPages = Math.max(1, Math.ceil(visibleItems / itemsPerPage));
+    const currentFilter = document.querySelector('.filter-btn.active')?.dataset.filter || 'all';
+    
+    // Count items yang tidak di-filter
+    let visibleCount = 0;
+    allItems.forEach(item => {
+      const itemCategory = item.dataset.category;
+      const isFiltered = currentFilter !== 'all' && itemCategory !== currentFilter;
+      if (!isFiltered) {
+        visibleCount++;
+      }
+    });
+    
+    const totalPages = Math.max(1, Math.ceil(visibleCount / itemsPerPage));
     const paginationContainer = document.getElementById('pagination-container');
 
     if (paginationContainer) {
@@ -98,12 +109,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const endIndex = startIndex + itemsPerPage;
     let visibleIndex = 0;
 
-    items.forEach((item) => {
-      // Check if item is hidden by filter
-      const isFiltered = item.style.display === 'none';
+    // First pass: count only non-filtered items
+    const visibleItems = Array.from(items).filter(item => {
+      // Check if item is hidden by filter (data attribute check is more reliable)
+      return item.dataset.category !== undefined;
+    });
 
-      if (!isFiltered) {
-        // Item is visible (not filtered), apply pagination
+    // Second pass: apply pagination to visible items
+    items.forEach((item) => {
+      // Skip if item doesn't have category (empty state)
+      if (!item.dataset.category) {
+        return;
+      }
+
+      // Check if item is filtered out
+      const currentFilter = document.querySelector('.filter-btn.active')?.dataset.filter || 'all';
+      const itemCategory = item.dataset.category;
+      const isFiltered = currentFilter !== 'all' && itemCategory !== currentFilter;
+
+      if (isFiltered) {
+        // Item is filtered, hide it
+        item.style.display = 'none';
+      } else {
+        // Item is not filtered, apply pagination logic
         if (visibleIndex >= startIndex && visibleIndex < endIndex) {
           item.style.display = '';
         } else {
@@ -111,7 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         visibleIndex++;
       }
-      // If item is filtered, keep it hidden
     });
   }
 
