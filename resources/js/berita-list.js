@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderPagination() {
     const allItems = document.querySelectorAll('.berita-item');
     const currentFilter = new URLSearchParams(window.location.search).get('kategori') || 'all';
-    
+
     // Count items yang tidak di-filter
     let visibleCount = 0;
     allItems.forEach(item => {
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         visibleCount++;
       }
     });
-    
+
     const totalPages = Math.max(1, Math.ceil(visibleCount / itemsPerPage));
     const paginationContainer = document.getElementById('berita-pagination');
 

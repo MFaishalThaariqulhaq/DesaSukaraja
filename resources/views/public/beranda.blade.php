@@ -65,7 +65,7 @@
         </div>
 
         <div class="flex flex-wrap gap-4">
-          <a href="/profil" class="inline-flex items-center justify-center px-8 py-3.5 text-sm font-bold text-white bg-slate-900 rounded-xl hover:bg-slate-800 transition duration-300 shadow-lg transform hover:-translate-y-1">
+          <a href="/profil#sejarah" class="inline-flex items-center justify-center px-8 py-3.5 text-sm font-bold text-white bg-slate-900 rounded-xl hover:bg-slate-800 transition duration-300 shadow-lg transform hover:-translate-y-1">
             Sejarah Desa
           </a>
           <a href="/profil#struktur" class="inline-flex items-center justify-center px-8 py-3.5 text-sm font-bold text-emerald-700 bg-white border border-emerald-200 rounded-xl hover:bg-emerald-50 hover:border-emerald-300 transition duration-300 transform hover:-translate-y-1">
