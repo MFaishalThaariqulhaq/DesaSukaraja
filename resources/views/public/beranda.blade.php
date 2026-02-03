@@ -107,9 +107,9 @@
           <p class="text-slate-600 text-sm leading-relaxed line-clamp-3 mb-6 flex-1">
             {{ count($beritas) > 0 ? \Illuminate\Support\Str::limit(strip_tags($beritas[0]->isi), 120) : 'Kegiatan ini bertujuan untuk mencegah penyebaran penyakit dan menjaga kebersihan lingkungan desa.' }}
           </p>
-          <span class="inline-flex items-center text-sm font-bold berita-cta-lingkungan group-hover:translate-x-2 transition-transform duration-300">
+          <a href="{{ count($beritas) > 0 ? route('berita.detail', $beritas[0]->slug) : '#' }}" class="inline-flex items-center text-sm font-bold berita-cta-lingkungan group-hover:translate-x-2 transition-transform duration-300">
             Baca Selengkapnya <i data-lucide="arrow-right" class="ml-1 w-4 h-4"></i>
-          </span>
+          </a>
         </div>
       </article>
 
@@ -128,11 +128,10 @@
             <a href="{{ count($beritas) > 1 ? route('berita.detail', $beritas[1]->slug) : '#' }}">{{ count($beritas) > 1 ? $beritas[1]->judul : 'Pelatihan Digital Marketing untuk Pelaku UMKM Desa' }}</a>
           </h3>
           <p class="text-slate-600 text-sm leading-relaxed line-clamp-3 mb-6 flex-1">
-            {{ count($beritas) > 1 ? \Illuminate\Support\Str::limit(strip_tags($beritas[1]->isi), 120) : 'Pelatihan ini diharapkan dapat membantu para pelaku usaha mikro untuk memperluas pasar produk mereka.' }}
           </p>
-          <span class="inline-flex items-center text-sm font-bold berita-cta-ekonomi group-hover:translate-x-2 transition-transform duration-300">
+          <a href="{{ count($beritas) > 1 ? route('berita.detail', $beritas[1]->slug) : '#' }}" class="inline-flex items-center text-sm font-bold berita-cta-ekonomi group-hover:translate-x-2 transition-transform duration-300">
             Baca Selengkapnya <i data-lucide="arrow-right" class="ml-1 w-4 h-4"></i>
-          </span>
+          </a>
         </div>
       </article>
 
@@ -151,11 +150,10 @@
             <a href="{{ count($beritas) > 2 ? route('berita.detail', $beritas[2]->slug) : '#' }}">{{ count($beritas) > 2 ? $beritas[2]->judul : 'Posyandu Melati Sukses Gelar Imunisasi Balita' }}</a>
           </h3>
           <p class="text-slate-600 text-sm leading-relaxed line-clamp-3 mb-6 flex-1">
-            {{ count($beritas) > 2 ? \Illuminate\Support\Str::limit(strip_tags($beritas[2]->isi), 120) : 'Program ini merupakan upaya pemerintah desa dalam menjaga kesehatan dan gizi anak-anak balita.' }}
           </p>
-          <span class="inline-flex items-center text-sm font-bold berita-cta-kesehatan group-hover:translate-x-2 transition-transform duration-300">
+          <a href="{{ count($beritas) > 2 ? route('berita.detail', $beritas[2]->slug) : '#' }}" class="inline-flex items-center text-sm font-bold berita-cta-kesehatan group-hover:translate-x-2 transition-transform duration-300">
             Baca Selengkapnya <i data-lucide="arrow-right" class="ml-1 w-4 h-4"></i>
-          </span>
+          </a>
         </div>
       </article>
     </div>
