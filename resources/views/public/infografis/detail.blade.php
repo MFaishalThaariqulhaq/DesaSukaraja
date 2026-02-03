@@ -53,47 +53,47 @@
     <!-- Key Statistics Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
       <!-- Total Penduduk -->
-      <div class="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl p-6 shadow-lg text-white hover:shadow-xl transition" data-aos="fade-up">
+      <div class="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl p-6 shadow-lg hover:shadow-xl transition" data-aos="fade-up">
         <div class="flex items-center gap-3 mb-4">
           <div class="bg-white/20 p-3 rounded-lg">
-            <i data-lucide="users" class="w-6 h-6"></i>
+            <i data-lucide="users" class="w-6 h-6 text-black"></i>
           </div>
         </div>
-        <p class="text-sm font-medium text-emerald-100">Total Penduduk</p>
-        <h3 class="text-4xl font-bold mt-2">{{ number_format($data->total_penduduk ?? 0) }}</h3>
+        <p class="text-sm font-medium text-emerald-950">Total Penduduk</p>
+        <h3 class="text-4xl font-bold mt-2 text-black">{{ number_format($data->total_penduduk ?? 0) }}</h3>
       </div>
 
       <!-- Kepala Keluarga -->
-      <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-6 shadow-lg text-white hover:shadow-xl transition" data-aos="fade-up" data-aos-delay="100">
+      <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-6 shadow-lg hover:shadow-xl transition" data-aos="fade-up" data-aos-delay="100">
         <div class="flex items-center gap-3 mb-4">
           <div class="bg-white/20 p-3 rounded-lg">
-            <i data-lucide="home" class="w-6 h-6"></i>
+            <i data-lucide="home" class="w-6 h-6 text-black"></i>
           </div>
         </div>
-        <p class="text-sm font-medium text-blue-100">Kepala Keluarga</p>
-        <h3 class="text-4xl font-bold mt-2">{{ number_format($data->kepala_keluarga ?? 0) }}</h3>
+        <p class="text-sm font-medium text-blue-950">Kepala Keluarga</p>
+        <h3 class="text-4xl font-bold mt-2 text-black">{{ number_format($data->kepala_keluarga ?? 0) }}</h3>
       </div>
 
       <!-- Laki-laki -->
-      <div class="bg-gradient-to-br from-cyan-500 to-blue-500 rounded-2xl p-6 shadow-lg text-white hover:shadow-xl transition" data-aos="fade-up" data-aos-delay="200">
+      <div class="bg-gradient-to-br from-cyan-500 to-blue-500 rounded-2xl p-6 shadow-lg hover:shadow-xl transition" data-aos="fade-up" data-aos-delay="200">
         <div class="flex items-center gap-3 mb-4">
           <div class="bg-white/20 p-3 rounded-lg">
-            <i data-lucide="user" class="w-6 h-6"></i>
+            <i data-lucide="user" class="w-6 h-6 text-black"></i>
           </div>
         </div>
-        <p class="text-sm font-medium text-blue-100">Laki-laki</p>
-        <h3 class="text-4xl font-bold mt-2">{{ number_format($data->laki_laki ?? 0) }}</h3>
+        <p class="text-sm font-medium text-blue-950">Laki-laki</p>
+        <h3 class="text-4xl font-bold mt-2 text-black">{{ number_format($data->laki_laki ?? 0) }}</h3>
       </div>
 
       <!-- Perempuan -->
-      <div class="bg-gradient-to-br from-pink-500 to-rose-500 rounded-2xl p-6 shadow-lg text-white hover:shadow-xl transition" data-aos="fade-up" data-aos-delay="300">
+      <div class="bg-gradient-to-br from-pink-500 to-rose-500 rounded-2xl p-6 shadow-lg hover:shadow-xl transition" data-aos="fade-up" data-aos-delay="300">
         <div class="flex items-center gap-3 mb-4">
           <div class="bg-white/20 p-3 rounded-lg">
-            <i data-lucide="user" class="w-6 h-6"></i>
+            <i data-lucide="user" class="w-6 h-6 text-black"></i>
           </div>
         </div>
-        <p class="text-sm font-medium text-pink-100">Perempuan</p>
-        <h3 class="text-4xl font-bold mt-2">{{ number_format($data->perempuan ?? 0) }}</h3>
+        <p class="text-sm font-medium text-pink-950">Perempuan</p>
+        <h3 class="text-4xl font-bold mt-2 text-black">{{ number_format($data->perempuan ?? 0) }}</h3>
       </div>
     </div>
 
@@ -143,32 +143,32 @@
     <div class="bg-gradient-to-br from-emerald-600 to-teal-600 rounded-2xl shadow-lg overflow-hidden" data-aos="fade-up">
       <div class="p-8 md:p-12">
         <h3 class="text-2xl md:text-3xl font-bold text-white mb-2">Laporan Mutasi Penduduk</h3>
-        <p class="text-slate-100 mb-8">Pergerakan penduduk periode {{ $data->bulan ?? date('m') }}/{{ $data->tahun ?? date('Y') }}</p>
+        <p class="text-slate-900 mb-8 font-medium">Pergerakan penduduk periode {{ $data->bulan ?? date('m') }}/{{ $data->tahun ?? date('Y') }}</p>
 
         <!-- Mutation Stats Grid -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           <!-- Birth -->
-          <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6 text-center text-white hover:bg-white/20 transition">
-            <div class="text-3xl font-bold mb-2">{{ number_format($data->lahir ?? 0) }}</div>
-            <p class="text-sm text-slate-100">Kelahiran</p>
+          <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6 text-center hover:bg-white/20 transition">
+            <div class="text-3xl font-bold mb-2 text-black">{{ number_format($data->lahir ?? 0) }}</div>
+            <p class="text-sm text-black font-medium">Kelahiran</p>
           </div>
 
           <!-- Death -->
-          <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6 text-center text-white hover:bg-white/20 transition">
-            <div class="text-3xl font-bold mb-2">{{ number_format($data->mati ?? 0) }}</div>
-            <p class="text-sm text-slate-100">Meninggal</p>
+          <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6 text-center hover:bg-white/20 transition">
+            <div class="text-3xl font-bold mb-2 text-black">{{ number_format($data->mati ?? 0) }}</div>
+            <p class="text-sm text-black font-medium">Meninggal</p>
           </div>
 
           <!-- In Migration -->
-          <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6 text-center text-white hover:bg-white/20 transition">
-            <div class="text-3xl font-bold mb-2">{{ number_format($data->datang ?? 0) }}</div>
-            <p class="text-sm text-slate-100">Pindah Masuk</p>
+          <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6 text-center hover:bg-white/20 transition">
+            <div class="text-3xl font-bold mb-2 text-black">{{ number_format($data->datang ?? 0) }}</div>
+            <p class="text-sm text-black font-medium">Pindah Masuk</p>
           </div>
 
           <!-- Out Migration -->
-          <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6 text-center text-white hover:bg-white/20 transition">
-            <div class="text-3xl font-bold mb-2">{{ number_format($data->pindah ?? 0) }}</div>
-            <p class="text-sm text-slate-100">Pindah Keluar</p>
+          <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6 text-center hover:bg-white/20 transition">
+            <div class="text-3xl font-bold mb-2 text-black">{{ number_format($data->pindah ?? 0) }}</div>
+            <p class="text-sm text-black font-medium">Pindah Keluar</p>
           </div>
         </div>
       </div>
