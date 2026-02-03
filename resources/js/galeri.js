@@ -10,11 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Initialize Lucide icons
-  if (window.lucide) {
-    lucide.createIcons();
-  }
-
   // Gallery data (injected from Laravel)
   const galeryDataElement = document.getElementById('galery-data');
   let galeryData = [];
@@ -84,18 +79,18 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function paginatePage() {
-    const items = document.querySelectorAll('.gallery-item');
+    const items = document.querySelectorAll('.gallery-item:not([style*="display: none"])');
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
+    let visibleIndex = 0;
 
-    items.forEach((item, index) => {
-      item.style.display = index >= startIndex && index < endIndex ? 'block' : 'none';
+    document.querySelectorAll('.gallery-item').forEach((item) => {
+      if (item.style.display !== 'none') {
+        item.style.display = visibleIndex >= startIndex && visibleIndex < endIndex ? '' : 'none';
+        visibleIndex++;
+      }
     });
   }
-
-  // Initial pagination
-  renderPagination();
-  paginatePage();
 
   // Filter functionality
   function applyFilter(filterValue) {
@@ -120,6 +115,10 @@ document.addEventListener('DOMContentLoaded', () => {
     renderPagination();
   }
 
+  // Initial pagination
+  renderPagination();
+  paginatePage();
+
   // Filter button clicks
   document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', function () {
@@ -128,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Category tag clicks (clickable categories)
-  document.addEventListener('click', function(e) {
+  document.addEventListener('click', function (e) {
     if (e.target.dataset.filterCategory) {
       applyFilter(e.target.dataset.filterCategory);
     }
@@ -206,4 +205,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  // Initialize Lucide icons after all DOM is ready
+  setTimeout(() => {
+    if (window.lucide) {
+      lucide.createIcons();
+    }
+  }, 100);
 });
