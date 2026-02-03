@@ -61,7 +61,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Previous button
       const prevBtn = document.createElement('button');
-      prevBtn.textContent = '← Sebelumnya';
+      prevBtn.innerHTML = '<svg fill="currentColor" viewBox="0 0 20 20" style="width: 1rem; height: 1rem; margin-right: 0.25rem;"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>Sebelumnya';
+      prevBtn.style.display = 'inline-flex';
+      prevBtn.style.alignItems = 'center';
       prevBtn.disabled = currentPage === 1;
       prevBtn.addEventListener('click', () => {
         if (currentPage > 1) {
@@ -89,7 +91,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Next button
       const nextBtn = document.createElement('button');
-      nextBtn.textContent = 'Selanjutnya →';
+      nextBtn.innerHTML = 'Selanjutnya <svg fill="currentColor" viewBox="0 0 20 20" style="width: 1rem; height: 1rem; margin-left: 0.25rem;"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" /></svg>';
+      nextBtn.style.display = 'inline-flex';
+      nextBtn.style.alignItems = 'center';
       nextBtn.disabled = currentPage === totalPages;
       nextBtn.addEventListener('click', () => {
         if (currentPage < totalPages) {
