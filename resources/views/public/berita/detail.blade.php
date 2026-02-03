@@ -5,11 +5,7 @@
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
 <!-- Header Section -->
-<header class="bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-900/40 text-white py-10 relative overflow-hidden border-b border-slate-800 -mt-12">
-  <div class="absolute inset-0 opacity-10 pointer-events-none">
-    <div class="absolute top-0 right-0 w-96 h-96 bg-emerald-500 rounded-full blur-3xl"></div>
-    <div class="absolute bottom-0 left-0 w-96 h-96 bg-slate-700 rounded-full blur-3xl"></div>
-  </div>
+<header class="text-white py-10 relative overflow-hidden border-b border-slate-800 -mt-12" style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(51, 65, 85, 0.85)), url('https://images.unsplash.com/photo-1469022563149-aa64dbd37dae?q=80&w=2070&auto=format&fit=crop') center/cover;">
   <div class="container mx-auto px-6 relative z-10" data-aos="fade-up">
     <a href="{{ route('berita.index') }}"
       class="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-300 transition mb-3">
