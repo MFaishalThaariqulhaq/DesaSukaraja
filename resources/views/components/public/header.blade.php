@@ -8,8 +8,8 @@
              onerror="this.src='https://placehold.co/48x48/10b981/ffffff?text=DS'">
       </div>
       <div class="flex flex-col">
-        <span class="text-xs md:text-sm font-bold text-slate-800 tracking-wide leading-tight group-hover:text-emerald-600 transition-colors">PEMERINTAH DESA SUKARAJA</span>
-        <span class="text-[10px] md:text-xs font-medium text-slate-500 tracking-wider uppercase">Kabupaten Karawang</span>
+        <span class="text-xs md:text-sm font-bold font-sans text-slate-800 tracking-wide leading-tight group-hover:text-emerald-600 transition-colors">PEMERINTAH DESA SUKARAJA</span>
+        <span class="text-[10px] md:text-xs font-medium font-sans text-slate-500 tracking-wider uppercase">Kabupaten Karawang</span>
       </div>
     </a>
     <!-- Desktop Menu -->
