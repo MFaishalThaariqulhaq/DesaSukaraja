@@ -1,4 +1,4 @@
-// Initialize Chart.js charts with data from data attributes
+// Initialize Chart.js charts with data from JSON script tag
 document.addEventListener('DOMContentLoaded', () => {
   // Wait for Chart.js to be loaded
   const waitForChart = setInterval(() => {
@@ -9,15 +9,15 @@ document.addEventListener('DOMContentLoaded', () => {
   }, 100);
 
   function initCharts() {
-    // Get data from data attributes
-    const container = document.querySelector('[data-infografis-data]');
-    if (!container) return;
+    // Get data from JSON script tag
+    const dataScript = document.getElementById('infografis-data');
+    if (!dataScript) return;
 
-    const data = JSON.parse(container.getAttribute('data-infografis-data'));
+    const data = JSON.parse(dataScript.textContent);
 
     // Age Chart
     const ageChartCtx = document.getElementById('ageChart')?.getContext('2d');
-    if(ageChartCtx) {
+    if (ageChartCtx) {
       new Chart(ageChartCtx, {
         type: 'bar',
         data: {
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Education Chart
     const eduChartCtx = document.getElementById('educationChart')?.getContext('2d');
-    if(eduChartCtx) {
+    if (eduChartCtx) {
       new Chart(eduChartCtx, {
         type: 'doughnut',
         data: {
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Job Chart
     const jobChartCtx = document.getElementById('jobChart')?.getContext('2d');
-    if(jobChartCtx) {
+    if (jobChartCtx) {
       new Chart(jobChartCtx, {
         type: 'bar',
         data: {
@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Religion Chart
     const religionChartCtx = document.getElementById('religionChart')?.getContext('2d');
-    if(religionChartCtx) {
+    if (religionChartCtx) {
       new Chart(religionChartCtx, {
         type: 'pie',
         data: {
