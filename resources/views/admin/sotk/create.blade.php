@@ -37,6 +37,15 @@
         placeholder="Masukkan tupoksi perangkat desa..."></textarea>
     </div>
 
+    <div>
+      <label for="keterangan" class="block font-semibold text-slate-700 mb-1">Keterangan</label>
+      <input type="text" name="keterangan" id="keterangan" 
+        value="Masa Bakti 2024 - 2029"
+        class="w-full border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+        placeholder="Contoh: Masa Bakti 2024 - 2029">
+      <p class="text-xs text-slate-500 mt-1">Teks umum yang ditampilkan di bawah nama aparatur</p>
+    </div>
+
     <hr class="my-6 border-slate-200">
 
     <h3 class="text-lg font-semibold text-slate-700 mb-4">Warna dan Ikon</h3>

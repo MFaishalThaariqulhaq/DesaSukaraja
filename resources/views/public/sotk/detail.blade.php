@@ -180,7 +180,7 @@
                 <h3 class="text-xl font-bold text-slate-800 mb-1">
                   {{ $sotk->nama }}
                 </h3>
-                <p class="text-sm text-slate-500">Masa Bakti 2024 - 2029</p>
+                <p class="text-sm text-slate-500">{{ $sotk->keterangan ?? 'Masa Bakti 2024 - 2029' }}</p>
               </div>
             </div>
           @empty

@@ -12,6 +12,7 @@ class Sotk extends Model
     'foto', 
     'bagan', 
     'tupoksi',
+    'keterangan',
     'badge_color',
     'overlay_bg_color',
     'icon_color',
