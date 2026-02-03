@@ -9,6 +9,7 @@
 @import './sotk.css';
 @import './pengaduan.css';
 @import './profil.css';
+@import './galeri.css';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
