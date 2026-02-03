@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Second pass: apply pagination to visible items
     paginatePage();
     renderPagination();
-    
+
     // Refresh AOS animation
     if (window.AOS) {
       AOS.refresh();
