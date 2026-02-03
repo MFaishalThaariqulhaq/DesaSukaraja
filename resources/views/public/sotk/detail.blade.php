@@ -135,68 +135,6 @@
         <!-- Cards Grid - 4 Kolom -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           @forelse($sotks->where('jabatan', '!=', 'Bagan') as $index => $sotk)
-            @php
-              // Tentukan warna dan icon berdasarkan jabatan
-              $colorMap = [
-                'Kepala Desa' => [
-                  'badgeBg' => '#10b981', 
-                  'overlayBg' => 'rgba(5, 55, 50, 0.95)',
-                  'icon' => 'book-open',
-                  'iconColor' => '#6ee7b7'
-                ],
-                'Sekretaris Desa' => [
-                  'badgeBg' => '#2563eb', 
-                  'overlayBg' => 'rgba(30, 58, 138, 0.95)',
-                  'icon' => 'file-text',
-                  'iconColor' => '#93c5fd'
-                ],
-                'Kaur Umum & TU' => [
-                  'badgeBg' => '#f59e0b', 
-                  'overlayBg' => 'rgba(78, 22, 9, 0.95)',
-                  'icon' => 'archive',
-                  'iconColor' => '#fcd34d'
-                ],
-                'Kaur Keuangan' => [
-                  'badgeBg' => '#f59e0b', 
-                  'overlayBg' => 'rgba(78, 22, 9, 0.95)',
-                  'icon' => 'coins',
-                  'iconColor' => '#fcd34d'
-                ],
-                'Kaur Perencanaan' => [
-                  'badgeBg' => '#f59e0b', 
-                  'overlayBg' => 'rgba(78, 22, 9, 0.95)',
-                  'icon' => 'clipboard-list',
-                  'iconColor' => '#fcd34d'
-                ],
-                'Kasi Pemerintahan' => [
-                  'badgeBg' => '#9333ea', 
-                  'overlayBg' => 'rgba(55, 48, 163, 0.95)',
-                  'icon' => 'landmark',
-                  'iconColor' => '#d8b4fe'
-                ],
-                'Kasi Pelayanan' => [
-                  'badgeBg' => '#9333ea', 
-                  'overlayBg' => 'rgba(55, 48, 163, 0.95)',
-                  'icon' => 'user-check',
-                  'iconColor' => '#d8b4fe'
-                ],
-                'Kasi Kesra' => [
-                  'badgeBg' => '#9333ea', 
-                  'overlayBg' => 'rgba(55, 48, 163, 0.95)',
-                  'icon' => 'heart-handshake',
-                  'iconColor' => '#d8b4fe'
-                ],
-              ];
-              
-              // Default untuk Kadus dan jabatan lainnya
-              $colors = $colorMap[$sotk->jabatan] ?? [
-                'badgeBg' => '#ec4899',
-                'overlayBg' => 'rgba(88, 28, 135, 0.95)',
-                'icon' => 'map',
-                'iconColor' => '#f472b6'
-              ];
-            @endphp
-            
             <div 
               class="profile-card group bg-white rounded-2xl border border-slate-100 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
               data-aos="fade-up" 
@@ -213,9 +151,9 @@
                 <!-- Tupoksi Overlay (Hover) -->
                 <div 
                   class="profile-overlay absolute inset-0 flex flex-col justify-center items-center p-6 text-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0"
-                  style="background: {{ $colors['overlayBg'] }}">
+                  style="background: {{ $sotk->colors['overlayBg'] }}">
                   <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center mb-3">
-                    <i data-lucide="{{ $colors['icon'] }}" class="w-5 h-5" style="color: {{ $colors['iconColor'] }}"></i>
+                    <i data-lucide="{{ $sotk->colors['icon'] }}" class="w-5 h-5" style="color: {{ $sotk->colors['iconColor'] }}"></i>
                   </div>
                   <h4 class="text-white font-bold text-lg mb-2">Tupoksi</h4>
                   <div class="text-sm leading-relaxed text-white/90">
@@ -232,7 +170,7 @@
               <div class="p-6 text-center relative">
                 <div 
                   class="absolute -top-5 left-1/2 -translate-x-1/2 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-md tracking-wider uppercase"
-                  style="background: {{ $colors['badgeBg'] }}">
+                  style="background: {{ $sotk->colors['badgeBg'] }}">
                   {{ $sotk->jabatan }}
                 </div>
                 <h3 class="text-xl font-bold text-slate-800 mt-4 mb-1">

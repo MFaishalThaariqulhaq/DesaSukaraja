@@ -57,49 +57,48 @@
       <!-- Cards Grid -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         @foreach($sotks->where('jabatan', '!=', 'Bagan')->take(4) as $index => $sotk)
-          @php
-            // Tentukan warna berdasarkan jabatan
-            $colorMap = [
-              'Kepala Desa' => '#10b981',
-              'Sekretaris Desa' => '#2563eb',
-              'Kaur Umum & TU' => '#f59e0b',
-              'Kaur Keuangan' => '#f59e0b',
-              'Kaur Perencanaan' => '#f59e0b',
-              'Kasi Pemerintahan' => '#9333ea',
-              'Kasi Pelayanan' => '#9333ea',
-              'Kasi Kesra' => '#9333ea',
-            ];
-            
-            $badgeColor = $colorMap[$sotk->jabatan] ?? '#ec4899';
-          @endphp
-          
           <div 
-            class="group relative bg-white rounded-2xl overflow-hidden shadow-xl border border-slate-100 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
+            class="profile-card group bg-white rounded-2xl border border-slate-100 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
             data-aos="fade-up" 
             data-aos-delay="{{ $index * 100 }}">
             
-            <div class="aspect-[4/5] overflow-hidden relative">
-              <!-- Gradient Overlay -->
-              <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent z-10"></div>
-              
-              <!-- Image -->
+            <!-- Image Container -->
+            <div class="relative h-72 overflow-hidden bg-slate-100">
               <img 
                 src="{{ $sotk->foto ? asset('storage/' . $sotk->foto) : 'https://ui-avatars.com/api/?name=' . urlencode($sotk->nama) . '&background=10b981&color=fff' }}" 
                 alt="{{ $sotk->nama }}"
-                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                class="profile-img w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 group-hover:blur-sm"
                 loading="lazy">
               
-              <!-- Content -->
-              <div class="absolute bottom-0 left-0 p-6 z-20 w-full">
-                <span 
-                  class="inline-block px-3 py-1 text-white text-[10px] font-bold uppercase tracking-wider rounded-full mb-2 shadow-lg"
-                  style="background: {{ $badgeColor }}">
-                  {{ $sotk->jabatan }}
-                </span>
-                <h3 class="text-xl font-bold text-white leading-tight">
-                  {{ $sotk->nama }}
-                </h3>
+              <!-- Tupoksi Overlay (Hover) -->
+              <div 
+                class="profile-overlay absolute inset-0 flex flex-col justify-center items-center p-6 text-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0"
+                style="background: {{ $sotk->colors['overlayBg'] }}">
+                <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center mb-3">
+                  <i data-lucide="{{ $sotk->colors['icon'] }}" class="w-5 h-5" style="color: {{ $sotk->colors['iconColor'] }}"></i>
+                </div>
+                <h4 class="text-white font-bold text-lg mb-2">Tupoksi</h4>
+                <div class="text-sm leading-relaxed text-white/90">
+                  @if($sotk->tupoksi)
+                    {!! $sotk->tupoksi !!}
+                  @else
+                    <p class="italic">Tupoksi belum didefinisikan</p>
+                  @endif
+                </div>
               </div>
+            </div>
+
+            <!-- Info Card (Below Image) -->
+            <div class="p-6 text-center relative">
+              <div 
+                class="absolute -top-5 left-1/2 -translate-x-1/2 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-md tracking-wider uppercase"
+                style="background: {{ $sotk->colors['badgeBg'] }}">
+                {{ $sotk->jabatan }}
+              </div>
+              <h3 class="text-xl font-bold text-slate-800 mt-4 mb-1">
+                {{ $sotk->nama }}
+              </h3>
+              <p class="text-sm text-slate-500 mb-4">Masa Bakti 2024 - 2029</p>
             </div>
           </div>
         @endforeach
