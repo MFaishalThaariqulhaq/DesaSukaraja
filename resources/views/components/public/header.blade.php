@@ -118,13 +118,30 @@
 
       // Active navigation link highlight
       const navLinks = document.querySelectorAll('nav a[href^="/"]');
+      const mobileNavLinks = document.querySelectorAll('#mobile-menu a[href^="/"]');
       const currentPath = window.location.pathname;
       
       navLinks.forEach(link => {
         const href = link.getAttribute('href');
-        if (currentPath === href || (href === '/' && currentPath === '/')) {
+        // Active jika: path sama atau (bukan home dan path dimulai dengan href)
+        if ((href === '/' && currentPath === '/') || (href !== '/' && currentPath.startsWith(href))) {
           link.classList.remove('text-slate-600');
           link.classList.add('text-emerald-600', 'font-semibold');
+        } else {
+          link.classList.remove('text-emerald-600', 'font-semibold');
+          link.classList.add('text-slate-600');
+        }
+      });
+      
+      // Apply same highlighting untuk mobile menu
+      mobileNavLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if ((href === '/' && currentPath === '/') || (href !== '/' && currentPath.startsWith(href))) {
+          link.classList.remove('text-slate-600');
+          link.classList.add('text-emerald-600', 'font-semibold', 'bg-emerald-50');
+        } else {
+          link.classList.remove('text-emerald-600', 'font-semibold', 'bg-emerald-50');
+          link.classList.add('text-slate-600');
         }
       });
     });

@@ -9,9 +9,6 @@
     </h1>
     <p class="text-lg md:text-2xl text-slate-100 drop-shadow-md">Mengenal Lebih Dekat Sejarah dan Visi Desa Kami</p>
   </div>
-  <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce opacity-80 cursor-pointer hover:text-emerald-300 transition-colors">
-    <a href="#sejarah"><i data-lucide="mouse" class="w-6 h-6"></i></a>
-  </div>
 </section>
 
 <section id="sejarah" class="py-20 bg-slate-50">
