@@ -2,7 +2,15 @@
 
 @section('content')
 
-<div class="bg-white text-slate-800 antialiased overflow-x-hidden selection:bg-emerald-500 selection:text-white">
+<div class="bg-white text-slate-800 antialiased overflow-x-hidden selection:bg-emerald-500 selection:text-white" data-infografis-data='@json([
+  "age" => [
+    "male" => [($data->kelompok_usia_0_5 ?? 0) / 2, ($data->kelompok_usia_6_11 ?? 0) / 2, ($data->kelompok_usia_12_17 ?? 0) / 2, ($data->kelompok_usia_18_25 ?? 0) / 2, ($data->kelompok_usia_61_keatas ?? 0) / 2],
+    "female" => [($data->kelompok_usia_0_5 ?? 0) / 2, ($data->kelompok_usia_6_11 ?? 0) / 2, ($data->kelompok_usia_12_17 ?? 0) / 2, ($data->kelompok_usia_18_25 ?? 0) / 2, ($data->kelompok_usia_61_keatas ?? 0) / 2]
+  ],
+  "education" => [$data->pendidikan_sd, $data->pendidikan_smp, $data->pendidikan_sma, $data->pendidikan_diploma, $data->pendidikan_belum],
+  "job" => [$data->pekerjaan_petani, $data->pekerjaan_wiraswasta, $data->pekerjaan_karyawan, $data->pekerjaan_pns, $data->pekerjaan_ibu_rumah_tangga, $data->pekerjaan_belum],
+  "religion" => [$data->agama_islam, $data->agama_kristen, $data->agama_katolik, $data->agama_hindu, $data->agama_buddha]
+])'>
   <!-- Header dengan Back Button -->
   <header class="relative bg-gradient-to-r from-emerald-600 to-emerald-700 text-white py-8 overflow-hidden -mt-20 pt-32">
     <div class="absolute inset-0 opacity-10" style="background-image: url('data:image/svg+xml,%3Csvg width=%2760%27 height=%2760%27 viewBox=%270 0 60 60%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cg fill=%27none%27 fill-rule=%27evenodd%27%3E%3Cg fill=%27%23ffffff%27 fill-opacity=%270.05%27%3E%3Cpath d=%27M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z%27/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')"></div>
@@ -170,131 +178,5 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3"></script>
-<script>
-  // Data untuk charts
-  const ageChartCtx = document.getElementById('ageChart')?.getContext('2d');
-  if(ageChartCtx) {
-    new Chart(ageChartCtx, {
-      type: 'bar',
-      data: {
-        labels: ['Balita (0-5)', 'Anak (6-11)', 'Remaja (12-17)', 'Dewasa (18-59)', 'Lansia (60+)'],
-        datasets: [
-          {
-            label: 'Laki-laki',
-            data: [{{ ($data->kelompok_usia_0_5 ?? 0) / 2 }}, {{ ($data->kelompok_usia_6_11 ?? 0) / 2 }}, {{ ($data->kelompok_usia_12_17 ?? 0) / 2 }}, {{ ($data->kelompok_usia_18_25 ?? 0) / 2 }}, {{ ($data->kelompok_usia_61_keatas ?? 0) / 2 }}],
-            backgroundColor: '#3b82f6',
-            borderRadius: 6,
-          },
-          {
-            label: 'Perempuan',
-            data: [{{ ($data->kelompok_usia_0_5 ?? 0) / 2 }}, {{ ($data->kelompok_usia_6_11 ?? 0) / 2 }}, {{ ($data->kelompok_usia_12_17 ?? 0) / 2 }}, {{ ($data->kelompok_usia_18_25 ?? 0) / 2 }}, {{ ($data->kelompok_usia_61_keatas ?? 0) / 2 }}],
-            backgroundColor: '#ec4899',
-            borderRadius: 6,
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            position: 'bottom',
-            labels: { padding: 15, font: { size: 12, weight: 600 } }
-          }
-        },
-        scales: {
-          y: {
-            beginAtZero: true,
-            grid: { color: '#e2e8f0' }
-          }
-        }
-      }
-    });
-  }
-
-  const eduChartCtx = document.getElementById('educationChart')?.getContext('2d');
-  if(eduChartCtx) {
-    new Chart(eduChartCtx, {
-      type: 'doughnut',
-      data: {
-        labels: ['SD', 'SMP', 'SMA/K', 'Diploma/Sarjana', 'Belum Sekolah'],
-        datasets: [{
-          data: [{{ $data->pendidikan_sd }}, {{ $data->pendidikan_smp }}, {{ $data->pendidikan_sma }}, {{ $data->pendidikan_diploma }}, {{ $data->pendidikan_belum }}],
-          backgroundColor: ['#10b981', '#3b82f6', '#f59e0b', '#8b5cf6', '#ec4899'],
-          borderColor: '#ffffff',
-          borderWidth: 2
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            position: 'bottom',
-            labels: { padding: 15, font: { size: 12, weight: 600 } }
-          }
-        }
-      }
-    });
-  }
-
-  const jobChartCtx = document.getElementById('jobChart')?.getContext('2d');
-  if(jobChartCtx) {
-    new Chart(jobChartCtx, {
-      type: 'bar',
-      data: {
-        labels: ['Petani', 'Wiraswasta', 'Karyawan Swasta', 'PNS/TNI/Polri', 'Ibu Rumah Tangga', 'Belum Bekerja'],
-        datasets: [{
-          label: 'Jumlah Penduduk',
-          data: [{{ $data->pekerjaan_petani }}, {{ $data->pekerjaan_wiraswasta }}, {{ $data->pekerjaan_karyawan }}, {{ $data->pekerjaan_pns }}, {{ $data->pekerjaan_ibu_rumah_tangga }}, {{ $data->pekerjaan_belum }}],
-          backgroundColor: '#10b981',
-          borderRadius: 6
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        indexAxis: 'y',
-        plugins: {
-          legend: {
-            display: false
-          }
-        },
-        scales: {
-          x: {
-            beginAtZero: true,
-            grid: { color: '#e2e8f0' }
-          }
-        }
-      }
-    });
-  }
-
-  const religionChartCtx = document.getElementById('religionChart')?.getContext('2d');
-  if(religionChartCtx) {
-    new Chart(religionChartCtx, {
-      type: 'pie',
-      data: {
-        labels: ['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha'],
-        datasets: [{
-          data: [{{ $data->agama_islam }}, {{ $data->agama_kristen }}, {{ $data->agama_katolik }}, {{ $data->agama_hindu }}, {{ $data->agama_buddha }}],
-          backgroundColor: ['#10b981', '#3b82f6', '#f59e0b', '#8b5cf6', '#ec4899'],
-          borderColor: '#ffffff',
-          borderWidth: 2
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            position: 'bottom',
-            labels: { padding: 15, font: { size: 12, weight: 600 } }
-          }
-        }
-      }
-    });
-  }
-</script>
 
 @endsection
