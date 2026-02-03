@@ -1,49 +1,5 @@
 /* Berita Page Styles */
 
-/* Pagination Styling - Match Galeri Style */
-.pagination {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-top: 2rem;
-  flex-wrap: wrap;
-}
-
-.pagination .page-item {
-  display: inline-block;
-}
-
-.pagination .page-item a,
-.pagination .page-item span {
-  padding: 0.5rem 0.75rem;
-  border: 1px solid #e2e8f0;
-  background: white;
-  color: #475569;
-  border-radius: 0.375rem;
-  cursor: pointer;
-  font-size: 0.875rem;
-  transition: all 0.2s;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.pagination .page-item a:hover {
-  background: #f1f5f9;
-  border-color: #cbd5e1;
-}
-
-.pagination .page-item.active span {
-  background: #059669;
-  color: white;
-  border-color: #059669;
-}
-
-.pagination .page-item.disabled span {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
 /* Berita Item Styling */
 .berita-item {
   overflow: hidden;
