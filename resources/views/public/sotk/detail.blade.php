@@ -132,42 +132,113 @@
           <p class="text-slate-600 mt-5">Daftar lengkap seluruh aparatur pemerintahan desa Sukaraja</p>
         </div>
 
-        <!-- Cards Grid -->
+        <!-- Cards Grid - 4 Kolom -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           @forelse($sotks->where('jabatan', '!=', 'Bagan') as $index => $sotk)
-            <div 
-              class="group relative bg-white rounded-2xl overflow-hidden shadow-xl border border-slate-100 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 cursor-pointer"
-              data-aos="fade-up" 
-              data-aos-delay="{{ $index % 4 * 100 }}"
-              onclick="openTupoksiModal('{{ addslashes($sotk->nama) }}', '{{ addslashes($sotk->jabatan) }}', @json($sotk->tupoksi))">
+            @php
+              // Tentukan warna dan icon berdasarkan jabatan
+              $colorMap = [
+                'Kepala Desa' => [
+                  'badgeBg' => '#10b981', 
+                  'overlayBg' => 'rgba(5, 55, 50, 0.95)',
+                  'icon' => 'book-open',
+                  'iconColor' => '#6ee7b7'
+                ],
+                'Sekretaris Desa' => [
+                  'badgeBg' => '#2563eb', 
+                  'overlayBg' => 'rgba(30, 58, 138, 0.95)',
+                  'icon' => 'file-text',
+                  'iconColor' => '#93c5fd'
+                ],
+                'Kaur Umum & TU' => [
+                  'badgeBg' => '#f59e0b', 
+                  'overlayBg' => 'rgba(78, 22, 9, 0.95)',
+                  'icon' => 'archive',
+                  'iconColor' => '#fcd34d'
+                ],
+                'Kaur Keuangan' => [
+                  'badgeBg' => '#f59e0b', 
+                  'overlayBg' => 'rgba(78, 22, 9, 0.95)',
+                  'icon' => 'coins',
+                  'iconColor' => '#fcd34d'
+                ],
+                'Kaur Perencanaan' => [
+                  'badgeBg' => '#f59e0b', 
+                  'overlayBg' => 'rgba(78, 22, 9, 0.95)',
+                  'icon' => 'clipboard-list',
+                  'iconColor' => '#fcd34d'
+                ],
+                'Kasi Pemerintahan' => [
+                  'badgeBg' => '#9333ea', 
+                  'overlayBg' => 'rgba(55, 48, 163, 0.95)',
+                  'icon' => 'landmark',
+                  'iconColor' => '#d8b4fe'
+                ],
+                'Kasi Pelayanan' => [
+                  'badgeBg' => '#9333ea', 
+                  'overlayBg' => 'rgba(55, 48, 163, 0.95)',
+                  'icon' => 'user-check',
+                  'iconColor' => '#d8b4fe'
+                ],
+                'Kasi Kesra' => [
+                  'badgeBg' => '#9333ea', 
+                  'overlayBg' => 'rgba(55, 48, 163, 0.95)',
+                  'icon' => 'heart-handshake',
+                  'iconColor' => '#d8b4fe'
+                ],
+              ];
               
-              <div class="aspect-[4/5] overflow-hidden relative">
-                <!-- Gradient Overlay -->
-                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent z-10"></div>
-                
-                <!-- Image -->
+              // Default untuk Kadus dan jabatan lainnya
+              $colors = $colorMap[$sotk->jabatan] ?? [
+                'badgeBg' => '#ec4899',
+                'overlayBg' => 'rgba(88, 28, 135, 0.95)',
+                'icon' => 'map',
+                'iconColor' => '#f472b6'
+              ];
+            @endphp
+            
+            <div 
+              class="profile-card group bg-white rounded-2xl border border-slate-100 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+              data-aos="fade-up" 
+              data-aos-delay="{{ $index % 4 * 100 }}">
+              
+              <!-- Image Container -->
+              <div class="relative h-72 overflow-hidden bg-slate-100">
                 <img 
                   src="{{ $sotk->foto ? asset('storage/' . $sotk->foto) : 'https://ui-avatars.com/api/?name=' . urlencode($sotk->nama) . '&background=10b981&color=fff' }}" 
                   alt="{{ $sotk->nama }}"
-                  class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                  class="profile-img w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 group-hover:blur-sm"
                   loading="lazy">
                 
-                <!-- Content -->
-                <div class="absolute bottom-0 left-0 p-6 z-20 w-full">
-                  <span class="inline-block px-3 py-1 bg-emerald-600 text-white text-[10px] font-bold uppercase tracking-wider rounded-full mb-2 shadow-lg">
-                    {{ $sotk->jabatan }}
-                  </span>
-                  <h3 class="text-xl font-bold text-white leading-tight">
-                    {{ $sotk->nama }}
-                  </h3>
-                </div>
-
-                <!-- Click Indicator -->
-                <div class="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div class="bg-emerald-600 text-white rounded-full p-2">
-                    <i data-lucide="info" class="w-4 h-4"></i>
+                <!-- Tupoksi Overlay (Hover) -->
+                <div 
+                  class="profile-overlay absolute inset-0 flex flex-col justify-center items-center p-6 text-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0"
+                  style="background: {{ $colors['overlayBg'] }}">
+                  <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center mb-3">
+                    <i data-lucide="{{ $colors['icon'] }}" class="w-5 h-5" style="color: {{ $colors['iconColor'] }}"></i>
+                  </div>
+                  <h4 class="text-white font-bold text-lg mb-2">Tupoksi</h4>
+                  <div class="text-sm leading-relaxed text-white/90">
+                    @if($sotk->tupoksi)
+                      {!! $sotk->tupoksi !!}
+                    @else
+                      <p class="italic">Tupoksi belum didefinisikan</p>
+                    @endif
                   </div>
                 </div>
+              </div>
+
+              <!-- Info Card (Below Image) -->
+              <div class="p-6 text-center relative">
+                <div 
+                  class="absolute -top-5 left-1/2 -translate-x-1/2 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-md tracking-wider uppercase"
+                  style="background: {{ $colors['badgeBg'] }}">
+                  {{ $sotk->jabatan }}
+                </div>
+                <h3 class="text-xl font-bold text-slate-800 mt-4 mb-1">
+                  {{ $sotk->nama }}
+                </h3>
+                <p class="text-sm text-slate-500 mb-4">Masa Bakti 2024 - 2029</p>
               </div>
             </div>
           @empty
@@ -181,53 +252,7 @@
     </div>
   </div>
 
-  <!-- ==========================================
-       MODAL TUPOKSI
-       ========================================== -->
-  <div 
-    id="tupoksiModal" 
-    class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" 
-    role="dialog" 
-    aria-modal="true"
-    onclick="closeTupoksiModal(event)">
-    
-    <div class="relative bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto" onclick="event.stopPropagation()">
-      <!-- Header -->
-      <div class="sticky top-0 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white px-6 py-4 flex items-start justify-between gap-4">
-        <div>
-          <h2 id="modalNama" class="text-2xl font-bold"></h2>
-          <p id="modalJabatan" class="text-emerald-100 text-sm mt-1"></p>
-        </div>
-        <button 
-          onclick="closeTupoksiModal()" 
-          class="text-white hover:bg-emerald-800 rounded-full p-2 transition"
-          aria-label="Close modal">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
-        </button>
-      </div>
 
-      <!-- Content -->
-      <div class="p-6">
-        <div class="mb-4">
-          <h3 class="text-sm font-bold text-slate-600 uppercase tracking-wider mb-3">Tugas Pokok dan Fungsi</h3>
-          <div id="modalTupoksi" class="prose prose-sm max-w-none">
-            <!-- Tupoksi akan diisi oleh JavaScript -->
-          </div>
-        </div>
-      </div>
-
-      <!-- Footer -->
-      <div class="border-t border-slate-200 px-6 py-3 bg-slate-50 flex justify-end">
-        <button 
-          onclick="closeTupoksiModal()" 
-          class="px-4 py-2 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition">
-          Tutup
-        </button>
-      </div>
-    </div>
-  </div>
 
   <!-- ==========================================
        MODAL GAMBAR BAGAN
@@ -260,34 +285,4 @@
 
 @push('scripts')
   <script src="{{ asset('js/sotk.js') }}"></script>
-  <script>
-    function openTupoksiModal(nama, jabatan, tupoksi) {
-      document.getElementById('modalNama').textContent = nama;
-      document.getElementById('modalJabatan').textContent = jabatan;
-      
-      if (tupoksi) {
-        document.getElementById('modalTupoksi').innerHTML = tupoksi;
-      } else {
-        document.getElementById('modalTupoksi').innerHTML = '<p class="text-slate-500 italic">Tupoksi belum didefinisikan</p>';
-      }
-      
-      document.getElementById('tupoksiModal').classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeTupoksiModal(event) {
-      if (event && event.target.id !== 'tupoksiModal') {
-        return;
-      }
-      document.getElementById('tupoksiModal').classList.add('hidden');
-      document.body.style.overflow = 'auto';
-    }
-
-    // Close modal on escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !document.getElementById('tupoksiModal').classList.contains('hidden')) {
-        closeTupoksiModal();
-      }
-    });
-  </script>
 @endpush

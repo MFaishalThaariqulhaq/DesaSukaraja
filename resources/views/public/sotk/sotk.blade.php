@@ -57,6 +57,22 @@
       <!-- Cards Grid -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         @foreach($sotks->where('jabatan', '!=', 'Bagan')->take(4) as $index => $sotk)
+          @php
+            // Tentukan warna berdasarkan jabatan
+            $colorMap = [
+              'Kepala Desa' => '#10b981',
+              'Sekretaris Desa' => '#2563eb',
+              'Kaur Umum & TU' => '#f59e0b',
+              'Kaur Keuangan' => '#f59e0b',
+              'Kaur Perencanaan' => '#f59e0b',
+              'Kasi Pemerintahan' => '#9333ea',
+              'Kasi Pelayanan' => '#9333ea',
+              'Kasi Kesra' => '#9333ea',
+            ];
+            
+            $badgeColor = $colorMap[$sotk->jabatan] ?? '#ec4899';
+          @endphp
+          
           <div 
             class="group relative bg-white rounded-2xl overflow-hidden shadow-xl border border-slate-100 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
             data-aos="fade-up" 
@@ -75,7 +91,9 @@
               
               <!-- Content -->
               <div class="absolute bottom-0 left-0 p-6 z-20 w-full">
-                <span class="inline-block px-3 py-1 bg-emerald-600 text-white text-[10px] font-bold uppercase tracking-wider rounded-full mb-2 shadow-lg">
+                <span 
+                  class="inline-block px-3 py-1 text-white text-[10px] font-bold uppercase tracking-wider rounded-full mb-2 shadow-lg"
+                  style="background: {{ $badgeColor }}">
                   {{ $sotk->jabatan }}
                 </span>
                 <h3 class="text-xl font-bold text-white leading-tight">

@@ -49,6 +49,56 @@ body {
   height: 8px;
 }
 
+/* ==========================================
+   PROFILE CARD STYLES
+   ========================================== */
+
+.profile-card {
+  position: relative;
+}
+
+.profile-img {
+  display: block;
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.profile-card:hover .profile-img {
+  transform: scale(1.1);
+  filter: blur(2px);
+}
+
+.profile-overlay {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.8));
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateY(10px);
+}
+
+.profile-card:hover .profile-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.profile-overlay div {
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+.profile-overlay p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.profile-overlay ul {
+  margin: 0.5rem 0;
+  padding-left: 1.25rem;
+  text-align: left;
+}
+
+.profile-overlay li {
+  margin-bottom: 0.25rem;
+}
+
 ::-webkit-scrollbar-track {
   background: var(--color-slate-100);
 }

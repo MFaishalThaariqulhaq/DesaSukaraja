@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail Aparatur Desa - Desa Sukaraja</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- AOS Animation -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,600&display=swap');
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8fafc;
+    }
+  </style>
+</head>
+
+<body class="bg-slate-50 antialiased text-slate-600">
+
+  <!-- Header & Navigation -->
+  <header class="bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-sm border-b border-slate-100">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="flex items-center space-x-3 group">
+        <div class="relative w-10 h-10 overflow-hidden rounded-lg shadow-sm">
+          <img src="assets/logo.png" alt="Logo" class="w-full h-full object-contain"
+            onerror="this.src='https://placehold.co/48x48/10b981/ffffff?text=DS'">
+        </div>
+        <div class="flex flex-col">
+          <span
+            class="text-sm font-bold text-slate-800 leading-none group-hover:text-emerald-600 transition-colors">PEMERINTAH
+            DESA SUKARAJA</span>
+          <span class="text-[10px] font-semibold text-slate-500 tracking-wider">KABUPATEN KARAWANG</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden lg:flex items-center space-x-8">
+        <a href="index.html"
+          class="text-sm font-medium text-slate-600 hover:text-emerald-600 transition-colors">Home</a>
+        <a href="sotk.html" class="text-sm font-bold text-emerald-600">SOTK</a>
+      </nav>
+
+      <!-- Back Button -->
+      <a href="sotk.html"
+        class="flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-emerald-600 transition-colors">
+        <i data-lucide="arrow-left" class="w-4 h-4"></i>
+        <span>Kembali</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Title Section -->
+  <section class="py-12 bg-white">
+    <div class="container mx-auto px-6 text-center">
+      <span class="text-emerald-600 font-bold uppercase tracking-widest text-xs">Profil Lengkap</span>
+      <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mt-2 mb-4 font-serif">Jajaran Aparatur Desa</h1>
+      <p class="text-slate-500 max-w-2xl mx-auto">Mengenal lebih dekat para punggawa pemerintahan Desa Sukaraja beserta
+        tugas pokok dan fungsinya.</p>
+    </div>
+  </section>
+
+  <!-- Grid Content -->
+  <section class="pb-20 bg-white">
+    <div class="container mx-auto px-6">
+
+      <!-- Grid Layout: 3 Kolom (lg:grid-cols-3) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <!-- 1. KEPALA DESA -->
+        <div
+          class="profile-card group bg-white rounded-2xl border border-slate-100 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+          data-aos="fade-up">
+          <div class="relative h-72 overflow-hidden bg-slate-100">
+            <img src="https://ui-avatars.com/api/?name=Irwan+Iskandar&background=10b981&color=fff&size=500"
+              alt="Irwan Iskandar"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 group-hover:blur-sm">
+
+            <!-- Overlay Tupoksi (Solid Color Cover) -->
+            <div
+              class="absolute inset-0 bg-emerald-900/95 flex flex-col justify-center items-center p-6 text-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
+              <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center mb-3">
+                <i data-lucide="book-open" class="w-5 h-5 text-emerald-300"></i>
+              </div>
+              <h4 class="text-white font-bold text-lg mb-2">Tupoksi</h4>
+              <p class="text-emerald-50 text-sm leading-relaxed">
+                Menyelenggarakan Pemerintahan Desa, melaksanakan Pembangunan, pembinaan kemasyarakatan, dan pemberdayaan
+                masyarakat Desa.
+              </p>
+            </div>
+          </div>
+          <div class="p-6 text-center relative">
+            <div
+              class="absolute -top-5 left-1/2 -translate-x-1/2 bg-emerald-600 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-md tracking-wider uppercase">
+              Kepala Desa</div>
+            <h3 class="text-xl font-bold text-slate-800 mt-4 mb-1">Irwan Iskandar</h3>
+            <p class="text-sm text-slate-500 mb-4">Masa Bakti 2024 - 2029</p>
+            <div class="flex justify-center gap-3">
+              <button class="p-2 rounded-full bg-slate-50 text-emerald-600 hover:bg-emerald-50 transition"><i
+                  data-lucide="phone" class="w-4 h-4"></i></button>
+              <button class="p-2 rounded-full bg-slate-50 text-emerald-600 hover:bg-emerald-50 transition"><i
+                  data-lucide="mail" class="w-4 h-4"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. SEKRETARIS DESA -->
+        <div
+          class="profile-card group bg-white rounded-2xl border border-slate-100 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+          data-aos="fade-up" data-aos-delay="100">
+          <div class="relative h-72 overflow-hidden bg-slate-100">
+            <img src="https://ui-avatars.com/api/?name=Idang+Suhendar&background=3b82f6&color=fff&size=500"
+              alt="Idang Suhendar"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 group-hover:blur-sm">
+
+            <!-- Overlay Tupoksi -->
+            <div
+              class="absolute inset-0 bg-blue-900/95 flex flex-col justify-center items-center p-6 text-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
+              <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center mb-3">
+                <i data-lucide="file-text" class="w-5 h-5 text-blue-300"></i>
+              </div>
+              <h4 class="text-white font-bold text-lg mb-2">Tupoksi</h4>
+              <p class="text-blue-50 text-sm leading-relaxed">
+                Membantu Kepala Desa dalam bidang administrasi pemerintahan dan memberikan masukan dalam penyusunan
+                kebijakan desa.
+              </p>
+            </div>
+          </div>
+          <div class="p-6 text-center relative">
+            <div
+              class="absolute -top-5 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-md tracking-wider uppercase">
+              Sekretaris Desa</div>
+            <h3 class="text-xl font-bold text-slate-800 mt-4 mb-1">Idang Suhendar</h3>
+            <p class="text-sm text-slate-500 mb-4">NIP. 1985xxxx xxxx xxxx</p>
+            <div class="flex justify-center gap-3">
+              <button class="p-2 rounded-full bg-slate-50 text-blue-600 hover:bg-blue-50 transition"><i
+                  data-lucide="phone" class="w-4 h-4"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. KAUR UMUM & TU -->
+        <div
+          class="profile-card group bg-white rounded-2xl border border-slate-100 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+          data-aos="fade-up" data-aos-delay="200">
+          <div class="relative h-72 overflow-hidden bg-slate-100">
+            <img src="https://ui-avatars.com/api/?name=Alam+Adi&background=f59e0b&color=fff&size=500"
+              alt="Alam Adi Darma"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 group-hover:blur-sm">
+
+            <!-- Overlay Tupoksi -->
+            <div
+              class="absolute inset-0 bg-amber-900/95 flex flex-col justify-center items-center p-6 text-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
+              <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center mb-3">
+                <i data-lucide="archive" class="w-5 h-5 text-amber-300"></i>
+              </div>
+              <h4 class="text-white font-bold text-lg mb-2">Tupoksi</h4>
+              <p class="text-amber-50 text-sm leading-relaxed">
+                Melaksanakan urusan ketatausahaan seperti tata naskah, administrasi surat menyurat, arsip, dan
+                ekspedisi.
+              </p>
+            </div>
+          </div>
+          <div class="p-6 text-center relative">
+            <div
+              class="absolute -top-5 left-1/2 -translate-x-1/2 bg-amber-500 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-md tracking-wider uppercase">
+              Kaur Umum & TU</div>
+            <h3 class="text-xl font-bold text-slate-800 mt-4 mb-1">Alam Adi Darma</h3>
+            <p class="text-sm text-slate-500 mb-4">Administrasi Umum</p>
+          </div>
+        </div>
+
+        <!-- 4. KAUR KEUANGAN -->
+        <div
+          class="profile-card group bg-white rounded-2xl border border-slate-100 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+          data-aos="fade-up">
+          <div class="relative h-72 overflow-hidden bg-slate-100">
+            <img src="https://ui-avatars.com/api/?name=Ikun+Abdirahman&background=f59e0b&color=fff&size=500"
+              alt="Ikun Abdirahman"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 group-hover:blur-sm">
+
+            <!-- Overlay Tupoksi -->
+            <div
+              class="absolute inset-0 bg-amber-900/95 flex flex-col justify-center items-center p-6 text-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
+              <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center mb-3">
+                <i data-lucide="coins" class="w-5 h-5 text-amber-300"></i>
+              </div>
+              <h4 class="text-white font-bold text-lg mb-2">Tupoksi</h4>
+              <p class="text-amber-50 text-sm leading-relaxed">
+                Melaksanakan urusan keuangan seperti pengurusan administrasi keuangan, administrasi sumber-sumber
+                pendapatan dan pengeluaran.
+              </p>
+            </div>
+          </div>
+          <div class="p-6 text-center relative">
+            <div
+              class="absolute -top-5 left-1/2 -translate-x-1/2 bg-amber-500 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-md tracking-wider uppercase">
+              Kaur Keuangan</div>
+            <h3 class="text-xl font-bold text-slate-800 mt-4 mb-1">Ikun Abdirahman</h3>
+            <p class="text-sm text-slate-500 mb-4">Pengelola Keuangan</p>
+          </div>
+        </div>
+
+        <!-- 5. KAUR PERENCANAAN -->
+        <div
+          class="profile-card group bg-white rounded-2xl border border-slate-100 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+          data-aos="fade-up" data-aos-delay="100">
+          <div class="relative h-72 overflow-hidden bg-slate-100">
+            <img src="https://ui-avatars.com/api/?name=Jajang+Pipit&background=f59e0b&color=fff&size=500"
+              alt="Jajang Pipit"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 group-hover:blur-sm">
+
+            <!-- Overlay Tupoksi -->
+            <div
+              class="absolute inset-0 bg-amber-900/95 flex flex-col justify-center items-center p-6 text-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
+              <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center mb-3">
+                <i data-lucide="clipboard-list" class="w-5 h-5 text-amber-300"></i>
+              </div>
+              <h4 class="text-white font-bold text-lg mb-2">Tupoksi</h4>
+              <p class="text-amber-50 text-sm leading-relaxed">
+                Mengoordinasikan urusan perencanaan seperti menyusun rencana anggaran pendapatan dan belanja desa.
+              </p>
+            </div>
+          </div>
+          <div class="p-6 text-center relative">
+            <div
+              class="absolute -top-5 left-1/2 -translate-x-1/2 bg-amber-500 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-md tracking-wider uppercase">
+              Kaur Perencanaan</div>
+            <h3 class="text-xl font-bold text-slate-800 mt-4 mb-1">Jajang Pipit</h3>
+            <p class="text-sm text-slate-500 mb-4">Perencanaan Pembangunan</p>
+          </div>
+        </div>
+
+        <!-- 6. KASI PEMERINTAHAN -->
+        <div
+          class="profile-card group bg-white rounded-2xl border border-slate-100 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+          data-aos="fade-up" data-aos-delay="200">
+          <div class="relative h-72 overflow-hidden bg-slate-100">
+            <img src="https://ui-avatars.com/api/?name=H+Sutisna&background=7e22ce&color=fff&size=500" alt="H. Sutisna"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 group-hover:blur-sm">
+
+            <!-- Overlay Tupoksi -->
+            <div
+              class="absolute inset-0 bg-purple-900/95 flex flex-col justify-center items-center p-6 text-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
+              <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center mb-3">
+                <i data-lucide="landmark" class="w-5 h-5 text-purple-300"></i>
+              </div>
+              <h4 class="text-white font-bold text-lg mb-2">Tupoksi</h4>
+              <p class="text-purple-50 text-sm leading-relaxed">
+                Melaksanakan manajemen tata praja Pemerintahan, menyusun rancangan regulasi desa, dan pembinaan masalah
+                pertanahan.
+              </p>
+            </div>
+          </div>
+          <div class="p-6 text-center relative">
+            <div
+              class="absolute -top-5 left-1/2 -translate-x-1/2 bg-purple-600 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-md tracking-wider uppercase">
+              Kasi Pemerintahan</div>
+            <h3 class="text-xl font-bold text-slate-800 mt-4 mb-1">H. Sutisna</h3>
+            <p class="text-sm text-slate-500 mb-4">Seksi Pemerintahan</p>
+          </div>
+        </div>
+
+        <!-- 7. KASI PELAYANAN -->
+        <div
+          class="profile-card group bg-white rounded-2xl border border-slate-100 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+          data-aos="fade-up">
+          <div class="relative h-72 overflow-hidden bg-slate-100">
+            <img src="https://ui-avatars.com/api/?name=Aji+Bustnul&background=7e22ce&color=fff&size=500"
+              alt="Aji Bustnul Gr"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 group-hover:blur-sm">
+
+            <!-- Overlay Tupoksi -->
+            <div
+              class="absolute inset-0 bg-purple-900/95 flex flex-col justify-center items-center p-6 text-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
+              <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center mb-3">
+                <i data-lucide="user-check" class="w-5 h-5 text-purple-300"></i>
+              </div>
+              <h4 class="text-white font-bold text-lg mb-2">Tupoksi</h4>
+              <p class="text-purple-50 text-sm leading-relaxed">
+                Melaksanakan penyuluhan dan motivasi terhadap pelaksanaan hak dan kewajiban masyarakat serta
+                administrasi kependudukan.
+              </p>
+            </div>
+          </div>
+          <div class="p-6 text-center relative">
+            <div
+              class="absolute -top-5 left-1/2 -translate-x-1/2 bg-purple-600 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-md tracking-wider uppercase">
+              Kasi Pelayanan</div>
+            <h3 class="text-xl font-bold text-slate-800 mt-4 mb-1">Aji Bustnul Gr</h3>
+            <p class="text-sm text-slate-500 mb-4">Seksi Pelayanan</p>
+          </div>
+        </div>
+
+        <!-- 8. KASI KESRA -->
+        <div
+          class="profile-card group bg-white rounded-2xl border border-slate-100 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+          data-aos="fade-up" data-aos-delay="100">
+          <div class="relative h-72 overflow-hidden bg-slate-100">
+            <img src="https://ui-avatars.com/api/?name=Dede+Irawan&background=7e22ce&color=fff&size=500"
+              alt="Dede Irawan"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 group-hover:blur-sm">
+
+            <!-- Overlay Tupoksi -->
+            <div
+              class="absolute inset-0 bg-purple-900/95 flex flex-col justify-center items-center p-6 text-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
+              <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center mb-3">
+                <i data-lucide="heart-handshake" class="w-5 h-5 text-purple-300"></i>
+              </div>
+              <h4 class="text-white font-bold text-lg mb-2">Tupoksi</h4>
+              <p class="text-purple-50 text-sm leading-relaxed">
+                Melaksanakan pembangunan sarana prasarana perdesaan, pembangunan bidang pendidikan, kesehatan, dan
+                kesejahteraan rakyat.
+              </p>
+            </div>
+          </div>
+          <div class="p-6 text-center relative">
+            <div
+              class="absolute -top-5 left-1/2 -translate-x-1/2 bg-purple-600 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-md tracking-wider uppercase">
+              Kasi Kesra</div>
+            <h3 class="text-xl font-bold text-slate-800 mt-4 mb-1">Dede Irawan</h3>
+            <p class="text-sm text-slate-500 mb-4">Seksi Kesejahteraan Rakyat</p>
+          </div>
+        </div>
+
+        <!-- 9. KADUS 1.5 -->
+        <div
+          class="profile-card group bg-white rounded-2xl border border-slate-100 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+          data-aos="fade-up" data-aos-delay="200">
+          <div class="relative h-72 overflow-hidden bg-slate-100">
+            <img src="https://ui-avatars.com/api/?name=Tuti&background=be185d&color=fff&size=500" alt="Tuti"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 group-hover:blur-sm">
+
+            <!-- Overlay Tupoksi -->
+            <div
+              class="absolute inset-0 bg-pink-900/95 flex flex-col justify-center items-center p-6 text-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
+              <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center mb-3">
+                <i data-lucide="map" class="w-5 h-5 text-pink-300"></i>
+              </div>
+              <h4 class="text-white font-bold text-lg mb-2">Tupoksi</h4>
+              <p class="text-pink-50 text-sm leading-relaxed">
+                Membantu Kepala Desa dalam pelaksanaan tugasnya di wilayahnya, termasuk pembinaan ketentraman dan
+                ketertiban.
+              </p>
+            </div>
+          </div>
+          <div class="p-6 text-center relative">
+            <div
+              class="absolute -top-5 left-1/2 -translate-x-1/2 bg-pink-600 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-md tracking-wider uppercase">
+              Kadus Dusun 1.5</div>
+            <h3 class="text-xl font-bold text-slate-800 mt-4 mb-1">Tuti</h3>
+            <p class="text-sm text-slate-500 mb-4">Kepala Kewilayahan</p>
+          </div>
+        </div>
+
+        <!-- 10. KADUS 2 -->
+        <div
+          class="profile-card group bg-white rounded-2xl border border-slate-100 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+          data-aos="fade-up">
+          <div class="relative h-72 overflow-hidden bg-slate-100">
+            <img src="https://ui-avatars.com/api/?name=Munawar&background=be185d&color=fff&size=500" alt="Munawar"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 group-hover:blur-sm">
+
+            <!-- Overlay Tupoksi -->
+            <div
+              class="absolute inset-0 bg-pink-900/95 flex flex-col justify-center items-center p-6 text-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
+              <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center mb-3">
+                <i data-lucide="map" class="w-5 h-5 text-pink-300"></i>
+              </div>
+              <h4 class="text-white font-bold text-lg mb-2">Tupoksi</h4>
+              <p class="text-pink-50 text-sm leading-relaxed">
+                Membantu Kepala Desa dalam pelaksanaan tugasnya di wilayahnya, termasuk pembinaan ketentraman dan
+                ketertiban.
+              </p>
+            </div>
+          </div>
+          <div class="p-6 text-center relative">
+            <div
+              class="absolute -top-5 left-1/2 -translate-x-1/2 bg-pink-600 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-md tracking-wider uppercase">
+              Kadus 2</div>
+            <h3 class="text-xl font-bold text-slate-800 mt-4 mb-1">Munawar</h3>
+            <p class="text-sm text-slate-500 mb-4">Kepala Kewilayahan</p>
+          </div>
+        </div>
+
+        <!-- 11. KADUS 3 -->
+        <div
+          class="profile-card group bg-white rounded-2xl border border-slate-100 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+          data-aos="fade-up" data-aos-delay="100">
+          <div class="relative h-72 overflow-hidden bg-slate-100">
+            <img src="https://ui-avatars.com/api/?name=Pudin&background=be185d&color=fff&size=500" alt="Pudin"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 group-hover:blur-sm">
+
+            <!-- Overlay Tupoksi -->
+            <div
+              class="absolute inset-0 bg-pink-900/95 flex flex-col justify-center items-center p-6 text-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
+              <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center mb-3">
+                <i data-lucide="map" class="w-5 h-5 text-pink-300"></i>
+              </div>
+              <h4 class="text-white font-bold text-lg mb-2">Tupoksi</h4>
+              <p class="text-pink-50 text-sm leading-relaxed">
+                Membantu Kepala Desa dalam pelaksanaan tugasnya di wilayahnya, termasuk pembinaan ketentraman dan
+                ketertiban.
+              </p>
+            </div>
+          </div>
+          <div class="p-6 text-center relative">
+            <div
+              class="absolute -top-5 left-1/2 -translate-x-1/2 bg-pink-600 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-md tracking-wider uppercase">
+              Kadus 3</div>
+            <h3 class="text-xl font-bold text-slate-800 mt-4 mb-1">Pudin</h3>
+            <p class="text-sm text-slate-500 mb-4">Kepala Kewilayahan</p>
+          </div>
+        </div>
+
+        <!-- 12. KADUS 4 -->
+        <div
+          class="profile-card group bg-white rounded-2xl border border-slate-100 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+          data-aos="fade-up" data-aos-delay="200">
+          <div class="relative h-72 overflow-hidden bg-slate-100">
+            <img src="https://ui-avatars.com/api/?name=Yogi+Ihsan&background=be185d&color=fff&size=500" alt="Yogi Ihsan"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 group-hover:blur-sm">
+
+            <!-- Overlay Tupoksi -->
+            <div
+              class="absolute inset-0 bg-pink-900/95 flex flex-col justify-center items-center p-6 text-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
+              <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center mb-3">
+                <i data-lucide="map" class="w-5 h-5 text-pink-300"></i>
+              </div>
+              <h4 class="text-white font-bold text-lg mb-2">Tupoksi</h4>
+              <p class="text-pink-50 text-sm leading-relaxed">
+                Membantu Kepala Desa dalam pelaksanaan tugasnya di wilayahnya, termasuk pembinaan ketentraman dan
+                ketertiban.
+              </p>
+            </div>
+          </div>
+          <div class="p-6 text-center relative">
+            <div
+              class="absolute -top-5 left-1/2 -translate-x-1/2 bg-pink-600 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-md tracking-wider uppercase">
+              Kadus 4</div>
+            <h3 class="text-xl font-bold text-slate-800 mt-4 mb-1">Yogi Ihsan</h3>
+            <p class="text-sm text-slate-500 mb-4">Kepala Kewilayahan</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800 font-sans text-center md:text-left">
+    <div class="container mx-auto px-6">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+        <div>
+          <h4 class="text-white font-bold text-lg mb-1">Pemerintah Desa Sukaraja</h4>
+          <p class="text-sm">Kabupaten Karawang, Jawa Barat</p>
+        </div>
+        <div class="text-xs">
+          &copy; 2024 Pemerintah Desa Sukaraja. All rights reserved.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    lucide.createIcons();
+    AOS.init({
+      once: true,
+      offset: 50,
+      duration: 800,
+      easing: 'ease-out-cubic',
+    });
+  </script>
+</body>
+
+</html>
