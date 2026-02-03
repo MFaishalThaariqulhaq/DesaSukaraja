@@ -3,9 +3,9 @@
 @section('content')
 
 <!-- Hero Header Section -->
-<section class="hero-bg relative h-[35vh] md:h-[45vh] flex items-center justify-center text-white overflow-hidden -mt-24">
+<section class="hero-bg relative h-screen md:h-[75vh] flex items-center justify-center text-white overflow-hidden -mt-24">
   <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
-    <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold font-serif leading-tight drop-shadow-2xl mb-4">
+    <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold font-serif leading-tight drop-shadow-2xl mb-4">
       SOTK <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-teal-200">Desa</span>
     </h1>
     <p class="text-lg md:text-2xl text-slate-100 drop-shadow-md">Struktur Organisasi dan Tata Kerja Pemerintah Desa</p>
@@ -32,7 +32,7 @@
 @endpush
 
 <!-- Header Section -->
-<header class="bg-slate-900 text-white py-20 relative overflow-hidden">
+<header class="bg-slate-900 text-white py-28 relative overflow-hidden">
   <div class="absolute inset-0 overflow-hidden opacity-30">
     <img src="https://images.unsplash.com/photo-2532622783378-1a191e5b21b6?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover" alt="Background Pemerintahan">
   </div>
