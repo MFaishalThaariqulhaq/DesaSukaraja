@@ -25,7 +25,7 @@ export function initLucideIcons() {
 export function initInfografis() {
   initAOS();
   initLucideIcons();
-  
+
   // Import chart initialization
   import('./infografis-detail.js').catch(err => {
     console.error('Failed to load infografis-detail:', err);

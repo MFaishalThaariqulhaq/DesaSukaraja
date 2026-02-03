@@ -46,7 +46,7 @@
     <!-- Key Statistics Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
       <!-- Total Penduduk -->
-      <div class="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl p-6 shadow-lg hover:shadow-xl transition" data-aos="fade-up">
+      <div class="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl p-6 shadow-lg hover:shadow-2xl hover:scale-105 transition duration-300 transform" data-aos="fade-up">
         <div class="flex items-center gap-3 mb-4">
           <div class="bg-white/20 p-3 rounded-lg">
             <i data-lucide="users" class="w-6 h-6 text-black"></i>
@@ -57,7 +57,7 @@
       </div>
 
       <!-- Kepala Keluarga -->
-      <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-6 shadow-lg hover:shadow-xl transition" data-aos="fade-up" data-aos-delay="100">
+      <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-6 shadow-lg hover:shadow-2xl hover:scale-105 transition duration-300 transform" data-aos="fade-up" data-aos-delay="100">
         <div class="flex items-center gap-3 mb-4">
           <div class="bg-white/20 p-3 rounded-lg">
             <i data-lucide="home" class="w-6 h-6 text-black"></i>
@@ -68,7 +68,7 @@
       </div>
 
       <!-- Laki-laki -->
-      <div class="bg-gradient-to-br from-cyan-500 to-blue-500 rounded-2xl p-6 shadow-lg hover:shadow-xl transition" data-aos="fade-up" data-aos-delay="200">
+      <div class="bg-gradient-to-br from-cyan-500 to-blue-500 rounded-2xl p-6 shadow-lg hover:shadow-2xl hover:scale-105 transition duration-300 transform" data-aos="fade-up" data-aos-delay="200">
         <div class="flex items-center gap-3 mb-4">
           <div class="bg-white/20 p-3 rounded-lg">
             <i data-lucide="user" class="w-6 h-6 text-black"></i>
@@ -79,7 +79,7 @@
       </div>
 
       <!-- Perempuan -->
-      <div class="bg-gradient-to-br from-pink-500 to-rose-500 rounded-2xl p-6 shadow-lg hover:shadow-xl transition" data-aos="fade-up" data-aos-delay="300">
+      <div class="bg-gradient-to-br from-pink-500 to-rose-500 rounded-2xl p-6 shadow-lg hover:shadow-2xl hover:scale-105 transition duration-300 transform" data-aos="fade-up" data-aos-delay="300">
         <div class="flex items-center gap-3 mb-4">
           <div class="bg-white/20 p-3 rounded-lg">
             <i data-lucide="user" class="w-6 h-6 text-black"></i>
