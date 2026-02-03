@@ -4,21 +4,20 @@
 <!-- AOS Animation Library -->
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-<!-- Hero Header Section -->
-<header class="bg-slate-900 text-white py-16 relative overflow-hidden">
-  <div class="absolute inset-0 overflow-hidden opacity-20">
-    <img src="https://images.unsplash.com/photo-1464618663641-bbdd760ae84a?q=80&w=2070&auto=format&fit=crop"
-      class="w-full h-full object-cover" alt="Background">
+<!-- Header Section -->
+<header class="bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-900/40 text-white py-10 relative overflow-hidden border-b border-slate-800 -mt-12">
+  <div class="absolute inset-0 opacity-10 pointer-events-none">
+    <div class="absolute top-0 right-0 w-96 h-96 bg-emerald-500 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 left-0 w-96 h-96 bg-slate-700 rounded-full blur-3xl"></div>
   </div>
-  <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent"></div>
   <div class="container mx-auto px-6 relative z-10" data-aos="fade-up">
     <a href="{{ route('berita.index') }}"
-      class="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-300 transition mb-4">
+      class="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-300 transition mb-3">
       <i data-lucide="arrow-left" class="w-4 h-4"></i>
-      <span class="font-medium">Kembali ke Arsip Berita</span>
+      <span class="font-medium text-sm">Kembali ke Arsip Berita</span>
     </a>
-    <h1 class="text-4xl md:text-5xl font-bold mb-4">{{ $berita->judul }}</h1>
-    <div class="flex items-center gap-4 text-slate-300 flex-wrap">
+    <h1 class="text-3xl md:text-4xl font-bold mb-3">{{ $berita->judul }}</h1>
+    <div class="flex items-center gap-4 text-slate-300 flex-wrap text-sm">
       <span class="inline-block bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
         {{ $berita->kategori ?? 'Umum' }}
       </span>

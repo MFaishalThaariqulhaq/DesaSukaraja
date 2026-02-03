@@ -48,13 +48,11 @@
 
 <div class="bg-pattern text-slate-800 antialiased overflow-x-hidden selection:bg-emerald-500 selection:text-white">
   <!-- Header -->
-  <header class="relative bg-slate-900 text-white pb-24 pt-12 overflow-hidden">
-    <!-- Background Decor -->
-    <div class="absolute inset-0 z-0 opacity-30">
-      <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2232&auto=format&fit=crop" class="w-full h-full object-cover mix-blend-overlay" alt="Desa Background">
+  <header class="relative bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-900/40 text-white py-10 overflow-hidden border-b border-slate-800 -mt-12">
+    <div class="absolute inset-0 opacity-10 pointer-events-none">
+      <div class="absolute top-0 right-0 w-96 h-96 bg-emerald-500 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-0 left-0 w-96 h-96 bg-slate-700 rounded-full blur-3xl"></div>
     </div>
-    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-slate-900 z-0"></div>
-
     <div class="container mx-auto px-6 relative z-10">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
         <div data-aos="fade-right" data-aos-duration="1200" class="w-full md:w-auto">
