@@ -1,6 +1,19 @@
 @extends('public.layout')
 @section('content')
 
+<!-- Hero Header Section -->
+<section class="hero-bg relative h-[35vh] md:h-[45vh] flex items-center justify-center text-white overflow-hidden -mt-24">
+  <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+    <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold font-serif leading-tight drop-shadow-2xl mb-4">
+      Profil <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-teal-200">Desa Sukaraja</span>
+    </h1>
+    <p class="text-lg md:text-2xl text-slate-100 drop-shadow-md">Mengenal Lebih Dekat Sejarah dan Visi Desa Kami</p>
+  </div>
+  <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce opacity-80 cursor-pointer hover:text-emerald-300 transition-colors">
+    <a href="#sejarah"><i data-lucide="mouse" class="w-6 h-6"></i></a>
+  </div>
+</section>
+
 <section id="sejarah" class="py-20 bg-slate-50">
   <div class="container mx-auto px-6">
     <div class="text-center mb-16" data-aos="fade-up">

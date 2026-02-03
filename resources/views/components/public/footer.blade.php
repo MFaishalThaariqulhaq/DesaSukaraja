@@ -5,7 +5,7 @@
       <div class="space-y-6">
         <div class="flex items-center gap-3">
           <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center backdrop-blur-sm">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/b/bb/Lambang_Kabupaten_Karawang.png" alt="Logo" class="w-8 h-8 object-contain brightness-0 invert opacity-90">
+            <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-8 h-8 object-contain brightness-0 invert opacity-90">
           </div>
           <div>
             <h4 class="text-white font-bold text-xl leading-none">Desa Sukaraja</h4>

@@ -1,21 +1,21 @@
-{{-- Form Pengaduan Masyarakat --}}
-<!DOCTYPE html>
-<html lang="id">
+@extends('public.layout')
 
-<head>
-  <meta charset="UTF-8">
-  <title>Pengaduan Masyarakat Desa Sukaraja</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.site_key') }}"></script>
-  <meta name="recaptcha-key" content="{{ config('services.recaptcha.site_key') }}">
-  @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
+@push('styles')
+<script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.site_key') }}"></script>
+<meta name="recaptcha-key" content="{{ config('services.recaptcha.site_key') }}">
+@endpush
 
-<body class="bg-slate-50 flex items-center justify-center min-h-screen">
-  <form id="pengaduanForm" action="{{ route('pengaduan.store') }}" method="POST" enctype="multipart/form-data" class="bg-white p-6 md:p-8 rounded-2xl shadow-lg animate-fadeInUp w-full max-w-md mx-4">
-    @csrf
-    <h2 class="text-2xl font-bold mb-2 text-center">Form Pengaduan</h2>
-    <p class="text-center text-gray-600 text-sm mb-6">Sampaikan keluhan atau masukan Anda</p>
+@section('content')
+<section id="pengaduan" class="py-20 bg-slate-50">
+  <div class="container mx-auto px-6 max-w-md">
+    <div class="text-center mb-8" data-aos="fade-up">
+      <h2 class="text-3xl md:text-4xl font-bold text-slate-800">Form Pengaduan</h2>
+      <p class="text-slate-600 text-sm mt-2">Sampaikan keluhan atau masukan Anda kepada kami</p>
+    </div>
+
+    <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg">
+      <form id="pengaduanForm" action="{{ route('pengaduan.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
     
     @if(session('success'))
     <div class="bg-green-100 text-green-700 p-3 mb-4 rounded-lg text-sm">
@@ -85,10 +85,26 @@
     </div>
     
     <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded w-full font-semibold transition-colors">Kirim Pengaduan</button>
-  </form>
+      </form>
+    </div>
+  </div>
+</section>
 
-  <!-- Hidden field untuk reCAPTCHA token -->
-  <input type="hidden" name="g-recaptcha-response" id="recaptchaResponse">
-</body>
+@push('scripts')
+<script>
+  // reCAPTCHA handler
+  if (typeof grecaptcha !== 'undefined') {
+    document.getElementById('pengaduanForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      grecaptcha.ready(function() {
+        grecaptcha.execute('{{ config('services.recaptcha.site_key') }}', {action: 'submit'}).then(function(token) {
+          document.getElementById('recaptchaResponse').value = token;
+          document.getElementById('pengaduanForm').submit();
+        });
+      });
+    });
+  }
+</script>
+@endpush
 
-</html>
+@endsection

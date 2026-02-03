@@ -2,7 +2,7 @@
   <div class="container mx-auto px-6 py-4 flex justify-between items-center">
     <a href="/" class="flex items-center space-x-3 group">
       <div class="relative w-10 h-10 md:w-12 md:h-12 flex-shrink-0 transition-transform group-hover:rotate-12 duration-500">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/b/bb/Lambang_Kabupaten_Karawang.png"
+        <img src="{{ asset('images/logo.png') }}"
              alt="Logo Desa Sukaraja"
              class="w-full h-full object-contain drop-shadow-sm"
              onerror="this.src='https://placehold.co/48x48/10b981/ffffff?text=DS'">
@@ -81,7 +81,8 @@
       const mobileMenuButton = document.getElementById('mobile-menu-button');
       const mobileMenu = document.getElementById('mobile-menu');
       if (mobileMenuButton && mobileMenu) {
-        mobileMenuButton.addEventListener('click', function () {
+        mobileMenuButton.addEventListener('click', function (e) {
+          e.stopPropagation();
           mobileMenu.classList.toggle('hidden');
           const icon = mobileMenuButton.querySelector('i');
           if (mobileMenu.classList.contains('hidden')) {
@@ -90,6 +91,17 @@
             icon.setAttribute('data-lucide', 'x');
           }
           if (window.lucide) lucide.createIcons();
+        });
+
+        // Close menu ketika klik di menu links
+        mobileMenu.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', function() {
+            mobileMenu.classList.add('hidden');
+            if (mobileMenuButton.querySelector('i')) {
+              mobileMenuButton.querySelector('i').setAttribute('data-lucide', 'menu');
+            }
+            if (window.lucide) lucide.createIcons();
+          });
         });
       }
       // Smooth scroll for anchor links
