@@ -1,6 +1,20 @@
 @extends('layouts.public.layout')
 
 @section('content')
+
+<!-- Hero Header Section -->
+<section class="hero-bg relative h-[35vh] md:h-[45vh] flex items-center justify-center text-white overflow-hidden -mt-24">
+  <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+    <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold font-serif leading-tight drop-shadow-2xl mb-4">
+      Berita & <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-teal-200">Kegiatan</span>
+    </h1>
+    <p class="text-lg md:text-2xl text-slate-100 drop-shadow-md">Temukan informasi terbaru dan dokumentasi kegiatan desa</p>
+  </div>
+  <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce opacity-80 cursor-pointer hover:text-emerald-300 transition-colors">
+    <a href="#berita-list"><i data-lucide="mouse" class="w-6 h-6"></i></a>
+  </div>
+</section>
+
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
 <style>
@@ -26,18 +40,9 @@
   }
 </style>
 
-<header class="bg-slate-900 text-white py-20 relative overflow-hidden">
-  <div class="absolute inset-0 overflow-hidden opacity-20">
-    <img src="https://images.unsplash.com/photo-1464618663641-bbdd760ae84a?q=80&w=2070&auto=format&fit=crop"
-      class="w-full h-full object-cover" alt="Background">
+<section id="berita-list" class="py-16 bg-slate-50">
   </div>
-  <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent"></div>
-  <div class="container mx-auto px-6 relative z-10 text-center" data-aos="fade-up">
-    <span class="text-emerald-400 font-bold uppercase tracking-widest text-sm mb-2 block">Pusat Informasi</span>
-    <h1 class="text-4xl md:text-5xl font-bold mb-4">Arsip Berita & Kegiatan</h1>
-    <p class="text-slate-300 max-w-2xl mx-auto text-lg">Temukan informasi terbaru, pengumuman, dan dokumentasi kegiatan Desa Sukaraja.</p>
-  </div>
-</header>
+</section>
 
 <div class="container mx-auto px-6 py-12">
   <div class="grid lg:grid-cols-12 gap-12">
