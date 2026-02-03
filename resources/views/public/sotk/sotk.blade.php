@@ -91,18 +91,18 @@
             </div>
 
             <!-- Info Card (Below Image) -->
-            <div class="p-6 text-center relative">
+            <div class="p-6 text-center relative flex flex-col items-center justify-center min-h-32">
               @if($sotk->colors)
                 <div 
-                  class="absolute left-1/2 -translate-x-1/2 -top-4 px-4 py-2 rounded-full shadow-lg text-white text-xs font-bold uppercase tracking-wide"
+                  class="px-4 py-2 rounded-full shadow-lg text-white text-xs font-bold uppercase tracking-wide mb-3"
                   style="background: {{ $sotk->colors['badgeBg'] }}; white-space: nowrap;">
                   {{ $sotk->jabatan }}
                 </div>
               @endif
-              <h3 class="text-xl font-bold text-slate-800 mt-5 mb-1">
+              <h3 class="text-xl font-bold text-slate-800 mb-1">
                 {{ $sotk->nama }}
               </h3>
-              <p class="text-sm text-slate-500 mb-4">Masa Bakti 2024 - 2029</p>
+              <p class="text-sm text-slate-500">Masa Bakti 2024 - 2029</p>
             </div>
           </div>
         @endforeach
