@@ -9,7 +9,12 @@
   <!-- ==========================================
        HERO SECTION
        ========================================== -->
-  <header class="sotk-detail-header text-white py-10 relative overflow-hidden border-b border-slate-800 -mt-12">
+  <header class="sotk-detail-header text-white py-10 relative overflow-hidden border-b border-slate-800 -mt-12" style="background-image: linear-gradient(to bottom, rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.6)),
+    url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2832&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;">
     <div class="container mx-auto px-6 relative z-10" data-aos="fade-up">
       <a href="{{ route('sotk.index') }}"
         class="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-300 transition mb-3">
