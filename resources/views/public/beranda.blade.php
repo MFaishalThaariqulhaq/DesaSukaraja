@@ -173,25 +173,25 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       <!-- Stat Card 1 -->
       <div class="bg-white/5 backdrop-blur-md p-8 rounded-3xl border border-white/10 hover:bg-white/10 transition-colors group text-center" data-aos="zoom-in" data-aos-delay="0">
-        <h3 class="text-5xl font-bold mb-2 counter bg-clip-text text-transparent bg-gradient-to-b from-white to-slate-400" data-target="{{ $stat_penduduk['total_penduduk'] }}">0</h3>
+        <h3 class="text-5xl font-bold mb-2 counter text-white" data-target="{{ $stat_penduduk['total_penduduk'] }}">0</h3>
         <p class="text-emerald-400 font-bold uppercase text-xs tracking-wider mb-4">Total Penduduk</p>
         <div class="w-12 h-1 bg-emerald-500 mx-auto rounded-full group-hover:w-20 transition-all duration-300"></div>
       </div>
       <!-- Stat Card 2 -->
       <div class="bg-white/5 backdrop-blur-md p-8 rounded-3xl border border-white/10 hover:bg-white/10 transition-colors group text-center" data-aos="zoom-in" data-aos-delay="100">
-        <h3 class="text-5xl font-bold mb-2 counter bg-clip-text text-transparent bg-gradient-to-b from-white to-slate-400" data-target="{{ $stat_penduduk['total_kk'] }}">0</h3>
+        <h3 class="text-5xl font-bold mb-2 counter text-blue-300" data-target="{{ $stat_penduduk['total_kk'] }}">0</h3>
         <p class="text-blue-400 font-bold uppercase text-xs tracking-wider mb-4">Kepala Keluarga</p>
         <div class="w-12 h-1 bg-blue-500 mx-auto rounded-full group-hover:w-20 transition-all duration-300"></div>
       </div>
       <!-- Stat Card 3 -->
       <div class="bg-white/5 backdrop-blur-md p-8 rounded-3xl border border-white/10 hover:bg-white/10 transition-colors group text-center" data-aos="zoom-in" data-aos-delay="200">
-        <h3 class="text-5xl font-bold mb-2 counter bg-clip-text text-transparent bg-gradient-to-b from-white to-slate-400" data-target="{{ $stat_penduduk['total_laki'] }}">0</h3>
+        <h3 class="text-5xl font-bold mb-2 counter text-cyan-300" data-target="{{ $stat_penduduk['total_laki'] }}">0</h3>
         <p class="text-cyan-400 font-bold uppercase text-xs tracking-wider mb-4">Laki-Laki</p>
         <div class="w-12 h-1 bg-cyan-500 mx-auto rounded-full group-hover:w-20 transition-all duration-300"></div>
       </div>
       <!-- Stat Card 4 -->
       <div class="bg-white/5 backdrop-blur-md p-8 rounded-3xl border border-white/10 hover:bg-white/10 transition-colors group text-center" data-aos="zoom-in" data-aos-delay="300">
-        <h3 class="text-5xl font-bold mb-2 counter bg-clip-text text-transparent bg-gradient-to-b from-white to-slate-400" data-target="{{ $stat_penduduk['total_perempuan'] }}">0</h3>
+        <h3 class="text-5xl font-bold mb-2 counter text-pink-300" data-target="{{ $stat_penduduk['total_perempuan'] }}">0</h3>
         <p class="text-pink-400 font-bold uppercase text-xs tracking-wider mb-4">Perempuan</p>
         <div class="w-12 h-1 bg-pink-500 mx-auto rounded-full group-hover:w-20 transition-all duration-300"></div>
       </div>
