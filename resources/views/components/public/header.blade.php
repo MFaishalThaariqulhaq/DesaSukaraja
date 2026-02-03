@@ -13,8 +13,8 @@
       </div>
     </a>
     <!-- Desktop Menu -->
-    <nav class="hidden lg:flex items-center gap-8">
-      <a href="/" class="text-base font-semibold text-emerald-600 nav-link hover:text-emerald-700 transition-colors">Home</a>
+    <nav class="hidden lg:flex items-center gap-8 font-sans">
+      <a href="/" class="text-base font-medium text-slate-600 hover:text-emerald-600 transition-colors nav-link">Home</a>
       <a href="/profil" class="text-base font-medium text-slate-600 hover:text-emerald-600 transition-colors nav-link">Profil</a>
       <a href="/berita" class="text-base font-medium text-slate-600 hover:text-emerald-600 transition-colors nav-link">Berita</a>
       <a href="/galeri" class="text-base font-medium text-slate-600 hover:text-emerald-600 transition-colors nav-link">Galeri</a>

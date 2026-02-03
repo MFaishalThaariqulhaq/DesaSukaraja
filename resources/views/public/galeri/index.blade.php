@@ -18,11 +18,6 @@
 
 <section id="galeri-list" class="py-28 bg-slate-50">
 <style>
-  body {
-    font-family: 'Inter', sans-serif;
-    background-color: #f8fafc;
-  }
-
   .masonry-grid {
     column-count: 1;
     gap: 1.5rem;
