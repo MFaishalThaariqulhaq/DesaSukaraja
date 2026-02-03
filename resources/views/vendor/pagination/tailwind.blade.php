@@ -64,22 +64,26 @@
     <!-- Mobile view - simplified -->
     <div class="pagination-info flex justify-between w-full sm:hidden">
         @if ($paginator->onFirstPage())
-        <span class="px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md">
-            {!! __('pagination.previous') !!}
+        <span class="px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md" style="display: inline-flex; align-items: center; gap: 0.25rem;">
+            <svg fill="currentColor" viewBox="0 0 20 20" style="width: 1rem; height: 1rem;"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+            <span>Sebelumnya</span>
         </span>
         @else
-        <a href="{{ $paginator->previousPageUrl() }}" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
-            {!! __('pagination.previous') !!}
+        <a href="{{ $paginator->previousPageUrl() }}" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50" style="display: inline-flex; align-items: center; gap: 0.25rem;">
+            <svg fill="currentColor" viewBox="0 0 20 20" style="width: 1rem; height: 1rem;"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+            <span>Sebelumnya</span>
         </a>
         @endif
 
         @if ($paginator->hasMorePages())
-        <a href="{{ $paginator->nextPageUrl() }}" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
-            {!! __('pagination.next') !!}
+        <a href="{{ $paginator->nextPageUrl() }}" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50" style="display: inline-flex; align-items: center; gap: 0.25rem;">
+            <span>Selanjutnya</span>
+            <svg fill="currentColor" viewBox="0 0 20 20" style="width: 1rem; height: 1rem;"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" /></svg>
         </a>
         @else
-        <span class="px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md">
-            {!! __('pagination.next') !!}
+        <span class="px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md" style="display: inline-flex; align-items: center; gap: 0.25rem;">
+            <span>Selanjutnya</span>
+            <svg fill="currentColor" viewBox="0 0 20 20" style="width: 1rem; height: 1rem;"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" /></svg>
         </span>
         @endif
     </div>
@@ -90,11 +94,15 @@
             {{-- Previous Page Link --}}
             @if ($paginator->onFirstPage())
             <span class="disabled">
-                <span><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" /></svg></span>
+                <span style="display: inline-flex; align-items: center; gap: 0.25rem;">
+                    <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                    <span>Sebelumnya</span>
+                </span>
             </span>
             @else
-            <a href="{{ $paginator->previousPageUrl() }}" rel="prev" aria-label="{{ __('pagination.previous') }}">
+            <a href="{{ $paginator->previousPageUrl() }}" rel="prev" aria-label="{{ __('pagination.previous') }}" style="display: inline-flex; align-items: center; gap: 0.25rem;">
                 <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                <span>Sebelumnya</span>
             </a>
             @endif
 
@@ -123,12 +131,16 @@
 
             {{-- Next Page Link --}}
             @if ($paginator->hasMorePages())
-            <a href="{{ $paginator->nextPageUrl() }}" rel="next" aria-label="{{ __('pagination.next') }}">
+            <a href="{{ $paginator->nextPageUrl() }}" rel="next" aria-label="{{ __('pagination.next') }}" style="display: inline-flex; align-items: center; gap: 0.25rem;">
+                <span>Selanjutnya</span>
                 <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" /></svg>
             </a>
             @else
             <span class="disabled">
-                <span><svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" /></svg></span>
+                <span style="display: inline-flex; align-items: center; gap: 0.25rem;">
+                    <span>Selanjutnya</span>
+                    <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" /></svg>
+                </span>
             </span>
             @endif
         </div>

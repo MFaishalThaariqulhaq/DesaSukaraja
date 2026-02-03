@@ -21,7 +21,8 @@ class HomeController extends Controller
       $query->where('kategori', $request->kategori);
     }
 
-    $beritas = $query->paginate(4);
+    // Get all beritas untuk JavaScript pagination
+    $beritas = $query->get();
     return view('public.berita.index', compact('beritas'));
   }
   public function index()
