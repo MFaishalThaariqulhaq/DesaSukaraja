@@ -10,6 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Initialize Lucide icons IMMEDIATELY for initial page load
+  if (window.lucide) {
+    lucide.createIcons();
+  }
+
   // Gallery data (injected from Laravel)
   const galeryDataElement = document.getElementById('galery-data');
   let galeryData = [];
@@ -30,11 +35,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Pagination functionality
   function renderPagination() {
-    const totalPages = Math.ceil(galeryData.length / itemsPerPage);
+    const visibleItems = Array.from(document.querySelectorAll('.gallery-item')).filter(item => item.style.display !== 'none').length;
+    const totalPages = Math.ceil(visibleItems / itemsPerPage);
     const paginationContainer = document.getElementById('pagination-container');
 
     if (paginationContainer) {
       paginationContainer.innerHTML = '';
+
+      // Only show pagination if more than 1 page
+      if (totalPages <= 1) {
+        return;
+      }
 
       // Previous button
       const prevBtn = document.createElement('button');
@@ -45,6 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
           currentPage--;
           paginatePage();
           renderPagination();
+          window.scrollTo({ top: document.getElementById('gallery-container').offsetTop - 100, behavior: 'smooth' });
         }
       });
       paginationContainer.appendChild(prevBtn);
@@ -72,6 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
           currentPage++;
           paginatePage();
           renderPagination();
+          window.scrollTo({ top: document.getElementById('gallery-container').offsetTop - 100, behavior: 'smooth' });
         }
       });
       paginationContainer.appendChild(nextBtn);
@@ -84,12 +97,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const endIndex = startIndex + itemsPerPage;
     let visibleIndex = 0;
 
-    items.forEach((item, index) => {
-      // Only hide items that are not filtered out
+    items.forEach((item) => {
+      // Check if item is hidden by filter
       const isFiltered = item.style.display === 'none';
-      
+
       if (!isFiltered) {
-        // Item is not filtered, apply pagination
+        // Item is visible (not filtered), apply pagination
         if (visibleIndex >= startIndex && visibleIndex < endIndex) {
           item.style.display = '';
         } else {
@@ -97,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         visibleIndex++;
       }
-      // If item is filtered (display: none), keep it hidden
+      // If item is filtered, keep it hidden
     });
   }
 
@@ -110,6 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const items = document.querySelectorAll('.gallery-item');
     currentPage = 1; // Reset to page 1 when filtering
 
+    // First pass: show/hide based on filter
     items.forEach(item => {
       const itemCategory = item.dataset.category;
       if (filterValue === 'all' || itemCategory === filterValue) {
@@ -119,14 +133,14 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Re-paginate after filter
+    // Second pass: apply pagination to visible items
     paginatePage();
     renderPagination();
   }
 
-  // Initial pagination
-  renderPagination();
+  // Initial pagination setup
   paginatePage();
+  renderPagination();
 
   // Filter button clicks
   document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -214,18 +228,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+});
 
-  // Initialize Lucide icons after all DOM is ready and AOS animation complete
-  setTimeout(() => {
-    if (window.lucide) {
-      lucide.createIcons();
-    }
-  }, 300);
-
-  // Reinitialize on window load to catch all icons
-  window.addEventListener('load', () => {
-    if (window.lucide) {
-      lucide.createIcons();
-    }
-  });
+// Reinitialize Lucide icons on window load (for icons added after initial load)
+window.addEventListener('load', () => {
+  if (window.lucide) {
+    lucide.createIcons();
+  }
 });
