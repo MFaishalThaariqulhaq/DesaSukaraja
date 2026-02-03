@@ -78,7 +78,7 @@ function initBaganModal() {
   const baganContainer = document.getElementById('baganContainer');
   const baganImage = document.getElementById('baganImage');
   const baganElement = baganContainer || baganImage;
-  
+
   const baganModal = document.getElementById('baganModal');
   const baganModalImg = document.getElementById('baganModalImg');
   const closeModalBtn = document.getElementById('closeModal');

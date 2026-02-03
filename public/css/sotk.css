@@ -1,0 +1,279 @@
+/* ==========================================
+   SOTK PAGE STYLES
+   Struktur Organisasi Tata Kerja Desa
+   ========================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,600&display=swap');
+
+/* ==========================================
+   ROOT & BASE STYLES
+   ========================================== */
+
+:root {
+  --color-emerald-50: #f0fdf4;
+  --color-emerald-600: #16a34a;
+  --color-slate-50: #f8fafc;
+  --color-slate-100: #f1f5f9;
+  --color-slate-400: #cbd5e1;
+  --color-slate-500: #64748b;
+  --color-slate-600: #475569;
+  --color-slate-800: #1e293b;
+  --color-slate-900: #0f172a;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--color-slate-50);
+  overflow-x: hidden;
+}
+
+/* ==========================================
+   HERO SECTION STYLES
+   ========================================== */
+
+.hero-bg {
+  background-image: linear-gradient(to bottom, rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.6)),
+    url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2832&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* ==========================================
+   SCROLLBAR CUSTOM STYLES
+   ========================================== */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-slate-100);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-slate-400);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* ==========================================
+   SECTION HEADER DIVIDER
+   ========================================== */
+
+.section-divider {
+  width: 4rem;
+  height: 0.25rem;
+  background: var(--color-emerald-600);
+  border-radius: 9999px;
+  margin: 1rem auto;
+}
+
+/* ==========================================
+   ANIMATION & TRANSITION
+   ========================================== */
+
+@media (prefers-reduced-motion: no-preference) {
+  * {
+    scroll-behavior: smooth;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE UTILITIES
+   ========================================== */
+
+@media (max-width: 768px) {
+  .hero-bg {
+    background-attachment: scroll;
+  }
+}
+
+/* ==========================================
+   TREE STRUCTURE STYLES
+   ========================================== */
+
+.tree {
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+.tree ul {
+  padding-top: 20px;
+  position: relative;
+  transition: all 0.5s;
+  display: flex;
+  justify-content: center;
+}
+
+.tree li {
+  float: left;
+  text-align: center;
+  list-style-type: none;
+  position: relative;
+  padding: 20px 10px 0 10px;
+  transition: all 0.5s;
+}
+
+/* Tree Connectors */
+.tree li::before,
+.tree li::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 50%;
+  border-top: 2px solid #cbd5e1;
+  width: 50%;
+  height: 20px;
+  transition: all 0.5s;
+}
+
+.tree li::after {
+  right: auto;
+  left: 50%;
+  border-left: 2px solid #cbd5e1;
+}
+
+.tree li:only-child::after,
+.tree li:only-child::before {
+  display: none;
+}
+
+.tree li:only-child {
+  padding-top: 0;
+}
+
+.tree li:first-child::before,
+.tree li:last-child::after {
+  border: 0 none;
+}
+
+.tree li:last-child::before {
+  border-right: 2px solid #cbd5e1;
+  border-radius: 0 5px 0 0;
+}
+
+.tree li:first-child::after {
+  border-radius: 5px 0 0 0;
+}
+
+.tree ul ul::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  border-left: 2px solid #cbd5e1;
+  width: 0;
+  height: 20px;
+  transition: all 0.5s;
+}
+
+/* Collapse Animation */
+.tree li.collapsed ul {
+  display: none;
+}
+
+.tree li.collapsed ul::before {
+  display: none;
+}
+
+/* Tree Node Card */
+.org-node {
+  background: white;
+  border: 1px solid #e2e8f0;
+  padding: 12px;
+  border-radius: 12px;
+  display: inline-block;
+  width: 170px;
+  text-decoration: none;
+  color: #334155;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  z-index: 10;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+}
+
+.org-node:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(16, 185, 129, 0.15);
+  border-color: #10b981;
+}
+
+.org-node.active-node {
+  border-color: #10b981;
+  background-color: #f0fdf4;
+}
+
+.org-node img {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 0 auto 8px auto;
+  border: 3px solid #f8fafc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Toggle Icon */
+.org-node .toggle-icon {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.org-node:hover .toggle-icon {
+  opacity: 1;
+}
+
+/* Role Badges */
+.role-badge {
+  font-size: 0.65rem;
+  padding: 2px 8px;
+  border-radius: 99px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: inline-block;
+  margin-bottom: 4px;
+}
+
+.bg-role-emerald {
+  background: #d1fae5;
+  color: #047857;
+}
+
+.bg-role-blue {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.bg-role-amber {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.bg-role-purple {
+  background: #f3e8ff;
+  color: #7e22ce;
+}
+
+.bg-role-pink {
+  background: #fce7f3;
+  color: #be185d;
+}
+
+.bg-role-slate {
+  background: #f1f5f9;
+  color: #475569;
+}

@@ -36,6 +36,12 @@ Route::get('/sotk', function () {
     $baganSotk = $baganConfig['bagan'] ?? null;
     return view('public.sotk.sotk', compact('sotks', 'baganSotk'));
 })->name('sotk.index');
+
+// Route Detail SOTK
+Route::get('/sotk/detail', function () {
+    $sotks = \App\Models\Sotk::orderBy('jabatan')->get();
+    return view('public.sotk.detail', compact('sotks'));
+})->name('sotk.detail');
 Route::get('/sotk/struktur', function () {
     $sotks = \App\Models\Sotk::orderBy('jabatan')->get();
     
