@@ -17,35 +17,28 @@
 
 @section('content')
 
-<div class="bg-white text-slate-800 antialiased overflow-hidden selection:bg-emerald-500 selection:text-white">
-  <!-- Header -->
-  <header class="relative bg-gradient-to-r from-emerald-600 to-emerald-700 py-8 overflow-hidden -mt-20 pt-32">
-    <!-- Background Pattern -->
-    <div class="absolute inset-0 opacity-10" style="background-image: url('data:image/svg+xml,%3Csvg width=%2760%27 height=%2760%27 viewBox=%270 0 60 60%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cg fill=%27none%27 fill-rule=%27evenodd%27%3E%3Cg fill=%27%23ffffff%27 fill-opacity=%270.05%27%3E%3Cpath d=%27M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z%27/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')"></div>
-
-    <!-- Header Content -->
-    <div class="container mx-auto px-6 relative z-10">
-      <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
-        <!-- Left Section: Back Button + Title -->
-        <div data-aos="fade-right" data-aos-duration="1000">
-          <a href="{{ route('infografis.index') }}" class="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-lg bg-white/20 hover:bg-white/30 border border-white/30 text-white transition duration-300 font-medium text-sm">
-            <i data-lucide="arrow-left" class="w-4 h-4"></i>
-            <span>Kembali</span>
-          </a>
-          <h1 class="text-4xl md:text-5xl font-bold font-serif leading-tight text-black drop-shadow-lg">
-            Dusun <span class="text-black">{{ $data->dusun }}</span>
-          </h1>
-          <p class="text-slate-900 text-lg mt-3 font-medium">Data demografi lengkap penduduk</p>
-        </div>
-
-        <!-- Right Section: Last Update -->
-        <div class="bg-white/10 backdrop-blur-md border border-white/20 px-6 py-4 rounded-xl" data-aos="fade-left" data-aos-duration="1000">
-          <p class="text-xs uppercase tracking-wider font-medium text-black">Update Terakhir</p>
-          <p class="text-2xl font-bold mt-1 text-black">{{ date('F Y') }}</p>
-        </div>
-      </div>
+<!-- Header Section -->
+<header class="infografis-detail-header text-white py-10 relative overflow-hidden border-b border-slate-800 -mt-12">
+  <div class="container mx-auto px-6 relative z-10" data-aos="fade-up">
+    <a href="{{ route('infografis.index') }}"
+      class="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-300 transition mb-3">
+      <i data-lucide="arrow-left" class="w-4 h-4"></i>
+      <span class="font-medium text-sm">Kembali ke Infografis</span>
+    </a>
+    <h1 class="text-3xl md:text-4xl font-bold mb-3">Dusun {{ $data->dusun }}</h1>
+    <div class="flex items-center gap-4 text-slate-300 flex-wrap text-sm">
+      <span class="inline-block bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+        Data Demografi
+      </span>
+      <span class="flex items-center gap-2">
+        <i data-lucide="calendar" class="w-4 h-4"></i>
+        {{ date('d F Y') }}
+      </span>
     </div>
-  </header>
+  </div>
+</header>
+
+<div class="bg-white text-slate-800 antialiased overflow-hidden selection:bg-emerald-500 selection:text-white">
 
   <!-- Main Content -->
   <div class="container mx-auto px-6 py-12 text-slate-800">
