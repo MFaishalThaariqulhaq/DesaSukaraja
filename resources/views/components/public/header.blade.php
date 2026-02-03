@@ -115,6 +115,18 @@
           }
         });
       });
+
+      // Active navigation link highlight
+      const navLinks = document.querySelectorAll('nav a[href^="/"]');
+      const currentPath = window.location.pathname;
+      
+      navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (currentPath === href || (href === '/' && currentPath === '/')) {
+          link.classList.remove('text-slate-600');
+          link.classList.add('text-emerald-600', 'font-semibold');
+        }
+      });
     });
   </script>
 </header>

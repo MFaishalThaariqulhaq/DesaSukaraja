@@ -10,9 +10,6 @@
     </h1>
     <p class="text-lg md:text-2xl text-slate-100 drop-shadow-md">Koleksi momen-momen berharga kegiatan desa</p>
   </div>
-  <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce opacity-80 cursor-pointer hover:text-emerald-300 transition-colors">
-    <a href="#galeri-list"><i data-lucide="mouse" class="w-6 h-6"></i></a>
-  </div>
 </section>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">

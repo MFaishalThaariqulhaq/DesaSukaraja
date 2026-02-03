@@ -10,9 +10,6 @@
     </h1>
     <p class="text-lg md:text-2xl text-slate-100 drop-shadow-md">Temukan informasi terbaru dan dokumentasi kegiatan desa</p>
   </div>
-  <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce opacity-80 cursor-pointer hover:text-emerald-300 transition-colors">
-    <a href="#berita-list"><i data-lucide="mouse" class="w-6 h-6"></i></a>
-  </div>
 </section>
 
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -40,7 +37,7 @@
   }
 </style>
 
-<section id="berita-list" class="py-16 bg-slate-50">
+<section id="berita-list" class="py-8 bg-slate-50">
   </div>
 </section>
 
