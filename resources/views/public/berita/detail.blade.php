@@ -1,11 +1,19 @@
 @extends('layouts.public.layout')
 
 @section('content')
-<!-- AOS Animation Library -->
+
+@push('styles')
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('css/berita-detail.css') }}">
+@endpush
+
+@push('scripts')
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="{{ asset('js/berita-detail.js') }}"></script>
+@endpush
 
 <!-- Header Section -->
-<header class="text-white py-10 relative overflow-hidden border-b border-slate-800 -mt-12" style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(51, 65, 85, 0.85)), url('https://images.unsplash.com/photo-1469022563149-aa64dbd37dae?q=80&w=2070&auto=format&fit=crop') center/cover;">
+<header class="berita-detail-header text-white py-10 relative overflow-hidden border-b border-slate-800 -mt-12">
   <div class="container mx-auto px-6 relative z-10" data-aos="fade-up">
     <a href="{{ route('berita.index') }}"
       class="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-300 transition mb-3">
@@ -125,86 +133,5 @@
     </main>
   </div>
 </div>
-</div>
 
-<style>
-  .berita-isi {
-    line-height: 1.8;
-    word-break: break-word;
-    font-size: 1rem;
-  }
-
-  .berita-isi p {
-    margin-bottom: 1.25rem;
-  }
-
-  .berita-isi h2,
-  .berita-isi h3,
-  .berita-isi h4 {
-    font-weight: 700;
-    margin: 1.5rem 0 1rem 0;
-    color: #1e293b;
-  }
-
-  .berita-isi h2 {
-    font-size: 1.875rem;
-  }
-
-  .berita-isi h3 {
-    font-size: 1.5rem;
-  }
-
-  .berita-isi ul,
-  .berita-isi ol {
-    margin: 1.25rem 0;
-    padding-left: 1.5rem;
-  }
-
-  .berita-isi li {
-    margin-bottom: 0.5rem;
-  }
-
-  .berita-isi img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 0.5rem;
-    margin: 1.5rem 0;
-  }
-
-  .berita-isi blockquote {
-    border-left: 4px solid #10b981;
-    padding-left: 1.5rem;
-    font-style: italic;
-    color: #64748b;
-    margin: 1.5rem 0;
-  }
-
-  .berita-isi code {
-    background-color: #f1f5f9;
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.25rem;
-    font-family: monospace;
-  }
-
-  .berita-isi pre {
-    background-color: #1e293b;
-    color: #e2e8f0;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    overflow-x: auto;
-    margin: 1.5rem 0;
-  }
-</style>
-
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    AOS.init({
-      once: true,
-      duration: 800,
-      easing: 'ease-out-cubic'
-    });
-    lucide.createIcons();
-  });
-</script>
 @endsection

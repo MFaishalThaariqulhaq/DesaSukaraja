@@ -1,15 +1,18 @@
 @extends('layouts.public.layout')
 
 @section('content')
+
 @push('styles')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('css/infografis-detail.css') }}">
 @endpush
 
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="{{ asset('js/infografis-detail.js') }}"></script>
 
 <!-- Data untuk infografis charts -->
 <script>
@@ -32,23 +35,12 @@
       data: [{{ $data->agama_islam }}, {{ $data->agama_kristen }}, {{ $data->agama_katolik }}, {{ $data->agama_hindu }}, {{ $data->agama_buddha }}]
     }
   };
-
-  // Initialize AOS
-  if (window.AOS) {
-    AOS.init({
-      duration: 1000,
-      once: true,
-      offset: 50,
-      easing: 'ease-out-cubic',
-      delay: 50
-    });
-  }
 </script>
 @endpush
 
 <div class="bg-pattern text-slate-800 antialiased overflow-x-hidden selection:bg-emerald-500 selection:text-white">
   <!-- Header -->
-  <header class="relative text-white py-10 overflow-hidden border-b border-slate-800 -mt-12" style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(51, 65, 85, 0.85)), url('https://images.unsplash.com/photo-1469022563149-aa64dbd37dae?q=80&w=2070&auto=format&fit=crop') center/cover;">
+  <header class="infografis-detail-header relative text-white py-10 overflow-hidden border-b border-slate-800 -mt-12">
     <div class="container mx-auto px-6 relative z-10">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
         <div data-aos="fade-right" data-aos-duration="1200" class="w-full md:w-auto">
