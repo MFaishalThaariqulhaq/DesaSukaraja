@@ -1,6 +1,7 @@
 @extends('layouts.public.layout')
 
 @push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3"></script>
 <script type="application/json" id="infografis-data">
 {
   "age": {
@@ -182,7 +183,5 @@
     </div>
   </div>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js@3"></script>
 
 @endsection

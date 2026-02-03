@@ -1,19 +1,30 @@
 // Initialize Chart.js charts with data from JSON script tag
 document.addEventListener('DOMContentLoaded', () => {
-  // Wait for Chart.js to be loaded
-  const waitForChart = setInterval(() => {
+  // Chart.js should already be loaded from @push('scripts')
+  // Wait a moment to ensure it's available, then initialize
+  setTimeout(() => {
     if (typeof Chart !== 'undefined') {
-      clearInterval(waitForChart);
       initCharts();
+    } else {
+      console.warn('Chart.js library not found');
     }
-  }, 100);
+  }, 50);
 
   function initCharts() {
     // Get data from JSON script tag
     const dataScript = document.getElementById('infografis-data');
-    if (!dataScript) return;
+    if (!dataScript) {
+      console.warn('Infografis data script tag not found');
+      return;
+    }
 
-    const data = JSON.parse(dataScript.textContent);
+    let data;
+    try {
+      data = JSON.parse(dataScript.textContent);
+    } catch (e) {
+      console.error('Failed to parse infografis data:', e);
+      return;
+    }
 
     // Age Chart
     const ageChartCtx = document.getElementById('ageChart')?.getContext('2d');
