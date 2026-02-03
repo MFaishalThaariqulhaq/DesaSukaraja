@@ -73,7 +73,7 @@
               <!-- Tupoksi Overlay (Hover) -->
               <div 
                 class="profile-overlay absolute inset-0 flex flex-col justify-center items-center p-6 text-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0"
-                @if($sotk->colors) style="background: {{ $sotk->colors['overlayBg'] }}" @endif>
+                style="background: linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(20,20,30,0.9) 100%);">
                 <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center mb-3">
                   @if($sotk->colors)
                     <i data-lucide="{{ $sotk->colors['icon'] }}" class="w-5 h-5" style="color: {{ $sotk->colors['iconColor'] }}"></i>

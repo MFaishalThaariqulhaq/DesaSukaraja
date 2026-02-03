@@ -14,7 +14,6 @@ class SotkController extends Controller
     $sotks = $sotks->map(function ($sotk) {
       $sotk->colors = [
         'badgeBg' => $sotk->badge_color,
-        'overlayBg' => $sotk->overlay_bg_color,
         'iconColor' => $sotk->icon_color,
         'icon' => $sotk->icon_name,
       ];
@@ -32,7 +31,6 @@ class SotkController extends Controller
     $sotks = $sotks->map(function ($sotk) {
       $sotk->colors = [
         'badgeBg' => $sotk->badge_color,
-        'overlayBg' => $sotk->overlay_bg_color,
         'iconColor' => $sotk->icon_color,
         'icon' => $sotk->icon_name,
       ];

@@ -84,15 +84,6 @@
     </div>
 
     <div>
-      <label for="overlay_bg_color" class="block font-semibold text-slate-700 mb-1">Warna Overlay (Background Tupoksi)</label>
-      <input type="text" name="overlay_bg_color" id="overlay_bg_color"
-        value="{{ $sotk->overlay_bg_color ?? 'rgba(5, 55, 50, 0.95)' }}"
-        class="w-full border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-emerald-500 focus:outline-none font-mono text-sm"
-        placeholder="rgba(5, 55, 50, 0.95)">
-      <p class="text-xs text-slate-500 mt-1">Format: rgba(R, G, B, A) - contoh: rgba(5, 55, 50, 0.95)</p>
-    </div>
-
-    <div>
       <label for="icon_name" class="block font-semibold text-slate-700 mb-1">Nama Ikon (Lucide Icons)</label>
       <input type="text" name="icon_name" id="icon_name"
         value="{{ $sotk->icon_name ?? 'book-open' }}"
