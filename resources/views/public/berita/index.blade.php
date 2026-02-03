@@ -20,12 +20,16 @@
 @endpush
 
 <!-- Hero Header Section -->
-<section class="hero-bg relative h-screen md:h-[60vh] flex items-center justify-center text-white overflow-hidden -mt-24">
+<section class="hero-bg relative h-screen md:h-[75vh] flex items-center justify-center text-white overflow-hidden -mt-24">
   <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
-    <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold font-serif leading-tight drop-shadow-2xl mb-4">
+    <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold font-serif leading-tight drop-shadow-2xl mb-4 animate-fade-in-down">
       Berita & <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-teal-200">Kegiatan</span>
     </h1>
-    <p class="text-lg md:text-2xl text-slate-100 drop-shadow-md">Temukan informasi terbaru dan dokumentasi kegiatan desa</p>
+    <p class="text-lg md:text-2xl text-slate-100 drop-shadow-md animate-fade-in-up">Temukan informasi terbaru dan dokumentasi kegiatan desa</p>
+  </div>
+  <!-- Scroll Down Indicator -->
+  <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce opacity-80 cursor-pointer hover:text-emerald-300 transition-colors">
+    <a href="#berita-list"><i data-lucide="mouse" class="w-8 h-8"></i></a>
   </div>
 </section>
 
