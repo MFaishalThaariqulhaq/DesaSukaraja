@@ -182,16 +182,12 @@
             <button type="button" class="px-6 py-3 bg-white text-slate-900 font-bold rounded-lg shadow-lg hover:bg-emerald-50 transition transform hover:-translate-y-1">Lihat Gambar Penuh</button>
           </div>
           <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none group-hover:opacity-0 transition duration-300">
-            <div class="bg-white/90 backdrop-blur px-4 md:px-6 py-4 rounded-xl shadow-lg text-center border-l-4 border-emerald-500">
-              <h4 class="text-lg md:text-xl font-bold text-slate-800">Bagan Organisasi 2024</h4>
-              <p class="text-slate-500 text-sm">Klik untuk memperbesar</p>
-            </div>
-          </div>
+                        </div>
         </div>
         <div class="mt-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 px-2">
           <div>
             <p class="font-bold text-slate-800">Dokumen Resmi</p>
-            <p class="text-sm text-slate-500">Diperbarui: Januari 2024</p>
+            <p class="text-sm text-slate-500">Diperbarui: Januari 2026</p>
           </div>
           <button type="button" onclick="downloadStruktur()" class="flex items-center text-emerald-600 font-semibold hover:text-emerald-700 transition whitespace-nowrap">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
