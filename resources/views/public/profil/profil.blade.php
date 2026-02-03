@@ -1,6 +1,23 @@
 @extends('layouts.public.layout')
 @section('content')
 
+@push('styles')
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+@endpush
+
+@push('scripts')
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  if (window.AOS) {
+    AOS.init({
+      once: true,
+      offset: 100,
+      duration: 800,
+    });
+  }
+</script>
+@endpush
+
 <!-- Hero Header Section -->
 <section class="hero-bg relative h-screen md:h-[75vh] flex items-center justify-center text-white overflow-hidden -mt-24">
   <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">

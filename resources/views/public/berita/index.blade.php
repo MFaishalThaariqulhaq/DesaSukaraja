@@ -2,8 +2,25 @@
 
 @section('content')
 
+@push('styles')
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+@endpush
+
+@push('scripts')
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  if (window.AOS) {
+    AOS.init({
+      once: true,
+      offset: 100,
+      duration: 800,
+    });
+  }
+</script>
+@endpush
+
 <!-- Hero Header Section -->
-<section class="hero-bg relative h-screen md:h-[75vh] flex items-center justify-center text-white overflow-hidden -mt-24">
+<section class="hero-bg relative h-screen md:h-[60vh] flex items-center justify-center text-white overflow-hidden -mt-24">
   <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
     <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold font-serif leading-tight drop-shadow-2xl mb-4">
       Berita & <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-teal-200">Kegiatan</span>
@@ -11,8 +28,6 @@
     <p class="text-lg md:text-2xl text-slate-100 drop-shadow-md">Temukan informasi terbaru dan dokumentasi kegiatan desa</p>
   </div>
 </section>
-
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
 <style>
   .pagination {

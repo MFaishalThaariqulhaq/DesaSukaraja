@@ -196,14 +196,6 @@
         <div class="w-12 h-1 bg-pink-500 mx-auto rounded-full group-hover:w-20 transition-all duration-300"></div>
       </div>
     </div>
-    <div class="text-center mt-16">
-      <a href="{{ route('infografis.index') }}" class="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white bg-slate-800 rounded-lg hover:bg-slate-700 transition duration-300 shadow-lg transform hover:-translate-y-1">
-        Lihat Semua Infografis
-        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-        </svg>
-      </a>
-    </div>
   </div>
 </section>
 
