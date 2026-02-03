@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderPagination() {
     const totalPages = Math.ceil(galeryData.length / itemsPerPage);
     const paginationContainer = document.getElementById('pagination-container');
-    
+
     if (paginationContainer) {
       paginationContainer.innerHTML = '';
 
@@ -98,29 +98,40 @@ document.addEventListener('DOMContentLoaded', () => {
   paginatePage();
 
   // Filter functionality
+  function applyFilter(filterValue) {
+    // Update active state on buttons
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector(`[data-filter="${filterValue}"]`)?.classList.add('active');
+
+    const items = document.querySelectorAll('.gallery-item');
+    currentPage = 1; // Reset to page 1 when filtering
+
+    items.forEach(item => {
+      const itemCategory = item.dataset.category;
+      if (filterValue === 'all' || itemCategory === filterValue) {
+        item.style.display = '';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+
+    // Re-paginate after filter
+    paginatePage();
+    renderPagination();
+  }
+
+  // Filter button clicks
   document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', function () {
-      // Update active state
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      this.classList.add('active');
-
-      const filter = this.dataset.filter;
-      const items = document.querySelectorAll('.gallery-item');
-      currentPage = 1; // Reset to page 1 when filtering
-
-      items.forEach(item => {
-        const itemCategory = item.dataset.category;
-        if (filter === 'all' || itemCategory.includes(filter)) {
-          item.style.display = 'block';
-        } else {
-          item.style.display = 'none';
-        }
-      });
-
-      // Re-paginate after filter
-      paginatePage();
-      renderPagination();
+      applyFilter(this.dataset.filter);
     });
+  });
+
+  // Category tag clicks (clickable categories)
+  document.addEventListener('click', function(e) {
+    if (e.target.dataset.filterCategory) {
+      applyFilter(e.target.dataset.filterCategory);
+    }
   });
 
   // Modal functions

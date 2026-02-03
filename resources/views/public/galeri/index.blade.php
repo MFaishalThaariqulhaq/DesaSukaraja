@@ -52,9 +52,9 @@
                  class="w-full h-full object-cover transform group-hover:scale-105 transition duration-700" 
                  alt="{{ $galeri->judul }}">
           </div>
-          <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-6">
-            <span class="text-emerald-300 text-xs font-bold uppercase tracking-wider mb-1 drop-shadow-lg">{{ $galeri->kategori }}</span>
-            <h3 class="text-white text-lg font-bold drop-shadow-lg">{{ $galeri->judul }}</h3>
+          <div class="absolute inset-0 bg-gradient-to-t from-white/95 via-white/70 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-6">
+            <span class="text-emerald-700 text-xs font-bold uppercase tracking-wider mb-1 drop-shadow-sm cursor-pointer hover:text-emerald-900" data-filter-category="{{ $categorySlug }}">{{ $galeri->kategori }}</span>
+            <h3 class="text-slate-900 text-lg font-bold drop-shadow-sm">{{ $galeri->judul }}</h3>
           </div>
         </div>
       @empty
