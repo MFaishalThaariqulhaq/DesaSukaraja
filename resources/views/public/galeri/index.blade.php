@@ -20,7 +20,7 @@
 @endpush
 
 <!-- Hero Header Section -->
-<section class="hero-bg relative h-screen md:h-[75vh] flex items-center justify-center text-white overflow-hidden -mt-24">
+<section class="hero-bg relative h-screen md:h-[75vh] flex items-center justify-center text-white overflow-hidden -mt-20">
   <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
     <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold font-serif leading-tight drop-shadow-2xl mb-4 animate-fade-in-down">
       Galeri <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-teal-200">Foto</span>
