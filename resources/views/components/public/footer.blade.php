@@ -68,10 +68,10 @@
       <div>
         <h4 class="text-white font-bold text-lg mb-6">Tautan Cepat</h4>
         <ul class="space-y-2">
-          <li><a href="#" class="hover:text-emerald-500 transition-colors flex items-center gap-2 group"><i data-lucide="chevron-right" class="w-3 h-3 group-hover:text-emerald-500 transition-colors"></i> Profil Desa</a></li>
-          <li><a href="#" class="hover:text-emerald-500 transition-colors flex items-center gap-2 group"><i data-lucide="chevron-right" class="w-3 h-3 group-hover:text-emerald-500 transition-colors"></i> galeri</a></li>
-          <li><a href="#" class="hover:text-emerald-500 transition-colors flex items-center gap-2 group"><i data-lucide="chevron-right" class="w-3 h-3 group-hover:text-emerald-500 transition-colors"></i> infografis</a></li>
-          <li><a href="#" class="hover:text-emerald-500 transition-colors flex items-center gap-2 group"><i data-lucide="chevron-right" class="w-3 h-3 group-hover:text-emerald-500 transition-colors"></i> Peta Desa</a></li>
+          <li><a href="{{ route('profil') }}" class="hover:text-emerald-500 transition-colors flex items-center gap-2 group"><i data-lucide="chevron-right" class="w-3 h-3 group-hover:text-emerald-500 transition-colors"></i> Profil Desa</a></li>
+          <li><a href="{{ route('galeri.index') }}" class="hover:text-emerald-500 transition-colors flex items-center gap-2 group"><i data-lucide="chevron-right" class="w-3 h-3 group-hover:text-emerald-500 transition-colors"></i> Galeri</a></li>
+          <li><a href="{{ route('infografis.index') }}" class="hover:text-emerald-500 transition-colors flex items-center gap-2 group"><i data-lucide="chevron-right" class="w-3 h-3 group-hover:text-emerald-500 transition-colors"></i> Infografis</a></li>
+          <li><a href="{{ route('pengaduan.index') }}" class="hover:text-emerald-500 transition-colors flex items-center gap-2 group"><i data-lucide="chevron-right" class="w-3 h-3 group-hover:text-emerald-500 transition-colors"></i> Layanan Pengaduan</a></li>
         </ul>
       </div>
     </div>

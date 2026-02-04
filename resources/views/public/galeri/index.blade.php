@@ -49,12 +49,31 @@
              onclick="openModal({{ $galeri->id }})">
           <div class="relative overflow-hidden bg-slate-200 h-64 sm:h-72">
             <img src="{{ asset('storage/' . $galeri->gambar) }}" 
-                 class="w-full h-full object-cover transform group-hover:scale-105 transition duration-700" 
+                 class="w-full h-full object-cover transform transition-all duration-500 group-hover:scale-110 group-hover:blur-sm" 
                  alt="{{ $galeri->judul }}">
+            
+            <!-- Overlay Tupoksi (Hover) -->
+            <div 
+              class="absolute inset-0 flex flex-col justify-center items-center p-6 text-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0"
+              style="background: linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(20,20,30,0.9) 100%);">
+              <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center mb-3">
+                <i data-lucide="image" class="w-5 h-5 text-emerald-400"></i>
+              </div>
+              <h4 class="text-white font-bold text-lg mb-2">{{ $galeri->judul }}</h4>
+              <div class="text-sm leading-relaxed text-white/90">
+                @if($galeri->deskripsi)
+                  {{ Str::limit($galeri->deskripsi, 80) }}
+                @else
+                  <p class="italic">Deskripsi tidak tersedia</p>
+                @endif
+              </div>
+            </div>
           </div>
-          <div class="absolute inset-0 bg-gradient-to-t from-white/95 via-white/70 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-6">
-            <span class="text-emerald-700 text-xs font-bold uppercase tracking-wider mb-1 drop-shadow-sm cursor-pointer hover:text-emerald-900" data-filter-category="{{ $categorySlug }}">{{ $galeri->kategori }}</span>
-            <h3 class="text-slate-900 text-lg font-bold drop-shadow-sm">{{ $galeri->judul }}</h3>
+
+          <!-- Info Card (Below Image) -->
+          <div class="p-6 text-center relative flex flex-col items-center justify-center min-h-24 bg-white">
+            <span class="text-emerald-600 text-xs font-bold uppercase tracking-wider mb-2">{{ $galeri->kategori }}</span>
+            <h3 class="text-slate-800 font-bold line-clamp-2">{{ $galeri->judul }}</h3>
           </div>
         </div>
       @empty

@@ -85,10 +85,7 @@
         <span class="text-emerald-600 font-bold uppercase tracking-widest text-sm block mb-2">Kabar Desa</span>
         <h2 class="text-4xl md:text-5xl font-bold text-slate-900 font-serif">Berita & Kegiatan</h2>
       </div>
-      <a href="{{ route('berita.index') }}" class="group hidden md:inline-flex items-center font-bold text-emerald-600 hover:text-emerald-800 transition">
-        Lihat Semua Berita <i data-lucide="arrow-right" class="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1"></i>
-      </a>
-    </div>
+          </div>
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
       <!-- Berita Card 1: Lingkungan (Emerald) -->
       <article class="bg-white rounded-3xl shadow-sm hover:shadow-2xl transition-all duration-500 group cursor-pointer border border-slate-100 h-full flex flex-col overflow-hidden" data-aos="fade-up" data-aos-delay="0">

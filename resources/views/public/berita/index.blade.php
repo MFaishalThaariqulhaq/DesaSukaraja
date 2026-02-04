@@ -47,7 +47,7 @@
           @endphp
           @forelse($categories as $category)
           <li>
-            <a href="?kategori={{ urlencode($category) }}"
+            <a href="{{ route('berita.index') }}?kategori={{ urlencode($category) }}"
               class="kategori-link flex items-center justify-between p-2 rounded-lg text-slate-700 font-medium hover:bg-emerald-50 hover:text-emerald-700 transition">
               <span>{{ $category }}</span>
               <span class="bg-slate-100 text-slate-600 py-0.5 px-2 rounded text-xs font-bold">{{ \App\Models\Berita::where('kategori', $category)->count() }}</span>
