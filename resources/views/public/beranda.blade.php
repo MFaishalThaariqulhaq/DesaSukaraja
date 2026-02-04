@@ -4,6 +4,7 @@
 @endpush
 @push('styles')
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+<link rel="stylesheet" href="{{ asset('css/peta-smooth.css') }}">
 @endpush
 
 @push('scripts')
@@ -70,10 +71,10 @@
         </div>
 
         <div class="flex flex-wrap gap-4">
-          <a href="/profil#sejarah" class="inline-flex items-center justify-center px-8 py-3.5 text-sm font-bold text-white bg-slate-900 rounded-xl hover:bg-slate-800 transition duration-300 shadow-lg transform hover:-translate-y-1">
+          <a href="/profil#sejarah" onclick="smoothNavigateTo(event, '/profil', '#sejarah')" class="inline-flex items-center justify-center px-8 py-3.5 text-sm font-bold text-white bg-slate-900 rounded-xl hover:bg-slate-800 transition duration-300 shadow-lg transform hover:-translate-y-1">
             Sejarah Desa
           </a>
-          <a href="/profil#struktur" class="inline-flex items-center justify-center px-8 py-3.5 text-sm font-bold text-emerald-700 bg-white border border-emerald-200 rounded-xl hover:bg-emerald-50 hover:border-emerald-300 transition duration-300 transform hover:-translate-y-1">
+          <a href="/profil#struktur" onclick="smoothNavigateTo(event, '/profil', '#struktur')" class="inline-flex items-center justify-center px-8 py-3.5 text-sm font-bold text-emerald-700 bg-white border border-emerald-200 rounded-xl hover:bg-emerald-50 hover:border-emerald-300 transition duration-300 transform hover:-translate-y-1">
             Struktur Organisasi
           </a>
         </div>
@@ -201,7 +202,7 @@
   </div>
 </section>
 
-<section id="peta" class="relative py-16 overflow-hidden bg-white">
+<section id="peta-wilayah" class="relative py-16 overflow-hidden bg-white">
   <!-- Background Decoration -->
   <div class="absolute inset-0 bg-gradient-to-br from-emerald-50 via-white to-slate-50 pointer-events-none"></div>
   

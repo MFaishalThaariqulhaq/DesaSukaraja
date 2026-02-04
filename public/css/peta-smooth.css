@@ -1,0 +1,48 @@
+/* Smooth Transitions for Leaflet Map */
+.leaflet-pane {
+  will-change: transform;
+}
+
+.leaflet-map-pane {
+  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.leaflet-overlay-pane {
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.leaflet-marker-pane {
+  transition: all 0.2s ease-out;
+}
+
+/* Smooth zoom transitions */
+.leaflet-zoom-anim .leaflet-zoom-animated {
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Map container smooth drag */
+#map {
+  transition: all 0.15s ease-out;
+  cursor: grab;
+}
+
+#map:active {
+  cursor: grabbing;
+}
+
+/* Smooth legend appearance */
+.leaflet-control {
+  animation: slideInFade 0.3s ease-out forwards;
+}
+
+@keyframes slideInFade {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

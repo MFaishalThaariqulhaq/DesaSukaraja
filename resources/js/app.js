@@ -4,3 +4,5 @@ import './berita-detail.js';
 import './berita-list.js';
 import './infografis-detail.js';
 import './galeri.js';
+import './pengaduan-modal.js';
+import './pengaduan-form.js';

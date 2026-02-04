@@ -11,7 +11,7 @@
     <p class="text-lg md:text-2xl text-slate-100 drop-shadow-md animate-fade-in-up">Koleksi momen-momen berharga kegiatan desa</p>
   </div>
   <!-- Scroll Down Indicator -->
-  <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 scroll-indicator">
+  <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-smooth-lucid-mouse opacity-80 cursor-pointer hover:opacity-100 hover:text-emerald-300 transition-all duration-300">
     <a href="#galeri-list"><i data-lucide="mouse" class="w-8 h-8"></i></a>
   </div>
 </section>

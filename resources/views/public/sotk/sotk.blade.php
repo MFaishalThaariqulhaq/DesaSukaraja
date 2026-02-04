@@ -20,16 +20,9 @@
     </div>
 
     <!-- Scroll Down Indicator -->
-    <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce opacity-80 cursor-pointer hover:text-emerald-300 transition-colors">
-      <a href="#aparatur" aria-label="Scroll to aparatur section">
-        <svg 
-          class="w-8 h-8" 
-          data-lucide="mouse" 
-          stroke="currentColor" 
-          fill="none" 
-          stroke-width="2" 
-          viewBox="0 0 24 24">
-        </svg>
+    <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-smooth-lucid-mouse opacity-80 cursor-pointer hover:opacity-100 hover:text-emerald-300 transition-all duration-300">
+      <a href="#aparatur" aria-label="Scroll ke section aparatur">
+        <i data-lucide="mouse" class="w-8 h-8"></i>
       </a>
     </div>
   </section>

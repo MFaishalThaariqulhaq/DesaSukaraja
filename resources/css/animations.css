@@ -70,6 +70,33 @@
   animation: fadeInUp 0.5s ease-out;
 }
 
+/* Smooth Lucid Mouse Animation - Elegant scroll indicator */
+@keyframes smooth-lucid-mouse {
+  0% {
+    opacity: 0.6;
+    transform: translateY(0px);
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.6;
+    transform: translateY(12px);
+  }
+}
+
+.animate-smooth-lucid-mouse {
+  animation: smooth-lucid-mouse 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* Smooth Lucid Mouse Hover - Highlight on hover */
+.animate-smooth-lucid-mouse:hover {
+  animation: smooth-lucid-mouse 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  opacity: 1 !important;
+}
+
 /* Reduce Motion Preferences */
 @media (prefers-reduced-motion: reduce) {
   * {

@@ -27,12 +27,12 @@
     <p class="text-lg md:text-2xl text-slate-100 drop-shadow-md animate-fade-in-up">Mengenal Lebih Dekat Sejarah dan Visi Desa Kami</p>
   </div>
   <!-- Scroll Down Indicator -->
-  <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce opacity-80 cursor-pointer hover:text-emerald-300 transition-colors">
+  <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-smooth-lucid-mouse opacity-80 cursor-pointer hover:opacity-100 hover:text-emerald-300 transition-all duration-300">
     <a href="#sejarah"><i data-lucide="mouse" class="w-8 h-8"></i></a>
   </div>
 </section>
 
-<section id="sejarah" class="py-28 bg-slate-50">
+<section id="sejarah" class="py-28 bg-slate-50 scroll-mt-24">
   <div class="container mx-auto px-6">
     <div class="text-center mb-16" data-aos="fade-up">
       <span class="text-emerald-600 font-bold uppercase tracking-widest text-sm">Perjalanan Kami</span>
@@ -167,7 +167,7 @@
 </section>
 
 <!-- SECTION 4: Struktur Organisasi -->
-<section id="struktur" class="py-20 bg-slate-50">
+<section id="struktur" class="py-20 bg-slate-50 scroll-mt-24">
   <div class="container mx-auto px-6">
     <div class="text-center mb-12" data-aos="fade-up">
       <span class="text-emerald-600 font-bold uppercase tracking-widest text-sm">Pemerintahan</span>

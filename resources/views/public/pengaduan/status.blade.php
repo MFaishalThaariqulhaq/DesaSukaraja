@@ -1,4 +1,4 @@
-@extends('public.layout')
+@extends('layouts.public.layout')
 
 @section('title', 'Cek Status Pengaduan')
 

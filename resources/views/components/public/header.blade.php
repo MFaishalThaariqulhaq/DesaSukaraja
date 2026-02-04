@@ -24,18 +24,18 @@
     </nav>
     <!-- Action Button & Mobile Menu -->
     <div class="flex items-center gap-4">
-      <a href="#pengaduan"
+      <button id="openPengaduanModalBtn"
          class="hidden md:inline-flex items-center gap-2 bg-emerald-600 text-white text-sm font-semibold px-5 py-2.5 rounded-full shadow-lg shadow-emerald-500/30 hover:bg-emerald-700 hover:shadow-xl hover:scale-105 transition-all duration-300">
         <i data-lucide="message-square" class="w-4 h-4"></i>
         <span>Layanan Pengaduan</span>
-      </a>
-      <button id="mobile-menu-button" class="lg:hidden p-2 rounded-lg text-slate-700 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+      </button>
+      <button id="mobile-menu-button" class="lg:hidden p-2 rounded-lg text-slate-700 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-500 z-50 relative">
         <i data-lucide="menu" class="w-6 h-6"></i>
       </button>
     </div>
   </div>
   <!-- Mobile Menu Dropdown -->
-  <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-100 bg-white/95 backdrop-blur-md h-screen absolute w-full left-0 top-full shadow-xl">
+  <div id="mobile-menu" class="hidden lg:hidden z-50 border-t border-slate-100 bg-white/95 backdrop-blur-md h-screen absolute w-full left-0 top-full shadow-xl">
     <div class="container mx-auto px-6 py-6 space-y-4">
       <a href="/" class="flex items-center gap-3 px-4 py-3 text-base font-bold text-emerald-600 bg-emerald-50 rounded-xl">
         <i data-lucide="home" class="w-5 h-5"></i> Home
@@ -55,95 +55,19 @@
       <a href="/sotk" class="flex items-center gap-3 px-4 py-3 text-base font-medium text-slate-600 hover:bg-slate-50 hover:text-emerald-600 rounded-xl transition-colors">
         <i data-lucide="users" class="w-5 h-5"></i> SOTK
       </a>
-      <a href="/#pengaduan" class="block w-full text-center mt-6 text-base font-bold bg-gradient-to-r from-emerald-600 to-emerald-500 text-white px-5 py-4 rounded-xl shadow-lg transition-transform active:scale-95">
+      <button id="openPengaduanModalBtnMobile" class="block w-full text-center mt-6 text-base font-bold bg-gradient-to-r from-emerald-600 to-emerald-500 text-white px-5 py-4 rounded-xl shadow-lg transition-transform active:scale-95">
         Buat Laporan
-      </a>
+      </button>
     </div>
   </div>
-
-  <script>
-    // Header scroll effect & mobile menu toggle
-    document.addEventListener('DOMContentLoaded', function () {
-      // Lucide icons
-      if (window.lucide) lucide.createIcons();
-
-      // Header shadow saat scroll
-      const header = document.getElementById('main-header');
-      window.addEventListener('scroll', function () {
-        if (window.scrollY > 20) {
-          header.classList.add('scrolled');
-        } else {
-          header.classList.remove('scrolled');
-        }
-      });
-
-      // Mobile menu toggle
-      const mobileMenuButton = document.getElementById('mobile-menu-button');
-      const mobileMenu = document.getElementById('mobile-menu');
-      if (mobileMenuButton && mobileMenu) {
-        mobileMenuButton.addEventListener('click', function (e) {
-          e.stopPropagation();
-          mobileMenu.classList.toggle('hidden');
-          const icon = mobileMenuButton.querySelector('i');
-          if (mobileMenu.classList.contains('hidden')) {
-            icon.setAttribute('data-lucide', 'menu');
-          } else {
-            icon.setAttribute('data-lucide', 'x');
-          }
-          if (window.lucide) lucide.createIcons();
-        });
-
-        // Close menu ketika klik di menu links
-        mobileMenu.querySelectorAll('a').forEach(link => {
-          link.addEventListener('click', function() {
-            mobileMenu.classList.add('hidden');
-            if (mobileMenuButton.querySelector('i')) {
-              mobileMenuButton.querySelector('i').setAttribute('data-lucide', 'menu');
-            }
-            if (window.lucide) lucide.createIcons();
-          });
-        });
-      }
-      // Smooth scroll for anchor links
-      document.querySelectorAll('a[href^="#"]').forEach(link => {
-        link.addEventListener('click', function (e) {
-          const targetId = this.getAttribute('href').slice(1);
-          const target = document.getElementById(targetId);
-          if (target) {
-            e.preventDefault();
-            target.scrollIntoView({ behavior: 'smooth' });
-          }
-        });
-      });
-
-      // Active navigation link highlight
-      const navLinks = document.querySelectorAll('nav a[href^="/"]');
-      const mobileNavLinks = document.querySelectorAll('#mobile-menu a[href^="/"]');
-      const currentPath = window.location.pathname;
-      
-      navLinks.forEach(link => {
-        const href = link.getAttribute('href');
-        // Active jika: path sama atau (bukan home dan path dimulai dengan href)
-        if ((href === '/' && currentPath === '/') || (href !== '/' && currentPath.startsWith(href))) {
-          link.classList.remove('text-slate-600');
-          link.classList.add('text-emerald-600', 'font-semibold');
-        } else {
-          link.classList.remove('text-emerald-600', 'font-semibold');
-          link.classList.add('text-slate-600');
-        }
-      });
-      
-      // Apply same highlighting untuk mobile menu
-      mobileNavLinks.forEach(link => {
-        const href = link.getAttribute('href');
-        if ((href === '/' && currentPath === '/') || (href !== '/' && currentPath.startsWith(href))) {
-          link.classList.remove('text-slate-600');
-          link.classList.add('text-emerald-600', 'font-semibold', 'bg-emerald-50');
-        } else {
-          link.classList.remove('text-emerald-600', 'font-semibold', 'bg-emerald-50');
-          link.classList.add('text-slate-600');
-        }
-      });
-    });
-  </script>
 </header>
+
+@push('scripts')
+<script type="module">
+  import { initHeader } from '/resources/js/pages/header.js';
+  
+  document.addEventListener('DOMContentLoaded', function () {
+    initHeader();
+  });
+</script>
+@endpush

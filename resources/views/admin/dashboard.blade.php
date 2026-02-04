@@ -181,11 +181,35 @@
       const sidebarOverlay = document.getElementById('sidebar-overlay');
 
       function toggleSidebar() {
-        sidebar.classList.toggle('-translate-x-full');
-        sidebarOverlay.classList.toggle('hidden');
+        if (sidebar && sidebarOverlay) {
+          sidebar.classList.toggle('-translate-x-full');
+          sidebarOverlay.classList.toggle('hidden');
+        }
       }
-      mobileMenuBtn.addEventListener('click', toggleSidebar);
-      sidebarOverlay.addEventListener('click', toggleSidebar);
+      
+      if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleSidebar();
+        });
+      }
+      
+      if (sidebarOverlay) {
+        sidebarOverlay.addEventListener('click', toggleSidebar);
+      }
+      
+      // Close sidebar when clicking on a menu item
+      const sidebarLinks = sidebar?.querySelectorAll('nav a');
+      if (sidebarLinks) {
+        sidebarLinks.forEach(link => {
+          link.addEventListener('click', function() {
+            if (!sidebar.classList.contains('-translate-x-full')) {
+              toggleSidebar();
+            }
+          });
+        });
+      }
     });
   </script>
 </body>
