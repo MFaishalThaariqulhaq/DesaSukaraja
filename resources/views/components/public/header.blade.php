@@ -20,7 +20,7 @@
       <a href="/galeri" class="text-base font-medium text-slate-600 hover:text-emerald-600 transition-colors nav-link">Galeri</a>
       <a href="/infografis" class="text-base font-medium text-slate-600 hover:text-emerald-600 transition-colors nav-link">Infografis</a>
       <a href="/sotk" class="text-base font-medium text-slate-600 hover:text-emerald-600 transition-colors nav-link">SOTK</a>
-      <a href="/#peta" class="text-base font-medium text-slate-600 hover:text-emerald-600 transition-colors nav-link">Peta Desa</a>
+      <a href="/#peta-wilayah" class="text-base font-medium text-slate-600 hover:text-emerald-600 transition-colors nav-link">Peta Desa</a>
     </nav>
     <!-- Action Button & Mobile Menu -->
     <div class="flex items-center gap-4">

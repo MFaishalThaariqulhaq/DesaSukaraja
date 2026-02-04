@@ -17,13 +17,13 @@ class HomeController extends Controller
   {
     $query = \App\Models\Berita::orderBy('created_at', 'desc');
 
-    if ($request->has('kategori') && !empty(trim($request->kategori))) {
+    // Check jika parameter kategori ada dan tidak kosong
+    if ($request->filled('kategori')) {
       $kategori = trim($request->kategori);
-      // Case-insensitive search
+      // Case-insensitive search dengan LOWER()
       $query->whereRaw('LOWER(kategori) = LOWER(?)', [$kategori]);
     }
 
-    // Get all beritas untuk JavaScript pagination
     $beritas = $query->get();
     return view('public.berita.index', compact('beritas'));
   }

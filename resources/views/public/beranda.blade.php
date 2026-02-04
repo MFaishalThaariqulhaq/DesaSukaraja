@@ -2,12 +2,17 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap">
 <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 @endpush
+@push('styles')
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+@endpush
+
 @push('scripts')
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
 <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 @endpush
 @extends('layouts.public.layout')
 @section('title', 'Website Resmi Desa Sukaraja, Rawamerta, Karawang')
@@ -196,47 +201,104 @@
   </div>
 </section>
 
-<section class="py-24 bg-white" data-aos="fade-up">
-  <div class="container mx-auto px-6 grid lg:grid-cols-12 gap-12">
-    <div id="peta" class="lg:col-span-7 space-y-6">
-      <div class="flex items-center gap-3">
-        <div class="h-8 w-1 bg-emerald-600 rounded-full"></div>
-        <h2 class="text-3xl font-bold text-slate-900 font-serif">Peta Wilayah</h2>
-      </div>
-      <div class="rounded-3xl overflow-hidden shadow-2xl border-4 border-white h-[500px] w-full relative group">
-        <iframe src="https://www.google.com/maps?q=-6.3265,107.4297&hl=id&z=15&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      </div>
-    </div>
-    <div id="pengaduan" class="lg:col-span-5">
-      <div class="bg-gradient-to-br from-white to-slate-50 p-8 rounded-3xl shadow-xl border border-slate-100 h-full">
-        <h2 class="text-2xl font-bold text-slate-900 mb-2 flex items-center gap-2 font-serif">
-          <div class="p-2 bg-emerald-100 text-emerald-600 rounded-lg"><i data-lucide="message-circle" class="w-5 h-5"></i></div>
-          Layanan Pengaduan
-        </h2>
-        <p class="text-slate-500 mb-6 text-sm leading-relaxed">
-          Sampaikan aspirasi Anda untuk kemajuan Desa Sukaraja. Identitas pelapor dijamin kerahasiaannya.
-        </p>
-        
-        <!-- Quick Access Links -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-          <a href="{{ route('pengaduan.index') }}" class="flex flex-col items-center justify-center p-5 bg-emerald-50 hover:bg-emerald-100 rounded-2xl transition-all duration-300 border border-emerald-200 group shadow-sm hover:shadow-md">
-            <i data-lucide="edit" class="w-7 h-7 text-emerald-600 mb-3 group-hover:scale-110 transition-transform"></i>
-            <span class="text-sm font-bold text-slate-800 text-center">Buat<br>Laporan</span>
-          </a>
-          <a href="{{ route('pengaduan.status') }}" class="flex flex-col items-center justify-center p-5 bg-blue-50 hover:bg-blue-100 rounded-2xl transition-all duration-300 border border-blue-200 group shadow-sm hover:shadow-md">
-            <i data-lucide="search" class="w-7 h-7 text-blue-600 mb-3 group-hover:scale-110 transition-transform"></i>
-            <span class="text-sm font-bold text-slate-800 text-center">Cek<br>Status</span>
-          </a>
-          <a href="{{ route('pengaduan.list') }}" class="flex flex-col items-center justify-center p-5 bg-slate-100 hover:bg-slate-200 rounded-2xl transition-all duration-300 border border-slate-300 group shadow-sm hover:shadow-md">
-            <i data-lucide="bar-chart-2" class="w-7 h-7 text-slate-700 mb-3 group-hover:scale-110 transition-transform"></i>
-            <span class="text-sm font-bold text-slate-800 text-center">Dashboard<br>Pengaduan</span>
-          </a>
+<section id="peta" class="relative py-16 overflow-hidden bg-white">
+  <!-- Background Decoration -->
+  <div class="absolute inset-0 bg-gradient-to-br from-emerald-50 via-white to-slate-50 pointer-events-none"></div>
+  
+  <div class="container mx-auto px-6 relative z-10">
+    <div class="grid lg:grid-cols-12 gap-12 items-start">
+      <!-- LEFT CONTENT -->
+      <div class="lg:col-span-5 space-y-6">
+        <!-- HEADER -->
+        <div>
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-200 text-slate-700 text-xs font-bold uppercase tracking-wider mb-4">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Geografis Desa
+          </div>
+          <h2 class="text-3xl md:text-5xl font-bold text-slate-800 font-serif mb-4">Peta Wilayah</h2>
+          <p class="text-slate-600 text-lg leading-relaxed">
+            Jelajahi batas administratif dan pembagian dusun di Desa Sukaraja. Peta interaktif ini menampilkan seluruh wilayah desa dengan pembagian per dusun.
+          </p>
         </div>
-        
+
+        <!-- INFO CARDS -->
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-2xl">
+            <div class="text-emerald-600 mb-2"><i data-lucide="maximize" class="w-6 h-6"></i></div>
+            <p class="text-xs text-slate-500 font-bold uppercase">Luas Area</p>
+            <p class="text-lg font-bold text-slate-900">± 450 Ha</p>
+          </div>
+          <div class="bg-blue-50 border border-blue-200 p-4 rounded-2xl">
+            <div class="text-blue-600 mb-2"><i data-lucide="users" class="w-6 h-6"></i></div>
+            <p class="text-xs text-slate-500 font-bold uppercase">Dusun</p>
+            <p class="text-lg font-bold text-slate-900">4 Dusun</p>
+          </div>
+        </div>
+
+        <!-- FEATURES LIST -->
+        <div class="space-y-3">
+          <div class="flex items-start gap-3">
+            <div class="p-2 bg-emerald-100 rounded-lg mt-1"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-600"></i></div>
+            <div>
+              <p class="font-bold text-slate-800">Batas Wilayah Jelas</p>
+              <p class="text-sm text-slate-600">Polygon batas desa ditampilkan dengan jelas</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="p-2 bg-emerald-100 rounded-lg mt-1"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-600"></i></div>
+            <div>
+              <p class="font-bold text-slate-800">Lokasi Penting</p>
+              <p class="text-sm text-slate-600">Kantor desa dan pos dusun ditandai pada peta</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="p-2 bg-emerald-100 rounded-lg mt-1"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-600"></i></div>
+            <div>
+              <p class="font-bold text-slate-800">Interaktif</p>
+              <p class="text-sm text-slate-600">Zoom, drag, dan klik untuk informasi detail</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT MAP -->
+      <div class="lg:col-span-7">
+        <div class="relative group rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+          
+          <!-- 1. MAP ELEMENT -->
+          <div id="map" class="w-full h-[450px] z-0"></div>
+
+          <!-- LEGEND (Top Right) -->
+          <div class="absolute top-4 right-4 bg-white/95 backdrop-blur-md p-4 rounded-xl shadow-lg border border-slate-100 z-[500] max-w-xs">
+            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Legenda</h4>
+            <div class="space-y-2">
+              <div class="flex items-center gap-2">
+                <div class="w-6 h-1 rounded bg-emerald-500"></div>
+                <span class="text-xs font-medium text-slate-700">Batas Wilayah</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="w-2.5 h-2.5 rounded-full bg-red-500 border border-white shadow"></div>
+                <span class="text-xs font-medium text-slate-600">Kantor Desa</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="w-2.5 h-2.5 rounded-full bg-blue-500 border border-white shadow"></div>
+                <span class="text-xs font-medium text-slate-600">Pos Dusun</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- RESET BUTTON (Bottom Right) -->
+          <button onclick="resetMap()" class="absolute bottom-4 right-4 px-4 py-2 bg-slate-800 text-white text-xs font-bold rounded-lg hover:bg-slate-700 transition-colors flex items-center gap-2 z-[500] shadow-lg">
+            <i data-lucide="refresh-cw" class="w-3 h-3"></i> Reset
+          </button>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 @endsection
+
+@push('scripts')
+<script src="{{ asset('js/peta-wilayah.js') }}"></script>
+@endpush
 

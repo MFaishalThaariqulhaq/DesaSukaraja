@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peta Wilayah Desa Sukaraja</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    
+    <!-- LEAFLET CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        
+        .dot-pattern {
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        
+        #map {
+            z-index: 1;
+            background: #f8fafc;
+        }
+        
+        .leaflet-popup-content-wrapper {
+            border-radius: 0.75rem;
+            padding: 0;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .leaflet-popup-content {
+            margin: 0;
+            width: 220px !important;
+        }
+    </style>
+</head>
+<body class="bg-slate-50">
+
+    <section class="relative py-16 overflow-hidden min-h-screen flex flex-col justify-center">
+        
+        <!-- Background Decoration -->
+        <div class="absolute inset-0 dot-pattern opacity-30 pointer-events-none"></div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            
+            <!-- HEADER -->
+            <div class="text-center mb-10">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-200 text-slate-700 text-xs font-bold uppercase tracking-wider mb-4">
+                    <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Geografis Desa
+                </div>
+                <h2 class="text-3xl md:text-5xl font-bold text-slate-800 font-serif">Peta Wilayah</h2>
+                <p class="text-slate-500 mt-3 max-w-2xl mx-auto text-lg">
+                    Jelajahi batas administratif dan pembagian dusun di Desa Sukaraja.
+                </p>
+            </div>
+
+            <!-- CONTAINER PETA (Interactive Card) -->
+            <div class="max-w-5xl mx-auto">
+                <div class="relative group rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+                    
+                    <!-- 1. MAP ELEMENT -->
+                    <div id="map" class="w-full h-[500px] md:h-[600px] z-0"></div>
+
+                    <!-- 2. DARK OVERLAY (Efek Gelap saat tidak disentuh) -->
+                    <!-- opacity-40 default, opacity-0 on group-hover -->
+                    <div class="absolute inset-0 bg-slate-900/40 z-[400] transition-opacity duration-700 ease-in-out group-hover:opacity-0 pointer-events-none flex items-center justify-center">
+                        <!-- Hint Text (Optional) -->
+                        <div class="bg-white/90 backdrop-blur px-6 py-3 rounded-full shadow-lg transform translate-y-4 opacity-0 group-hover:opacity-0 transition-all duration-500 delay-100 hidden md:flex items-center gap-2">
+                            <i data-lucide="mouse-pointer-2" class="w-4 h-4 text-emerald-600"></i>
+                            <span class="text-xs font-bold text-slate-800">Interaksi Peta Aktif</span>
+                        </div>
+                    </div>
+
+                    <!-- LEGEND (Floating Top Right - Slide in on hover) -->
+                    <div class="absolute top-6 right-6 bg-white/90 backdrop-blur-md p-5 rounded-2xl shadow-xl border border-slate-100 z-[500] max-w-xs transition-transform duration-500 translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 hidden md:block">
+                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Legenda</h4>
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-1 rounded bg-emerald-500"></div>
+                                <span class="text-xs font-bold text-slate-700">Batas Wilayah</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-3 h-3 rounded-full bg-red-500 border-2 border-white shadow"></div>
+                                <span class="text-xs font-medium text-slate-600">Kantor Desa</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-3 h-3 rounded-full bg-blue-500 border-2 border-white shadow"></div>
+                                <span class="text-xs font-medium text-slate-600">Pos Dusun</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BOTTOM BAR INFO (Slide up on hover) -->
+                    <div class="absolute bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-slate-100 p-4 md:p-6 z-[500] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out">
+                        <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                            <div class="flex items-center gap-4">
+                                <div class="p-3 bg-emerald-50 rounded-xl text-emerald-600">
+                                    <i data-lucide="maximize" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] text-slate-400 font-bold uppercase">Luas Area</p>
+                                    <p class="text-sm font-bold text-slate-800">± 450 Hektar</p>
+                                </div>
+                            </div>
+                            <div class="hidden md:block w-px h-8 bg-slate-200"></div>
+                            <div class="flex items-center gap-4">
+                                <div class="p-3 bg-blue-50 rounded-xl text-blue-600">
+                                    <i data-lucide="users" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] text-slate-400 font-bold uppercase">Administrasi</p>
+                                    <p class="text-sm font-bold text-slate-800">4 Dusun / RW</p>
+                                </div>
+                            </div>
+                            <button onclick="resetMap()" class="w-full md:w-auto ml-auto px-5 py-2.5 bg-slate-800 text-white text-xs font-bold rounded-lg hover:bg-slate-700 transition-colors flex justify-center items-center gap-2">
+                                <i data-lucide="refresh-cw" class="w-3 h-3"></i> Reset View
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- LEAFLET JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    
+    <script>
+        lucide.createIcons();
+
+        // 1. Inisialisasi Peta
+        const centerLat = -6.3117;
+        const centerLng = 107.3298;
+        
+        var map = L.map('map', {
+            zoomControl: false, 
+            scrollWheelZoom: false,
+            dragging: true
+        }).setView([centerLat, centerLng], 14);
+
+        // 2. Tile Layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+
+        L.control.zoom({ position: 'topleft' }).addTo(map);
+
+        // 3. Custom Icon
+        const createPin = (color) => {
+            return L.divIcon({
+                className: 'custom-pin',
+                html: `<div style="background-color: ${color}; width: 14px; height: 14px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 0 4px rgba(0,0,0,0.2);"></div>`,
+                iconSize: [14, 14],
+                iconAnchor: [7, 7],
+                popupAnchor: [0, -10]
+            });
+        };
+
+        // 4. Polygon Batas Wilayah
+        const villageBoundary = [
+            [-6.3000, 107.3250], [-6.3020, 107.3350], [-6.3100, 107.3400],
+            [-6.3200, 107.3380], [-6.3250, 107.3300], [-6.3220, 107.3200],
+            [-6.3100, 107.3150], [-6.3050, 107.3200]
+        ];
+
+        var polygon = L.polygon(villageBoundary, {
+            color: '#10b981', weight: 3, opacity: 1,
+            fillColor: '#10b981', fillOpacity: 0.15
+        }).addTo(map);
+
+        polygon.bindPopup(`
+            <div class="text-center p-2">
+                <span class="text-xs font-bold text-emerald-600 block">WILAYAH DESA</span>
+                <span class="text-sm font-bold text-slate-800">SUKARAJA</span>
+            </div>
+        `);
+
+        // 5. Markers
+        const locations = [
+            { name: "Kantor Desa Sukaraja", lat: -6.3117, lng: 107.3298, color: "#ef4444", type: "Pusat Pemerintahan" },
+            { name: "Pos Dusun I (Krajan)", lat: -6.3080, lng: 107.3320, color: "#3b82f6", type: "Dusun / RW" },
+            { name: "Pos Dusun II (Babakan)", lat: -6.3150, lng: 107.3250, color: "#3b82f6", type: "Dusun / RW" },
+            { name: "Pos Dusun III (Sawah)", lat: -6.3180, lng: 107.3350, color: "#3b82f6", type: "Dusun / RW" }
+        ];
+
+        locations.forEach(loc => {
+            L.marker([loc.lat, loc.lng], { icon: createPin(loc.color) })
+             .addTo(map)
+             .bindPopup(`<div class="font-bold text-xs text-slate-600 uppercase mb-1">${loc.type}</div><div class="font-bold text-sm text-slate-800">${loc.name}</div>`);
+        });
+
+        function resetMap() {
+            map.fitBounds(polygon.getBounds());
+        }
+        
+        resetMap();
+
+        // Aktifkan scroll zoom hanya saat fokus (hover)
+        const mapContainer = document.getElementById('map').parentElement;
+        mapContainer.addEventListener('mouseenter', () => map.scrollWheelZoom.enable());
+        mapContainer.addEventListener('mouseleave', () => map.scrollWheelZoom.disable());
+
+    </script>
+</body>
+</html>
