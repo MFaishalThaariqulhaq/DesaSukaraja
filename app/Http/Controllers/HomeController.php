@@ -17,8 +17,10 @@ class HomeController extends Controller
   {
     $query = \App\Models\Berita::orderBy('created_at', 'desc');
 
-    if ($request->has('kategori') && $request->kategori) {
-      $query->where('kategori', $request->kategori);
+    if ($request->has('kategori') && !empty(trim($request->kategori))) {
+      $kategori = trim($request->kategori);
+      // Case-insensitive search
+      $query->whereRaw('LOWER(kategori) = LOWER(?)', [$kategori]);
     }
 
     // Get all beritas untuk JavaScript pagination

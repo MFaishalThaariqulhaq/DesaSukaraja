@@ -37,23 +37,24 @@
         <ul class="space-y-2">
           <li>
             <a href="{{ route('berita.index') }}"
-              class="flex items-center justify-between p-2 rounded-lg bg-emerald-50 text-emerald-700 font-medium hover:bg-emerald-100 transition">
+              class="kategori-all flex items-center justify-between p-2 rounded-lg text-slate-700 font-medium hover:bg-emerald-50 hover:text-emerald-700 transition">
               <span>Semua Berita</span>
               <span class="bg-white text-emerald-600 py-0.5 px-2 rounded text-xs font-bold shadow-sm">{{ \App\Models\Berita::count() }}</span>
             </a>
           </li>
           @php
-          $categories = \App\Models\Berita::distinct()->pluck('kategori')->sort();
+          $categories = \App\Models\Berita::distinct()->pluck('kategori')->sort()->filter(fn($cat) => $cat !== null);
           @endphp
           @forelse($categories as $category)
           <li>
-            <a href="{{ route('berita.index') }}?kategori={{ urlencode($category) }}"
+            <a href="{{ route('berita.index') }}?kategori={{ urlencode($category) }}#berita-list"
               class="kategori-link flex items-center justify-between p-2 rounded-lg text-slate-700 font-medium hover:bg-emerald-50 hover:text-emerald-700 transition">
               <span>{{ $category }}</span>
               <span class="bg-slate-100 text-slate-600 py-0.5 px-2 rounded text-xs font-bold">{{ \App\Models\Berita::where('kategori', $category)->count() }}</span>
             </a>
           </li>
           @empty
+            <li><p class="text-slate-500 text-sm">Tidak ada kategori</p></li>
           @endforelse
         </ul>
       </div>
@@ -120,31 +121,25 @@
       });
     }
 
-    // Search functionality
+    // Search functionality - lebih proper
     const searchInput = document.getElementById('searchInput');
     if (searchInput) {
       searchInput.addEventListener('keyup', (e) => {
         const query = e.target.value.toLowerCase();
+        const hasQuery = query.trim() !== '';
+        
         document.querySelectorAll('.berita-item').forEach(item => {
-          const text = item.textContent.toLowerCase();
-          item.style.display = text.includes(query) ? '' : 'none';
+          if (!hasQuery) {
+            // Jika search kosong, tampilkan semua
+            item.style.display = '';
+          } else {
+            // Jika ada query, cari di text
+            const text = item.textContent.toLowerCase();
+            item.style.display = text.includes(query) ? '' : 'none';
+          }
         });
       });
     }
-
-    // Auto-scroll to berita list ketika kategori diklik
-    const categoryLinks = document.querySelectorAll('.kategori-link');
-    categoryLinks.forEach(link => {
-      link.addEventListener('click', (e) => {
-        // Delay scroll sedikit untuk memastikan page dimuat dulu
-        setTimeout(() => {
-          const beritaList = document.getElementById('berita-list');
-          if (beritaList) {
-            beritaList.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-        }, 300);
-      });
-    });
   });
 </script>
 
