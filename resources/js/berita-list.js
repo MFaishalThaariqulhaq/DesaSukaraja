@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Pagination functionality
   function renderPagination() {
     const allItems = document.querySelectorAll('.berita-item');
-    const currentFilter = new URLSearchParams(window.location.search).get('kategori') || 'all';
+    const currentFilter = (new URLSearchParams(window.location.search).get('kategori') || 'all').toLowerCase();
 
     // Count items yang tidak di-filter
     let visibleCount = 0;
@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     let visibleIndex = 0;
-    const currentFilter = new URLSearchParams(window.location.search).get('kategori') || 'all';
+    const currentFilter = (new URLSearchParams(window.location.search).get('kategori') || 'all').toLowerCase();
 
     items.forEach((item) => {
       const itemCategory = item.dataset.category;

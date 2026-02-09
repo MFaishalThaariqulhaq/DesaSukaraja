@@ -20,8 +20,8 @@ class HomeController extends Controller
     // Check jika parameter kategori ada dan tidak kosong
     if ($request->filled('kategori')) {
       $kategori = trim($request->kategori);
-      // Case-insensitive search dengan LOWER()
-      $query->whereRaw('LOWER(kategori) = LOWER(?)', [$kategori]);
+      // Case-insensitive search dengan trim di sisi database untuk kategori yang punya spasi tersembunyi
+      $query->whereRaw('LOWER(TRIM(kategori)) = LOWER(?)', [$kategori]);
     }
 
     $beritas = $query->get();

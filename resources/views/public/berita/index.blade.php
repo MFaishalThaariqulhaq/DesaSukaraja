@@ -57,7 +57,7 @@
                   class="kategori-link flex items-center justify-between px-4 py-3 rounded-lg text-slate-700 font-medium hover:bg-emerald-50 hover:text-emerald-700 transition-all duration-300 border-2 border-transparent {{ strtolower($currentCategory ?? '') === strtolower($category) ? 'bg-emerald-50 text-emerald-700 border-emerald-300' : '' }}"
                   data-kategori="{{ strtolower($category) }}">
                   <span>{{ $category }}</span>
-                  <span class="bg-slate-100 text-slate-600 py-1 px-2.5 rounded-full text-xs font-bold">{{ \App\Models\Berita::where('kategori', $category)->count() }}</span>
+                  <span class="bg-slate-100 text-slate-600 py-1 px-2.5 rounded-full text-xs font-bold">{{ \App\Models\Berita::whereRaw('LOWER(TRIM(kategori)) = LOWER(?)', [$category])->count() }}</span>
                 </a>
               </li>
               @empty
