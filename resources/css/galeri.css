@@ -2,16 +2,26 @@
 
 /* Filter button animations */
 .filter-btn {
-  transition: all 0.3s ease;
+  background: #ffffff;
+  color: #475569;
+  border-color: #e2e8f0;
+  transition: all 0.25s ease;
 }
 
 .filter-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.12);
+  color: #047857;
+  border-color: #a7f3d0;
+  background: #ecfdf5;
 }
 
-.filter-btn.active {
+.filter-btn.is-active {
   animation: buttonPulse 0.4s ease;
+  background-color: #059669;
+  color: #ffffff;
+  border-color: #059669;
+  box-shadow: 0 8px 20px rgba(5, 150, 105, 0.28);
 }
 
 @keyframes buttonPulse {
@@ -304,16 +314,6 @@
   right: 1rem;
 }
 
-.filter-btn {
-  transition: all 0.3s ease;
-}
-
-.filter-btn.active {
-  background-color: #059669;
-  color: white;
-  box-shadow: 0 4px 6px rgba(5, 150, 105, 0.3);
-}
-
 /* Modal Title - Better Readability */
 #modalTitle {
   color: #1e293b;
@@ -342,9 +342,39 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  font-weight: 500;
-  transition: all 0.2s;
+  gap: 0.45rem;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  transition: all 0.25s ease;
+}
+
+.modal-action {
+  border: 1px solid transparent;
+  padding: 0.62rem 1rem;
+}
+
+.modal-action-primary {
+  flex: 1;
+  background: linear-gradient(135deg, #059669, #10b981);
+  color: #ffffff;
+  box-shadow: 0 8px 18px rgba(5, 150, 105, 0.28);
+}
+
+.modal-action-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(5, 150, 105, 0.34);
+}
+
+.modal-action-secondary {
+  background: #f1f5f9;
+  border-color: #e2e8f0;
+  color: #1e293b;
+}
+
+.modal-action-secondary:hover {
+  background: #e2e8f0;
+  border-color: #cbd5e1;
+  transform: translateY(-1px);
 }
 
 .modal-footer button i {

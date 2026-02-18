@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Pagination functionality
   function renderPagination() {
     const allItems = document.querySelectorAll('.gallery-item');
-    const currentFilter = document.querySelector('.filter-btn.active')?.dataset.filter || 'all';
+    const currentFilter = document.querySelector('.filter-btn.is-active')?.dataset.filter || 'all';
 
     // Count items yang tidak di-filter
     let visibleCount = 0;
@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       // Check if item is filtered out
-      const currentFilter = document.querySelector('.filter-btn.active')?.dataset.filter || 'all';
+      const currentFilter = document.querySelector('.filter-btn.is-active')?.dataset.filter || 'all';
       const itemCategory = item.dataset.category;
       const isFiltered = currentFilter !== 'all' && itemCategory !== currentFilter;
 
@@ -157,8 +157,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Filter functionality
   function applyFilter(filterValue) {
     // Update active state on buttons
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    document.querySelector(`[data-filter="${filterValue}"]`)?.classList.add('active');
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('is-active'));
+    document.querySelector(`[data-filter="${filterValue}"]`)?.classList.add('is-active');
 
     const items = document.querySelectorAll('.gallery-item');
     currentPage = 1; // Reset to page 1 when filtering

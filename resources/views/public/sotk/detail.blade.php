@@ -1,9 +1,5 @@
 @extends('layouts.public.layout')
 
-@push('styles')
-  <link rel="stylesheet" href="{{ asset('css/sotk.css') }}">
-@endpush
-
 @section('content')
 
   <!-- ==========================================
@@ -229,7 +225,3 @@
   </div>
 
 @endsection
-
-@push('scripts')
-  <script src="{{ asset('js/sotk.js') }}"></script>
-@endpush

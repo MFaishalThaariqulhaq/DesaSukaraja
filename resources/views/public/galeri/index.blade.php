@@ -22,10 +22,10 @@
 
     <!-- Filter Buttons -->
     <div class="flex flex-wrap justify-center gap-4 mb-12" data-aos="fade-up" data-aos-delay="100">
-      <button class="filter-btn active px-6 py-2 rounded-full bg-emerald-600 text-white font-medium shadow-md hover:bg-emerald-700 transition" data-filter="all">Semua</button>
-      <button class="filter-btn px-6 py-2 rounded-full bg-white text-slate-600 border border-slate-200 font-medium hover:bg-emerald-50 hover:text-emerald-600 hover:border-emerald-200 transition" data-filter="kegiatan">Kegiatan</button>
-      <button class="filter-btn px-6 py-2 rounded-full bg-white text-slate-600 border border-slate-200 font-medium hover:bg-emerald-50 hover:text-emerald-600 hover:border-emerald-200 transition" data-filter="alam">Alam & Wisata</button>
-      <button class="filter-btn px-6 py-2 rounded-full bg-white text-slate-600 border border-slate-200 font-medium hover:bg-emerald-50 hover:text-emerald-600 hover:border-emerald-200 transition" data-filter="pembangunan">Pembangunan</button>
+      <button class="filter-btn is-active px-6 py-2 rounded-full font-medium border transition-all duration-300" data-filter="all">Semua</button>
+      <button class="filter-btn px-6 py-2 rounded-full font-medium border transition-all duration-300" data-filter="kegiatan">Kegiatan</button>
+      <button class="filter-btn px-6 py-2 rounded-full font-medium border transition-all duration-300" data-filter="alam">Alam & Wisata</button>
+      <button class="filter-btn px-6 py-2 rounded-full font-medium border transition-all duration-300" data-filter="pembangunan">Pembangunan</button>
     </div>
 
     <!-- Gallery Grid - 3 columns -->
@@ -142,14 +142,14 @@
 
     <!-- Modal Footer -->
     <div class="modal-footer">
-      <button onclick="downloadImage()" class="flex-1 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition font-medium flex items-center justify-center gap-2">
-        <i class="fas fa-download"></i> Unduh
+      <button onclick="downloadImage()" class="modal-action modal-action-primary">
+        <i data-lucide="download" class="w-4 h-4"></i> Unduh
       </button>
-      <button onclick="prevImage()" class="px-4 py-2 bg-slate-200 text-slate-800 rounded-lg hover:bg-slate-300 transition font-medium">
-        <i class="fas fa-chevron-left"></i> Sebelumnya
+      <button onclick="prevImage()" class="modal-action modal-action-secondary">
+        <i data-lucide="chevron-left" class="w-4 h-4"></i> Sebelumnya
       </button>
-      <button onclick="nextImage()" class="px-4 py-2 bg-slate-200 text-slate-800 rounded-lg hover:bg-slate-300 transition font-medium">
-        Selanjutnya <i class="fas fa-chevron-right"></i>
+      <button onclick="nextImage()" class="modal-action modal-action-secondary">
+        Selanjutnya <i data-lucide="chevron-right" class="w-4 h-4"></i>
       </button>
     </div>
   </div>

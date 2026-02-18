@@ -1,6 +1,7 @@
 // Main app initialization
 // Import all modules
 import { initLayout } from './modules/layout.js';
+import { initHeader } from './pages/header.js';
 import { initLibraries } from './modules/libraries.js';
 import { initInfografis } from './modules/infografis.js';
 import { initPengaduan } from './modules/pengaduan.js';
@@ -12,6 +13,7 @@ import { initBeranda } from './modules/beranda.js';
 document.addEventListener('DOMContentLoaded', function () {
   // Core modules
   initLayout();
+  initHeader();
   initLibraries();
 
   // Page-specific modules (these will auto-detect if their elements exist)

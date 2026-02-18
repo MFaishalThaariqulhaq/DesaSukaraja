@@ -17,13 +17,6 @@
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-slate-50 text-slate-700" style="scroll-behavior: smooth;">
-  <!-- Preloader -->
-  <div id="preloader">
-    <div class="flex flex-col items-center gap-4">
-      <div class="loader-spinner"></div>
-      <p class="text-emerald-600 font-bold tracking-widest text-sm animate-pulse">MEMUAT...</p>
-    </div>
-  </div>
   @include('components.public.header')
   @include('components.public.pengaduan-modal')
   <div class="pt-24">

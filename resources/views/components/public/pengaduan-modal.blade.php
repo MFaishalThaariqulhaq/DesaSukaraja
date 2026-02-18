@@ -23,7 +23,7 @@
         </div>
         <div>
           <h2 id="modalTitle" class="text-xl font-bold text-white">Layanan Pengaduan</h2>
-          <p class="text-white/80 text-xs mt-1">Pilih layanan yang dibutuhkan</p>
+          <p class="text-emerald-100 text-xs mt-1">Pilih layanan yang dibutuhkan</p>
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@
 
     {{-- Footer Section --}}
     <div class="bg-slate-50 px-6 py-3 border-t border-slate-100 text-center flex-shrink-0">
-      <p class="text-xs text-slate-400">Tekan <kbd class="font-mono text-slate-600">ESC</kbd> untuk menutup</p>
+      <p class="text-xs text-slate-500">Tekan <kbd class="font-mono text-slate-600">ESC</kbd> untuk menutup</p>
     </div>
 
   </div>

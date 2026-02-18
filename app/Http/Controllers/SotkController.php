@@ -2,41 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sotk;
+use App\Services\SotkService;
 
 class SotkController extends Controller
 {
+  public function __construct(private readonly SotkService $sotkService)
+  {
+  }
+
   public function index()
   {
-    $sotks = Sotk::orderBy('jabatan')->get();
-    
-    // Add colors attribute dari database
-    $sotks = $sotks->map(function ($sotk) {
-      $sotk->colors = [
-        'badgeBg' => $sotk->badge_color,
-        'iconColor' => $sotk->icon_color,
-        'icon' => $sotk->icon_name,
-      ];
-      return $sotk;
-    });
+    $sotks = $this->sotkService->getAllWithColors();
 
     return view('public.sotk.sotk', compact('sotks'));
   }
 
   public function detail()
   {
-    $sotks = Sotk::orderBy('jabatan')->get();
-    
-    // Add colors attribute dari database
-    $sotks = $sotks->map(function ($sotk) {
-      $sotk->colors = [
-        'badgeBg' => $sotk->badge_color,
-        'iconColor' => $sotk->icon_color,
-        'icon' => $sotk->icon_name,
-      ];
-      return $sotk;
-    });
+    $sotks = $this->sotkService->getAllWithColors();
 
     return view('public.sotk.detail', compact('sotks'));
+  }
+
+  public function struktur()
+  {
+    return view('public.sotk.struktur', $this->sotkService->getStructureData());
   }
 }
