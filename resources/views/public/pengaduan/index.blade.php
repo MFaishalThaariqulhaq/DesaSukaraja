@@ -55,6 +55,18 @@
   .grecaptcha-badge {
     visibility: visible !important;
   }
+
+  /* Readability fallback for browsers/devices with gradient text/background issues */
+  #submitBtn,
+  #submitBtn span,
+  #submitBtn i {
+    color: #ffffff !important;
+  }
+
+  #submitBtn {
+    background: #059669 !important;
+    border: 1px solid #047857 !important;
+  }
 </style>
 @endpush
 
@@ -74,7 +86,7 @@
         Pusat Aspirasi Desa
       </div>
       <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-4 tracking-tight">
-        Layanan <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500">Pengaduan Online</span>
+        Layanan <span class="text-emerald-700">Pengaduan Online</span>
       </h1>
       <p class="text-slate-500 text-lg max-w-2xl mx-auto leading-relaxed">
         Suara Anda sangat berharga. Sampaikan kritik, saran, atau laporan kejadian untuk membangun desa yang lebih baik.
@@ -302,7 +314,7 @@
                 <button 
                   type="submit" 
                   id="submitBtn"
-                  class="w-full md:w-auto px-8 py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold rounded-xl shadow-lg shadow-emerald-200 transform transition-all duration-200 hover:-translate-y-1 hover:shadow-xl flex items-center justify-center gap-2 group">
+                  class="w-full md:w-auto px-8 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-lg shadow-emerald-200 transform transition-all duration-200 hover:-translate-y-1 hover:shadow-xl flex items-center justify-center gap-2 group">
                   <span>Kirim Laporan</span>
                   <i data-lucide="send" class="w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"></i>
                 </button>
@@ -354,14 +366,14 @@
         </div>
 
         <!-- Check Status CTA -->
-        <div class="mt-8 bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-8 text-center text-white relative overflow-hidden group">
-          <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-16 -mt-16 group-hover:bg-white/20 transition-colors duration-300"></div>
+        <div class="mt-8 bg-white rounded-2xl p-8 text-center border border-slate-200 shadow-lg relative overflow-hidden group">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-100/60 rounded-full blur-2xl -mr-16 -mt-16 group-hover:bg-emerald-200/70 transition-colors duration-300"></div>
 
-          <i data-lucide="search" class="w-10 h-10 mx-auto mb-4 text-emerald-400"></i>
-          <h3 class="text-xl font-bold mb-2">Sudah Melapor?</h3>
-          <p class="text-slate-300 text-sm mb-6">Pantau progres laporan Anda di sini.</p>
+          <i data-lucide="search" class="w-10 h-10 mx-auto mb-4 text-emerald-600"></i>
+          <h3 class="text-xl font-bold text-slate-900 mb-2">Sudah Melapor?</h3>
+          <p class="text-slate-600 text-sm mb-6">Pantau progres laporan Anda di sini.</p>
 
-          <a href="{{ route('pengaduan.status') }}" class="inline-flex items-center justify-center w-full px-4 py-3 bg-white/10 hover:bg-white text-white hover:text-slate-900 rounded-xl font-semibold backdrop-blur-sm border border-white/20 transition-all duration-300">
+          <a href="{{ route('pengaduan.status') }}" class="inline-flex items-center justify-center w-full px-4 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold border border-emerald-700 transition-all duration-300">
             Cek Status Laporan
           </a>
         </div>

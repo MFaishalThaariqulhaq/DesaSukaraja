@@ -58,7 +58,7 @@
       <a href="/#peta-wilayah" class="flex items-center gap-3 px-4 py-3 text-base font-medium text-slate-600 hover:bg-slate-50 hover:text-emerald-600 rounded-xl transition-colors">
         <i data-lucide="map" class="w-5 h-5"></i> Peta Desa
       </a>
-      <button id="openPengaduanModalBtnMobile" class="block w-full text-center mt-6 text-base font-bold bg-gradient-to-r from-emerald-600 to-emerald-500 text-white px-5 py-4 rounded-xl shadow-lg transition-transform active:scale-95">
+      <button id="openPengaduanModalBtnMobile" class="block w-full text-center mt-6 text-base font-bold bg-emerald-600 hover:bg-emerald-700 text-white border border-emerald-700 px-5 py-4 rounded-xl shadow-lg transition-all duration-300 active:scale-95">
         Buat Laporan
       </button>
     </div>

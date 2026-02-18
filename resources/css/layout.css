@@ -45,3 +45,13 @@ body {
   opacity: 0;
   transform: translateY(-6px);
 }
+
+/* Keep mobile report CTA readable regardless of utility generation/caching */
+#openPengaduanModalBtnMobile {
+  color: #ffffff;
+  background-color: #059669;
+}
+
+#openPengaduanModalBtnMobile:hover {
+  background-color: #047857;
+}
