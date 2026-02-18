@@ -16,7 +16,7 @@
         Ubah Status
       </a>
 
-      <form action="{{ route('admin.pengaduan.destroy', $pengaduan->id) }}" method="POST" onsubmit="return confirm('Yakin hapus?')">
+      <form id="deleteForm" action="{{ route('admin.pengaduan.destroy', $pengaduan->id) }}" method="POST" onsubmit="return confirm('Yakin hapus?')">
         @csrf
         @method('DELETE')
         <button type="button" onclick="openDeleteModal()" class="inline-flex items-center px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition transform hover:-translate-y-0.5 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-200">
@@ -74,6 +74,42 @@
       <p class="text-xs text-gray-500 mb-2">Catatan ini akan ditampilkan kepada masyarakat di halaman status tracking</p>
       <div class="mt-2 p-4 bg-blue-50 rounded text-slate-700 border border-blue-200 italic">
         {{ $pengaduan->admin_notes ?? '(Belum ada catatan)' }}
+      </div>
+    </div>
+
+    <div>
+      <strong>Riwayat Update Progres:</strong>
+      <div class="mt-2 space-y-3">
+        @forelse($pengaduan->progressUpdates as $progress)
+          <div class="p-4 border border-slate-200 rounded-lg bg-slate-50">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="text-xs font-semibold px-2 py-1 rounded bg-slate-200 text-slate-700">{{ ucfirst(str_replace('_', ' ', $progress->status ?? 'update')) }}</span>
+                <span class="text-xs text-slate-500">{{ $progress->created_at->format('d M Y H:i') }}</span>
+                <span class="text-xs px-2 py-1 rounded {{ $progress->is_public ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-200 text-slate-700' }}">
+                  {{ $progress->is_public ? 'Publik' : 'Internal' }}
+                </span>
+              </div>
+              <form method="POST" action="{{ route('admin.pengaduan.progress.destroy', ['pengaduan' => $pengaduan->id, 'progress' => $progress->id]) }}" onsubmit="return confirm('Hapus riwayat progres ini?')">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="inline-flex items-center rounded-md border border-red-200 bg-red-50 px-2.5 py-1 text-xs font-semibold text-red-700 hover:bg-red-100">
+                  Hapus
+                </button>
+              </form>
+            </div>
+            <p class="text-sm text-slate-700">{{ $progress->note ?: '-' }}</p>
+            @if($progress->photo_path)
+              <a href="{{ asset('storage/' . $progress->photo_path) }}" target="_blank" class="inline-flex items-center mt-2 text-sm text-emerald-700 hover:underline">
+                Lihat Foto Progres
+              </a>
+            @endif
+          </div>
+        @empty
+          <div class="p-4 border border-dashed border-slate-300 rounded-lg text-sm text-slate-500">
+            Belum ada update progres.
+          </div>
+        @endforelse
       </div>
     </div>
   </div>

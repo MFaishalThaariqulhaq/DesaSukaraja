@@ -16,6 +16,9 @@ class UpdatePengaduanRequest extends FormRequest
         return [
             'status' => ['required', 'in:submitted,pending,in_progress,resolved,rejected'],
             'admin_notes' => ['nullable', 'string'],
+            'progress_note' => ['nullable', 'string', 'max:2000'],
+            'progress_photo' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
+            'publish_progress' => ['nullable', 'boolean'],
         ];
     }
 }

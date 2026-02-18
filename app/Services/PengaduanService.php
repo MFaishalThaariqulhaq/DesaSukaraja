@@ -6,6 +6,7 @@ use App\Mail\NewPengaduanAdmin;
 use App\Models\Pengaduan;
 use App\Models\PengaduanLog;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class PengaduanService
@@ -28,7 +29,7 @@ class PengaduanService
         return ($result['success'] ?? false) && (($result['score'] ?? 0) >= 0.5);
     }
 
-    public function createPengaduan(array $validatedData, ?\Illuminate\Http\UploadedFile $lampiran = null): Pengaduan
+    public function createPengaduan(array $validatedData, ?\Illuminate\Http\UploadedFile $lampiran = null): array
     {
         $data = collect($validatedData)
             ->only(['nama', 'email', 'telepon', 'kategori', 'judul', 'isi'])
@@ -50,13 +51,19 @@ class PengaduanService
             'meta' => json_encode(['ip' => request()->ip()]),
         ]);
 
-        $this->sendNotifications($pengaduan, $data);
+        $notifications = $this->sendNotifications($pengaduan, $data);
 
-        return $pengaduan;
+        return [
+            'pengaduan' => $pengaduan,
+            'notifications' => $notifications,
+        ];
     }
 
-    public function getPublicListData(?string $kategori, ?string $status): array
+    public function getPublicListData(?string $kategori, ?string $status, int $perPage = 10): array
     {
+        $allowedPerPage = [5, 10, 15, 20, 50];
+        $perPage = in_array($perPage, $allowedPerPage, true) ? $perPage : 10;
+
         $query = Pengaduan::query();
 
         if ($kategori && $kategori !== 'all') {
@@ -67,7 +74,21 @@ class PengaduanService
             $query->where('status', $status);
         }
 
-        $pengaduans = $query->latest()->paginate(10);
+        $pengaduans = $query
+            ->withCount([
+                'progressUpdates as public_progress_count' => function ($subQuery) {
+                    $subQuery->where('is_public', true);
+                }
+            ])
+            ->withMax([
+                'progressUpdates as last_public_progress_at' => function ($subQuery) {
+                    $subQuery->where('is_public', true);
+                }
+            ], 'created_at')
+            ->latest()
+            ->paginate($perPage)
+            ->withQueryString()
+            ->fragment('daftar-pengaduan');
 
         $allKategori = Pengaduan::select('kategori')
             ->whereNotNull('kategori')
@@ -92,10 +113,16 @@ class PengaduanService
         return compact('pengaduans', 'allKategori', 'stats', 'kategoriStats');
     }
 
-    private function sendNotifications(Pengaduan $pengaduan, array $data): void
+    private function sendNotifications(Pengaduan $pengaduan, array $data): array
     {
-        try {
-            if (!empty($data['email'])) {
+        $result = [
+            'pelapor_sent' => false,
+            'pelapor_skipped' => empty($data['email']),
+            'admin_sent' => false,
+        ];
+
+        if (!empty($data['email'])) {
+            try {
                 Mail::send(
                     'emails.pengaduan_received',
                     [
@@ -108,12 +135,29 @@ class PengaduanService
                             ->subject('Pengaduan Anda Telah Diterima - ' . config('app.name'));
                     }
                 );
-            }
 
+                $result['pelapor_sent'] = true;
+            } catch (\Throwable $e) {
+                Log::warning('Gagal mengirim email konfirmasi pengaduan ke pelapor.', [
+                    'pengaduan_id' => $pengaduan->id,
+                    'email' => $data['email'],
+                    'error' => $e->getMessage(),
+                ]);
+            }
+        }
+
+        try {
             Mail::to(config('mail.admin_address', env('MAIL_ADMIN')))
                 ->send(new NewPengaduanAdmin($pengaduan));
+            $result['admin_sent'] = true;
         } catch (\Throwable $e) {
-            // User flow should not fail due to mail transport issue.
+            Log::warning('Gagal mengirim notifikasi pengaduan ke admin.', [
+                'pengaduan_id' => $pengaduan->id,
+                'admin_email' => config('mail.admin_address', env('MAIL_ADMIN')),
+                'error' => $e->getMessage(),
+            ]);
         }
+
+        return $result;
     }
 }

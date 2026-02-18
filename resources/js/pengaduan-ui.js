@@ -87,8 +87,46 @@ const initStatusPulse = () => {
   });
 };
 
+const initToasts = () => {
+  const toasts = Array.from(document.querySelectorAll('.js-toast'));
+  if (!toasts.length) return;
+
+  if (reduceMotion) {
+    window.setTimeout(() => {
+      toasts.forEach((toast) => {
+        toast.remove();
+      });
+    }, 5200);
+    return;
+  }
+
+  animate(toasts, {
+    opacity: [0, 1],
+    x: [10, 0],
+    duration: 280,
+    delay: stagger(70),
+    ease: 'out(2)',
+  });
+
+  window.setTimeout(() => {
+    animate(toasts, {
+      opacity: [1, 0],
+      x: [0, 10],
+      duration: 260,
+      delay: stagger(40),
+      ease: 'in(2)',
+      onComplete: () => {
+        toasts.forEach((toast) => {
+          toast.remove();
+        });
+      },
+    });
+  }, 5200);
+};
+
 runOnReady(() => {
   initPageReveal();
   initTimelineReveal();
   initStatusPulse();
+  initToasts();
 });

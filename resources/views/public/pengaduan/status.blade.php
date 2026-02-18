@@ -1,16 +1,12 @@
 @extends('layouts.public.layout')
 
-@section('title', 'Cek Status Pengaduan')
+@section('title', 'Cek Progress Laporan Anda')
 
 @section('content')
 <div class="pg-shell min-h-screen py-12">
     <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto space-y-8">
             <div class="text-center" data-pg-reveal>
-                <p class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold tracking-wider uppercase mb-4">
-                    <i data-lucide="shield-check" class="ui-icon-sm"></i>
-                    Status Pengaduan
-                </p>
                 <h1 class="ui-heading text-4xl md:text-5xl font-bold text-slate-900 mb-2">Cek Progress Laporan Anda</h1>
                 <p class="text-slate-600">Gunakan nomor tracking untuk melihat update penanganan secara realtime.</p>
             </div>
@@ -53,13 +49,9 @@
                 @php
                     $statusText = ucfirst(str_replace('_', ' ', $pengaduan->status));
                     $isInProgress = $pengaduan->status === 'in_progress';
-                    $endDate = ($pengaduan->status == 'resolved') ? $pengaduan->updated_at : now();
-                    $days = $pengaduan->created_at->diffInDays($endDate);
-                    $hours = $pengaduan->created_at->diffInHours($endDate) % 24;
-                    $statusDurationText = ($pengaduan->status == 'resolved') ? '' : ' (ongoing)';
                 @endphp
                 <div class="pg-panel overflow-hidden" data-pg-reveal>
-                    <div class="bg-gradient-to-r from-emerald-100 via-teal-50 to-blue-50 p-6 border-b border-slate-200">
+                    <div class="bg-slate-50 p-6 border-b border-slate-200">
                         <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
                             <div>
                                 <p class="text-slate-700 text-xs font-semibold uppercase tracking-wider mb-1">Nomor Tracking</p>
@@ -72,7 +64,7 @@
                     </div>
 
                     <div class="p-6 md:p-8">
-                        <div class="grid md:grid-cols-2 gap-4 mb-8 pb-8 border-b border-slate-200">
+                        <div class="grid md:grid-cols-3 gap-4 mb-8 pb-8 border-b border-slate-200">
                             <div class="pg-card p-4">
                                 <p class="text-slate-500 text-xs uppercase tracking-wider font-semibold mb-1">Nama</p>
                                 <p class="font-semibold text-slate-900">{{ $pengaduan->nama ?? 'Anonim' }}</p>
@@ -84,16 +76,6 @@
                             <div class="pg-card p-4">
                                 <p class="text-slate-500 text-xs uppercase tracking-wider font-semibold mb-1">Tanggal Pengaduan</p>
                                 <p class="font-semibold text-slate-900">{{ $pengaduan->created_at->format('d M Y H:i') }}</p>
-                            </div>
-                            <div class="pg-card p-4">
-                                <p class="text-slate-500 text-xs uppercase tracking-wider font-semibold mb-1">Durasi Penanganan</p>
-                                <p class="font-semibold text-slate-900">
-                                    @if($days > 0)
-                                        {{ $days }} hari, {{ $hours }} jam{{ $statusDurationText }}
-                                    @else
-                                        {{ $hours }} jam{{ $statusDurationText }}
-                                    @endif
-                                </p>
                             </div>
                         </div>
 
@@ -165,6 +147,44 @@
                                 @endforeach
                             </div>
                         </div>
+
+                        @if($pengaduan->progressUpdates->isNotEmpty())
+                            <div class="mb-8 pb-8 border-b border-slate-200" data-pg-reveal>
+                                <p class="inline-flex items-center gap-2 text-slate-700 text-sm font-semibold mb-5 uppercase tracking-wider">
+                                    <i data-lucide="camera" class="ui-icon-sm text-slate-600"></i>
+                                    Update Progres Lapangan
+                                </p>
+
+                                <div class="space-y-4">
+                                    @foreach($pengaduan->progressUpdates as $progress)
+                                        @php
+                                            $progressStatusText = ucfirst(str_replace('_', ' ', (string) $progress->status));
+                                        @endphp
+                                        <div class="pg-card p-4">
+                                            <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-3">
+                                                <div>
+                                                    <div class="flex items-center gap-2 mb-1">
+                                                        <span class="pg-status-badge pg-status-{{ $progress->status }}">{{ $progressStatusText }}</span>
+                                                        <span class="text-xs text-slate-500">{{ $progress->created_at->format('d M Y, H:i') }}</span>
+                                                    </div>
+                                                    <p class="text-sm text-slate-700">{{ $progress->note ?: 'Tidak ada catatan tambahan.' }}</p>
+                                                </div>
+
+                                                @if($progress->photo_path)
+                                                    <a href="{{ asset('storage/' . $progress->photo_path) }}" target="_blank" class="block w-full md:w-40 flex-shrink-0">
+                                                        <img
+                                                            src="{{ asset('storage/' . $progress->photo_path) }}"
+                                                            alt="Foto progres pengaduan"
+                                                            class="w-full h-28 object-cover rounded-lg border border-slate-200"
+                                                        >
+                                                    </a>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
 
                         <div class="pg-card bg-blue-50 border-blue-200 p-5" data-pg-reveal>
                             <p class="inline-flex items-center gap-2 text-blue-900 font-semibold mb-2">

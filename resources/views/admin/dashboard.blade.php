@@ -166,6 +166,16 @@
 
       <!-- Content -->
       <main class="flex-1 overflow-x-hidden overflow-y-auto bg-slate-100 p-6">
+        @if(session('success'))
+          <div class="mb-4 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-emerald-800">
+            {{ session('success') }}
+          </div>
+        @endif
+        @if(session('error'))
+          <div class="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-red-800">
+            {{ session('error') }}
+          </div>
+        @endif
         @yield('content')
       </main>
 
