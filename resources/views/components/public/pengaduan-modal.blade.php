@@ -5,25 +5,25 @@
   <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md transform transition-all relative overflow-hidden flex flex-col" id="pengaduanContent">
 
     {{-- Header Section --}}
-    <div class="relative bg-gradient-to-r from-emerald-600 to-emerald-500 px-6 py-8 overflow-hidden flex-shrink-0">
+    <div class="relative bg-gradient-to-r from-emerald-100 to-teal-50 px-6 py-8 overflow-hidden flex-shrink-0 border-b border-emerald-200">
       
       {{-- Decorative Background Elements --}}
       <div class="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 rounded-full bg-white/10 blur-lg"></div>
       <div class="absolute bottom-0 left-0 -ml-8 -mb-8 w-20 h-20 rounded-full bg-black/5 blur-md"></div>
 
       {{-- Close Button --}}
-      <button id="closeModalBtn" class="absolute top-4 right-4 p-1.5 hover:bg-white/20 text-white rounded-lg transition-colors z-10" aria-label="Tutup modal">
+      <button id="closeModalBtn" class="absolute top-4 right-4 p-1.5 hover:bg-emerald-200/60 text-emerald-800 rounded-lg transition-colors z-10" aria-label="Tutup modal">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
 
       {{-- Header Title --}}
       <div class="flex items-center gap-3 relative z-10">
-        <div class="p-2 bg-white/20 rounded-lg">
+        <div class="p-2 bg-emerald-600 rounded-lg">
           <i data-lucide="message-square" class="w-5 h-5 text-white"></i>
         </div>
         <div>
-          <h2 id="modalTitle" class="text-xl font-bold text-white">Layanan Pengaduan</h2>
-          <p class="text-emerald-100 text-xs mt-1">Pilih layanan yang dibutuhkan</p>
+          <h2 id="modalTitle" class="text-xl font-bold text-slate-900">Layanan Pengaduan</h2>
+          <p class="text-slate-700 text-sm mt-1">Pilih layanan yang dibutuhkan</p>
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@
 
     {{-- Footer Section --}}
     <div class="bg-slate-50 px-6 py-3 border-t border-slate-100 text-center flex-shrink-0">
-      <p class="text-xs text-slate-500">Tekan <kbd class="font-mono text-slate-600">ESC</kbd> untuk menutup</p>
+      <p class="text-xs text-slate-600">Tekan <kbd class="font-mono text-slate-700 bg-white border border-slate-200 px-1.5 py-0.5 rounded">ESC</kbd> untuk menutup</p>
     </div>
 
   </div>
