@@ -14,9 +14,9 @@
 <header class="berita-detail-header text-white py-10 relative overflow-hidden border-b border-slate-800 -mt-12">
   <div class="container mx-auto px-6 relative z-10" data-aos="fade-up">
     <a href="{{ route('berita.index') }}"
-      class="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-300 transition mb-3">
+      class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/10 text-white border border-white/30 hover:bg-white/20 hover:border-white/50 transition-all duration-300 mb-4 backdrop-blur-sm">
       <i data-lucide="arrow-left" class="w-4 h-4"></i>
-      <span class="font-medium text-sm">Kembali ke Arsip Berita</span>
+      <span class="font-semibold text-sm tracking-wide">Kembali ke Arsip Berita</span>
     </a>
     <h1 class="text-3xl md:text-4xl font-bold mb-3">{{ $berita->judul }}</h1>
     <div class="flex items-center gap-4 text-slate-300 flex-wrap text-sm">
