@@ -59,8 +59,11 @@ class PengaduanService
         ];
     }
 
-    public function getPublicListData(?string $kategori, ?string $status): array
+    public function getPublicListData(?string $kategori, ?string $status, int $perPage = 10): array
     {
+        $allowedPerPage = [5, 10, 15, 20, 50];
+        $perPage = in_array($perPage, $allowedPerPage, true) ? $perPage : 10;
+
         $query = Pengaduan::query();
 
         if ($kategori && $kategori !== 'all') {
@@ -71,7 +74,21 @@ class PengaduanService
             $query->where('status', $status);
         }
 
-        $pengaduans = $query->latest()->paginate(10);
+        $pengaduans = $query
+            ->withCount([
+                'progressUpdates as public_progress_count' => function ($subQuery) {
+                    $subQuery->where('is_public', true);
+                }
+            ])
+            ->withMax([
+                'progressUpdates as last_public_progress_at' => function ($subQuery) {
+                    $subQuery->where('is_public', true);
+                }
+            ], 'created_at')
+            ->latest()
+            ->paginate($perPage)
+            ->withQueryString()
+            ->fragment('daftar-pengaduan');
 
         $allKategori = Pengaduan::select('kategori')
             ->whereNotNull('kategori')

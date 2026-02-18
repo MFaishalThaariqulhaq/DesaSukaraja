@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Pengaduan\UpdatePengaduanRequest;
 use App\Models\Pengaduan;
+use App\Models\PengaduanProgress;
 use App\Services\Admin\PengaduanService;
+use Illuminate\Support\Facades\Storage;
 
 class PengaduanController extends Controller
 {
@@ -42,7 +44,9 @@ class PengaduanController extends Controller
   }
   public function show($id)
   {
-    $pengaduan = Pengaduan::findOrFail($id);
+    $pengaduan = Pengaduan::with(['progressUpdates' => function ($query) {
+      $query->latest();
+    }])->findOrFail($id);
     return view('admin.pengaduan.show', compact('pengaduan'));
   }
   public function edit($id)
@@ -53,7 +57,11 @@ class PengaduanController extends Controller
   public function update(UpdatePengaduanRequest $request, $id)
   {
     $pengaduan = Pengaduan::findOrFail($id);
-    $this->pengaduanService->updateStatus($pengaduan, $request->validated());
+    $this->pengaduanService->updateStatus(
+      $pengaduan,
+      $request->validated(),
+      $request->file('progress_photo')
+    );
 
     return redirect()->route('admin.pengaduan.show', $pengaduan->id)->with('success', 'Pengaduan diperbarui');
   }
@@ -62,5 +70,21 @@ class PengaduanController extends Controller
     $pengaduan = Pengaduan::findOrFail($id);
     $pengaduan->delete();
     return redirect()->route('admin.pengaduan.index')->with('success', 'Pengaduan berhasil dihapus');
+  }
+
+  public function destroyProgress($pengaduanId, $progressId)
+  {
+    $pengaduan = Pengaduan::findOrFail($pengaduanId);
+    $progress = PengaduanProgress::where('pengaduan_id', $pengaduan->id)->findOrFail($progressId);
+
+    if ($progress->photo_path) {
+      Storage::disk('public')->delete($progress->photo_path);
+    }
+
+    $progress->delete();
+
+    return redirect()
+      ->route('admin.pengaduan.show', $pengaduan->id)
+      ->with('success', 'Riwayat update progres berhasil dihapus.');
   }
 }

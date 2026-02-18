@@ -22,7 +22,7 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-5" data-pg-reveal>
-            <div class="pg-card p-6 bg-gradient-to-br from-emerald-50 to-emerald-100/60">
+            <div class="pg-card p-6 bg-emerald-50">
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-slate-600 text-sm font-semibold mb-1">Total Pengaduan</p>
@@ -31,7 +31,7 @@
                     <i data-lucide="clipboard-list" class="w-10 h-10 text-emerald-400"></i>
                 </div>
             </div>
-            <div class="pg-card p-6 bg-gradient-to-br from-orange-50 to-amber-100/60">
+            <div class="pg-card p-6 bg-orange-50">
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-slate-600 text-sm font-semibold mb-1">Sedang Ditangani</p>
@@ -40,7 +40,7 @@
                     <i data-lucide="settings" class="w-10 h-10 text-orange-400"></i>
                 </div>
             </div>
-            <div class="pg-card p-6 bg-gradient-to-br from-green-50 to-green-100/70">
+            <div class="pg-card p-6 bg-green-50">
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-slate-600 text-sm font-semibold mb-1">Sudah Ditangani</p>
@@ -81,10 +81,10 @@
             <div class="pg-panel p-6">
                 <h3 class="ui-heading text-2xl font-bold text-slate-900 mb-4">Per Kategori</h3>
                 <div class="space-y-4">
-                    @forelse($kategoriStats as $kategori => $count)
+                    @forelse($kategoriStats as $kategoriName => $count)
                         <div>
                             <div class="flex justify-between items-center mb-2">
-                                <span class="text-sm font-semibold text-slate-700">{{ $kategori }}</span>
+                                <span class="text-sm font-semibold text-slate-700">{{ $kategoriName }}</span>
                                 <span class="text-xs font-bold text-slate-900 bg-slate-100 px-2 py-1 rounded">{{ $count }}</span>
                             </div>
                             <div class="w-full bg-slate-200 rounded-full h-2.5">
@@ -119,10 +119,10 @@
             </div>
         </div>
 
-        <div class="pg-panel p-6" data-pg-reveal>
+        <div id="daftar-pengaduan" class="pg-panel p-6" data-pg-reveal>
             <div class="mb-6 pg-sticky-filter bg-white">
                 <h3 class="ui-heading text-2xl font-bold text-slate-900 mb-4">Daftar Pengaduan Terbaru</h3>
-                <form method="GET" action="{{ route('pengaduan.list') }}" class="grid grid-cols-1 md:grid-cols-3 gap-3" aria-label="Filter daftar pengaduan">
+                <form method="GET" action="{{ route('pengaduan.list') }}#daftar-pengaduan" class="grid grid-cols-1 md:grid-cols-4 gap-3" aria-label="Filter daftar pengaduan">
                     <select name="kategori" class="pg-input w-full px-4 py-2.5 border border-slate-300 rounded-xl text-slate-700" aria-label="Filter kategori">
                         <option value="">Semua Kategori</option>
                         @foreach($allKategori as $kat)
@@ -136,6 +136,13 @@
                         <option value="in_progress" {{ $status == 'in_progress' ? 'selected' : '' }}>Sedang Diproses</option>
                         <option value="resolved" {{ $status == 'resolved' ? 'selected' : '' }}>Selesai</option>
                         <option value="rejected" {{ $status == 'rejected' ? 'selected' : '' }}>Ditolak</option>
+                    </select>
+                    <select name="per_page" class="pg-input w-full px-4 py-2.5 border border-slate-300 rounded-xl text-slate-700" aria-label="Jumlah data per halaman">
+                        <option value="5" {{ (int)($perPage ?? 10) === 5 ? 'selected' : '' }}>5 per halaman</option>
+                        <option value="10" {{ (int)($perPage ?? 10) === 10 ? 'selected' : '' }}>10 per halaman</option>
+                        <option value="15" {{ (int)($perPage ?? 10) === 15 ? 'selected' : '' }}>15 per halaman</option>
+                        <option value="20" {{ (int)($perPage ?? 10) === 20 ? 'selected' : '' }}>20 per halaman</option>
+                        <option value="50" {{ (int)($perPage ?? 10) === 50 ? 'selected' : '' }}>50 per halaman</option>
                     </select>
                     <button type="submit" class="pg-button px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold" aria-label="Terapkan filter">
                         Filter
@@ -151,6 +158,8 @@
                             <th class="px-4 py-3 text-left font-semibold text-slate-700">Tanggal</th>
                             <th class="px-4 py-3 text-left font-semibold text-slate-700">Kategori</th>
                             <th class="px-4 py-3 text-left font-semibold text-slate-700">Judul</th>
+                            <th class="px-4 py-3 text-left font-semibold text-slate-700">Update Terakhir</th>
+                            <th class="px-4 py-3 text-center font-semibold text-slate-700">Foto Progres</th>
                             <th class="px-4 py-3 text-center font-semibold text-slate-700">Status</th>
                         </tr>
                     </thead>
@@ -172,22 +181,65 @@
                                 <td class="px-4 py-3">
                                     <span class="text-emerald-700 hover:text-emerald-800 font-semibold">{{ $p->judul ? Str::limit($p->judul, 44) : Str::limit($p->isi, 44) }}</span>
                                 </td>
+                                <td class="px-4 py-3 text-slate-600 whitespace-nowrap">
+                                    @if($p->last_public_progress_at)
+                                        {{ \Illuminate\Support\Carbon::parse($p->last_public_progress_at)->format('d M Y H:i') }}
+                                    @else
+                                        -
+                                    @endif
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    <span class="inline-flex items-center justify-center px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">
+                                        {{ (int) ($p->public_progress_count ?? 0) }}
+                                    </span>
+                                </td>
                                 <td class="px-4 py-3 text-center">
                                     <span class="pg-status-badge pg-status-{{ $p->status }}">{{ ucfirst(str_replace('_', ' ', $p->status)) }}</span>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="px-4 py-8 text-center text-slate-500">Tidak ada pengaduan ditemukan dengan filter yang Anda pilih.</td>
+                                <td colspan="7" class="px-4 py-8 text-center text-slate-500">Tidak ada pengaduan ditemukan dengan filter yang Anda pilih.</td>
                             </tr>
                         @endforelse
                     </tbody>
                 </table>
             </div>
 
-            @if($pengaduans->hasPages())
-                <div class="mt-6 flex justify-center">{{ $pengaduans->appends(request()->query())->links() }}</div>
-            @endif
+            <div class="mt-6 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                <p class="text-sm text-slate-500">
+                    Menampilkan {{ $pengaduans->firstItem() ?? 0 }}-{{ $pengaduans->lastItem() ?? 0 }} dari {{ $pengaduans->total() }} pengaduan
+                </p>
+                @if($pengaduans->hasPages())
+                    <nav class="flex items-center justify-center md:justify-end gap-1.5" aria-label="Navigasi halaman pengaduan">
+                        @if($pengaduans->onFirstPage())
+                            <span class="px-3 py-1.5 rounded-lg border border-slate-200 bg-slate-100 text-slate-400 text-sm">Prev</span>
+                        @else
+                            <a href="{{ $pengaduans->previousPageUrl() }}" class="px-3 py-1.5 rounded-lg border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 text-sm">Prev</a>
+                        @endif
+
+                        @for($page = 1; $page <= $pengaduans->lastPage(); $page++)
+                            @if($page == 1 || $page == $pengaduans->lastPage() || abs($page - $pengaduans->currentPage()) <= 1)
+                                @if($page == $pengaduans->currentPage())
+                                    <span class="min-w-[2rem] px-2.5 py-1.5 rounded-lg bg-emerald-600 text-white text-sm font-semibold text-center">{{ $page }}</span>
+                                @else
+                                    <a href="{{ $pengaduans->url($page) }}" class="min-w-[2rem] px-2.5 py-1.5 rounded-lg border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 text-sm text-center">{{ $page }}</a>
+                                @endif
+                            @elseif($page == 2 && $pengaduans->currentPage() > 3)
+                                <span class="px-1 text-slate-400">...</span>
+                            @elseif($page == $pengaduans->lastPage() - 1 && $pengaduans->currentPage() < $pengaduans->lastPage() - 2)
+                                <span class="px-1 text-slate-400">...</span>
+                            @endif
+                        @endfor
+
+                        @if($pengaduans->hasMorePages())
+                            <a href="{{ $pengaduans->nextPageUrl() }}" class="px-3 py-1.5 rounded-lg border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 text-sm">Next</a>
+                        @else
+                            <span class="px-3 py-1.5 rounded-lg border border-slate-200 bg-slate-100 text-slate-400 text-sm">Next</span>
+                        @endif
+                    </nav>
+                @endif
+            </div>
         </div>
 
         <div class="pg-card bg-blue-50 border-blue-200 rounded-2xl p-6" data-pg-reveal>

@@ -6,7 +6,7 @@
 @endpush
 
 @section('content')
-<section id="pengaduan" class="pg-shell relative py-24 min-h-screen overflow-hidden">
+<section id="pengaduan" class="pg-shell relative py-14 md:py-16 overflow-hidden">
   @if(session('success') || session('warning') || $errors->has('captcha'))
     <div class="fixed top-24 right-4 left-4 md:left-auto md:w-[28rem] z-[70] space-y-3">
       @if(session('success'))
@@ -55,13 +55,9 @@
 
   <div class="container mx-auto px-4 md:px-6 relative z-10">
     <!-- Header Section -->
-    <div class="text-center mb-16" data-pg-reveal>
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-slate-200 shadow-sm text-emerald-600 text-xs font-bold tracking-widest uppercase mb-4">
-        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-        Pusat Aspirasi Desa
-      </div>
+    <div class="text-center mb-12 md:mb-14" data-pg-reveal>
       <h1 class="ui-heading text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-4 tracking-tight">
-        Layanan <span class="text-emerald-700">Pengaduan Online</span>
+        Layanan Pengaduan Online
       </h1>
       <p class="text-slate-500 text-lg max-w-2xl mx-auto leading-relaxed">
         Suara Anda sangat berharga. Sampaikan kritik, saran, atau laporan kejadian untuk membangun desa yang lebih baik.
@@ -74,9 +70,6 @@
       <!-- Left Column: Form (8 Columns) -->
       <div class="lg:col-span-8" data-pg-reveal>
         <div class="pg-panel rounded-3xl overflow-hidden relative">
-
-          <!-- Decorative Top Bar -->
-          <div class="h-1.5 w-full bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-500"></div>
 
           <div class="p-8 md:p-10">
             <div class="flex items-center gap-4 mb-8">

@@ -58,6 +58,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('sotk', AdminSotkController::class)->names('sotk');
         Route::get('sotk/bagan', [AdminSotkController::class, 'baganForm'])->name('sotk.bagan');
         Route::post('sotk/bagan', [AdminSotkController::class, 'baganUpload'])->name('sotk.bagan.upload');
+        Route::delete('pengaduan/{pengaduan}/progress/{progress}', [AdminPengaduanController::class, 'destroyProgress'])->name('pengaduan.progress.destroy');
         Route::resource('pengaduan', AdminPengaduanController::class)->names('pengaduan');
         Route::resource('profil', App\Http\Controllers\Admin\ProfilDesaController::class)->names('profil');
         Route::post('profil/tambah-sejarah', [App\Http\Controllers\Admin\ProfilDesaController::class, 'tambahSejarah'])->name('profil.tambahSejarah');

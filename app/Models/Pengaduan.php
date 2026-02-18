@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Pengaduan extends Model
 {
@@ -12,4 +13,9 @@ class Pengaduan extends Model
     'lat' => 'decimal:7',
     'lng' => 'decimal:7',
   ];
+
+  public function progressUpdates(): HasMany
+  {
+    return $this->hasMany(PengaduanProgress::class);
+  }
 }

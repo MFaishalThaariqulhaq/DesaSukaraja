@@ -16,9 +16,7 @@
 }
 
 .pg-shell {
-  background: radial-gradient(circle at 90% -20%, #d1fae5 0%, transparent 46%),
-    radial-gradient(circle at -10% 120%, #dbeafe 0%, transparent 38%),
-    var(--pg-bg);
+  background: var(--pg-bg);
 }
 
 .pg-panel {

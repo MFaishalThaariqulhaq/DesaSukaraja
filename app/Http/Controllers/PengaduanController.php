@@ -25,7 +25,13 @@ class PengaduanController extends Controller
     $notFound = false;
 
     if ($tracking) {
-      $pengaduan = Pengaduan::where('tracking_number', $tracking)->first();
+      $pengaduan = Pengaduan::with([
+        'progressUpdates' => function ($query) {
+          $query
+            ->where('is_public', true)
+            ->latest();
+        }
+      ])->where('tracking_number', $tracking)->first();
       if (!$pengaduan) {
         $notFound = true;
       }
@@ -34,14 +40,15 @@ class PengaduanController extends Controller
     return view('public.pengaduan.status', compact('pengaduan', 'notFound', 'tracking'));
   }
 
-  public function listPengaduan()
+  public function listPengaduan(Request $request)
   {
-    $kategori = request('kategori');
-    $status = request('status');
+    $kategori = $request->query('kategori');
+    $status = $request->query('status');
+    $perPage = (int) $request->query('per_page', 10);
 
-    $data = $this->pengaduanService->getPublicListData($kategori, $status);
+    $data = $this->pengaduanService->getPublicListData($kategori, $status, $perPage);
 
-    return view('public.pengaduan.list', array_merge($data, compact('kategori', 'status')));
+    return view('public.pengaduan.list', array_merge($data, compact('kategori', 'status', 'perPage')));
   }
 
   public function store(StorePengaduanRequest $request)
