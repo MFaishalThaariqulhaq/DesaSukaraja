@@ -13,9 +13,9 @@
     background-attachment: fixed;">
     <div class="container mx-auto px-6 relative z-10" data-aos="fade-up">
       <a href="{{ route('sotk.index') }}"
-        class="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-300 transition mb-3">
+        class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/10 text-white border border-white/30 hover:bg-white/20 hover:border-white/50 transition-all duration-300 mb-4 backdrop-blur-sm">
         <i data-lucide="arrow-left" class="w-4 h-4"></i>
-        <span class="font-medium text-sm">Kembali ke SOTK</span>
+        <span class="font-semibold text-sm tracking-wide">Kembali ke SOTK</span>
       </a>
       <h1 class="text-3xl md:text-4xl font-bold mb-3">Struktur Organisasi dan Tata Kerja</h1>
       <div class="flex items-center gap-4 text-slate-300 flex-wrap text-sm">
@@ -159,7 +159,7 @@
                     @endif
                   </div>
                   <h4 class="text-white font-bold text-lg mb-2">Tupoksi</h4>
-                  <div class="text-sm leading-relaxed text-white/90">
+                  <div class="text-sm leading-relaxed text-white/90 text-justify w-full">
                     @if($sotk->tupoksi)
                       {!! $sotk->tupoksi !!}
                     @else

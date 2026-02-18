@@ -69,7 +69,7 @@
                   @endif
                 </div>
                 <h4 class="text-white font-bold text-lg mb-2">Tupoksi</h4>
-                <div class="text-sm leading-relaxed text-white/90">
+                <div class="text-sm leading-relaxed text-white/90 text-justify w-full">
                   @if($sotk->tupoksi)
                     {!! $sotk->tupoksi !!}
                   @else
