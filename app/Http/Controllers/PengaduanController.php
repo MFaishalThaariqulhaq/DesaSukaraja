@@ -52,8 +52,25 @@ class PengaduanController extends Controller
       return back()->withErrors(['captcha' => 'Verifikasi reCAPTCHA gagal. Silakan coba lagi.']);
     }
 
-    $pengaduan = $this->pengaduanService->createPengaduan($validated, $request->file('lampiran'));
+    $result = $this->pengaduanService->createPengaduan($validated, $request->file('lampiran'));
+    $pengaduan = $result['pengaduan'];
+    $notifications = $result['notifications'];
 
-    return back()->with('success', 'Pengaduan berhasil dikirim. Nomor tracking: ' . $pengaduan->tracking_number);
+    $successMessage = 'Pengaduan berhasil dikirim. Nomor tracking: ' . $pengaduan->tracking_number;
+    $warnings = [];
+
+    if (config('mail.default') === 'log' || config('mail.default') === 'array') {
+      $warnings[] = 'Email masih dalam mode ' . config('mail.default') . ' sehingga belum benar-benar dikirim.';
+    } elseif (!$notifications['pelapor_sent'] && !$notifications['pelapor_skipped']) {
+      $warnings[] = 'Konfirmasi email ke pelapor belum terkirim.';
+    }
+
+    $redirect = back()->with('success', $successMessage);
+
+    if (!empty($warnings)) {
+      $redirect->with('warning', implode(' ', $warnings));
+    }
+
+    return $redirect;
   }
 }

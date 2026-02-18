@@ -7,6 +7,46 @@
 
 @section('content')
 <section id="pengaduan" class="pg-shell relative py-24 min-h-screen overflow-hidden">
+  @if(session('success') || session('warning') || $errors->has('captcha'))
+    <div class="fixed top-24 right-4 left-4 md:left-auto md:w-[28rem] z-[70] space-y-3">
+      @if(session('success'))
+        <div class="pg-toast pg-toast-success js-toast" role="status" aria-live="polite">
+          <div class="flex items-start gap-3">
+            <i data-lucide="check-circle-2" class="w-5 h-5 mt-0.5 flex-shrink-0"></i>
+            <div>
+              <p class="font-semibold">Pengaduan Berhasil Dikirim</p>
+              <p class="text-sm mt-1">{{ session('success') }}</p>
+            </div>
+          </div>
+        </div>
+      @endif
+
+      @if(session('warning'))
+        <div class="pg-toast pg-toast-warning js-toast" role="status" aria-live="polite">
+          <div class="flex items-start gap-3">
+            <i data-lucide="alert-triangle" class="w-5 h-5 mt-0.5 flex-shrink-0"></i>
+            <div>
+              <p class="font-semibold">Perhatian</p>
+              <p class="text-sm mt-1">{{ session('warning') }}</p>
+            </div>
+          </div>
+        </div>
+      @endif
+
+      @if($errors->has('captcha'))
+        <div class="pg-toast pg-toast-danger js-toast" role="alert" aria-live="assertive">
+          <div class="flex items-start gap-3">
+            <i data-lucide="alert-circle" class="w-5 h-5 mt-0.5 flex-shrink-0"></i>
+            <div>
+              <p class="font-semibold">Verifikasi Gagal</p>
+              <p class="text-sm mt-1">{{ $errors->first('captcha') }}</p>
+            </div>
+          </div>
+        </div>
+      @endif
+    </div>
+  @endif
+
   <!-- Background Decorations (Blobs) -->
   <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
     <div class="absolute -top-[20%] -right-[10%] w-[50rem] h-[50rem] bg-emerald-100/60 rounded-full blur-[120px] mix-blend-multiply"></div>
@@ -48,26 +88,6 @@
                 <p class="text-sm text-slate-500">Isi data di bawah ini dengan lengkap dan benar.</p>
               </div>
             </div>
-
-            @if(session('success'))
-              <div class="pg-alert bg-gradient-to-r from-green-50 to-emerald-50 border-green-200 text-green-700 p-4 mb-6 flex items-start gap-3" data-pg-reveal>
-                <i data-lucide="check-circle-2" class="w-5 h-5 mt-0.5 flex-shrink-0"></i>
-                <div>
-                  <p class="font-semibold">Pengaduan Berhasil Dikirim!</p>
-                  <small class="block mt-1">{{ session('success') }}<br>Silakan cek email Anda untuk konfirmasi</small>
-                </div>
-              </div>
-            @endif
-
-            @if($errors->has('captcha'))
-              <div class="pg-alert bg-red-50 border-red-200 text-red-700 p-4 mb-6 flex items-start gap-3" data-pg-reveal>
-                <i data-lucide="alert-circle" class="w-5 h-5 mt-0.5 flex-shrink-0"></i>
-                <div>
-                  <p class="font-semibold">Verifikasi Gagal</p>
-                  <small class="block mt-1">{{ $errors->first('captcha') }}</small>
-                </div>
-              </div>
-            @endif
 
             <form id="pengaduanForm" action="{{ route('pengaduan.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
               @csrf
