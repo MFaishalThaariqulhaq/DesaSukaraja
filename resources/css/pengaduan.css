@@ -1,7 +1,207 @@
-/* Pengaduan Form Styles */
+/* Pengaduan UI System */
+:root {
+  --pg-bg: #f7faf9;
+  --pg-surface: #ffffff;
+  --pg-text: #0f172a;
+  --pg-muted: #475569;
+  --pg-accent: #059669;
+  --pg-accent-2: #0ea5a5;
+  --pg-border: #dbe4ee;
+  --pg-shadow: 0 18px 45px -28px rgba(2, 8, 23, 0.32);
+}
+
+.ui-heading {
+  font-family: var(--font-serif), serif;
+  letter-spacing: -0.02em;
+}
+
+.pg-shell {
+  background: radial-gradient(circle at 90% -20%, #d1fae5 0%, transparent 46%),
+    radial-gradient(circle at -10% 120%, #dbeafe 0%, transparent 38%),
+    var(--pg-bg);
+}
+
+.pg-panel {
+  background: var(--pg-surface);
+  border: 1px solid var(--pg-border);
+  border-radius: 1.25rem;
+  box-shadow: var(--pg-shadow);
+}
+
+.pg-card {
+  border: 1px solid var(--pg-border);
+  border-radius: 1rem;
+  background: var(--pg-surface);
+  box-shadow: 0 12px 30px -24px rgba(15, 23, 42, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.pg-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 30px -24px rgba(15, 23, 42, 0.44);
+  border-color: #bfdbfe;
+}
+
+.pg-focusable:focus-visible,
+.pg-input:focus-visible,
+.pg-link:focus-visible,
+.pg-button:focus-visible {
+  outline: 2px solid #0f766e;
+  outline-offset: 2px;
+}
+
+.pg-input {
+  transition: border-color 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease;
+}
+
+.pg-input:focus {
+  border-color: #14b8a6 !important;
+  box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.14);
+  background-color: #ffffff;
+}
+
+.pg-status-badge {
+  border-radius: 999px;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.pg-status-submitted {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.pg-status-pending {
+  background: #fef9c3;
+  color: #a16207;
+}
+
+.pg-status-in_progress {
+  background: #ffedd5;
+  color: #c2410c;
+}
+
+.pg-status-resolved {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.pg-status-rejected {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.ui-icon-sm {
+  width: 1rem;
+  height: 1rem;
+}
+
+.ui-icon-md {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.pg-timeline {
+  position: relative;
+}
+
+.pg-timeline-item {
+  position: relative;
+  display: flex;
+  gap: 1rem;
+}
+
+.pg-timeline-item:not(:last-child) {
+  padding-bottom: 1.25rem;
+}
+
+.pg-timeline-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 0.625rem;
+  top: 1.65rem;
+  width: 2px;
+  height: calc(100% - 1.3rem);
+  background: #d1d5db;
+}
+
+.pg-timeline-dot {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 999px;
+  flex: 0 0 1.25rem;
+  margin-top: 0.25rem;
+  border: 2px solid #cbd5e1;
+  background: #ffffff;
+}
+
+.pg-timeline-dot.is-done {
+  border-color: #059669;
+  background: #10b981;
+}
+
+.pg-timeline-dot.is-active {
+  border-color: #f59e0b;
+  background: #fbbf24;
+}
+
+.pg-index-dropzone {
+  transition: border-color 0.18s ease, background-color 0.18s ease;
+}
+
+.pg-index-dropzone:hover {
+  border-color: #34d399;
+  background: #ecfdf5;
+}
+
+.pg-alert {
+  border-radius: 0.85rem;
+  border: 1px solid transparent;
+}
+
+.pg-table-row {
+  transition: background-color 0.16s ease, transform 0.16s ease;
+}
+
+.pg-table-row:hover {
+  background-color: #f8fafc;
+}
+
+.pg-sticky-filter {
+  position: sticky;
+  top: 6.75rem;
+  z-index: 20;
+}
+
+#submitBtn,
+#submitBtn span,
+#submitBtn i {
+  color: #ffffff !important;
+}
+
+#submitBtn {
+  background: #059669 !important;
+  border: 1px solid #047857 !important;
+}
+
+.grecaptcha-badge {
+  visibility: visible !important;
+}
+
+@media (max-width: 1024px) {
+  .pg-sticky-filter {
+    position: static;
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
-  form.animate-fadeInUp {
-    animation: none !important;
+  .pg-card,
+  .pg-table-row,
+  .pg-input,
+  .pg-index-dropzone {
+    transition: none !important;
   }
 }

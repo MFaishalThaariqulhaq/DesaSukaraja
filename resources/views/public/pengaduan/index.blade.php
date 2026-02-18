@@ -3,75 +3,10 @@
 @push('styles')
 <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.site_key') }}"></script>
 <meta name="recaptcha-key" content="{{ config('services.recaptcha.site_key') }}">
-<style>
-  /* Custom Animations */
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .animate-entry {
-    opacity: 0;
-    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  .delay-100 {
-    animation-delay: 0.1s;
-  }
-
-  .delay-200 {
-    animation-delay: 0.2s;
-  }
-
-  .delay-300 {
-    animation-delay: 0.3s;
-  }
-
-  /* Scrollbar untuk Textarea */
-  textarea::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  textarea::-webkit-scrollbar-track {
-    background: #f1f5f9;
-    border-radius: 4px;
-  }
-
-  textarea::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
-    border-radius: 4px;
-  }
-
-  textarea::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8;
-  }
-
-  .grecaptcha-badge {
-    visibility: visible !important;
-  }
-
-  /* Readability fallback for browsers/devices with gradient text/background issues */
-  #submitBtn,
-  #submitBtn span,
-  #submitBtn i {
-    color: #ffffff !important;
-  }
-
-  #submitBtn {
-    background: #059669 !important;
-    border: 1px solid #047857 !important;
-  }
-</style>
 @endpush
 
 @section('content')
-<section id="pengaduan" class="relative py-24 min-h-screen overflow-hidden bg-white">
+<section id="pengaduan" class="pg-shell relative py-24 min-h-screen overflow-hidden">
   <!-- Background Decorations (Blobs) -->
   <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
     <div class="absolute -top-[20%] -right-[10%] w-[50rem] h-[50rem] bg-emerald-100/60 rounded-full blur-[120px] mix-blend-multiply"></div>
@@ -80,12 +15,12 @@
 
   <div class="container mx-auto px-4 md:px-6 relative z-10">
     <!-- Header Section -->
-    <div class="text-center mb-16 animate-entry">
+    <div class="text-center mb-16" data-pg-reveal>
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-slate-200 shadow-sm text-emerald-600 text-xs font-bold tracking-widest uppercase mb-4">
         <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
         Pusat Aspirasi Desa
       </div>
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-4 tracking-tight">
+      <h1 class="ui-heading text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-4 tracking-tight">
         Layanan <span class="text-emerald-700">Pengaduan Online</span>
       </h1>
       <p class="text-slate-500 text-lg max-w-2xl mx-auto leading-relaxed">
@@ -97,8 +32,8 @@
     <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
 
       <!-- Left Column: Form (8 Columns) -->
-      <div class="lg:col-span-8 animate-entry delay-100">
-        <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden relative">
+      <div class="lg:col-span-8" data-pg-reveal>
+        <div class="pg-panel rounded-3xl overflow-hidden relative">
 
           <!-- Decorative Top Bar -->
           <div class="h-1.5 w-full bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-500"></div>
@@ -115,7 +50,7 @@
             </div>
 
             @if(session('success'))
-              <div class="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 text-green-700 p-4 mb-6 rounded-lg flex items-start gap-3 animate-entry">
+              <div class="pg-alert bg-gradient-to-r from-green-50 to-emerald-50 border-green-200 text-green-700 p-4 mb-6 flex items-start gap-3" data-pg-reveal>
                 <i data-lucide="check-circle-2" class="w-5 h-5 mt-0.5 flex-shrink-0"></i>
                 <div>
                   <p class="font-semibold">Pengaduan Berhasil Dikirim!</p>
@@ -125,7 +60,7 @@
             @endif
 
             @if($errors->has('captcha'))
-              <div class="bg-red-50 border border-red-200 text-red-700 p-4 mb-6 rounded-lg flex items-start gap-3">
+              <div class="pg-alert bg-red-50 border-red-200 text-red-700 p-4 mb-6 flex items-start gap-3" data-pg-reveal>
                 <i data-lucide="alert-circle" class="w-5 h-5 mt-0.5 flex-shrink-0"></i>
                 <div>
                   <p class="font-semibold">Verifikasi Gagal</p>
@@ -152,7 +87,7 @@
                       type="text" 
                       name="nama" 
                       id="nama" 
-                      class="block w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-200"
+                      class="pg-input block w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-200"
                       placeholder="Nama sesuai KTP"
                       required 
                       value="{{ old('nama') }}">
@@ -177,7 +112,7 @@
                       type="email" 
                       name="email" 
                       id="email" 
-                      class="block w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-200"
+                      class="pg-input block w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-200"
                       placeholder="contoh@email.com"
                       required 
                       value="{{ old('email') }}">
@@ -205,7 +140,7 @@
                       type="text" 
                       name="telepon" 
                       id="telepon" 
-                      class="block w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-200"
+                      class="pg-input block w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-200"
                       placeholder="0812xxxx"
                       value="{{ old('telepon') }}">
                   </div>
@@ -223,7 +158,7 @@
                     <select 
                       name="kategori" 
                       id="kategori" 
-                      class="block w-full pl-11 pr-10 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:outline-none focus:bg-white focus:ring-2 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-200 appearance-none cursor-pointer">
+                      class="pg-input block w-full pl-11 pr-10 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:outline-none focus:bg-white focus:ring-2 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-200 appearance-none cursor-pointer">
                       <option value="">-- Pilih Kategori --</option>
                       <option value="Infrastruktur" {{ old('kategori') == 'Infrastruktur' ? 'selected' : '' }}>Infrastruktur</option>
                       <option value="Kebersihan" {{ old('kategori') == 'Kebersihan' ? 'selected' : '' }}>Kebersihan</option>
@@ -253,7 +188,7 @@
                     type="text" 
                     name="judul" 
                     id="judul" 
-                    class="block w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-200"
+                    class="pg-input block w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-200"
                     placeholder="Contoh: Jalan Berlubang di RT 01"
                     value="{{ old('judul') }}">
                 </div>
@@ -272,7 +207,7 @@
                     name="isi" 
                     id="isi" 
                     rows="5"
-                    class="block w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-200 resize-none"
+                    class="pg-input block w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-200 resize-none"
                     placeholder="Jelaskan kronologi, lokasi, dan detail masalah secara lengkap..."
                     required>{{ old('isi') }}</textarea>
                 </div>
@@ -291,7 +226,7 @@
                 <div class="relative group w-full">
                   <input type="file" id="lampiran" name="lampiran" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20" onchange="updateFileName(this)">
 
-                  <div class="border-2 border-dashed border-slate-300 rounded-xl p-6 flex flex-col items-center justify-center text-center transition-all duration-300 group-hover:border-emerald-400 group-hover:bg-emerald-50 bg-slate-50">
+                  <div class="pg-index-dropzone border-2 border-dashed border-slate-300 rounded-xl p-6 flex flex-col items-center justify-center text-center transition-all duration-300 group-hover:border-emerald-400 group-hover:bg-emerald-50 bg-slate-50">
                     <div class="w-12 h-12 bg-white rounded-full shadow-sm flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300">
                       <i data-lucide="upload-cloud" class="w-6 h-6 text-emerald-500"></i>
                     </div>
@@ -314,7 +249,8 @@
                 <button 
                   type="submit" 
                   id="submitBtn"
-                  class="w-full md:w-auto px-8 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-lg shadow-emerald-200 transform transition-all duration-200 hover:-translate-y-1 hover:shadow-xl flex items-center justify-center gap-2 group">
+                  class="pg-button w-full md:w-auto px-8 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-lg shadow-emerald-200 transform transition-all duration-200 hover:-translate-y-1 hover:shadow-xl flex items-center justify-center gap-2 group"
+                  aria-label="Kirim pengaduan">
                   <span>Kirim Laporan</span>
                   <i data-lucide="send" class="w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"></i>
                 </button>
@@ -330,50 +266,50 @@
       </div>
 
       <!-- Right Column: Info Cards (4 Columns) -->
-      <div class="lg:col-span-4 space-y-6 animate-entry delay-200">
+      <div class="lg:col-span-4 space-y-6" data-pg-reveal>
 
         <!-- Info Card 1 -->
-        <div class="bg-white p-6 rounded-2xl shadow-lg shadow-slate-100 border border-slate-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group">
+        <div class="pg-card p-6 group" data-pg-reveal>
           <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center mb-4 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300">
             <i data-lucide="clock" class="w-6 h-6"></i>
           </div>
-          <h3 class="text-lg font-bold text-slate-900 mb-2">Respon Cepat</h3>
+          <h3 class="ui-heading text-xl font-bold text-slate-900 mb-2">Respon Cepat</h3>
           <p class="text-sm text-slate-600 leading-relaxed">
             Laporan Anda akan diverifikasi dan ditindaklanjuti oleh petugas dalam waktu maksimal <strong>3x24 jam</strong> kerja.
           </p>
         </div>
 
         <!-- Info Card 2 -->
-        <div class="bg-white p-6 rounded-2xl shadow-lg shadow-slate-100 border border-slate-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group">
+        <div class="pg-card p-6 group" data-pg-reveal>
           <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-4 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
             <i data-lucide="lock" class="w-6 h-6"></i>
           </div>
-          <h3 class="text-lg font-bold text-slate-900 mb-2">Privasi Terjaga</h3>
+          <h3 class="ui-heading text-xl font-bold text-slate-900 mb-2">Privasi Terjaga</h3>
           <p class="text-sm text-slate-600 leading-relaxed">
             Identitas pelapor dapat disamarkan jika bersifat sensitif. Kami menjunjung tinggi asas kerahasiaan.
           </p>
         </div>
 
         <!-- Info Card 3 -->
-        <div class="bg-white p-6 rounded-2xl shadow-lg shadow-slate-100 border border-slate-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group">
+        <div class="pg-card p-6 group" data-pg-reveal>
           <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center mb-4 group-hover:bg-purple-600 group-hover:text-white transition-colors duration-300">
             <i data-lucide="file-check" class="w-6 h-6"></i>
           </div>
-          <h3 class="text-lg font-bold text-slate-900 mb-2">Transparansi</h3>
+          <h3 class="ui-heading text-xl font-bold text-slate-900 mb-2">Transparansi</h3>
           <p class="text-sm text-slate-600 leading-relaxed">
             Anda dapat memantau perkembangan status laporan Anda melalui fitur Cek Status Pengaduan.
           </p>
         </div>
 
         <!-- Check Status CTA -->
-        <div class="mt-8 bg-white rounded-2xl p-8 text-center border border-slate-200 shadow-lg relative overflow-hidden group">
+        <div class="pg-card mt-8 p-8 text-center relative overflow-hidden group" data-pg-reveal>
           <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-100/60 rounded-full blur-2xl -mr-16 -mt-16 group-hover:bg-emerald-200/70 transition-colors duration-300"></div>
 
           <i data-lucide="search" class="w-10 h-10 mx-auto mb-4 text-emerald-600"></i>
-          <h3 class="text-xl font-bold text-slate-900 mb-2">Sudah Melapor?</h3>
+          <h3 class="ui-heading text-2xl font-bold text-slate-900 mb-2">Sudah Melapor?</h3>
           <p class="text-slate-600 text-sm mb-6">Pantau progres laporan Anda di sini.</p>
 
-          <a href="{{ route('pengaduan.status') }}" class="inline-flex items-center justify-center w-full px-4 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold border border-emerald-700 transition-all duration-300">
+          <a href="{{ route('pengaduan.status') }}" class="pg-link inline-flex items-center justify-center w-full px-4 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold border border-emerald-700 transition-all duration-300">
             Cek Status Laporan
           </a>
         </div>

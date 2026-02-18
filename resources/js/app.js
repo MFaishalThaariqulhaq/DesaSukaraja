@@ -7,3 +7,4 @@ import './galeri.js';
 import './pengaduan-modal.js';
 import './pengaduan-form.js';
 import './peta-wilayah.js';
+import './pengaduan-ui.js';
