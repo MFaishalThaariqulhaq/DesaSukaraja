@@ -299,7 +299,3 @@
 
 @endsection
 
-@push('scripts')
-<script src="{{ asset('js/peta-wilayah.js') }}"></script>
-@endpush
-

@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Early exit jika modal tidak ditemukan
   if (!modal) return;
 
-  // ===== Core Functions =====
+  
 
   function openModal() {
     modal.classList.remove('hidden');
@@ -19,12 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (window.lucide) lucide.createIcons();
   }
 
-  /**
-   * Menutup modal dengan smooth animation
-   * - Menghapus class 'active' untuk fade-out effect
-   * - Delay sebelum menambah 'hidden' untuk animation duration
-   * - Membuka scroll kembali pada body
-   */
+ 
   function closeModal() {
     modal.classList.remove('active');
     setTimeout(() => {

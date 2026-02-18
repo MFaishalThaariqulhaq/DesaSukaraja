@@ -3,14 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Admin\Pengaduan\UpdatePengaduanRequest;
 use App\Models\Pengaduan;
-use App\Models\PengaduanLog;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\PengaduanStatusUpdated;
+use App\Services\Admin\PengaduanService;
 
 class PengaduanController extends Controller
 {
+  public function __construct(private readonly PengaduanService $pengaduanService)
+  {
+  }
+
   public function index()
   {
     $query = Pengaduan::query();
@@ -48,39 +50,10 @@ class PengaduanController extends Controller
     $pengaduan = Pengaduan::findOrFail($id);
     return view('admin.pengaduan.edit', compact('pengaduan'));
   }
-  public function update(Request $request, $id)
+  public function update(UpdatePengaduanRequest $request, $id)
   {
     $pengaduan = Pengaduan::findOrFail($id);
-    $request->validate([
-      'status' => 'required|in:submitted,pending,in_progress,resolved,rejected',
-      'admin_notes' => 'nullable|string',
-    ]);
-    $oldStatus = $pengaduan->status;
-    $pengaduan->update([
-      'status' => $request->status,
-      'admin_notes' => $request->admin_notes,
-    ]);
-
-    // Log the status change or update
-    PengaduanLog::create([
-      'pengaduan_id' => $pengaduan->id,
-      'action' => 'updated',
-      'meta' => json_encode([
-        'old_status' => $oldStatus,
-        'new_status' => $request->status,
-        'admin_notes' => $request->admin_notes,
-        'admin' => session('admin_logged_in') ? 'admin' : null,
-      ]),
-    ]);
-
-    // If status changed, notify reporter via email (if email provided)
-    if ($oldStatus !== $request->status && $pengaduan->email) {
-      try {
-        Mail::to($pengaduan->email)->queue(new PengaduanStatusUpdated($pengaduan, $oldStatus, $request->status));
-      } catch (\Exception $e) {
-        // swallow mail exception
-      }
-    }
+    $this->pengaduanService->updateStatus($pengaduan, $request->validated());
 
     return redirect()->route('admin.pengaduan.show', $pengaduan->id)->with('success', 'Pengaduan diperbarui');
   }

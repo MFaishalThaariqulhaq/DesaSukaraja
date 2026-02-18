@@ -23,6 +23,10 @@ function initHeaderScroll() {
   const header = document.getElementById('main-header');
   if (!header) return;
 
+  requestAnimationFrame(() => {
+    header.classList.add('header-ready');
+  });
+
   window.addEventListener('scroll', function () {
     if (window.scrollY > 20) {
       header.classList.add('scrolled');
@@ -78,6 +82,10 @@ function openMobileMenu() {
   const mobileMenuButton = document.getElementById('mobile-menu-button');
 
   mobileMenu.classList.remove('hidden');
+  mobileMenu.classList.remove('mobile-menu-closing');
+  requestAnimationFrame(() => {
+    mobileMenu.classList.add('mobile-menu-open');
+  });
 
   const icon = mobileMenuButton.querySelector('i');
   if (icon) {
@@ -93,7 +101,14 @@ function closeMobileMenu() {
   const mobileMenu = document.getElementById('mobile-menu');
   const mobileMenuButton = document.getElementById('mobile-menu-button');
 
-  mobileMenu.classList.add('hidden');
+  mobileMenu.classList.remove('mobile-menu-open');
+  mobileMenu.classList.add('mobile-menu-closing');
+  setTimeout(() => {
+    if (!mobileMenu.classList.contains('mobile-menu-open')) {
+      mobileMenu.classList.add('hidden');
+      mobileMenu.classList.remove('mobile-menu-closing');
+    }
+  }, 220);
 
   const icon = mobileMenuButton.querySelector('i');
   if (icon) {

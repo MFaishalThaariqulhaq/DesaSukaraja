@@ -6,35 +6,6 @@ export function initLayout() {
     lucide.createIcons();
   }
 
-  // Header shadow on scroll
-  const header = document.getElementById('main-header');
-  if (header) {
-    window.addEventListener('scroll', function () {
-      if (window.scrollY > 10) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
-      }
-    });
-  }
-
-  // Toggle mobile menu
-  const menuToggle = document.getElementById('menu-toggle');
-  const mobileMenu = document.getElementById('mobile-menu');
-
-  if (menuToggle && mobileMenu) {
-    menuToggle.addEventListener('click', function () {
-      mobileMenu.classList.toggle('hidden');
-    });
-
-    // Close mobile menu when clicking a link
-    mobileMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', function () {
-        mobileMenu.classList.add('hidden');
-      });
-    });
-  }
-
   // Counter animation for statistics
   initCounterAnimation();
 }
