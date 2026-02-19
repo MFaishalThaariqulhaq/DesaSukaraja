@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\Berita\StoreBeritaRequest;
 use App\Http\Requests\Admin\Berita\UpdateBeritaRequest;
 use App\Models\Berita;
 use App\Services\Admin\BeritaService;
+use Illuminate\Http\Request;
 
 class BeritaController extends Controller
 {
@@ -14,10 +15,16 @@ class BeritaController extends Controller
   {
   }
 
-  public function index()
+  public function index(Request $request)
   {
-    $beritas = Berita::orderBy('created_at', 'desc')->paginate(10);
-    return view('admin.berita.index', compact('beritas'));
+    $allowedPerPage = [5, 10, 15];
+    $perPage = (int) $request->query('per_page', 10);
+    if (!in_array($perPage, $allowedPerPage, true)) {
+      $perPage = 10;
+    }
+
+    $beritas = Berita::orderBy('created_at', 'desc')->paginate($perPage)->withQueryString();
+    return view('admin.berita.index', compact('beritas', 'perPage'));
   }
 
   public function create()

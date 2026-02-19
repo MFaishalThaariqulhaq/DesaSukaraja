@@ -1,0 +1,51 @@
+@keyframes profilSlideIn {
+  from {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes profilBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+#success-alert {
+  animation: profilSlideIn 0.5s ease;
+  box-shadow: 0 10px 25px rgba(16, 185, 129, 0.2);
+}
+
+#success-alert .success-icon {
+  animation: profilBounce 1s infinite;
+}
+
+.tab-btn.active-tab {
+  color: #059669;
+  border-bottom-color: #34d399;
+  background-color: #ecfdf5;
+}
+
+.tab-content {
+  animation: profilFadeIn 0.3s;
+}
+
+@keyframes profilFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

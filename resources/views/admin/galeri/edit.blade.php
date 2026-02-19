@@ -46,25 +46,37 @@
     </div>
 
     <div>
-      <label for="gambar" class="block text-sm font-medium text-slate-700 mb-1">Upload Gambar</label>
-      <input type="file" name="gambar" id="gambar"
-        class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition duration-200"
-        accept="image/*"
-        onchange="previewImage(event)">
+      <label class="block text-sm font-medium text-slate-700 mb-1">Upload Gambar</label>
+      @php
+        $placeholderGaleri = 'https://placehold.co/800x450?text=Gambar+Galeri';
+        $currentGaleriImage = $galeri->gambar ? asset('storage/' . $galeri->gambar) : $placeholderGaleri;
+      @endphp
+      <div class="group relative rounded-xl overflow-hidden border-2 border-dashed border-slate-300 bg-slate-50 transition aspect-video"
+        data-image-card
+        data-input-id="gambar"
+        data-remove-input-id="remove_gambar"
+        data-remove-confirm="Hapus gambar galeri saat ini?">
+        <img
+          data-image-preview
+          src="{{ $currentGaleriImage }}"
+          data-placeholder="{{ $placeholderGaleri }}"
+          alt="Gambar Galeri"
+          class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-black/35 opacity-0 group-hover:opacity-100 transition flex items-center justify-center gap-3">
+          <button type="button" data-image-edit class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 shadow">
+            <i data-lucide="pencil" class="w-4 h-4"></i>
+          </button>
+          @if($galeri->gambar)
+          <button type="button" data-image-remove class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white text-slate-700 hover:bg-red-50 hover:text-red-700 shadow">
+            <i data-lucide="trash-2" class="w-4 h-4"></i>
+          </button>
+          @endif
+        </div>
+      </div>
+      <input type="file" name="gambar" id="gambar" class="hidden" accept="image/*">
       @error('gambar')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
-
-      @if($galeri->gambar)
-      <div class="mt-4">
-        <span class="text-xs text-slate-500">Gambar saat ini:</span>
-        <img src="{{ asset('storage/' . $galeri->gambar) }}" alt="Gambar Galeri"
-          class="h-32 rounded-lg shadow-md mt-2 border border-slate-200" id="currentImage">
-      </div>
-      @endif
-
-      <div id="previewContainer" class="hidden mt-4">
-        <span class="text-xs text-slate-500">Pratinjau gambar baru:</span>
-        <img id="previewImage" class="h-32 rounded-lg shadow-md mt-2 border border-slate-200 object-cover">
-      </div>
+      <input type="checkbox" name="remove_gambar" id="remove_gambar" value="1" class="hidden">
+      <p class="text-xs text-slate-500 mt-2">Arahkan kursor ke gambar untuk Edit/Hapus.</p>
     </div>
 
     <div class="mt-8 border-t pt-6 flex justify-end gap-3">
@@ -82,23 +94,8 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    lucide.createIcons();
+    if (window.lucide) lucide.createIcons();
   });
-
-  function previewImage(event) {
-    const preview = document.getElementById('previewImage');
-    const container = document.getElementById('previewContainer');
-    const file = event.target.files[0];
-
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = e => {
-        preview.src = e.target.result;
-        container.classList.remove('hidden');
-      };
-      reader.readAsDataURL(file);
-    }
-  }
 </script>
 
 <style>

@@ -13,17 +13,19 @@
   <form action="{{ route('admin.login.submit') }}" method="POST" class="bg-white p-8 rounded shadow-md w-96">
     @csrf
     <h2 class="text-2xl font-bold mb-6 text-center">Login Admin</h2>
+    @if($errors->any())
+    <div class="bg-red-100 text-red-700 p-2 mb-4 rounded text-sm">
+      {{ $errors->first() }}
+    </div>
+    @endif
     <div class="mb-4">
       <label for="email" class="block mb-1">Email</label>
-      <input type="email" name="email" id="email" class="border rounded w-full p-2" required>
+      <input type="email" name="email" id="email" value="{{ old('email') }}" class="border rounded w-full p-2" required>
     </div>
     <div class="mb-4">
       <label for="password" class="block mb-1">Password</label>
       <input type="password" name="password" id="password" class="border rounded w-full p-2" required>
     </div>
-    @if(session('error'))
-    <div class="bg-red-100 text-red-700 p-2 mb-4">{{ session('error') }}</div>
-    @endif
     <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded w-full">Login</button>
   </form>
 </body>

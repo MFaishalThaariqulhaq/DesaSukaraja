@@ -18,6 +18,7 @@ class UpdateBeritaRequest extends FormRequest
             'isi' => ['required', 'string'],
             'kategori' => ['required', 'string'],
             'gambar' => ['nullable', 'image', 'mimes:jpg,jpeg,png,gif', 'max:2048'],
+            'remove_gambar' => ['nullable', 'boolean'],
         ];
     }
 }

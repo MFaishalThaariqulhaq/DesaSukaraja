@@ -50,10 +50,14 @@
 
       <div class="mb-3">
         <label class="block text-sm font-semibold text-slate-700 mb-2">Foto Progres (Opsional, Max 5MB)</label>
-        <input type="file" name="progress_photo" accept=".jpg,.jpeg,.png,.webp,image/*" class="border border-slate-300 rounded w-full p-2.5 bg-white">
+        <input type="file" id="progress_photo" name="progress_photo" accept=".jpg,.jpeg,.png,.webp,image/*" class="border border-slate-300 rounded w-full p-2.5 bg-white">
         @error('progress_photo')
           <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
         @enderror
+        <div id="progress-preview-wrap" class="hidden mt-3">
+          <p class="text-xs text-slate-500 mb-1">Pratinjau foto progres:</p>
+          <img id="progress-preview-img" class="w-40 h-28 object-cover rounded-lg border border-slate-200" alt="Pratinjau foto progres">
+        </div>
       </div>
 
       <label class="inline-flex items-center gap-2 text-sm text-slate-700">
@@ -74,4 +78,33 @@
     </div>
   </form>
 </div>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    if (window.lucide) {
+      lucide.createIcons();
+    }
+
+    const input = document.getElementById('progress_photo');
+    const wrap = document.getElementById('progress-preview-wrap');
+    const img = document.getElementById('progress-preview-img');
+
+    if (input && wrap && img) {
+      input.addEventListener('change', (event) => {
+        const file = event.target.files && event.target.files[0];
+        if (!file) {
+          wrap.classList.add('hidden');
+          img.removeAttribute('src');
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          img.src = e.target?.result;
+          wrap.classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+  });
+</script>
 @endsection

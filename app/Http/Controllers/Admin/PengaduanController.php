@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\Pengaduan\UpdatePengaduanRequest;
 use App\Models\Pengaduan;
 use App\Models\PengaduanProgress;
 use App\Services\Admin\PengaduanService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class PengaduanController extends Controller
@@ -15,7 +16,7 @@ class PengaduanController extends Controller
   {
   }
 
-  public function index()
+  public function index(Request $request)
   {
     $query = Pengaduan::query();
 
@@ -35,12 +36,18 @@ class PengaduanController extends Controller
       });
     }
 
-    $pengaduans = $query->orderBy('created_at', 'desc')->paginate(15)->withQueryString();
+    $allowedPerPage = [5, 10, 15];
+    $perPage = (int) $request->query('per_page', 10);
+    if (!in_array($perPage, $allowedPerPage, true)) {
+      $perPage = 10;
+    }
+
+    $pengaduans = $query->orderBy('created_at', 'desc')->paginate($perPage)->withQueryString();
 
     // Get distinct categories for the filter dropdown
     $categories = Pengaduan::whereNotNull('kategori')->distinct()->orderBy('kategori')->pluck('kategori');
 
-    return view('admin.pengaduan.index', compact('pengaduans', 'categories'));
+    return view('admin.pengaduan.index', compact('pengaduans', 'categories', 'perPage'));
   }
   public function show($id)
   {

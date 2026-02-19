@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\Sotk\UpdateSotkRequest;
 use App\Http\Requests\Admin\Sotk\UploadBaganRequest;
 use App\Models\Sotk;
 use App\Services\Admin\SotkService;
+use Illuminate\Http\Request;
 
 class SotkController extends Controller
 {
@@ -15,10 +16,16 @@ class SotkController extends Controller
   {
   }
 
-  public function index()
+  public function index(Request $request)
   {
-    $sotks = Sotk::orderBy('jabatan')->get();
-    return view('admin.sotk.index', compact('sotks'));
+    $allowedPerPage = [5, 10, 15];
+    $perPage = (int) $request->query('per_page', 10);
+    if (!in_array($perPage, $allowedPerPage, true)) {
+      $perPage = 10;
+    }
+
+    $sotks = Sotk::orderBy('jabatan')->paginate($perPage)->withQueryString();
+    return view('admin.sotk.index', compact('sotks', 'perPage'));
   }
   public function create()
   {
@@ -45,20 +52,27 @@ class SotkController extends Controller
   public function destroy($id)
   {
     $sotk = Sotk::findOrFail($id);
-    $sotk->delete();
+    $this->sotkService->delete($sotk);
     return redirect()->route('admin.sotk.index')->with('success', 'SOTK berhasil dihapus');
   }
   // Form upload bagan organisasi
   public function baganForm()
   {
-    return view('admin.sotk.bagan');
+    $bagan = Sotk::where('jabatan', 'Bagan')->first();
+    return view('admin.sotk.bagan', compact('bagan'));
   }
 
   // Proses upload bagan organisasi
   public function baganUpload(UploadBaganRequest $request)
   {
-    $this->sotkService->uploadBagan($request->validated());
+    $result = $this->sotkService->uploadBagan($request->validated());
 
-    return redirect()->route('admin.sotk.index')->with('success', 'Bagan organisasi berhasil diupload');
+    $message = match ($result) {
+      'removed' => 'Bagan organisasi berhasil dihapus.',
+      'updated' => 'Bagan organisasi berhasil diperbarui.',
+      default => 'Tidak ada perubahan pada bagan organisasi.',
+    };
+
+    return redirect()->route('admin.sotk.bagan')->with('success', $message);
   }
 }

@@ -3,9 +3,9 @@
 @section('content')
 <!-- Success Notification -->
 @if(session('success'))
-<div id="success-alert" class="fixed top-4 right-4 bg-emerald-50 border border-emerald-300 rounded-lg shadow-2xl p-4 flex items-center gap-4 z-50 min-w-[350px]" style="animation: slideIn 0.5s ease; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.2);">
+<div id="success-alert" class="fixed top-4 right-4 bg-emerald-50 border border-emerald-300 rounded-lg shadow-2xl p-4 flex items-center gap-4 z-50 min-w-[350px]">
   <div class="shrink-0">
-    <svg class="h-6 w-6 text-emerald-600" style="animation: bounce 1s infinite;" fill="currentColor" viewBox="0 0 20 20">
+    <svg class="h-6 w-6 text-emerald-600 success-icon" fill="currentColor" viewBox="0 0 20 20">
       <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
     </svg>
   </div>
@@ -19,46 +19,6 @@
     </svg>
   </button>
 </div>
-<style>
-  @keyframes slideIn {
-    from {
-      transform: translateX(400px);
-      opacity: 0;
-    }
-
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  }
-
-  @keyframes bounce {
-
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-
-    50% {
-      transform: translateY(-5px);
-    }
-  }
-</style>
-<script>
-  function closeAlert() {
-    const alert = document.getElementById('success-alert');
-    if (alert) {
-      alert.style.animation = 'slideIn 0.5s ease reverse';
-      setTimeout(() => alert.remove(), 500);
-    }
-  }
-  setTimeout(function() {
-    const alert = document.getElementById('success-alert');
-    if (alert) {
-      closeAlert();
-    }
-  }, 4000);
-</script>
 @endif
 
 <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -103,11 +63,38 @@
               <label class="block text-slate-700 font-bold mb-3">Gambar Profil Desa</label>
               <div class="grid md:grid-cols-2 gap-6">
                 <div>
-                  <div class="relative group rounded-xl overflow-hidden border-2 border-dashed border-slate-300 bg-slate-50 hover:bg-slate-100 transition aspect-video flex items-center justify-center mb-2 cursor-pointer">
-                    <img id="preview-gambar-profil" src="{{ $profil->gambar ? asset('storage/' . $profil->gambar) : 'https://placehold.co/800x500?text=Gambar+Profil' }}" alt="Gambar Profil" class="object-cover w-full h-full">
+                  @php
+                  $placeholderGambarProfil = 'https://placehold.co/800x500?text=Gambar+Profil';
+                  @endphp
+                  <div class="relative group rounded-xl overflow-hidden border-2 border-dashed border-slate-300 bg-slate-50 transition aspect-video flex items-center justify-center mb-2">
+                    <img
+                      id="preview-gambar-profil"
+                      src="{{ $profil->gambar ? asset('storage/' . $profil->gambar) : $placeholderGambarProfil }}"
+                      data-placeholder="{{ $placeholderGambarProfil }}"
+                      alt="Gambar Profil"
+                      class="object-cover w-full h-full">
+                    <div class="absolute inset-0 bg-black/35 opacity-0 group-hover:opacity-100 transition flex items-center justify-center gap-3">
+                      <button
+                        type="button"
+                        id="btn-edit-gambar-profil"
+                        class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 shadow">
+                        <i data-lucide="pencil" class="w-4 h-4"></i>
+                      </button>
+                      @if($profil->gambar)
+                      <button
+                        type="button"
+                        id="btn-hapus-gambar-profil"
+                        class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white text-slate-700 hover:bg-red-50 hover:text-red-700 shadow">
+                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                      </button>
+                      @endif
+                    </div>
                   </div>
-                  <input type="file" name="gambar" id="gambar" class="w-full px-4 py-2 border rounded-lg" accept="image/*">
-                  <p class="text-xs text-slate-400 mt-2">Ukuran: 800x500px atau lebih</p>
+                  <input type="file" name="gambar" id="gambar" class="hidden" accept="image/*">
+                  @if($profil->gambar)
+                  <input type="checkbox" name="remove_gambar" id="remove_gambar" value="1" class="hidden">
+                  @endif
+                  <p class="text-xs text-slate-400 mt-2">Arahkan kursor ke gambar untuk Edit/Hapus. Ukuran disarankan: 800x500px atau lebih.</p>
                 </div>
                 <div>
                   <label class="block text-slate-700 font-bold mb-2">Judul Profil Desa</label>
@@ -147,10 +134,38 @@
           <div class="grid md:grid-cols-12 gap-8">
             <div class="md:col-span-4 lg:col-span-3">
               <label class="block text-slate-700 font-bold mb-2">Foto Kepala Desa</label>
-              <div class="group relative rounded-xl overflow-hidden border-2 border-dashed border-slate-300 bg-slate-50 hover:bg-slate-100 transition aspect-3/4 flex items-center justify-center mb-2">
-                <img id="preview-foto-kades" src="{{ $profil->foto_kades ? asset('storage/' . $profil->foto_kades) : 'https://placehold.co/300x400?text=Foto+Kades' }}" alt="Kepala Desa" class="object-cover w-full h-full cursor-pointer">
+              @php
+              $placeholderFotoKades = 'https://placehold.co/300x400?text=Foto+Kades';
+              @endphp
+              <div class="group relative rounded-xl overflow-hidden border-2 border-dashed border-slate-300 bg-slate-50 transition aspect-3/4 flex items-center justify-center mb-2">
+                <img
+                  id="preview-foto-kades"
+                  src="{{ $profil->foto_kades ? asset('storage/' . $profil->foto_kades) : $placeholderFotoKades }}"
+                  data-placeholder="{{ $placeholderFotoKades }}"
+                  alt="Kepala Desa"
+                  class="object-cover w-full h-full">
+                <div class="absolute inset-0 bg-black/35 opacity-0 group-hover:opacity-100 transition flex items-center justify-center gap-3">
+                  <button
+                    type="button"
+                    id="btn-edit-foto-kades"
+                    class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 shadow">
+                    <i data-lucide="pencil" class="w-4 h-4"></i>
+                  </button>
+                  @if($profil->foto_kades)
+                  <button
+                    type="button"
+                    id="btn-hapus-foto-kades"
+                    class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white text-slate-700 hover:bg-red-50 hover:text-red-700 shadow">
+                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                  </button>
+                  @endif
+                </div>
               </div>
-              <input type="file" name="foto_kades" id="foto_kades" class="w-full px-4 py-2 border rounded-lg" accept="image/*">
+              <input type="file" name="foto_kades" id="foto_kades" class="hidden" accept="image/*">
+              @if($profil->foto_kades)
+              <input type="checkbox" name="remove_foto_kades" id="remove_foto_kades" value="1" class="hidden">
+              @endif
+              <p class="text-xs text-slate-400 mt-2">Arahkan kursor ke foto untuk Edit/Hapus.</p>
 
 
               <!-- Modal Cropper -->
@@ -188,10 +203,38 @@
               </div>
               <div>
                 <label class="block text-slate-700 font-bold mb-2">Tanda Tangan Kepala Desa</label>
+                @php
+                $placeholderTtdKades = 'https://placehold.co/480x160?text=Tanda+Tangan';
+                @endphp
+                <div class="group relative rounded-xl overflow-hidden border-2 border-dashed border-slate-300 bg-slate-50 transition max-w-sm h-24 flex items-center justify-center mb-2">
+                  <img
+                    id="preview-ttd-kades"
+                    src="{{ $profil->ttd_kades ? asset('storage/' . $profil->ttd_kades) : $placeholderTtdKades }}"
+                    data-placeholder="{{ $placeholderTtdKades }}"
+                    alt="Tanda Tangan"
+                    class="object-contain w-full h-full p-2">
+                  <div class="absolute inset-0 bg-black/35 opacity-0 group-hover:opacity-100 transition flex items-center justify-center gap-3">
+                    <button
+                      type="button"
+                      id="btn-edit-ttd-kades"
+                      class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 shadow">
+                      <i data-lucide="pencil" class="w-4 h-4"></i>
+                    </button>
+                    @if($profil->ttd_kades)
+                    <button
+                      type="button"
+                      id="btn-hapus-ttd-kades"
+                      class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white text-slate-700 hover:bg-red-50 hover:text-red-700 shadow">
+                      <i data-lucide="trash-2" class="w-4 h-4"></i>
+                    </button>
+                    @endif
+                  </div>
+                </div>
+                <input type="file" name="ttd_kades" id="ttd_kades" class="hidden" accept="image/*">
                 @if($profil->ttd_kades)
-                <img src="{{ asset('storage/' . $profil->ttd_kades) }}" alt="Tanda Tangan" class="h-12 mb-2">
+                <input type="checkbox" name="remove_ttd_kades" id="remove_ttd_kades" value="1" class="hidden">
                 @endif
-                <input type="file" name="ttd_kades" id="ttd_kades" class="w-full px-4 py-2 border rounded-lg">
+                <p class="text-xs text-slate-400 mt-2">Arahkan kursor ke tanda tangan untuk Edit/Hapus.</p>
               </div>
 
             </div>
@@ -338,11 +381,11 @@
             <div class="flex-1">
               <div class="flex justify-between items-start">
                 <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-1 rounded-md">{{ $item->tahun }}</span>
-                <div class="flex gap-2">
+                <div class="flex gap-2 opacity-0 group-hover:opacity-100 transition">
                   <form action="{{ route('admin.profil.hapusSejarah', $item->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Hapus peristiwa ini?');">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="text-slate-400 hover:text-red-600"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                    <button type="submit" class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white border border-slate-200 text-slate-400 hover:text-red-600 hover:border-red-200"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
                   </form>
                 </div>
               </div>
@@ -363,9 +406,22 @@
           <h3 class="text-lg font-bold text-slate-800 mb-6 text-center">Bagan Struktur Organisasi</h3>
           <div class="max-w-4xl mx-auto">
             <div class="relative group rounded-xl overflow-hidden shadow-xl border border-slate-200 mb-8 bg-slate-100">
-              <img src="{{ $profil->struktur_organisasi ? asset('storage/' . $profil->struktur_organisasi) : asset('assets/struktur.jpg') }}" class="w-full object-cover transition duration-500 group-hover:opacity-90">
-              <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 bg-black/20">
-                <p class="bg-white text-slate-900 px-6 py-2 rounded-full font-bold shadow-lg">Gambar Struktur Organisasi</p>
+              <img id="preview-struktur-organisasi" src="{{ $profil->struktur_organisasi ? asset('storage/' . $profil->struktur_organisasi) : asset('assets/struktur.jpg') }}" data-placeholder="{{ asset('assets/struktur.jpg') }}" class="w-full object-cover transition duration-500 group-hover:opacity-90">
+              <div class="absolute inset-0 bg-black/35 opacity-0 group-hover:opacity-100 transition flex items-center justify-center gap-3">
+                <button
+                  type="button"
+                  id="btn-edit-struktur"
+                  class="inline-flex items-center justify-center w-11 h-11 rounded-full bg-white text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 shadow">
+                  <i data-lucide="pencil" class="w-5 h-5"></i>
+                </button>
+                @if($profil->struktur_organisasi)
+                <button
+                  type="button"
+                  id="btn-hapus-struktur"
+                  class="inline-flex items-center justify-center w-11 h-11 rounded-full bg-white text-slate-700 hover:bg-red-50 hover:text-red-700 shadow">
+                  <i data-lucide="trash-2" class="w-5 h-5"></i>
+                </button>
+                @endif
               </div>
             </div>
           </div>
@@ -374,11 +430,11 @@
             @method('PUT')
             <div class="flex justify-center mb-6">
               <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                <label for="struktur_organisasi" class="bg-emerald-600 text-white px-6 py-2.5 rounded-lg font-bold shadow-lg hover:bg-emerald-700 transition inline-flex items-center justify-center gap-2 cursor-pointer">
-                  <i data-lucide="upload" class="w-4 h-4"></i> Upload Struktur Baru
-                </label>
                 <input type="file" name="struktur_organisasi" id="struktur_organisasi" class="hidden">
-                <p class="text-xs text-slate-400 mt-3 text-center">Format PNG/JPG, min. 1920px width</p>
+                @if($profil->struktur_organisasi)
+                <input type="checkbox" name="remove_struktur_organisasi" id="remove_struktur_organisasi" value="1" class="hidden">
+                @endif
+                <p class="text-xs text-slate-400 text-center">Arahkan kursor ke gambar untuk Edit/Hapus. Format PNG/JPG, min. 1920px width.</p>
               </div>
             </div>
             <div class="flex justify-center">
@@ -395,158 +451,12 @@
     </div>
   </div>
 </div>
-
-<style>
-  .tab-btn.active-tab {
-    color: #059669;
-    border-bottom-color: #34d399;
-    background-color: #ecfdf5;
-  }
-
-  .tab-content {
-    animation: fadeIn .3s;
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-
-    to {
-      opacity: 1;
-    }
-  }
-</style>
-<script>
-  if (window.lucide) lucide.createIcons();
-
-  function switchTab(tabId) {
-    document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-    document.querySelectorAll('.tab-btn').forEach(el => {
-      el.classList.remove('active-tab', 'text-emerald-600', 'border-emerald-500');
-      el.classList.add('text-slate-600', 'border-transparent');
-      const icon = el.querySelector('svg');
-      if (icon) icon.style.color = 'currentColor';
-    });
-    const selectedContent = document.getElementById('tab-' + tabId);
-    selectedContent.classList.remove('hidden');
-    const activeBtn = document.getElementById('btn-' + tabId);
-    activeBtn.classList.add('active-tab');
-    activeBtn.classList.remove('text-slate-600', 'border-transparent');
-  }
-
-  function toggleHistoryForm() {
-    const form = document.getElementById('history-form');
-    form.classList.toggle('hidden');
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    switchTab('beranda');
-    const successAlert = document.getElementById('success-alert');
-    if (successAlert) {
-      console.log('Success notification displayed');
-    }
-  });
-</script>
 @push('styles')
+<link rel="stylesheet" href="{{ asset('assets/admin/profil/index.css') }}">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet" />
 @endpush
 @push('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
-<script>
-  let cropper;
-  const inputFoto = document.getElementById('foto_kades');
-  const modal = document.getElementById('modal-cropper');
-  const imageCropper = document.getElementById('image-cropper');
-  const previewFoto = document.getElementById('preview-foto-kades');
-  const btnCancel = document.getElementById('btn-crop-cancel');
-  const btnApply = document.getElementById('btn-crop-apply');
-
-  // --- Cropper.js Refactor ---
-  // Tambahkan crossOrigin pada elemen gambar agar crop dari server tidak error CORS
-  document.getElementById('image-cropper').setAttribute('crossOrigin', 'anonymous');
-  document.getElementById('preview-foto-kades').setAttribute('crossOrigin', 'anonymous');
-
-  // Crop saat upload file baru
-  inputFoto.addEventListener('change', function(e) {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function(evt) {
-        imageCropper.onload = function() {
-          if (cropper) cropper.destroy();
-          cropper = new Cropper(imageCropper, {
-            aspectRatio: 3 / 4,
-            viewMode: 1,
-            autoCropArea: 1,
-          });
-        };
-        imageCropper.src = evt.target.result;
-        modal.style.display = 'flex';
-      };
-      reader.readAsDataURL(file);
-    }
-  });
-  // Crop ulang dari foto yang sudah ada
-  previewFoto.addEventListener('click', async function() {
-    const src = previewFoto.src;
-    if (src) {
-      imageCropper.onload = function() {
-        if (cropper) cropper.destroy();
-        cropper = new Cropper(imageCropper, {
-          aspectRatio: 3 / 4,
-          viewMode: 1,
-          autoCropArea: 1,
-        });
-      };
-      imageCropper.src = src;
-      modal.style.display = 'flex';
-    }
-  });
-  btnCancel.addEventListener('click', function() {
-    modal.style.display = 'none';
-    if (cropper) cropper.destroy();
-    inputFoto.value = '';
-  });
-  btnApply.addEventListener('click', async function() {
-    if (cropper) {
-      cropper.getCroppedCanvas({
-        width: 300,
-        height: 400
-      }).toBlob(async function(blob) {
-        const url = URL.createObjectURL(blob);
-        previewFoto.src = url;
-        // Ganti file input dengan hasil crop (trik: DataTransfer)
-        const dt = new DataTransfer();
-        let fileName = 'cropped.jpg';
-        // Jika crop dari foto lama (bukan upload baru), fetch ulang ke blob agar file input benar-benar terisi
-        if (!inputFoto.files.length && previewFoto.src) {
-          try {
-            const response = await fetch(previewFoto.src, {
-              mode: 'cors'
-            });
-            const oldBlob = await response.blob();
-            fileName = 'cropped.' + (oldBlob.type.split('/')[1] || 'jpg');
-            dt.items.add(new File([blob], fileName, {
-              type: blob.type
-            }));
-          } catch (e) {
-            dt.items.add(new File([blob], fileName, {
-              type: blob.type
-            }));
-          }
-        } else {
-          dt.items.add(new File([blob], fileName, {
-            type: blob.type
-          }));
-        }
-        inputFoto.files = dt.files;
-        modal.style.display = 'none';
-        cropper.destroy();
-      }, 'image/jpeg', 0.95);
-    }
-  });
-  // --- End Cropper.js Refactor ---
-</script>
+<script src="{{ asset('assets/admin/profil/index.js') }}"></script>
 @endpush
 @endsection

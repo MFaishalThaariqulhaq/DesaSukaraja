@@ -26,7 +26,27 @@
   </div>
   @endif
 
-  <div class="overflow-x-auto">
+  <div class="mb-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+    <div class="text-sm text-slate-500">
+      Menampilkan
+      <span class="font-semibold text-slate-700">{{ $sotks->firstItem() ?? 0 }}</span>
+      -
+      <span class="font-semibold text-slate-700">{{ $sotks->lastItem() ?? 0 }}</span>
+      dari
+      <span class="font-semibold text-slate-700">{{ $sotks->total() }}</span>
+      data
+    </div>
+    <form method="GET" action="{{ route('admin.sotk.index') }}" class="flex items-center gap-2">
+      <label for="per_page" class="text-sm text-slate-600">Per halaman</label>
+      <select id="per_page" name="per_page" class="px-3 py-2 border border-slate-300 rounded-lg bg-white text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" onchange="this.form.submit()">
+        @foreach([5, 10, 15] as $option)
+          <option value="{{ $option }}" {{ (int) ($perPage ?? 10) === $option ? 'selected' : '' }}>{{ $option }}</option>
+        @endforeach
+      </select>
+    </form>
+  </div>
+
+  <div class="overflow-x-auto border border-slate-200 rounded-xl">
     <table class="min-w-full bg-white text-sm">
       <thead class="bg-slate-50">
         <tr>
@@ -48,7 +68,7 @@
           <td class="py-3 px-4 text-center">
             <div class="flex justify-center items-center space-x-2">
               <a href="{{ route('admin.sotk.edit', $sotk->id) }}"
-                class="text-blue-600 hover:text-blue-800 transition-transform hover:scale-110"
+                class="inline-flex items-center justify-center p-2 rounded-lg text-blue-600 hover:text-blue-800 hover:bg-blue-50 transition-colors"
                 title="Edit Data">
                 <i data-lucide="edit" class="w-5 h-5"></i>
               </a>
@@ -56,7 +76,7 @@
                 @csrf
                 @method('DELETE')
                 <button type="submit"
-                  class="text-red-600 hover:text-red-800 transition-transform hover:scale-110" title="Hapus Data">
+                  class="inline-flex items-center justify-center p-2 rounded-lg text-red-600 hover:text-red-800 hover:bg-red-50 transition-colors" title="Hapus Data">
                   <i data-lucide="trash-2" class="w-5 h-5"></i>
                 </button>
               </form>
@@ -73,6 +93,11 @@
       </tbody>
     </table>
   </div>
+  @if($sotks->hasPages())
+  <div class="mt-6">
+    {{ $sotks->links('vendor.pagination.tailwind') }}
+  </div>
+  @endif
 </div>
 
 <script>
