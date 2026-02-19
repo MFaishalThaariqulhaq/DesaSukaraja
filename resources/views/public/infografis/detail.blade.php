@@ -18,7 +18,7 @@
 @section('content')
 
 <!-- Header Section -->
-<header class="infografis-detail-header text-white py-10 relative overflow-hidden border-b border-slate-800 -mt-12">
+<header class="infografis-detail-header text-white pt-16 pb-10 md:pt-20 md:pb-12 relative overflow-hidden border-b border-slate-800 -mt-12">
   <div class="container mx-auto px-6 relative z-10" data-aos="fade-up">
     <a href="{{ route('infografis.index') }}"
       class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/10 text-white border border-white/30 hover:bg-white/20 hover:border-white/50 transition-all duration-300 mb-4 backdrop-blur-sm">
@@ -27,7 +27,7 @@
     </a>
     <h1 class="text-3xl md:text-4xl font-bold mb-3">Dusun {{ $data->dusun }}</h1>
     <div class="flex items-center gap-4 text-slate-300 flex-wrap text-sm">
-      <span class="inline-block bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+      <span class="inline-block bg-emerald-700 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
         Data Demografi
       </span>
       <span class="flex items-center gap-2">
@@ -41,7 +41,7 @@
 <div class="bg-white text-slate-800 antialiased overflow-hidden selection:bg-emerald-500 selection:text-white">
 
   <!-- Main Content -->
-  <div class="container mx-auto px-6 py-12 text-slate-800">
+  <div class="container mx-auto px-6 pt-10 pb-12 md:pt-12 text-slate-800">
 
     <!-- Key Statistics Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">

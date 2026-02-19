@@ -13,7 +13,7 @@ body,
 /* Button Utilities */
 .btn-main {
   padding: 1rem 2rem;
-  background-color: #059669;
+  background-color: #4f8f68;
   color: white;
   border-radius: 9999px;
   font-weight: bold;
@@ -25,7 +25,7 @@ body,
 }
 
 .btn-main:hover {
-  background-color: #10b981;
+  background-color: #3f7754;
 }
 
 .btn-outline {
@@ -68,7 +68,7 @@ body,
 }
 
 .berita-badge.kategori-lingkungan {
-  color: #059669;
+  color: #4f8f68;
 }
 
 .berita-badge.kategori-ekonomi {
@@ -85,7 +85,7 @@ body,
 }
 
 .group:hover .berita-title-lingkungan {
-  color: #059669;
+  color: #4f8f68;
 }
 
 .berita-title-ekonomi {
@@ -106,7 +106,7 @@ body,
 
 /* Berita CTA Link Color */
 .berita-cta-lingkungan {
-  color: #059669;
+  color: #4f8f68;
 }
 
 .berita-cta-ekonomi {

@@ -5,7 +5,7 @@
   <!-- ==========================================
        HERO SECTION
        ========================================== -->
-  <header class="sotk-detail-header text-white py-10 relative overflow-hidden border-b border-slate-800 -mt-12" style="background-image: linear-gradient(to bottom, rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.6)),
+  <header class="sotk-detail-header text-white pt-16 pb-10 md:pt-20 md:pb-12 relative overflow-hidden border-b border-slate-800 -mt-12" style="background-image: linear-gradient(to bottom, rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.6)),
     url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2832&auto=format&fit=crop');
     background-size: cover;
     background-position: center;
@@ -19,7 +19,7 @@
       </a>
       <h1 class="text-3xl md:text-4xl font-bold mb-3">Struktur Organisasi dan Tata Kerja</h1>
       <div class="flex items-center gap-4 text-slate-300 flex-wrap text-sm">
-        <span class="inline-block bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+        <span class="inline-block bg-emerald-700 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
           Pemerintahan Desa
         </span>
         <span class="flex items-center gap-2">
@@ -34,7 +34,7 @@
        MAIN CONTENT
        ========================================== -->
   <div class="bg-white text-slate-800 antialiased overflow-hidden selection:bg-emerald-500 selection:text-white">
-    <div class="container mx-auto px-6 py-12">
+    <div class="container mx-auto px-6 pt-10 pb-12 md:pt-12">
 
       <!-- ==========================================
            STRUKTUR ORGANISASI SECTION (BAGAN GAMBAR)
@@ -100,7 +100,7 @@
                 </div>
                 <button 
                   id="downloadBagan" 
-                  class="flex items-center gap-2 text-emerald-600 font-semibold hover:text-emerald-700 transition"
+                  class="flex items-center gap-2 text-emerald-700 font-semibold hover:text-emerald-800 transition"
                   aria-label="Download bagan image">
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path 

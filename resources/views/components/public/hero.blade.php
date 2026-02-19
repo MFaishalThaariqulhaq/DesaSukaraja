@@ -4,12 +4,12 @@
     <span class="inline-block py-1.5 px-4 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs md:text-sm font-bold tracking-widest uppercase mb-2 animate-fade-in-down shadow-lg">
       Selamat Datang di Portal Resmi
     </span>
-    <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold font-serif leading-tight drop-shadow-2xl tracking-tight">
-      Desa <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-teal-200">Sukaraja</span>
+    <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold font-serif leading-tight drop-shadow-2xl tracking-tight text-white">
+      Desa <span class="text-white">Sukaraja</span>
     </h1>
     <div class="h-12 md:h-16 flex items-center justify-center">
       <p class="text-xl md:text-3xl font-light text-slate-100 max-w-3xl mx-auto drop-shadow-md">
-        Mewujudkan <span id="typed-text" class="font-bold text-emerald-300"></span>
+        Mewujudkan <span id="typed-text" class="font-bold text-emerald-200"></span>
       </p>
     </div>
     
@@ -26,7 +26,7 @@
     </div> -->
     
   </div>
-  <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-smooth-lucid-mouse opacity-80 cursor-pointer hover:opacity-100 hover:text-emerald-300 transition-all duration-300">
+  <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-smooth-lucid-mouse opacity-80 cursor-pointer hover:opacity-100 hover:text-[#cdeed8] transition-all duration-300">
     <a href="#profil"><i data-lucide="mouse" class="w-8 h-8"></i></a>
   </div>
 </section>

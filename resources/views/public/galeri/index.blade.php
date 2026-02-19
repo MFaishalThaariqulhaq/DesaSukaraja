@@ -2,23 +2,9 @@
 
 @section('content')
 
-<!-- Hero Header Section -->
-<section class="hero-bg relative h-screen md:h-[75vh] flex items-center justify-center text-white overflow-hidden -mt-20">
-  <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
-    <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold font-serif leading-tight drop-shadow-2xl mb-4 animate-fade-in-down">
-      Galeri <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-teal-200">Foto</span>
-    </h1>
-    <p class="text-lg md:text-2xl text-slate-100 drop-shadow-md animate-fade-in-up">Koleksi momen-momen berharga kegiatan desa</p>
-  </div>
-  <!-- Scroll Down Indicator -->
-  <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-smooth-lucid-mouse opacity-80 cursor-pointer hover:opacity-100 hover:text-emerald-300 transition-all duration-300">
-    <a href="#galeri-list"><i data-lucide="mouse" class="w-8 h-8"></i></a>
-  </div>
-</section>
-
 <div class="bg-slate-50 antialiased text-slate-600" id="galeri-list">
   <!-- Main Content -->
-  <div class="container mx-auto px-6 py-12">
+  <div class="container mx-auto px-6 pt-6 pb-12 md:pt-8">
 
     <!-- Filter Buttons -->
     <div class="flex flex-wrap justify-center gap-4 mb-12" data-aos="fade-up" data-aos-delay="100">
@@ -57,7 +43,7 @@
               class="absolute inset-0 flex flex-col justify-center items-center p-6 text-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0"
               style="background: linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(20,20,30,0.9) 100%);">
               <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center mb-3">
-                <i data-lucide="image" class="w-5 h-5 text-emerald-400"></i>
+                  <i data-lucide="image" class="w-5 h-5 text-emerald-200"></i>
               </div>
               <h4 class="text-white font-bold text-lg mb-2">{{ $galeri->judul }}</h4>
               <div class="text-sm leading-relaxed text-white/90">
@@ -72,7 +58,7 @@
 
           <!-- Info Card (Below Image) -->
           <div class="p-6 text-center relative flex flex-col items-center justify-center min-h-24 bg-white">
-            <span class="text-emerald-600 text-xs font-bold uppercase tracking-wider mb-2">{{ $galeri->kategori }}</span>
+            <span class="text-emerald-700 text-xs font-bold uppercase tracking-wider mb-2">{{ $galeri->kategori }}</span>
             <h3 class="text-slate-800 font-bold line-clamp-2">{{ $galeri->judul }}</h3>
           </div>
         </div>
@@ -122,18 +108,18 @@
       
       <div class="space-y-4">
         <div>
-          <p class="text-xs font-semibold text-emerald-600 uppercase tracking-wide mb-1">Kategori</p>
+          <p class="text-xs font-semibold text-emerald-700 uppercase tracking-wide mb-1">Kategori</p>
           <p id="modalCategory" class="text-sm text-slate-600"></p>
         </div>
         
         <div>
-          <p class="text-xs font-semibold text-emerald-600 uppercase tracking-wide mb-1">Deskripsi</p>
+          <p class="text-xs font-semibold text-emerald-700 uppercase tracking-wide mb-1">Deskripsi</p>
           <p id="modalDescription" class="text-sm text-slate-700 leading-relaxed"></p>
         </div>
 
         <div class="grid grid-cols-2 gap-4 text-sm">
           <div>
-            <p class="text-xs font-semibold text-emerald-600 uppercase tracking-wide mb-1">Tanggal Upload</p>
+            <p class="text-xs font-semibold text-emerald-700 uppercase tracking-wide mb-1">Tanggal Upload</p>
             <p id="modalDate" class="text-slate-600"></p>
           </div>
         </div>

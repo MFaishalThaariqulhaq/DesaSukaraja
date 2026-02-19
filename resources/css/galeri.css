@@ -47,8 +47,7 @@
 }
 
 .scroll-indicator:hover {
-  color: rgb(16, 185, 129);
-  /* emerald-300 */
+  color: #a7f3d0;
 }
 
 @keyframes bounce {
@@ -328,7 +327,7 @@
 
 /* Modal Category - Better Styling */
 #modalCategory {
-  color: #059669;
+  color: #047857;
   font-weight: 500;
 }
 
@@ -355,7 +354,7 @@
 
 .modal-action-primary {
   flex: 1;
-  background: linear-gradient(135deg, #059669, #10b981);
+  background: linear-gradient(135deg, #059669, #047857);
   color: #ffffff;
   box-shadow: 0 8px 18px rgba(5, 150, 105, 0.28);
 }
