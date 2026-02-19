@@ -41,6 +41,7 @@ Route::get('/pengaduan', [PengaduanController::class, 'index'])->name('pengaduan
 Route::post('/pengaduan', [PengaduanController::class, 'store'])->middleware('throttle:5,1')->name('pengaduan.store');
 Route::get('/pengaduan/status', [PengaduanController::class, 'checkStatus'])->name('pengaduan.status');
 Route::get('/pengaduan/list', [PengaduanController::class, 'listPengaduan'])->name('pengaduan.list');
+Route::get('/pengaduan/public/{pengaduan}', [PengaduanController::class, 'publicShow'])->name('pengaduan.public.show');
 
 
 // == RUTE ADMIN ==

@@ -49,6 +49,10 @@
                 @php
                     $statusText = ucfirst(str_replace('_', ' ', $pengaduan->status));
                     $isInProgress = $pengaduan->status === 'in_progress';
+                    $rawNama = trim((string) ($pengaduan->nama ?? ''));
+                    $namaPublik = $rawNama !== ''
+                        ? mb_substr($rawNama, 0, 1) . str_repeat('*', max(mb_strlen($rawNama) - 1, 2))
+                        : 'Anonim';
                 @endphp
                 <div class="pg-panel overflow-hidden" data-pg-reveal>
                     <div class="bg-slate-50 p-6 border-b border-slate-200">
@@ -67,7 +71,7 @@
                         <div class="grid md:grid-cols-3 gap-4 mb-8 pb-8 border-b border-slate-200">
                             <div class="pg-card p-4">
                                 <p class="text-slate-500 text-xs uppercase tracking-wider font-semibold mb-1">Nama</p>
-                                <p class="font-semibold text-slate-900">{{ $pengaduan->nama ?? 'Anonim' }}</p>
+                                <p class="font-semibold text-slate-900">{{ $namaPublik }}</p>
                             </div>
                             <div class="pg-card p-4">
                                 <p class="text-slate-500 text-xs uppercase tracking-wider font-semibold mb-1">Kategori</p>
