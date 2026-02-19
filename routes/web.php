@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\GaleriController as AdminGaleriController;
 use App\Http\Controllers\Admin\InfografisController as AdminInfografisController;
 use App\Http\Controllers\Admin\SotkController as AdminSotkController;
 use App\Http\Controllers\Admin\PengaduanController as AdminPengaduanController;
+use App\Http\Controllers\Admin\AdminUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,13 +57,19 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('berita', BeritaController::class)->except(['show'])->names('berita');
         Route::resource('galeri', AdminGaleriController::class)->names('galeri');
         Route::resource('infografis', AdminInfografisController::class)->names('infografis')->parameters(['infografis' => 'penduduk']);
-        Route::resource('sotk', AdminSotkController::class)->names('sotk');
         Route::get('sotk/bagan', [AdminSotkController::class, 'baganForm'])->name('sotk.bagan');
         Route::post('sotk/bagan', [AdminSotkController::class, 'baganUpload'])->name('sotk.bagan.upload');
+        Route::resource('sotk', AdminSotkController::class)->except(['show'])->names('sotk');
         Route::delete('pengaduan/{pengaduan}/progress/{progress}', [AdminPengaduanController::class, 'destroyProgress'])->name('pengaduan.progress.destroy');
         Route::resource('pengaduan', AdminPengaduanController::class)->names('pengaduan');
         Route::resource('profil', App\Http\Controllers\Admin\ProfilDesaController::class)->names('profil');
         Route::post('profil/tambah-sejarah', [App\Http\Controllers\Admin\ProfilDesaController::class, 'tambahSejarah'])->name('profil.tambahSejarah');
         Route::delete('profil/hapus-sejarah/{id}', [App\Http\Controllers\Admin\ProfilDesaController::class, 'hapusSejarah'])->name('profil.hapusSejarah');
+
+        Route::middleware('admin.role:super_admin')->group(function () {
+            Route::resource('users', AdminUserController::class)
+                ->except(['show'])
+                ->names('users');
+        });
     });
 });

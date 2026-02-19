@@ -41,6 +41,26 @@
     </div>
   </div>
 
+  <div class="mb-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+    <div class="text-sm text-slate-500">
+      Menampilkan
+      <span class="font-semibold text-slate-700">{{ $beritas->firstItem() ?? 0 }}</span>
+      -
+      <span class="font-semibold text-slate-700">{{ $beritas->lastItem() ?? 0 }}</span>
+      dari
+      <span class="font-semibold text-slate-700">{{ $beritas->total() }}</span>
+      berita
+    </div>
+    <form method="GET" action="{{ route('admin.berita.index') }}" class="flex items-center gap-2">
+      <label for="per_page" class="text-sm text-slate-600">Per halaman</label>
+      <select id="per_page" name="per_page" class="px-3 py-2 border border-slate-300 rounded-lg bg-white text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" onchange="this.form.submit()">
+        @foreach([5, 10, 15] as $option)
+          <option value="{{ $option }}" {{ (int) ($perPage ?? 10) === $option ? 'selected' : '' }}>{{ $option }}</option>
+        @endforeach
+      </select>
+    </form>
+  </div>
+
   <!-- Table -->
   <div class="overflow-x-auto border border-slate-200 rounded-xl">
     <table class="w-full">

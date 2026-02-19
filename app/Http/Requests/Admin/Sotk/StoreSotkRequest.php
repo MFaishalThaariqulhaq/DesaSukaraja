@@ -17,6 +17,7 @@ class StoreSotkRequest extends FormRequest
             'nama' => ['required', 'string'],
             'jabatan' => ['required', 'string'],
             'foto' => ['nullable', 'image', 'mimes:jpg,jpeg,png,gif', 'max:2048'],
+            'keterangan' => ['nullable', 'string', 'max:255'],
             'tupoksi' => ['nullable', 'string'],
             'badge_color' => ['nullable', 'regex:/^#(?:[0-9a-fA-F]{3}){1,2}$/'],
             'overlay_bg_color' => ['nullable', 'string'],

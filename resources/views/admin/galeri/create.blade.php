@@ -36,17 +36,25 @@
       </div>
 
       <div>
-        <label for="gambar" class="block text-sm font-medium text-slate-700 mb-1">Upload Gambar *</label>
-        <input type="file" name="gambar" id="gambar" accept="image/*"
-          class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition duration-200"
-          onchange="previewImage(event)" required>
+        <label class="block text-sm font-medium text-slate-700 mb-1">Upload Gambar *</label>
+        @php $placeholderGaleri = 'https://placehold.co/800x450?text=Gambar+Galeri'; @endphp
+        <div class="group relative rounded-xl overflow-hidden border-2 border-dashed border-slate-300 bg-slate-50 transition aspect-video" data-image-card data-input-id="gambar">
+          <img
+            data-image-preview
+            src="{{ $placeholderGaleri }}"
+            data-placeholder="{{ $placeholderGaleri }}"
+            alt="Gambar Galeri"
+            class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-black/35 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+            <button type="button" data-image-edit class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 shadow">
+              <i data-lucide="pencil" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+        <input type="file" name="gambar" id="gambar" class="hidden" accept="image/*" required>
         @error('gambar')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
+        <p class="text-xs text-slate-500 mt-2">Arahkan kursor ke gambar untuk memilih file.</p>
       </div>
-    </div>
-
-    <div id="previewContainer" class="hidden">
-      <label class="block text-sm font-medium text-slate-700 mb-2">Pratinjau Gambar:</label>
-      <img id="previewImage" class="max-h-64 rounded-lg shadow-md border border-slate-200 object-cover">
     </div>
 
     <div>
@@ -72,25 +80,8 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    lucide.createIcons();
+    if (window.lucide) lucide.createIcons();
   });
-
-  function previewImage(event) {
-    const preview = document.getElementById('previewImage');
-    const container = document.getElementById('previewContainer');
-    const file = event.target.files[0];
-
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = e => {
-        preview.src = e.target.result;
-        container.classList.remove('hidden');
-      };
-      reader.readAsDataURL(file);
-    } else {
-      container.classList.add('hidden');
-    }
-  }
 </script>
 
 <style>

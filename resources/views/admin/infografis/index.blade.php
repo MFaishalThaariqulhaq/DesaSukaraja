@@ -52,7 +52,7 @@
           <td class="py-3 px-3 text-center">
             <div class="flex justify-center gap-2">
               <a href="{{ route('admin.infografis.edit', $item->id) }}"
-                class="text-blue-600 hover:text-blue-800 transition-transform hover:scale-110 hover:bg-blue-50 p-1.5 rounded"
+                class="inline-flex items-center justify-center p-2 rounded-lg text-blue-600 hover:text-blue-800 hover:bg-blue-50 transition-colors"
                 title="Edit Data">
                 <i data-lucide="edit" class="w-4 h-4"></i>
               </a>
@@ -60,7 +60,7 @@
                 onsubmit="return confirm('Yakin ingin menghapus data ini?')" class="inline">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="text-red-600 hover:text-red-800 transition-transform hover:scale-110 hover:bg-red-50 p-1.5 rounded"
+                <button type="submit" class="inline-flex items-center justify-center p-2 rounded-lg text-red-600 hover:text-red-800 hover:bg-red-50 transition-colors"
                   title="Hapus Data">
                   <i data-lucide="trash-2" class="w-4 h-4"></i>
                 </button>
@@ -79,7 +79,7 @@
 
   @if($penduduks->hasPages())
   <div class="mt-6 flex justify-center">
-    {{ $penduduks->links('pagination::tailwind') }}
+    {{ $penduduks->links('vendor.pagination.tailwind') }}
   </div>
   @endif
 </div>

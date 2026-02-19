@@ -27,14 +27,27 @@ class AuthController extends Controller
             return back()->withErrors(['email' => 'Email atau password salah.'])->withInput();
         }
 
-        session(['admin_logged_in' => true]);
+        if (!in_array($user->role, ['admin', 'super_admin'], true)) {
+            return back()->withErrors(['email' => 'Akun ini tidak memiliki akses admin.'])->withInput();
+        }
+
+        $request->session()->regenerate();
+        session([
+            'admin_logged_in' => true,
+            'admin_user_id' => $user->id,
+            'admin_name' => $user->name,
+            'admin_email' => $user->email,
+            'admin_role' => $user->role,
+        ]);
 
         return redirect()->route('admin.dashboard');
     }
 
     public function logout()
     {
-        session()->forget('admin_logged_in');
+        session()->forget(['admin_logged_in', 'admin_user_id', 'admin_name', 'admin_email', 'admin_role']);
+        session()->invalidate();
+        session()->regenerateToken();
 
         return redirect()->route('admin.login');
     }

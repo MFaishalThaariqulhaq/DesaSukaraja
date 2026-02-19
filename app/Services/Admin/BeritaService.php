@@ -23,6 +23,11 @@ class BeritaService
         $data['slug'] = Str::slug($validatedData['judul']);
         $data['gambar'] = $berita->gambar;
 
+        if (!empty($validatedData['remove_gambar']) && $berita->gambar && Storage::disk('public')->exists($berita->gambar)) {
+            Storage::disk('public')->delete($berita->gambar);
+            $data['gambar'] = null;
+        }
+
         if (!empty($validatedData['gambar'])) {
             if ($berita->gambar && Storage::disk('public')->exists($berita->gambar)) {
                 Storage::disk('public')->delete($berita->gambar);

@@ -9,10 +9,29 @@ use Illuminate\Support\Facades\Storage;
 
 class GaleriController extends Controller
 {
-  public function index()
+  public function index(Request $request)
   {
-    $galeris = Galeri::orderBy('created_at', 'desc')->get();
-    return view('admin.galeri.index', compact('galeris'));
+    $query = Galeri::query();
+
+    if ($request->filled('q')) {
+      $q = $request->query('q');
+      $query->where('judul', 'like', "%{$q}%");
+    }
+
+    if ($request->filled('kategori')) {
+      $query->where('kategori', $request->query('kategori'));
+    }
+
+    $allowedPerPage = [5, 10, 15];
+    $perPage = (int) $request->query('per_page', 10);
+    if (!in_array($perPage, $allowedPerPage, true)) {
+      $perPage = 10;
+    }
+
+    $galeris = $query->orderBy('created_at', 'desc')->paginate($perPage)->withQueryString();
+    $categories = Galeri::whereNotNull('kategori')->distinct()->orderBy('kategori')->pluck('kategori');
+
+    return view('admin.galeri.index', compact('galeris', 'perPage', 'categories'));
   }
   public function create()
   {
@@ -53,10 +72,16 @@ class GaleriController extends Controller
       'judul' => 'required',
       'kategori' => 'required|in:Kegiatan,Alam & Wisata,Pembangunan',
       'gambar' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+      'remove_gambar' => 'nullable|boolean',
       'deskripsi' => 'nullable|string',
     ]);
 
     $gambarPath = $galeri->gambar;
+    if ($request->boolean('remove_gambar') && $gambarPath && Storage::disk('public')->exists($gambarPath)) {
+      Storage::disk('public')->delete($gambarPath);
+      $gambarPath = null;
+    }
+
     if ($request->hasFile('gambar')) {
       if ($gambarPath && Storage::disk('public')->exists($gambarPath)) {
         Storage::disk('public')->delete($gambarPath);
@@ -76,6 +101,9 @@ class GaleriController extends Controller
   public function destroy($id)
   {
     $galeri = Galeri::findOrFail($id);
+    if ($galeri->gambar && Storage::disk('public')->exists($galeri->gambar)) {
+      Storage::disk('public')->delete($galeri->gambar);
+    }
     $galeri->delete();
     return redirect()->route('admin.galeri.index')->with('success', 'Galeri berhasil dihapus');
   }

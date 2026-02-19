@@ -11,6 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  @stack('styles')
   <link rel="icon" href="https://placehold.co/32x32/10b981/ffffff?text=DS" type="image/x-icon">
   <style>
     body {
@@ -119,6 +120,11 @@
         <a href="{{ route('admin.pengaduan.index') }}"
           class="flex items-center px-4 py-2 rounded-lg {{ request()->routeIs('admin.pengaduan.*') ? 'bg-emerald-500 text-white' : 'text-slate-700 hover:bg-slate-200' }} transition-colors"><i
             data-lucide="message-square" class="w-5 h-5 mr-3"></i>Pengaduan</a>
+        @if(session('admin_role') === 'super_admin')
+        <a href="{{ route('admin.users.index') }}"
+          class="flex items-center px-4 py-2 rounded-lg {{ request()->routeIs('admin.users.*') ? 'bg-emerald-500 text-white' : 'text-slate-700 hover:bg-slate-200' }} transition-colors"><i
+            data-lucide="shield-check" class="w-5 h-5 mr-3"></i>Kelola Admin</a>
+        @endif
 
       </nav>
       <div class="px-4 py-4 border-t">
@@ -139,7 +145,7 @@
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
           <button id="mobile-menu-btn" class="md:hidden text-slate-700"><i data-lucide="menu"
               class="w-6 h-6"></i></button>
-          <h1 class="text-xl font-semibold text-slate-800 hidden md:block">Selamat Datang, Admin!</h1>
+          <h1 class="text-xl font-semibold text-slate-800 hidden md:block">Selamat Datang, {{ session('admin_name', 'Admin') }}!</h1>
           <div class="flex items-center space-x-4">
             <div class="relative hidden md:block">
               <i data-lucide="search"
@@ -153,12 +159,30 @@
                 class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">3</span>
             </button>
             <div class="relative">
-              <button class="flex items-center space-x-2">
+              <button id="admin-menu-btn" class="flex items-center space-x-2">
                 <img src="https://placehold.co/40x40/94a3b8/ffffff?text=A" alt="Avatar Admin"
                   class="w-10 h-10 rounded-full object-cover">
-                <span class="hidden lg:block font-semibold">Admin Desa</span>
+                <span class="hidden lg:block font-semibold">{{ session('admin_name', 'Admin Desa') }}</span>
                 <i data-lucide="chevron-down" class="w-4 h-4 hidden lg:block"></i>
               </button>
+              <div id="admin-menu-dropdown" class="hidden absolute right-0 mt-2 w-52 bg-white border border-slate-200 rounded-lg shadow-lg z-50 overflow-hidden">
+                <div class="px-4 py-3 border-b border-slate-100">
+                  <p class="text-sm font-semibold text-slate-800">{{ session('admin_name', 'Admin Desa') }}</p>
+                  <p class="text-xs text-slate-500">{{ session('admin_email', '-') }}</p>
+                  <p class="text-[11px] text-emerald-600 mt-1 uppercase font-bold">{{ session('admin_role', 'admin') }}</p>
+                </div>
+                @if(session('admin_role') === 'super_admin')
+                <a href="{{ route('admin.users.index') }}" class="flex items-center gap-2 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50">
+                  <i data-lucide="shield-check" class="w-4 h-4"></i> Kelola Admin
+                </a>
+                @endif
+                <form method="POST" action="{{ route('admin.logout') }}">
+                  @csrf
+                  <button type="submit" class="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 text-left">
+                    <i data-lucide="log-out" class="w-4 h-4"></i> Logout
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
@@ -184,11 +208,60 @@
     <div id="sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-20 hidden md:hidden"></div>
   </div>
   <script>
+    function initAdminImageCards() {
+      const cards = document.querySelectorAll('[data-image-card]');
+      cards.forEach((card) => {
+        const fileInputId = card.getAttribute('data-input-id');
+        if (!fileInputId) return;
+
+        const fileInput = document.getElementById(fileInputId);
+        const preview = card.querySelector('[data-image-preview]');
+        const editBtn = card.querySelector('[data-image-edit]');
+        const removeBtn = card.querySelector('[data-image-remove]');
+        const removeInputId = card.getAttribute('data-remove-input-id');
+        const removeInput = removeInputId ? document.getElementById(removeInputId) : null;
+        const placeholder = preview?.dataset?.placeholder || '';
+        const confirmMessage = card.getAttribute('data-remove-confirm') || 'Hapus gambar saat ini?';
+
+        if (editBtn && fileInput) {
+          editBtn.addEventListener('click', () => fileInput.click());
+        }
+
+        if (removeBtn) {
+          removeBtn.addEventListener('click', () => {
+            if (!window.confirm(confirmMessage)) return;
+
+            if (removeInput) removeInput.checked = true;
+            if (fileInput) fileInput.value = '';
+            if (preview && placeholder) preview.src = placeholder;
+          });
+        }
+
+        if (fileInput && preview) {
+          fileInput.addEventListener('change', (event) => {
+            const file = event.target.files && event.target.files[0];
+            if (!file) return;
+
+            if (removeInput) removeInput.checked = false;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+              preview.src = e.target?.result;
+            };
+            reader.readAsDataURL(file);
+          });
+        }
+      });
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
       lucide.createIcons();
+      initAdminImageCards();
       const sidebar = document.getElementById('sidebar');
       const mobileMenuBtn = document.getElementById('mobile-menu-btn');
       const sidebarOverlay = document.getElementById('sidebar-overlay');
+      const adminMenuBtn = document.getElementById('admin-menu-btn');
+      const adminMenuDropdown = document.getElementById('admin-menu-dropdown');
 
       function toggleSidebar() {
         if (sidebar && sidebarOverlay) {
@@ -220,8 +293,23 @@
           });
         });
       }
+
+      if (adminMenuBtn && adminMenuDropdown) {
+        adminMenuBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          adminMenuDropdown.classList.toggle('hidden');
+        });
+
+        document.addEventListener('click', function(e) {
+          if (!adminMenuDropdown.contains(e.target) && !adminMenuBtn.contains(e.target)) {
+            adminMenuDropdown.classList.add('hidden');
+          }
+        });
+      }
     });
   </script>
+  @stack('scripts')
 </body>
 
 </html>
