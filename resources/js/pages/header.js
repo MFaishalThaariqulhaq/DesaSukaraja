@@ -86,6 +86,7 @@ function openMobileMenu() {
   requestAnimationFrame(() => {
     mobileMenu.classList.add('mobile-menu-open');
   });
+  mobileMenuButton.classList.add('menu-open');
 
   const icon = mobileMenuButton.querySelector('i');
   if (icon) {
@@ -109,6 +110,7 @@ function closeMobileMenu() {
       mobileMenu.classList.remove('mobile-menu-closing');
     }
   }, 220);
+  mobileMenuButton.classList.remove('menu-open');
 
   const icon = mobileMenuButton.querySelector('i');
   if (icon) {
@@ -202,11 +204,9 @@ function initActiveNavigation() {
       (href !== '/' && currentPath.startsWith(href));
 
     if (isActive) {
-      link.classList.remove('text-slate-600', 'hover:text-emerald-600');
-      link.classList.add('text-emerald-600', 'font-semibold');
+      link.classList.add('is-active');
     } else {
-      link.classList.remove('text-emerald-600', 'font-semibold');
-      link.classList.add('text-slate-600', 'hover:text-emerald-600');
+      link.classList.remove('is-active');
     }
   };
 
@@ -218,11 +218,9 @@ function initActiveNavigation() {
       (href !== '/' && currentPath.startsWith(href));
 
     if (isActive) {
-      link.classList.remove('text-slate-600');
-      link.classList.add('text-emerald-600', 'font-semibold', 'bg-emerald-50');
+      link.classList.add('is-active');
     } else {
-      link.classList.remove('text-emerald-600', 'font-semibold', 'bg-emerald-50');
-      link.classList.add('text-slate-600');
+      link.classList.remove('is-active');
     }
   });
 }

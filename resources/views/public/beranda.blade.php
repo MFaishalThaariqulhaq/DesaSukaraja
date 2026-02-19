@@ -26,12 +26,12 @@
 
 <section id="profil" class="py-20 bg-white relative overflow-hidden">
   <!-- Background Blob -->
-  <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-50 rounded-full blur-3xl opacity-50 -z-0 translate-x-1/2 -translate-y-1/2"></div>
+  <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-[#edf6ef] rounded-full blur-3xl opacity-60 -z-0 translate-x-1/2 -translate-y-1/2"></div>
   
   <div class="container mx-auto px-6 relative z-10">
     <div class="grid lg:grid-cols-2 gap-16 items-center">
       <div class="relative group" data-aos="fade-right" data-aos-duration="1000">
-        <div class="absolute -top-4 -left-4 w-24 h-24 bg-emerald-200 rounded-full blur-2xl -z-10 group-hover:bg-emerald-300 transition-colors duration-500"></div>
+        <div class="absolute -top-4 -left-4 w-24 h-24 bg-[#d7ebdc] rounded-full blur-2xl -z-10 group-hover:bg-[#c5e0cd] transition-colors duration-500"></div>
         <div class="tilt-card rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
           @if($profil && $profil->gambar)
           <img src="{{ asset('storage/' . $profil->gambar) }}" alt="Gambar Profil Desa" class="profil-image">
@@ -49,7 +49,7 @@
           @if($profil && $profil->judul)
           {!! nl2br(e($profil->judul)) !!}
           @else
-          Membangun Desa <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500">Menuju Kemandirian</span>
+          Membangun Desa <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#4f8f68] to-[#6fae86]">Menuju Kemandirian</span>
           @endif
         </h2>
         <p class="text-slate-600 text-lg mb-8 leading-relaxed">
@@ -59,8 +59,8 @@
           Selamat datang di Desa Sukaraja, sebuah desa yang asri dan penuh dengan kearifan lokal. Terletak di <strong class="text-slate-800">Kecamatan Rawamerta, Kabupaten Karawang</strong>, desa kami berkomitmen untuk terus berkembang menjadi desa yang maju, mandiri, dan sejahtera.
           @endif
         </p>
-        <div class="bg-gradient-to-r from-emerald-50 to-white p-8 rounded-2xl border border-emerald-100 mb-10 shadow-sm hover:shadow-md transition-shadow">
-          <i data-lucide="quote" class="text-emerald-300 w-8 h-8 mb-2"></i>
+        <div class="bg-gradient-to-r from-[#edf6ef] to-white p-8 rounded-2xl border border-[#d7ebdc] mb-10 shadow-sm hover:shadow-md transition-shadow">
+          <i data-lucide="quote" class="text-[#9acaa8] w-8 h-8 mb-2"></i>
           <p class="text-slate-800 italic font-medium text-lg leading-relaxed">
             @if($profil && $profil->motto_profil)
             "{{ $profil->motto_profil }}"
@@ -74,7 +74,7 @@
           <a href="/profil#sejarah" onclick="smoothNavigateTo(event, '/profil', '#sejarah')" class="inline-flex items-center justify-center px-8 py-3.5 text-sm font-bold text-white bg-slate-900 rounded-xl hover:bg-slate-800 transition duration-300 shadow-lg transform hover:-translate-y-1">
             Sejarah Desa
           </a>
-          <a href="/profil#struktur" onclick="smoothNavigateTo(event, '/profil', '#struktur')" class="inline-flex items-center justify-center px-8 py-3.5 text-sm font-bold text-emerald-700 bg-white border border-emerald-200 rounded-xl hover:bg-emerald-50 hover:border-emerald-300 transition duration-300 transform hover:-translate-y-1">
+          <a href="/profil#struktur" onclick="smoothNavigateTo(event, '/profil', '#struktur')" class="inline-flex items-center justify-center px-8 py-3.5 text-sm font-bold text-[#4f8f68] bg-white border border-[#c5decb] rounded-xl hover:bg-[#edf6ef] hover:border-[#9dc8ab] transition duration-300 transform hover:-translate-y-1">
             Struktur Organisasi
           </a>
         </div>
@@ -88,7 +88,7 @@
   <div class="container mx-auto px-6 relative z-10">
     <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6" data-aos="fade-up">
       <div class="max-w-2xl">
-        <span class="text-emerald-600 font-bold uppercase tracking-widest text-sm block mb-2">Kabar Desa</span>
+        <span class="text-[#4f8f68] font-bold uppercase tracking-widest text-sm block mb-2">Kabar Desa</span>
         <h2 class="text-4xl md:text-5xl font-bold text-slate-900 font-serif">Berita & Kegiatan</h2>
       </div>
           </div>
@@ -165,11 +165,11 @@
 
 <section id="infografis" class="py-24 bg-slate-900 text-white relative overflow-hidden">
   <!-- Abstract Shapes -->
-  <div class="absolute -top-24 -left-24 w-96 h-96 bg-emerald-600 rounded-full blur-[128px] opacity-20"></div>
-  <div class="absolute bottom-0 right-0 w-96 h-96 bg-blue-600 rounded-full blur-[128px] opacity-20"></div>
+  <div class="absolute -top-24 -left-24 w-96 h-96 bg-[#4f8f68] rounded-full blur-[128px] opacity-20"></div>
+  <div class="absolute bottom-0 right-0 w-96 h-96 bg-[#355845] rounded-full blur-[128px] opacity-20"></div>
   <div class="container mx-auto px-6 relative z-10">
     <div class="text-center mb-16" data-aos="fade-up">
-      <span class="text-emerald-400 font-bold uppercase tracking-widest text-sm mb-2 block">Transparansi Data</span>
+      <span class="text-[#9acaa8] font-bold uppercase tracking-widest text-sm mb-2 block">Transparansi Data</span>
       <h2 class="text-4xl md:text-5xl font-bold font-serif mb-4">Statistik Kependudukan</h2>
       <p class="text-slate-400 max-w-2xl mx-auto">Data demografi yang akurat sebagai dasar pembangunan desa yang terukur.</p>
     </div>
@@ -177,8 +177,8 @@
       <!-- Stat Card 1 -->
       <div class="bg-white/5 backdrop-blur-md p-8 rounded-3xl border border-white/10 hover:bg-white/10 transition-colors group text-center" data-aos="zoom-in" data-aos-delay="0">
         <h3 class="text-5xl font-bold mb-2 counter text-white" data-target="{{ $stat_penduduk['total_penduduk'] }}">0</h3>
-        <p class="text-emerald-400 font-bold uppercase text-xs tracking-wider mb-4">Total Penduduk</p>
-        <div class="w-12 h-1 bg-emerald-500 mx-auto rounded-full group-hover:w-20 transition-all duration-300"></div>
+        <p class="text-[#9acaa8] font-bold uppercase text-xs tracking-wider mb-4">Total Penduduk</p>
+        <div class="w-12 h-1 bg-[#6fae86] mx-auto rounded-full group-hover:w-20 transition-all duration-300"></div>
       </div>
       <!-- Stat Card 2 -->
       <div class="bg-white/5 backdrop-blur-md p-8 rounded-3xl border border-white/10 hover:bg-white/10 transition-colors group text-center" data-aos="zoom-in" data-aos-delay="100">
@@ -204,7 +204,7 @@
 
 <section id="peta-wilayah" class="relative py-16 overflow-hidden bg-white">
   <!-- Background Decoration -->
-  <div class="absolute inset-0 bg-gradient-to-br from-emerald-50 via-white to-slate-50 pointer-events-none"></div>
+  <div class="absolute inset-0 bg-gradient-to-br from-[#edf6ef] via-white to-slate-50 pointer-events-none"></div>
   
   <div class="container mx-auto px-6 relative z-10">
     <div class="grid lg:grid-cols-12 gap-12 items-start">
@@ -223,8 +223,8 @@
 
         <!-- INFO CARDS -->
         <div class="grid grid-cols-2 gap-4">
-          <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-2xl">
-            <div class="text-emerald-600 mb-2"><i data-lucide="maximize" class="w-6 h-6"></i></div>
+          <div class="bg-[#edf6ef] border border-[#c5decb] p-4 rounded-2xl">
+            <div class="text-[#4f8f68] mb-2"><i data-lucide="maximize" class="w-6 h-6"></i></div>
             <p class="text-xs text-slate-500 font-bold uppercase">Luas Area</p>
             <p class="text-lg font-bold text-slate-900">± 450 Ha</p>
           </div>
@@ -238,21 +238,21 @@
         <!-- FEATURES LIST -->
         <div class="space-y-3">
           <div class="flex items-start gap-3">
-            <div class="p-2 bg-emerald-100 rounded-lg mt-1"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-600"></i></div>
+            <div class="p-2 bg-[#d7ebdc] rounded-lg mt-1"><i data-lucide="check-circle" class="w-4 h-4 text-[#4f8f68]"></i></div>
             <div>
               <p class="font-bold text-slate-800">Batas Wilayah Jelas</p>
               <p class="text-sm text-slate-600">Polygon batas desa ditampilkan dengan jelas</p>
             </div>
           </div>
           <div class="flex items-start gap-3">
-            <div class="p-2 bg-emerald-100 rounded-lg mt-1"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-600"></i></div>
+            <div class="p-2 bg-[#d7ebdc] rounded-lg mt-1"><i data-lucide="check-circle" class="w-4 h-4 text-[#4f8f68]"></i></div>
             <div>
               <p class="font-bold text-slate-800">Lokasi Penting</p>
               <p class="text-sm text-slate-600">Kantor desa dan pos dusun ditandai pada peta</p>
             </div>
           </div>
           <div class="flex items-start gap-3">
-            <div class="p-2 bg-emerald-100 rounded-lg mt-1"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-600"></i></div>
+            <div class="p-2 bg-[#d7ebdc] rounded-lg mt-1"><i data-lucide="check-circle" class="w-4 h-4 text-[#4f8f68]"></i></div>
             <div>
               <p class="font-bold text-slate-800">Interaktif</p>
               <p class="text-sm text-slate-600">Zoom, drag, dan klik untuk informasi detail</p>
@@ -273,7 +273,7 @@
             <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Legenda</h4>
             <div class="space-y-2">
               <div class="flex items-center gap-2">
-                <div class="w-6 h-1 rounded bg-emerald-500"></div>
+                <div class="w-6 h-1 rounded bg-[#6fae86]"></div>
                 <span class="text-xs font-medium text-slate-700">Batas Wilayah</span>
               </div>
               <div class="flex items-center gap-2">
@@ -298,4 +298,3 @@
 </section>
 
 @endsection
-

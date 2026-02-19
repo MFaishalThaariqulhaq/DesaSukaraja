@@ -2,21 +2,7 @@
 
 @section('content')
 
-<!-- Hero Header Section -->
-<section class="hero-bg relative h-screen md:h-[75vh] flex items-center justify-center text-white overflow-hidden -mt-20">
-  <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
-    <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold font-serif leading-tight drop-shadow-2xl mb-4 animate-fade-in-down">
-      Berita & <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-teal-200">Kegiatan</span>
-    </h1>
-    <p class="text-lg md:text-2xl text-slate-100 drop-shadow-md animate-fade-in-up">Temukan informasi terbaru dan dokumentasi kegiatan desa</p>
-  </div>
-  <!-- Scroll Down Indicator -->
-  <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-smooth-lucid-mouse opacity-80 cursor-pointer hover:opacity-100 hover:text-emerald-300 transition-all duration-300">
-    <a href="#berita-list"><i data-lucide="mouse" class="w-8 h-8"></i></a>
-  </div>
-</section>
-
-<section id="berita-list" class="py-12 bg-slate-50">
+<section id="berita-list" class="pt-6 pb-12 md:pt-8 bg-slate-50">
   <div class="container mx-auto px-6">
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
 
@@ -28,7 +14,7 @@
             <h3 class="text-lg font-bold text-slate-800 mb-4 font-sans">Cari Berita</h3>
             <div class="relative">
               <input type="text" id="searchInput" placeholder="Kata kunci..."
-                class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition">
+                class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent transition">
               <svg class="w-5 h-5 text-slate-400 absolute left-3 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
               </svg>
@@ -44,7 +30,7 @@
                   class="kategori-all flex items-center justify-between px-4 py-3 rounded-lg text-slate-700 font-medium hover:bg-emerald-50 hover:text-emerald-700 transition-all duration-300 border-2 border-transparent"
                   data-kategori="all">
                   <span>Semua Berita</span>
-                  <span class="bg-emerald-100 text-emerald-700 py-1 px-2.5 rounded-full text-xs font-bold">{{ \App\Models\Berita::count() }}</span>
+                  <span class="bg-emerald-50 text-emerald-700 py-1 px-2.5 rounded-full text-xs font-bold">{{ \App\Models\Berita::count() }}</span>
                 </a>
               </li>
               @php
@@ -54,7 +40,7 @@
               @forelse($categories as $category)
               <li>
                 <a href="{{ route('berita.index', ['kategori' => $category]) }}#berita-list"
-                  class="kategori-link flex items-center justify-between px-4 py-3 rounded-lg text-slate-700 font-medium hover:bg-emerald-50 hover:text-emerald-700 transition-all duration-300 border-2 border-transparent {{ strtolower($currentCategory ?? '') === strtolower($category) ? 'bg-emerald-50 text-emerald-700 border-emerald-300' : '' }}"
+                  class="kategori-link flex items-center justify-between px-4 py-3 rounded-lg text-slate-700 font-medium hover:bg-emerald-50 hover:text-emerald-700 transition-all duration-300 border-2 border-transparent {{ strtolower($currentCategory ?? '') === strtolower($category) ? 'bg-emerald-50 text-emerald-700 border-emerald-400' : '' }}"
                   data-kategori="{{ strtolower($category) }}">
                   <span>{{ $category }}</span>
                   <span class="bg-slate-100 text-slate-600 py-1 px-2.5 rounded-full text-xs font-bold">{{ \App\Models\Berita::whereRaw('LOWER(TRIM(kategori)) = LOWER(?)', [$category])->count() }}</span>
@@ -82,7 +68,7 @@
                 alt="{{ $berita->judul }}"
                 class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out">
               <!-- Category Badge -->
-              <div class="absolute top-4 left-4 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider shadow-lg">
+              <div class="absolute top-4 left-4 bg-emerald-600 text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider shadow-lg">
                 {{ $berita->kategori }}
               </div>
               <!-- Read Time Estimate -->
@@ -95,12 +81,12 @@
             <div class="p-6 flex-1 flex flex-col">
               <!-- Date -->
               <div class="text-slate-500 text-xs font-semibold mb-3 flex items-center gap-2 uppercase tracking-wide">
-                <i data-lucide="calendar" class="w-4 h-4 text-emerald-600"></i>
+                <i data-lucide="calendar" class="w-4 h-4 text-emerald-700"></i>
                 {{ $berita->created_at->format('d M Y') }}
               </div>
 
               <!-- Title -->
-              <h3 class="text-lg font-bold text-slate-800 mb-3 group-hover:text-emerald-600 transition-colors duration-300 leading-snug line-clamp-2">
+              <h3 class="text-lg font-bold text-slate-800 mb-3 group-hover:text-emerald-700 transition-colors duration-300 leading-snug line-clamp-2">
                 <a href="{{ route('berita.detail', $berita->slug) }}">{{ $berita->judul }}</a>
               </h3>
 
@@ -110,7 +96,7 @@
               </p>
 
               <!-- CTA Button -->
-              <a href="{{ route('berita.detail', $berita->slug) }}" class="inline-flex items-center gap-2 text-emerald-600 font-semibold text-sm hover:text-emerald-700 transition-all duration-300 group/btn mt-auto">
+              <a href="{{ route('berita.detail', $berita->slug) }}" class="inline-flex items-center gap-2 text-emerald-700 font-semibold text-sm hover:text-emerald-800 transition-all duration-300 group/btn mt-auto">
                 Baca Selengkapnya
                 <i data-lucide="arrow-right" class="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1"></i>
               </a>
@@ -178,7 +164,7 @@
     kategoriLinks.forEach(link => {
       const linkKategori = link.getAttribute('data-kategori');
       if (linkKategori === currentKategori) {
-        link.classList.add('bg-emerald-50', 'text-emerald-700', 'border-emerald-300');
+        link.classList.add('bg-emerald-50', 'text-emerald-700', 'border-emerald-400');
       }
     });
   });

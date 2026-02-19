@@ -11,7 +11,7 @@
 @endpush
 
 <!-- Header Section -->
-<header class="berita-detail-header text-white py-10 relative overflow-hidden border-b border-slate-800 -mt-12">
+<header class="berita-detail-header text-white pt-16 pb-10 md:pt-20 md:pb-12 relative overflow-hidden border-b border-slate-800 -mt-12">
   <div class="container mx-auto px-6 relative z-10" data-aos="fade-up">
     <a href="{{ route('berita.index') }}"
       class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/10 text-white border border-white/30 hover:bg-white/20 hover:border-white/50 transition-all duration-300 mb-4 backdrop-blur-sm">
@@ -20,7 +20,7 @@
     </a>
     <h1 class="text-3xl md:text-4xl font-bold mb-3">{{ $berita->judul }}</h1>
     <div class="flex items-center gap-4 text-slate-300 flex-wrap text-sm">
-      <span class="inline-block bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+      <span class="inline-block bg-emerald-700 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
         {{ $berita->kategori ?? 'Umum' }}
       </span>
       <span class="flex items-center gap-2">
@@ -32,7 +32,7 @@
 </header>
 
 <!-- Main Content -->
-<div class="container mx-auto px-6 py-12">
+<div class="container mx-auto px-6 pt-10 pb-12 md:pt-12">
   <div class="grid lg:grid-cols-12 gap-12">
     <!-- Main Content -->
     <main class="lg:col-span-8 lg:col-start-1">
@@ -106,7 +106,7 @@
         <div class="space-y-4">
           @forelse($beritaTerkait ?? [] as $b)
           <a href="{{ route('berita.detail', $b->slug) }}"
-            class="flex items-start gap-3 p-3 rounded-lg hover:bg-emerald-50 transition-all duration-300 group border border-transparent hover:border-emerald-200"
+            class="flex items-start gap-3 p-3 rounded-lg hover:bg-emerald-50 transition-all duration-300 group border border-transparent hover:border-emerald-300"
             data-aos="fade-up" data-aos-delay="{{ 200 + $loop->index * 100 }}">
             <img
               src="{{ $b->gambar ? asset('storage/' . $b->gambar) : 'https://placehold.co/100x80/60a5fa/ffffff?text=Berita' }}"

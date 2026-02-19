@@ -26,7 +26,7 @@
   top: 0;
   height: 100%;
   width: 3px;
-  background: linear-gradient(to bottom, #10b981, #059669);
+  background: linear-gradient(to bottom, #10b981, #047857);
   transform: scaleY(0);
   transform-origin: center;
   transition: transform 0.3s ease;

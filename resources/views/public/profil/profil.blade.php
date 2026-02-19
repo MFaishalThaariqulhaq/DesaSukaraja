@@ -18,26 +18,12 @@
 </script>
 @endpush
 
-<!-- Hero Header Section -->
-<section class="hero-bg relative h-screen md:h-[75vh] flex items-center justify-center text-white overflow-hidden -mt-20">
-  <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
-    <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold font-serif leading-tight drop-shadow-2xl mb-4 animate-fade-in-down">
-      Profil <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-teal-200">Desa Sukaraja</span>
-    </h1>
-    <p class="text-lg md:text-2xl text-slate-100 drop-shadow-md animate-fade-in-up">Mengenal Lebih Dekat Sejarah dan Visi Desa Kami</p>
-  </div>
-  <!-- Scroll Down Indicator -->
-  <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-smooth-lucid-mouse opacity-80 cursor-pointer hover:opacity-100 hover:text-emerald-300 transition-all duration-300">
-    <a href="#sejarah"><i data-lucide="mouse" class="w-8 h-8"></i></a>
-  </div>
-</section>
-
-<section id="sejarah" class="py-28 bg-slate-50 scroll-mt-24">
+<section id="sejarah" class="pt-10 pb-28 md:pt-14 bg-slate-50 scroll-mt-24">
   <div class="container mx-auto px-6">
     <div class="text-center mb-16" data-aos="fade-up">
-      <span class="text-emerald-600 font-bold uppercase tracking-widest text-sm">Perjalanan Kami</span>
+      <span class="text-emerald-700 font-bold uppercase tracking-widest text-sm">Perjalanan Kami</span>
       <h2 class="text-3xl md:text-5xl font-bold text-slate-800 mt-2">Sejarah Desa Sukaraja</h2>
-      <div class="w-24 h-1 bg-emerald-500 mx-auto rounded-full mt-4"></div>
+      <div class="w-24 h-1 bg-emerald-600 mx-auto rounded-full mt-4"></div>
     </div>
     <div class="relative max-w-4xl mx-auto">
       @if($sejarah && count($sejarah))
@@ -88,17 +74,17 @@
             <img src="{{ $profil && $profil->foto_kades ? asset('storage/'.$profil->foto_kades) : asset('assets/kpdesa.jpg') }}" alt="Kepala Desa Sukaraja" class="w-full h-[400px] object-cover object-top transition duration-500 group-hover:scale-105 filter sepia-[0.1]">
             <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-900 to-transparent p-6 pt-20">
               <h3 class="text-white text-xl font-bold font-sans">{{ $profil->nama_kades ?? '-' }}</h3>
-              <p class="text-emerald-300 text-sm font-medium">Kepala Desa Sukaraja</p>
+              <p class="text-emerald-200 text-sm font-medium">Kepala Desa Sukaraja</p>
               <div class="mt-2 inline-block px-3 py-1 bg-emerald-600 text-white text-xs rounded-full">Periode {{ $profil->periode_kades ?? '-' }}</div>
             </div>
           </div>
         </div>
-        <div class="absolute -bottom-4 -right-4 w-20 h-20 bg-emerald-200 rounded-full blur-xl opacity-60 -z-10"></div>
+        <div class="absolute -bottom-4 -right-4 w-20 h-20 bg-emerald-100 rounded-full blur-xl opacity-60 -z-10"></div>
       </div>
       <div class="md:col-span-8 md:pl-8" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
         <div class="flex items-center gap-4 mb-6">
-          <div class="h-1 w-12 bg-emerald-500 rounded-full"></div>
-          <span class="text-emerald-600 font-bold uppercase tracking-widest text-sm font-sans">Sambutan Kepala Desa</span>
+          <div class="h-1 w-12 bg-emerald-600 rounded-full"></div>
+          <span class="text-emerald-700 font-bold uppercase tracking-widest text-sm font-sans">Sambutan Kepala Desa</span>
         </div>
         <h2 class="text-2xl md:text-3xl font-bold text-slate-800 mb-2 leading-tight">
           {{ $profil->judul_sambutan_kades ?? '-' }}
@@ -170,7 +156,7 @@
 <section id="struktur" class="py-20 bg-slate-50 scroll-mt-24">
   <div class="container mx-auto px-6">
     <div class="text-center mb-12" data-aos="fade-up">
-      <span class="text-emerald-600 font-bold uppercase tracking-widest text-sm">Pemerintahan</span>
+      <span class="text-emerald-700 font-bold uppercase tracking-widest text-sm">Pemerintahan</span>
       <h2 class="text-3xl md:text-5xl font-bold text-slate-800 mt-2 leading-tight">Struktur Organisasi BPD</h2>
       <p class="text-slate-600 mt-4 max-w-3xl mx-auto text-base leading-relaxed">Sinergi antara aparat desa dan lembaga masyarakat dalam mewujudkan visi misi Desa Sukaraja.</p>
     </div>
