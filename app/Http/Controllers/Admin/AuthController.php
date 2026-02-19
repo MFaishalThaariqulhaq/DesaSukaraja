@@ -38,6 +38,7 @@ class AuthController extends Controller
             'admin_name' => $user->name,
             'admin_email' => $user->email,
             'admin_role' => $user->role,
+            'admin_avatar' => $user->avatar,
         ]);
 
         return redirect()->route('admin.dashboard');
@@ -45,7 +46,7 @@ class AuthController extends Controller
 
     public function logout()
     {
-        session()->forget(['admin_logged_in', 'admin_user_id', 'admin_name', 'admin_email', 'admin_role']);
+        session()->forget(['admin_logged_in', 'admin_user_id', 'admin_name', 'admin_email', 'admin_role', 'admin_avatar']);
         session()->invalidate();
         session()->regenerateToken();
 

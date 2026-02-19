@@ -17,7 +17,7 @@ class AdminSessionMiddleware
 
         $adminUser = User::find(session('admin_user_id'));
         if (!$adminUser || !in_array($adminUser->role, ['admin', 'super_admin'], true)) {
-            session()->forget(['admin_logged_in', 'admin_user_id', 'admin_name', 'admin_email', 'admin_role']);
+            session()->forget(['admin_logged_in', 'admin_user_id', 'admin_name', 'admin_email', 'admin_role', 'admin_avatar']);
             return redirect()->route('admin.login');
         }
 
@@ -26,6 +26,7 @@ class AdminSessionMiddleware
             'admin_name' => $adminUser->name,
             'admin_email' => $adminUser->email,
             'admin_role' => $adminUser->role,
+            'admin_avatar' => $adminUser->avatar,
         ]);
 
         return $next($request);
