@@ -16,6 +16,7 @@
     <table class="min-w-full bg-white text-sm">
       <thead class="bg-slate-50 text-slate-700 uppercase text-xs">
         <tr>
+          <th class="py-3 px-4 text-left font-semibold">Avatar</th>
           <th class="py-3 px-4 text-left font-semibold">Nama</th>
           <th class="py-3 px-4 text-left font-semibold">Email</th>
           <th class="py-3 px-4 text-left font-semibold">Role</th>
@@ -26,6 +27,15 @@
       <tbody class="divide-y divide-slate-200 text-slate-700">
         @forelse($users as $user)
         <tr class="hover:bg-slate-50 transition">
+          <td class="py-3 px-4">
+            @if($user->avatar)
+            <img src="{{ asset('storage/' . $user->avatar) }}" alt="{{ $user->name }}" class="w-10 h-10 rounded-full object-cover border border-slate-200">
+            @else
+            <div class="w-10 h-10 rounded-full bg-slate-200 text-slate-700 font-bold flex items-center justify-center text-xs">
+              {{ strtoupper(substr($user->name, 0, 1)) }}
+            </div>
+            @endif
+          </td>
           <td class="py-3 px-4 font-medium text-slate-800">{{ $user->name }}</td>
           <td class="py-3 px-4">{{ $user->email }}</td>
           <td class="py-3 px-4">
@@ -51,7 +61,7 @@
         </tr>
         @empty
         <tr>
-          <td colspan="5" class="text-center py-8 text-slate-500">Belum ada data admin.</td>
+          <td colspan="6" class="text-center py-8 text-slate-500">Belum ada data admin.</td>
         </tr>
         @endforelse
       </tbody>

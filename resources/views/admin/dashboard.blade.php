@@ -86,6 +86,11 @@
 </head>
 
 <body class="antialiased text-slate-600">
+  @php
+    $adminName = session('admin_name', 'Admin Desa');
+    $initial = strtoupper(mb_substr($adminName, 0, 1));
+    $avatarUrl = session('admin_avatar') ? asset('storage/' . session('admin_avatar')) : "https://placehold.co/40x40/94a3b8/ffffff?text={$initial}";
+  @endphp
   <div class="flex h-screen bg-slate-100">
     <!-- Sidebar -->
     <aside id="sidebar"
@@ -160,7 +165,7 @@
             </button>
             <div class="relative">
               <button id="admin-menu-btn" class="flex items-center space-x-2">
-                <img src="https://placehold.co/40x40/94a3b8/ffffff?text=A" alt="Avatar Admin"
+                <img src="{{ $avatarUrl }}" alt="Avatar Admin"
                   class="w-10 h-10 rounded-full object-cover">
                 <span class="hidden lg:block font-semibold">{{ session('admin_name', 'Admin Desa') }}</span>
                 <i data-lucide="chevron-down" class="w-4 h-4 hidden lg:block"></i>
