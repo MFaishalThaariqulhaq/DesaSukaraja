@@ -51,6 +51,17 @@ class PengaduanController extends Controller
     return view('public.pengaduan.list', array_merge($data, compact('kategori', 'status', 'perPage')));
   }
 
+  public function publicShow(Pengaduan $pengaduan)
+  {
+    $pengaduan->load([
+      'progressUpdates' => function ($query) {
+        $query->where('is_public', true)->oldest();
+      }
+    ]);
+
+    return view('public.pengaduan.public-detail', compact('pengaduan'));
+  }
+
   public function store(StorePengaduanRequest $request)
   {
     $validated = $request->validated();

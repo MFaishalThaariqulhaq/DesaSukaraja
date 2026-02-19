@@ -4,9 +4,9 @@
 
 @section('content')
 <div class="pg-shell min-h-screen">
-    <section class="pt-12 pb-10 border-b border-emerald-100/70">
+    <section class="pt-8 pb-6 border-b border-emerald-100/70">
         <div class="container mx-auto px-4 text-center" data-pg-reveal>
-            <p class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-emerald-200 text-emerald-700 text-xs font-bold tracking-wider uppercase mb-4">
+            <p class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-emerald-200 text-emerald-700 text-xs font-bold tracking-wider uppercase mb-3">
                 <i data-lucide="layout-dashboard" class="ui-icon-sm"></i>
                 Dashboard Publik
             </p>
@@ -15,107 +15,99 @@
         </div>
     </section>
 
-    <div class="container mx-auto px-4 py-12 space-y-8">
+    <div class="container mx-auto px-4 py-8 space-y-6">
         <div data-pg-reveal>
-            <h2 class="ui-heading text-3xl font-bold text-slate-900 mb-2">Statistik Pengaduan</h2>
+            <h2 class="ui-heading text-2xl md:text-3xl font-bold text-slate-900 mb-1">Statistik Pengaduan</h2>
             <p class="text-slate-600">Ringkasan performa penanganan pengaduan terbaru.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5" data-pg-reveal>
-            <div class="pg-card p-6 bg-emerald-50">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-slate-600 text-sm font-semibold mb-1">Total Pengaduan</p>
-                        <p class="text-4xl font-extrabold text-emerald-700">{{ $stats['total'] }}</p>
+        <div class="pg-panel p-5 md:p-6" data-pg-reveal>
+            @php
+                $total = max(1, (int) ($stats['total'] ?? 0));
+                $statusMeta = [
+                    'submitted' => ['label' => 'Baru Diterima', 'count' => (int) ($stats['submitted'] ?? 0), 'bar' => 'bg-blue-500', 'dot' => 'bg-blue-500'],
+                    'pending' => ['label' => 'Dalam Antrian', 'count' => (int) ($stats['pending'] ?? 0), 'bar' => 'bg-yellow-500', 'dot' => 'bg-yellow-500'],
+                    'in_progress' => ['label' => 'Diproses', 'count' => (int) ($stats['in_progress'] ?? 0), 'bar' => 'bg-orange-500', 'dot' => 'bg-orange-500'],
+                    'resolved' => ['label' => 'Selesai', 'count' => (int) ($stats['resolved'] ?? 0), 'bar' => 'bg-green-500', 'dot' => 'bg-green-500'],
+                    'rejected' => ['label' => 'Ditolak', 'count' => (int) ($stats['rejected'] ?? 0), 'bar' => 'bg-red-500', 'dot' => 'bg-red-500'],
+                ];
+            @endphp
+
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-4">
+                <div>
+                    <h3 class="ui-heading text-xl font-bold text-slate-900">Grafik Status Pengaduan</h3>
+                    <p class="text-sm text-slate-600 mt-1">Komposisi status dari total {{ $stats['total'] }} laporan.</p>
+                </div>
+                <div class="grid grid-cols-3 gap-2 text-center md:w-[22rem]">
+                    <div class="rounded-lg bg-emerald-50 px-3 py-2">
+                        <p class="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Total</p>
+                        <p class="text-xl font-extrabold text-emerald-700">{{ $stats['total'] }}</p>
                     </div>
-                    <i data-lucide="clipboard-list" class="w-10 h-10 text-emerald-400"></i>
+                    <div class="rounded-lg bg-orange-50 px-3 py-2">
+                        <p class="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Proses</p>
+                        <p class="text-xl font-extrabold text-orange-600">{{ $stats['in_progress'] }}</p>
+                    </div>
+                    <div class="rounded-lg bg-green-50 px-3 py-2">
+                        <p class="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Selesai</p>
+                        <p class="text-xl font-extrabold text-green-700">{{ $stats['resolved'] }}</p>
+                    </div>
                 </div>
             </div>
-            <div class="pg-card p-6 bg-orange-50">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-slate-600 text-sm font-semibold mb-1">Sedang Ditangani</p>
-                        <p class="text-4xl font-extrabold text-orange-600">{{ $stats['in_progress'] }}</p>
-                    </div>
-                    <i data-lucide="settings" class="w-10 h-10 text-orange-400"></i>
-                </div>
+
+            <div class="w-full h-4 md:h-5 rounded-full bg-slate-100 overflow-hidden border border-slate-200 flex mb-4">
+                @foreach($statusMeta as $item)
+                    @php
+                        $percent = $stats['total'] > 0 ? ($item['count'] / $total) * 100 : 0;
+                    @endphp
+                    <div class="{{ $item['bar'] }} h-full" style="width: {{ $percent }}%" title="{{ $item['label'] }}: {{ $item['count'] }}"></div>
+                @endforeach
             </div>
-            <div class="pg-card p-6 bg-green-50">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-slate-600 text-sm font-semibold mb-1">Sudah Ditangani</p>
-                        <p class="text-4xl font-extrabold text-green-700">{{ $stats['resolved'] }}</p>
+
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-2.5">
+                @foreach($statusMeta as $item)
+                    @php
+                        $percent = $stats['total'] > 0 ? ($item['count'] / $total) * 100 : 0;
+                    @endphp
+                    <div class="rounded-xl border border-slate-200 bg-white px-3 py-2.5">
+                        <p class="text-[11px] uppercase tracking-wide text-slate-500 inline-flex items-center gap-1.5">
+                            <span class="w-2.5 h-2.5 rounded-full {{ $item['dot'] }}"></span>{{ $item['label'] }}
+                        </p>
+                        <p class="text-lg font-bold text-slate-900 mt-1">{{ $item['count'] }}</p>
+                        <p class="text-xs text-slate-500">{{ number_format($percent, 1) }}%</p>
                     </div>
-                    <i data-lucide="check-circle-2" class="w-10 h-10 text-green-400"></i>
-                </div>
+                @endforeach
             </div>
         </div>
 
-        <div class="pg-panel p-6" data-pg-reveal>
-            <h3 class="ui-heading text-2xl font-bold text-slate-900 mb-4">Breakdown Status</h3>
-            <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
-                <div class="pg-card border-l-4 border-blue-500 p-4">
-                    <p class="text-3xl font-extrabold text-blue-600">{{ $stats['submitted'] }}</p>
-                    <p class="text-sm text-slate-700 font-medium mt-1">Baru Diterima</p>
-                </div>
-                <div class="pg-card border-l-4 border-yellow-500 p-4">
-                    <p class="text-3xl font-extrabold text-yellow-600">{{ $stats['pending'] }}</p>
-                    <p class="text-sm text-slate-700 font-medium mt-1">Dalam Antrian</p>
-                </div>
-                <div class="pg-card border-l-4 border-orange-500 p-4">
-                    <p class="text-3xl font-extrabold text-orange-600">{{ $stats['in_progress'] }}</p>
-                    <p class="text-sm text-slate-700 font-medium mt-1">Sedang Diproses</p>
-                </div>
-                <div class="pg-card border-l-4 border-green-500 p-4">
-                    <p class="text-3xl font-extrabold text-green-600">{{ $stats['resolved'] }}</p>
-                    <p class="text-sm text-slate-700 font-medium mt-1">Selesai</p>
-                </div>
-                <div class="pg-card border-l-4 border-red-500 p-4">
-                    <p class="text-3xl font-extrabold text-red-600">{{ $stats['rejected'] }}</p>
-                    <p class="text-sm text-slate-700 font-medium mt-1">Ditolak</p>
-                </div>
+        <div class="pg-panel p-5 md:p-6" data-pg-reveal>
+            @php
+                $kategoriItems = collect($kategoriStats)->sortDesc();
+                $totalKategori = max(1, (int) ($stats['total'] ?? 0));
+            @endphp
+            <div class="flex items-center justify-between gap-3 mb-4">
+                <h3 class="ui-heading text-xl font-bold text-slate-900">Per Kategori</h3>
+                <span class="inline-flex items-center rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">
+                    {{ $kategoriItems->count() }} kategori
+                </span>
             </div>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8" data-pg-reveal>
-            <div class="pg-panel p-6">
-                <h3 class="ui-heading text-2xl font-bold text-slate-900 mb-4">Per Kategori</h3>
-                <div class="space-y-4">
-                    @forelse($kategoriStats as $kategoriName => $count)
-                        <div>
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="text-sm font-semibold text-slate-700">{{ $kategoriName }}</span>
-                                <span class="text-xs font-bold text-slate-900 bg-slate-100 px-2 py-1 rounded">{{ $count }}</span>
-                            </div>
-                            <div class="w-full bg-slate-200 rounded-full h-2.5">
-                                <div class="bg-emerald-600 h-2.5 rounded-full" style="width: {{ ($count / max(1, $stats['total'])) * 100 }}%"></div>
-                            </div>
-                            <p class="text-xs text-slate-500 mt-1">{{ round(($count / max(1, $stats['total'])) * 100, 1) }}%</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                @forelse($kategoriItems as $kategoriName => $count)
+                    @php
+                        $percent = $stats['total'] > 0 ? ($count / $totalKategori) * 100 : 0;
+                    @endphp
+                    <div class="rounded-xl border border-slate-200 bg-white p-3">
+                        <div class="flex items-center justify-between gap-3 mb-2">
+                            <p class="text-sm font-semibold text-slate-800 truncate">{{ $kategoriName }}</p>
+                            <p class="text-xs font-bold text-slate-900 bg-slate-100 px-2 py-1 rounded">{{ $count }}</p>
                         </div>
-                    @empty
-                        <p class="text-slate-500 text-sm">Belum ada kategori pengaduan.</p>
-                    @endforelse
-                </div>
-            </div>
-
-            <div class="pg-panel p-6 lg:col-span-2">
-                <h3 class="ui-heading text-2xl font-bold text-slate-900 mb-4">Aksi Cepat</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <a href="{{ route('pengaduan.index') }}" class="pg-card pg-link flex items-center gap-3 p-4 bg-emerald-50 border-emerald-200" aria-label="Buat pengaduan baru">
-                        <i data-lucide="square-pen" class="w-8 h-8 text-emerald-700"></i>
-                        <div>
-                            <p class="font-bold text-emerald-900">Buat Pengaduan Baru</p>
-                            <p class="text-xs text-emerald-700">Sampaikan keluhan atau saran Anda</p>
+                        <div class="w-full h-2 rounded-full bg-slate-200 overflow-hidden">
+                            <div class="h-full rounded-full bg-emerald-600" style="width: {{ $percent }}%"></div>
                         </div>
-                    </a>
-                    <a href="{{ route('pengaduan.status') }}" class="pg-card pg-link flex items-center gap-3 p-4 bg-blue-50 border-blue-200" aria-label="Cek status pengaduan">
-                        <i data-lucide="search" class="w-8 h-8 text-blue-700"></i>
-                        <div>
-                            <p class="font-bold text-blue-900">Cek Status Pengaduan</p>
-                            <p class="text-xs text-blue-700">Masukkan nomor tracking Anda</p>
-                        </div>
-                    </a>
-                </div>
+                        <p class="text-xs text-slate-500 mt-1.5">{{ number_format($percent, 1) }}%</p>
+                    </div>
+                @empty
+                    <p class="text-slate-500 text-sm">Belum ada kategori pengaduan.</p>
+                @endforelse
             </div>
         </div>
 
@@ -154,32 +146,33 @@
                 <table class="w-full text-sm">
                     <thead class="bg-slate-100 border-b border-slate-200">
                         <tr>
-                            <th class="px-4 py-3 text-left font-semibold text-slate-700">No. Tracking</th>
+                            <th class="px-4 py-3 text-left font-semibold text-slate-700">Kode Laporan</th>
                             <th class="px-4 py-3 text-left font-semibold text-slate-700">Tanggal</th>
                             <th class="px-4 py-3 text-left font-semibold text-slate-700">Kategori</th>
                             <th class="px-4 py-3 text-left font-semibold text-slate-700">Judul</th>
                             <th class="px-4 py-3 text-left font-semibold text-slate-700">Update Terakhir</th>
                             <th class="px-4 py-3 text-center font-semibold text-slate-700">Foto Progres</th>
                             <th class="px-4 py-3 text-center font-semibold text-slate-700">Status</th>
+                            <th class="px-4 py-3 text-center font-semibold text-slate-700">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse($pengaduans as $p)
                             <tr
-                                class="pg-table-row border-b border-slate-200 cursor-pointer"
-                                onclick="window.location='{{ route('pengaduan.status', ['tracking' => $p->tracking_number]) }}'"
+                                class="pg-table-row border-b border-slate-200 cursor-pointer hover:bg-slate-50 transition-colors"
+                                onclick="window.location='{{ route('pengaduan.public.show', $p->id) }}'"
                                 tabindex="0"
                                 role="link"
-                                aria-label="Lihat detail pengaduan {{ $p->tracking_number }}"
-                                onkeydown="if(event.key==='Enter'){window.location='{{ route('pengaduan.status', ['tracking' => $p->tracking_number]) }}';}"
+                                aria-label="Lihat detail publik pengaduan {{ $p->id }}"
+                                onkeydown="if(event.key==='Enter'){window.location='{{ route('pengaduan.public.show', $p->id) }}';}"
                             >
-                                <td class="px-4 py-3 text-slate-800 font-mono text-xs">{{ Str::limit($p->tracking_number, 18, '...') }}</td>
+                                <td class="px-4 py-3 text-slate-800 font-mono text-xs">{{ 'ADU-****-' . substr($p->tracking_number, -4) }}</td>
                                 <td class="px-4 py-3 text-slate-600">{{ $p->created_at->format('d M Y') }}</td>
                                 <td class="px-4 py-3 text-slate-700">
                                     <span class="inline-block px-3 py-1 bg-slate-100 text-slate-800 text-xs font-semibold rounded-full">{{ $p->kategori ?? '-' }}</span>
                                 </td>
                                 <td class="px-4 py-3">
-                                    <span class="text-emerald-700 hover:text-emerald-800 font-semibold">{{ $p->judul ? Str::limit($p->judul, 44) : Str::limit($p->isi, 44) }}</span>
+                                    <span class="text-slate-800 font-semibold">{{ $p->judul ? Str::limit($p->judul, 44) : Str::limit($p->isi, 44) }}</span>
                                 </td>
                                 <td class="px-4 py-3 text-slate-600 whitespace-nowrap">
                                     @if($p->last_public_progress_at)
@@ -196,10 +189,19 @@
                                 <td class="px-4 py-3 text-center">
                                     <span class="pg-status-badge pg-status-{{ $p->status }}">{{ ucfirst(str_replace('_', ' ', $p->status)) }}</span>
                                 </td>
+                                <td class="px-4 py-3 text-center">
+                                    <a
+                                        href="{{ route('pengaduan.public.show', $p->id) }}"
+                                        class="inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-100 transition"
+                                        onclick="event.stopPropagation()">
+                                        <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+                                        Lihat
+                                    </a>
+                                </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" class="px-4 py-8 text-center text-slate-500">Tidak ada pengaduan ditemukan dengan filter yang Anda pilih.</td>
+                                <td colspan="8" class="px-4 py-8 text-center text-slate-500">Tidak ada pengaduan ditemukan dengan filter yang Anda pilih.</td>
                             </tr>
                         @endforelse
                     </tbody>
