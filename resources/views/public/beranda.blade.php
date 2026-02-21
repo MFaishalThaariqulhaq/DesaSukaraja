@@ -226,12 +226,12 @@
           <div class="bg-[#edf6ef] border border-[#c5decb] p-4 rounded-2xl">
             <div class="text-[#4f8f68] mb-2"><i data-lucide="maximize" class="w-6 h-6"></i></div>
             <p class="text-xs text-slate-500 font-bold uppercase">Luas Area</p>
-            <p class="text-lg font-bold text-slate-900">± 450 Ha</p>
+            <p class="text-lg font-bold text-slate-900">454,3950 Ha</p>
           </div>
           <div class="bg-blue-50 border border-blue-200 p-4 rounded-2xl">
             <div class="text-blue-600 mb-2"><i data-lucide="users" class="w-6 h-6"></i></div>
             <p class="text-xs text-slate-500 font-bold uppercase">Dusun</p>
-            <p class="text-lg font-bold text-slate-900">4 Dusun</p>
+            <p class="text-lg font-bold text-slate-900">3 Dusun</p>
           </div>
         </div>
 
@@ -298,3 +298,4 @@
 </section>
 
 @endsection
+

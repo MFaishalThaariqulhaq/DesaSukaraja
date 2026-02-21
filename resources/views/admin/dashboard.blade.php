@@ -97,8 +97,6 @@
       class="w-64 bg-white shadow-lg flex flex-col fixed inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition-transform duration-300 ease-in-out z-30">
       <div class="flex items-center justify-center h-20 border-b">
         <a href="{{ route('admin.dashboard') }}" class="flex items-center space-x-2">
-          <img src="https://placehold.co/40x40/10b981/ffffff?text=DS" alt="Logo Desa Sukaraja"
-            class="rounded-full">
           <span class="text-xl font-bold text-slate-800">Admin Sukaraja</span>
         </a>
       </div>
@@ -132,15 +130,6 @@
         @endif
 
       </nav>
-      <div class="px-4 py-4 border-t">
-        <form method="POST" action="{{ route('admin.logout') }}">
-          @csrf
-          <button type="submit"
-            class="flex w-full items-center px-4 py-2 text-slate-700 hover:bg-red-100 hover:text-red-600 rounded-lg transition-colors">
-            <i data-lucide="log-out" class="w-5 h-5 mr-3"></i>Keluar
-          </button>
-        </form>
-      </div>
     </aside>
 
     <!-- Main Content -->
@@ -152,17 +141,6 @@
               class="w-6 h-6"></i></button>
           <h1 class="text-xl font-semibold text-slate-800 hidden md:block">Selamat Datang, {{ session('admin_name', 'Admin') }}!</h1>
           <div class="flex items-center space-x-4">
-            <div class="relative hidden md:block">
-              <i data-lucide="search"
-                class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400"></i>
-              <input type="text" placeholder="Cari..."
-                class="pl-10 pr-4 py-2 w-full border border-slate-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 transition">
-            </div>
-            <button class="relative text-slate-600 hover:text-emerald-500">
-              <i data-lucide="bell" class="w-6 h-6"></i>
-              <span
-                class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">3</span>
-            </button>
             <div class="relative">
               <button id="admin-menu-btn" class="flex items-center space-x-2">
                 <img src="{{ $avatarUrl }}" alt="Avatar Admin"

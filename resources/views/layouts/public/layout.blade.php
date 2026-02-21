@@ -4,6 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>@yield('title', 'Desa Sukaraja')</title>
+  <meta name="description" content="@yield('meta_description', 'Website resmi Desa Sukaraja, Kecamatan Rawamerta, Kabupaten Karawang. Informasi profil desa, berita, galeri, infografis, dan layanan pengaduan masyarakat.')">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Desa Sukaraja">
+  <meta property="og:title" content="@yield('title', 'Desa Sukaraja')">
+  <meta property="og:description" content="@yield('meta_description', 'Website resmi Desa Sukaraja, Kecamatan Rawamerta, Kabupaten Karawang.')">
+  <meta property="og:url" content="{{ url()->current() }}">
+  <meta property="og:image" content="https://placehold.co/1200x630/10b981/ffffff?text=Desa+Sukaraja">
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
