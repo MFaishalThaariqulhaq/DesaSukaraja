@@ -35,13 +35,20 @@ class HomeController extends Controller
     $sotks = \App\Models\Sotk::orderBy('created_at', 'asc')->get();
     $pengaduanCount = \App\Models\Pengaduan::count();
     $profil = \App\Models\ProfilDesa::first();
-    // Statistik penduduk
-    $penduduks = \App\Models\Penduduk::all();
+
+    // Statistik penduduk dihitung di database agar query lebih ringan.
+    $stat = \App\Models\Penduduk::query()
+      ->selectRaw('COALESCE(SUM(total_penduduk), 0) as total_penduduk')
+      ->selectRaw('COALESCE(SUM(kepala_keluarga), 0) as total_kk')
+      ->selectRaw('COALESCE(SUM(laki_laki), 0) as total_laki')
+      ->selectRaw('COALESCE(SUM(perempuan), 0) as total_perempuan')
+      ->first();
+
     $stat_penduduk = [
-      'total_penduduk' => $penduduks->sum('total_penduduk'),
-      'total_kk' => $penduduks->sum('kepala_keluarga'),
-      'total_laki' => $penduduks->sum('laki_laki'),
-      'total_perempuan' => $penduduks->sum('perempuan'),
+      'total_penduduk' => (int) ($stat->total_penduduk ?? 0),
+      'total_kk' => (int) ($stat->total_kk ?? 0),
+      'total_laki' => (int) ($stat->total_laki ?? 0),
+      'total_perempuan' => (int) ($stat->total_perempuan ?? 0),
     ];
     return view('public.beranda', compact('beritas', 'galeris', 'sotks', 'pengaduanCount', 'profil', 'stat_penduduk'));
   }

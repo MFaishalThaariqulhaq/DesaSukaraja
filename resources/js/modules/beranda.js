@@ -36,19 +36,31 @@ export function initBeranda() {
     }
   }
 
-  // tsParticles - Background particle animation
-  if (window.tsParticles && document.getElementById('tsparticles')) {
-    tsParticles.load('tsparticles', {
-      fpsLimit: 60,
-      particles: {
-        number: { value: 30, density: { enable: true, area: 800 } },
-        color: { value: ['#ffffff', '#10b981'] },
-        opacity: { value: 0.3, random: true },
-        size: { value: { min: 1, max: 4 } },
-        move: { enable: true, speed: 0.8, direction: 'none', outModes: 'out' },
-        links: { enable: false },
-      },
-      detectRetina: true,
-    });
+  // tsParticles - Background particle animation (deferred and lighter on mobile)
+  const particlesTarget = document.getElementById('tsparticles');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
+
+  if (!prefersReducedMotion && window.tsParticles && particlesTarget) {
+    const loadParticles = () => {
+      tsParticles.load('tsparticles', {
+        fpsLimit: isSmallScreen ? 30 : 45,
+        particles: {
+          number: { value: isSmallScreen ? 14 : 24, density: { enable: true, area: 900 } },
+          color: { value: ['#ffffff', '#10b981'] },
+          opacity: { value: 0.25, random: true },
+          size: { value: { min: 1, max: 3 } },
+          move: { enable: true, speed: isSmallScreen ? 0.4 : 0.7, direction: 'none', outModes: 'out' },
+          links: { enable: false },
+        },
+        detectRetina: true,
+      });
+    };
+
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(loadParticles, { timeout: 1200 });
+    } else {
+      setTimeout(loadParticles, 600);
+    }
   }
 }

@@ -1,19 +1,12 @@
 @push('styles')
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap">
-<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-@endpush
-@push('styles')
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+<link rel="preload" as="image" href="{{ asset('images/hero-sukaraja.webp') }}" fetchpriority="high">
 <link rel="stylesheet" href="{{ asset('css/peta-smooth.css') }}">
 @endpush
 
 @push('scripts')
-<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
-<script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script defer src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+<script defer src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
 @endpush
 @extends('layouts.public.layout')
 @section('title', 'Website Resmi Desa Sukaraja, Rawamerta, Karawang')
@@ -34,9 +27,9 @@
         <div class="absolute -top-4 -left-4 w-24 h-24 bg-[#d7ebdc] rounded-full blur-2xl -z-10 group-hover:bg-[#c5e0cd] transition-colors duration-500"></div>
         <div class="tilt-card rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
           @if($profil && $profil->gambar)
-          <img src="{{ asset('storage/' . $profil->gambar) }}" alt="Gambar Profil Desa" class="profil-image">
+          <img src="{{ asset('storage/' . $profil->gambar) }}" alt="Gambar Profil Desa" class="profil-image" loading="lazy" decoding="async">
           @else
-          <img src="https://placehold.co/800x500/34d399/ffffff?text=Kantor+Desa+Sukaraja" alt="Kantor Desa Sukaraja" class="profil-image">
+          <img src="https://placehold.co/800x500/34d399/ffffff?text=Kantor+Desa+Sukaraja" alt="Kantor Desa Sukaraja" class="profil-image" loading="lazy" decoding="async">
           @endif
         </div>
       </div>
@@ -96,7 +89,7 @@
       <!-- Berita Card 1: Lingkungan (Emerald) -->
       <article class="bg-white rounded-3xl shadow-sm hover:shadow-2xl transition-all duration-500 group cursor-pointer border border-slate-100 h-full flex flex-col overflow-hidden" data-aos="fade-up" data-aos-delay="0">
         <div class="relative h-64 overflow-hidden rounded-t-3xl">
-          <img src="{{ count($beritas) > 0 ? ($beritas[0]->gambar ? asset('storage/' . $beritas[0]->gambar) : 'https://placehold.co/600x400/10b981/ffffff?text=Lingkungan') : 'https://placehold.co/600x400/10b981/ffffff?text=Lingkungan' }}" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700" alt="Berita">
+          <img src="{{ count($beritas) > 0 ? ($beritas[0]->gambar ? asset('storage/' . $beritas[0]->gambar) : 'https://placehold.co/600x400/10b981/ffffff?text=Lingkungan') : 'https://placehold.co/600x400/10b981/ffffff?text=Lingkungan' }}" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700" alt="Berita" loading="lazy" decoding="async">
           <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           <div class="berita-badge kategori-lingkungan">Lingkungan</div>
         </div>
@@ -119,7 +112,7 @@
       <!-- Berita Card 2: Ekonomi (Blue) -->
       <article class="bg-white rounded-3xl shadow-sm hover:shadow-2xl transition-all duration-500 group cursor-pointer border border-slate-100 h-full flex flex-col overflow-hidden" data-aos="fade-up" data-aos-delay="100">
         <div class="relative h-64 overflow-hidden rounded-t-3xl">
-          <img src="{{ count($beritas) > 1 ? ($beritas[1]->gambar ? asset('storage/' . $beritas[1]->gambar) : 'https://placehold.co/600x400/2563eb/ffffff?text=Ekonomi') : 'https://placehold.co/600x400/2563eb/ffffff?text=Ekonomi' }}" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700" alt="Berita">
+          <img src="{{ count($beritas) > 1 ? ($beritas[1]->gambar ? asset('storage/' . $beritas[1]->gambar) : 'https://placehold.co/600x400/2563eb/ffffff?text=Ekonomi') : 'https://placehold.co/600x400/2563eb/ffffff?text=Ekonomi' }}" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700" alt="Berita" loading="lazy" decoding="async">
           <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           <div class="berita-badge kategori-ekonomi">Ekonomi</div>
         </div>
@@ -141,7 +134,7 @@
       <!-- Berita Card 3: Kesehatan (Pink) -->
       <article class="bg-white rounded-3xl shadow-sm hover:shadow-2xl transition-all duration-500 group cursor-pointer border border-slate-100 h-full flex flex-col overflow-hidden" data-aos="fade-up" data-aos-delay="200">
         <div class="relative h-64 overflow-hidden rounded-t-3xl">
-          <img src="{{ count($beritas) > 2 ? ($beritas[2]->gambar ? asset('storage/' . $beritas[2]->gambar) : 'https://placehold.co/600x400/ec4899/ffffff?text=Kesehatan') : 'https://placehold.co/600x400/ec4899/ffffff?text=Kesehatan' }}" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700" alt="Berita">
+          <img src="{{ count($beritas) > 2 ? ($beritas[2]->gambar ? asset('storage/' . $beritas[2]->gambar) : 'https://placehold.co/600x400/ec4899/ffffff?text=Kesehatan') : 'https://placehold.co/600x400/ec4899/ffffff?text=Kesehatan' }}" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700" alt="Berita" loading="lazy" decoding="async">
           <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           <div class="berita-badge kategori-kesehatan">Kesehatan</div>
         </div>
@@ -298,4 +291,3 @@
 </section>
 
 @endsection
-

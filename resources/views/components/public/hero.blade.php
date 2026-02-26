@@ -1,4 +1,8 @@
-<section id="beranda" class="hero-bg relative h-screen flex items-center justify-center text-white overflow-hidden -mt-24">
+<section
+  id="beranda"
+  class="hero-bg relative h-screen flex items-center justify-center text-white overflow-hidden -mt-24"
+  style="background-image: linear-gradient(to bottom, rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.5)), url('{{ asset('images/hero-sukaraja.webp') }}');"
+>
   <div id="tsparticles" class="absolute inset-0 pointer-events-none"></div>
   <div class="relative z-10 text-center px-4 max-w-5xl mx-auto space-y-4" data-aos="zoom-in" data-aos-duration="1000">
     <span class="inline-block py-1.5 px-4 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs md:text-sm font-bold tracking-widest uppercase mb-2 animate-fade-in-down shadow-lg">

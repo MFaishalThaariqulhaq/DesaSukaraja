@@ -3,9 +3,9 @@
 @section('title', 'Cek Progress Laporan Anda')
 
 @section('content')
-<div class="pg-shell min-h-screen py-12">
+<div class="pg-shell min-h-screen py-4 md:py-6">
     <div class="container mx-auto px-4">
-        <div class="max-w-4xl mx-auto space-y-8">
+        <div class="max-w-6xl mx-auto space-y-6 md:space-y-8">
             <div class="text-center" data-pg-reveal>
                 <h1 class="ui-heading text-4xl md:text-5xl font-bold text-slate-900 mb-2">Cek Progress Laporan Anda</h1>
                 <p class="text-slate-600">Gunakan nomor tracking untuk melihat update penanganan secara realtime.</p>

@@ -1,7 +1,7 @@
 /* Layout Styles - Header, Footer, Global Styles */
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   background-color: #f8fafc;
 }
 
@@ -60,7 +60,7 @@ body {
 }
 
 .public-header-subtitle {
-  color: var(--header-accent);
+  color: #111827;
 }
 
 .group:hover .public-header-brand-title {
@@ -197,7 +197,7 @@ body {
 /* Public footer - slate calm */
 .public-footer {
   position: relative;
-  background: #263243;
+  background: #0f172a;
   color: #cbd5e1;
   border-top: 1px solid rgba(148, 163, 184, 0.28);
 }
@@ -208,8 +208,8 @@ body {
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(circle at 8% 10%, rgba(148, 163, 184, 0.11), transparent 38%),
-    radial-gradient(circle at 88% 80%, rgba(5, 150, 105, 0.12), transparent 42%);
+    radial-gradient(circle at 8% 10%, rgba(148, 163, 184, 0.09), transparent 38%),
+    radial-gradient(circle at 88% 80%, rgba(5, 150, 105, 0.08), transparent 42%);
 }
 
 .public-footer > .container {
@@ -253,7 +253,7 @@ body {
 }
 
 .public-footer-card {
-  background: rgba(71, 85, 105, 0.4);
+  background: rgba(30, 41, 59, 0.78);
   border: 1px solid rgba(148, 163, 184, 0.22);
   border-radius: 1rem;
   padding: 1rem;
@@ -341,7 +341,7 @@ body {
   justify-content: center;
   border-radius: 999px;
   color: #cbd5e1;
-  background: rgba(51, 65, 85, 0.58);
+  background: rgba(30, 41, 59, 0.72);
   border: 1px solid rgba(148, 163, 184, 0.3);
   transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
 }

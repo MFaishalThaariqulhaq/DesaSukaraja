@@ -5,11 +5,7 @@
   <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md transform transition-all relative overflow-hidden flex flex-col" id="pengaduanContent">
 
     {{-- Header Section --}}
-    <div class="relative bg-gradient-to-r from-emerald-100 to-teal-50 px-6 py-8 overflow-hidden flex-shrink-0 border-b border-emerald-200">
-      
-      {{-- Decorative Background Elements --}}
-      <div class="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 rounded-full bg-white/10 blur-lg"></div>
-      <div class="absolute bottom-0 left-0 -ml-8 -mb-8 w-20 h-20 rounded-full bg-black/5 blur-md"></div>
+    <div class="relative bg-emerald-100 px-6 py-8 overflow-hidden flex-shrink-0 border-b border-emerald-200">
 
       {{-- Close Button --}}
       <button id="closeModalBtn" class="absolute top-4 right-4 p-1.5 hover:bg-emerald-200/60 text-emerald-800 rounded-lg transition-colors z-10" aria-label="Tutup modal">
@@ -33,7 +29,7 @@
 
       {{-- Card 1: Buat Pengaduan --}}
       <a href="{{ route('pengaduan.index') }}" class="group relative block">
-        <div class="absolute inset-0 bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl border border-emerald-200 group-hover:shadow-lg transition-all"></div>
+        <div class="absolute inset-0 bg-emerald-50 rounded-xl border border-emerald-200 group-hover:shadow-lg transition-all"></div>
         <div class="relative p-4 flex items-start gap-3 z-10">
           <div class="p-2.5 bg-emerald-600 text-white rounded-lg flex-shrink-0 group-hover:bg-emerald-700 transition-colors">
             <i data-lucide="file-plus" class="w-5 h-5"></i>
@@ -48,7 +44,7 @@
 
       {{-- Card 2: Cek Status --}}
       <a href="{{ route('pengaduan.status') }}" class="group relative block">
-        <div class="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border border-blue-200 group-hover:shadow-lg transition-all"></div>
+        <div class="absolute inset-0 bg-blue-50 rounded-xl border border-blue-200 group-hover:shadow-lg transition-all"></div>
         <div class="relative p-4 flex items-start gap-3 z-10">
           <div class="p-2.5 bg-blue-600 text-white rounded-lg flex-shrink-0 group-hover:bg-blue-700 transition-colors">
             <i data-lucide="search" class="w-5 h-5"></i>
@@ -63,7 +59,7 @@
 
       {{-- Card 3: Lihat Daftar --}}
       <a href="{{ route('pengaduan.list') }}" class="group relative block">
-        <div class="absolute inset-0 bg-gradient-to-br from-rose-50 to-red-50 rounded-xl border border-rose-200 group-hover:shadow-lg transition-all"></div>
+        <div class="absolute inset-0 bg-rose-50 rounded-xl border border-rose-200 group-hover:shadow-lg transition-all"></div>
         <div class="relative p-4 flex items-start gap-3 z-10">
           <div class="p-2.5 bg-rose-600 text-white rounded-lg flex-shrink-0 group-hover:bg-rose-700 transition-colors">
             <i data-lucide="list" class="w-5 h-5"></i>

@@ -11,9 +11,10 @@
   <meta property="og:description" content="@yield('meta_description', 'Website resmi Desa Sukaraja, Kecamatan Rawamerta, Kabupaten Karawang.')">
   <meta property="og:url" content="{{ url()->current() }}">
   <meta property="og:image" content="https://placehold.co/1200x630/10b981/ffffff?text=Desa+Sukaraja">
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <script defer src="https://unpkg.com/lucide@latest"></script>
   
   <!-- AOS CSS -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -32,7 +33,7 @@
   @include('components.public.footer')
   
   <!-- AOS JS -->
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script defer src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   
   @stack('scripts')
   

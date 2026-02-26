@@ -1,80 +1,169 @@
-// Inisialisasi Peta Wilayah Desa
+// Inisialisasi peta saat mendekati viewport untuk meringankan initial load.
 document.addEventListener('DOMContentLoaded', () => {
-  if (!document.getElementById('map')) return;
+  const mapElement = document.getElementById('map');
+  if (!mapElement) return;
 
-  lucide.createIcons();
+  window.resetMap = window.resetMap || function () {};
+  if (window.lucide) {
+    window.lucide.createIcons();
+  }
 
-  // 1. Inisialisasi Peta
-  const centerLat = -6.3117;
-  const centerLng = 107.3298;
+  const LEAFLET_CSS_ID = 'leaflet-css';
+  const LEAFLET_JS_ID = 'leaflet-js';
+  let isInitialized = false;
 
-  var map = L.map('map', {
-    zoomControl: false,
-    scrollWheelZoom: false,
-    dragging: true
-  }).setView([centerLat, centerLng], 14);
+  const loadStylesheet = (id, href, integrity) => {
+    if (document.getElementById(id)) return;
+    const link = document.createElement('link');
+    link.id = id;
+    link.rel = 'stylesheet';
+    link.href = href;
+    link.integrity = integrity;
+    link.crossOrigin = '';
+    document.head.appendChild(link);
+  };
 
-  // 2. Tile Layer
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '© OpenStreetMap'
-  }).addTo(map);
+  const loadScript = (id, src, integrity) =>
+    new Promise((resolve, reject) => {
+      const existing = document.getElementById(id);
+      if (existing) {
+        if (window.L) {
+          resolve();
+          return;
+        }
 
-  L.control.zoom({ position: 'topleft' }).addTo(map);
+        existing.addEventListener('load', resolve, { once: true });
+        existing.addEventListener('error', reject, { once: true });
+        return;
+      }
 
-  // 3. Custom Icon
-  const createPin = (color) => {
-    return L.divIcon({
-      className: 'custom-pin',
-      html: `<div style="background-color: ${color}; width: 14px; height: 14px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 0 4px rgba(0,0,0,0.2);"></div>`,
-      iconSize: [14, 14],
-      iconAnchor: [7, 7],
-      popupAnchor: [0, -10]
+      const script = document.createElement('script');
+      script.id = id;
+      script.src = src;
+      script.defer = true;
+      script.integrity = integrity;
+      script.crossOrigin = '';
+      script.onload = resolve;
+      script.onerror = reject;
+      document.head.appendChild(script);
     });
+
+  const ensureLeafletLoaded = async () => {
+    if (window.L) return;
+
+    loadStylesheet(
+      LEAFLET_CSS_ID,
+      'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
+      'sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY='
+    );
+
+    await loadScript(
+      LEAFLET_JS_ID,
+      'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
+      'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo='
+    );
   };
 
-  // 4. Polygon Batas Wilayah
-  const villageBoundary = [
-    [-6.3000, 107.3250], [-6.3020, 107.3350], [-6.3100, 107.3400],
-    [-6.3200, 107.3380], [-6.3250, 107.3300], [-6.3220, 107.3200],
-    [-6.3100, 107.3150], [-6.3050, 107.3200]
-  ];
+  const initMap = async () => {
+    if (isInitialized) return;
+    isInitialized = true;
 
-  var polygon = L.polygon(villageBoundary, {
-    color: '#10b981', weight: 3, opacity: 1,
-    fillColor: '#10b981', fillOpacity: 0.15
-  }).addTo(map);
+    try {
+      await ensureLeafletLoaded();
+    } catch (error) {
+      console.error('Gagal memuat Leaflet:', error);
+      return;
+    }
 
-  polygon.bindPopup(`
-        <div class="text-center p-2">
-            <span class="text-xs font-bold text-emerald-600 block">WILAYAH DESA</span>
-            <span class="text-sm font-bold text-slate-800">SUKARAJA</span>
-        </div>
-    `);
+    const L = window.L;
+    const centerLat = -6.3117;
+    const centerLng = 107.3298;
 
-  // 5. Markers
-  const locations = [
-    { name: "Kantor Desa Sukaraja", lat: -6.3117, lng: 107.3298, color: "#ef4444", type: "Pusat Pemerintahan" },
-    { name: "Pos Dusun I (Krajan)", lat: -6.3080, lng: 107.3320, color: "#3b82f6", type: "Dusun / RW" },
-    { name: "Pos Dusun II (Babakan)", lat: -6.3150, lng: 107.3250, color: "#3b82f6", type: "Dusun / RW" },
-    { name: "Pos Dusun III (Sawah)", lat: -6.3180, lng: 107.3350, color: "#3b82f6", type: "Dusun / RW" }
-  ];
+    const map = L.map('map', {
+      zoomControl: false,
+      scrollWheelZoom: false,
+      dragging: true,
+    }).setView([centerLat, centerLng], 14);
 
-  locations.forEach(loc => {
-    L.marker([loc.lat, loc.lng], { icon: createPin(loc.color) })
-      .addTo(map)
-      .bindPopup(`<div class="font-bold text-xs text-slate-600 uppercase mb-1">${loc.type}</div><div class="font-bold text-sm text-slate-800">${loc.name}</div>`);
-  });
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors',
+    }).addTo(map);
 
-  // Reset Map Function
-  window.resetMap = function () {
-    map.fitBounds(polygon.getBounds());
+    L.control.zoom({ position: 'topleft' }).addTo(map);
+
+    const createPin = (color) =>
+      L.divIcon({
+        className: 'custom-pin',
+        html: `<div style="background-color: ${color}; width: 14px; height: 14px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 0 4px rgba(0,0,0,0.2);"></div>`,
+        iconSize: [14, 14],
+        iconAnchor: [7, 7],
+        popupAnchor: [0, -10],
+      });
+
+    const villageBoundary = [
+      [-6.3, 107.325],
+      [-6.302, 107.335],
+      [-6.31, 107.34],
+      [-6.32, 107.338],
+      [-6.325, 107.33],
+      [-6.322, 107.32],
+      [-6.31, 107.315],
+      [-6.305, 107.32],
+    ];
+
+    const polygon = L.polygon(villageBoundary, {
+      color: '#10b981',
+      weight: 3,
+      opacity: 1,
+      fillColor: '#10b981',
+      fillOpacity: 0.15,
+    }).addTo(map);
+
+    polygon.bindPopup(
+      '<div class="text-center p-2"><span class="text-xs font-bold text-emerald-600 block">WILAYAH DESA</span><span class="text-sm font-bold text-slate-800">SUKARAJA</span></div>'
+    );
+
+    const locations = [
+      { name: 'Kantor Desa Sukaraja', lat: -6.3117, lng: 107.3298, color: '#ef4444', type: 'Pusat Pemerintahan' },
+      { name: 'Pos Dusun I (Krajan)', lat: -6.308, lng: 107.332, color: '#3b82f6', type: 'Dusun / RW' },
+      { name: 'Pos Dusun II (Babakan)', lat: -6.315, lng: 107.325, color: '#3b82f6', type: 'Dusun / RW' },
+      { name: 'Pos Dusun III (Sawah)', lat: -6.318, lng: 107.335, color: '#3b82f6', type: 'Dusun / RW' },
+    ];
+
+    locations.forEach((loc) => {
+      L.marker([loc.lat, loc.lng], { icon: createPin(loc.color) })
+        .addTo(map)
+        .bindPopup(
+          `<div class="font-bold text-xs text-slate-600 uppercase mb-1">${loc.type}</div><div class="font-bold text-sm text-slate-800">${loc.name}</div>`
+        );
+    });
+
+    window.resetMap = function () {
+      map.fitBounds(polygon.getBounds());
+    };
+
+    window.resetMap();
+
+    const mapContainer = mapElement.parentElement;
+    mapContainer.addEventListener('mouseenter', () => map.scrollWheelZoom.enable());
+    mapContainer.addEventListener('mouseleave', () => map.scrollWheelZoom.disable());
   };
 
-  resetMap();
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          observer.disconnect();
+          initMap();
+        }
+      },
+      { rootMargin: '300px 0px' }
+    );
 
-  // Aktifkan scroll zoom hanya saat fokus (hover)
-  const mapContainer = document.getElementById('map').parentElement;
-  mapContainer.addEventListener('mouseenter', () => map.scrollWheelZoom.enable());
-  mapContainer.addEventListener('mouseleave', () => map.scrollWheelZoom.disable());
+    observer.observe(mapElement);
+    return;
+  }
+
+  initMap();
 });

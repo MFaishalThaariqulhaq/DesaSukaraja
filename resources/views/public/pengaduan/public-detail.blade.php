@@ -3,9 +3,9 @@
 @section('title', 'Detail Pengaduan Publik')
 
 @section('content')
-<div class="pg-shell min-h-screen py-10">
+<div class="pg-shell min-h-screen py-4 md:py-6">
     <div class="container mx-auto px-4">
-        <div class="max-w-5xl mx-auto space-y-6">
+        <div class="max-w-6xl mx-auto space-y-6">
             <div class="flex items-center justify-between gap-3 flex-wrap" data-pg-reveal>
                 <a href="{{ route('pengaduan.list') }}#daftar-pengaduan" class="pg-link inline-flex items-center gap-2 text-emerald-700 hover:text-emerald-800 font-semibold">
                     <i data-lucide="arrow-left" class="w-4 h-4"></i>
